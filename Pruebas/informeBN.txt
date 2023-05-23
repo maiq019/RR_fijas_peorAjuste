@@ -1,0 +1,335 @@
+ Introduzca numero de particiones:  Introduzca numero de particiones: 4
+ Introduce tamaño de la partición 1:  Introduce tamaño de la partición 2:  Introduce tamaño de la partición 3:  Introduce tamaño de la partición 4:  Introduzca numero de particiones: 4
+ Introduce tamaño de la partición 1:  Introduce tamaño de la partición 2:  Introduce tamaño de la partición 3:  Introduce tamaño de la partición 4:  Introduzca numero de particiones:  Introduzca numero de particiones:  Número de particiones: 
+
+ Tamaño de particiones: 
+
+ Quantum:	        
+
+ Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduzca numero de particiones: 4
+ Número de particiones: 4
+
+ Tamaño de particiones: 
+
+ Quantum:	        
+
+ Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Número de particiones: 4
+
+ Tamaño de particiones: 
+
+ Quantum:	        
+
+ Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduce tamaño de la partición 1:  Número de particiones: 4
+
+ Tamaño de particiones: 5
+
+ Quantum:	        
+
+ Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduce tamaño de la partición 2:  Número de particiones: 4
+
+ Tamaño de particiones: 5 9
+
+ Quantum:	        
+
+ Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduce tamaño de la partición 3:  Número de particiones: 4
+
+ Tamaño de particiones: 5 9 7
+
+ Quantum:	        
+
+ Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduce tamaño de la partición 4:  ¿Dónde guardar los rangos?
+ 1- Fichero de rangos de última ejecución (datosrangos.txt)
+ 2- Otros ficheros de rangos
+1
+ ¿Dónde guardar los datos?
+ 1- Fichero de datos de última ejecución (datos.txt)
+ 2- Otros ficheros de datos
+1
+ Introduzca numero de particiones mínimo: 1
+ Introduzca numero de particiones máximo: 6
+ Introduce tamaño de particiones mínimo: 2
+ Introduce tamaño de particiones máximo: 8
+ Introduce el quantum de ejecución mínimo: 2
+ Introduce el quantum de ejecución máximo: 4
+ ¿Dónde guardar los rangos?
+ 1- Fichero de rangos de última ejecución (datosrangos.txt)
+ 2- Otros ficheros de rangos
+1
+ ¿Dónde guardar los datos?
+ 1- Fichero de datos de última ejecución (datos.txt)
+ 2- Otros ficheros de datos
+1
+ Número de particiones:  -  -> 
+
+ Tamaño de particiones:  -  -> 
+
+ Quantum:	         -  -> 
+
+Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduzca numero de particiones mínimo: 3
+ Número de particiones: 3 -  -> 
+
+ Tamaño de particiones:  -  -> 
+
+ Quantum:	         -  -> 
+
+Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduzca numero de particiones máximo: 6
+ Número de particiones: 3 - 6 -> 5
+
+ Tamaño de particiones:  -  -> 
+
+ Quantum:	         -  -> 
+
+Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduce tamaño de particiones mínimo: 2
+ Número de particiones: 3 - 6 -> 5
+
+ Tamaño de particiones: 2 -  -> 
+
+ Quantum:	         -  -> 
+
+Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduce tamaño de particiones máximo: 8
+ Número de particiones: 3 - 6 -> 5
+
+ Tamaño de particiones: 2 - 8 -> 4
+
+ Quantum:	         -  -> 
+
+Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduce el quantum de ejecución mínimo: 2
+ Número de particiones: 3 - 6 -> 5
+
+ Tamaño de particiones: 2 - 8 -> 4
+
+ Quantum:	        2 -  -> 
+
+Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduce el quantum de ejecución máximo: 4
+ Número de particiones: 3 - 6 -> 5
+
+ Tamaño de particiones: 2 - 8 -> 4
+
+ Quantum:	        2 - 4 -> 2
+
+Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ ¿Dónde guardar los rangos?
+ 1- Fichero de rangos de última ejecución (datosrangos.txt)
+ 2- Otros ficheros de rangos
+1
+ ¿Dónde guardar los datos?
+ 1- Fichero de datos de última ejecución (datos.txt)
+ 2- Otros ficheros de datos
+1
+ Número de particiones:  -  -> 
+
+ Tamaño de particiones:  -  -> 
+
+ Quantum:	         -  -> 
+
+Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduzca numero de particiones mínimo: k
+{ Entrada no válida, por favor, introduce un número natural mayor que cero}
+{ Introduzca numero de particiones mínimo: } ¿Dónde guardar los rangos?
+ 1- Fichero de rangos de última ejecución (datosrangos.txt)
+ 2- Otros ficheros de rangos
+1
+ ¿Dónde guardar los datos?
+ 1- Fichero de datos de última ejecución (datos.txt)
+ 2- Otros ficheros de datos
+1
+ Número de particiones:  -  -> 
+
+ Tamaño de particiones:  -  -> 
+
+ Quantum:	         -  -> 
+
+Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduzca numero de particiones mínimo: r
+{ Entrada no válida, por favor, introduce un número natural mayor que cero}
+{ Introduzca numero de particiones mínimo: } ¿Dónde guardar los rangos?
+ 1- Fichero de rangos de última ejecución (datosrangos.txt)
+ 2- Otros ficheros de rangos
+1
+ ¿Dónde guardar los datos?
+ 1- Fichero de datos de última ejecución (datos.txt)
+ 2- Otros ficheros de datos
+1
+ Número de particiones:  -  -> 
+
+ Tamaño de particiones:  -  -> 
+
+ Quantum:	         -  -> 
+
+Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduzca numero de particiones mínimo: h
+Entrada no válida, por favor, introduce un número natural mayor que cero
+Introduzca numero de particiones mínimo:h
+Entrada no válida, por favor, introduce un número natural mayor que cero
+Introduzca numero de particiones mínimo:h
+Entrada no válida, por favor, introduce un número natural mayor que cero
+Introduzca numero de particiones mínimo:h
+Entrada no válida, por favor, introduce un número natural mayor que cero
+Introduzca numero de particiones mínimo:h
+Entrada no válida, por favor, introduce un número natural mayor que cero
+Introduzca numero de particiones mínimo:h
+Entrada no válida, por favor, introduce un número natural mayor que cero
+Introduzca numero de particiones mínimo:h
+Entrada no válida, por favor, introduce un número natural mayor que cero
+Introduzca numero de particiones mínimo:h
+Entrada no válida, por favor, introduce un número natural mayor que cero
+Introduzca numero de particiones mínimo: ¿Dónde guardar los rangos?
+ 1- Fichero de rangos de última ejecución (datosrangos.txt)
+ 2- Otros ficheros de rangos
+1
+ ¿Dónde guardar los datos?
+ 1- Fichero de datos de última ejecución (datos.txt)
+ 2- Otros ficheros de datos
+1
+ Número de particiones:  -  -> 
+
+ Tamaño de particiones:  -  -> 
+
+ Quantum:	         -  -> 
+
+Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduzca numero de particiones mínimo: k
+{
+Entradak
+{
+Entradak
+{
+Entradak
+{
+Entradak
+{
+Entrada ¿Dónde guardar los rangos?
+ 1- Fichero de rangos de última ejecución (datosrangos.txt)
+ 2- Otros ficheros de rangos
+1
+ ¿Dónde guardar los datos?
+ 1- Fichero de datos de última ejecución (datos.txt)
+ 2- Otros ficheros de datos
+1
+ Número de particiones:  -  -> 
+
+ Tamaño de particiones:  -  -> 
+
+ Quantum:	         -  -> 
+
+Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduzca numero de particiones mínimo: o
+Entrada no válida, por favor, introduce un número natural mayor que cero
+Introduzca numero de particiones mínimo:o
+Entrada no válida, por favor, introduce un número natural mayor que cero
+Introduzca numero de particiones mínimo:o
+Entrada no válida, por favor, introduce un número natural mayor que cero
+Introduzca numero de particiones mínimo:o
+Entrada no válida, por favor, introduce un número natural mayor que cero
+Introduzca numero de particiones mínimo: ¿Dónde guardar los rangos?
+ 1- Fichero de rangos de última ejecución (datosrangos.txt)
+ 2- Otros ficheros de rangos
+1
+ ¿Dónde guardar los datos?
+ 1- Fichero de datos de última ejecución (datos.txt)
+ 2- Otros ficheros de datos
+1
+ Número de particiones:  -  -> 
+
+ Tamaño de particiones:  -  -> 
+
+ Quantum:	         -  -> 
+
+Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduzca numero de particiones mínimo: 2
+ Número de particiones: 2 -  -> 
+
+ Tamaño de particiones:  -  -> 
+
+ Quantum:	         -  -> 
+
+Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduzca numero de particiones máximo: -9
+{ Entrada no válida, por favor, introduce un número natural mayor que cero}
+{ Introduzca numero de particiones máximo: }-9
+{ Entrada no válida, por favor, introduce un número natural mayor que cero}
+{ Introduzca numero de particiones máximo: }-9
+{ Entrada no válida, por favor, introduce un número natural mayor que cero}
+{ Introduzca numero de particiones máximo: }-9
+{ Entrada no válida, por favor, introduce un número natural mayor que cero}
+{ Introduzca numero de particiones máximo: } Número de particiones: 
+
+ Tamaño de particiones: 
+
+ Quantum:	        
+
+ Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduzca numero de particiones: 4
+ Número de particiones: 4
+
+ Tamaño de particiones: 
+
+ Quantum:	        
+
+ Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Número de particiones: 4
+
+ Tamaño de particiones: 
+
+ Quantum:	        
+
+ Los procesos introducidos hasta ahora son: 
+ Ref Tll Tej Mem
+ ---------------
+ Introduce tamaño de la partición {1..4}: 

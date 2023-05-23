@@ -1,0 +1,82 @@
+---------------------------------------------------------------------
+|                                                                   |
+|                         INFORME DE PRÁCTICA                       |
+|                         GESTIÓN DE PROCESOS                       |
+|             -------------------------------------------           |
+|     Antiguo alumno:                                               |
+|     Alumno: Mario Juez Gil                                        |
+|     Sistemas Operativos 2º Semestre                               |
+|     Grado en ingeniería informática (2012-2013)                   |
+|             -------------------------------------------           |
+|     Alumno: Omar Santos Bernabe                                   |
+|     Sistemas Operativos 2º Semestre                               |
+|     Grado en ingeniería informática (2014-2015)                   |
+|             -------------------------------------------           |
+|     Alumnos:                                                      |
+|     Alumno: Alvaro Urdiales Santidrian                            |
+|     Alumno: Javier Rodriguez Barcenilla                           |
+|     Sistemas Operativos 2º Semestre                               |
+|     Grado en ingeniería informática (2015-2016)                   |
+|                                                                   |
+|             -------------------------------------------           |
+|     Alumno: Gonzalo Burgos de la Hera                             |
+|     Sistemas Operativos 2º Semestre                               |
+|     Grado en ingeniería informática (2019-2020)                   |
+|                                                                   |
+|             -------------------------------------------           |
+|     Alumno: Lucas Olmedo Díez                                     |
+|     Sistemas Operativos 2º Semestre                               |
+|     Grado en ingeniería informática (2021-2022)                   |
+|                                                                   |
+|             -------------------------------------------           |
+|     Alumno: Miguel Díaz Hernando                                  |
+|     Sistemas Operativos 2º Semestre                               |
+|     Grado en ingeniería informática (2022-2023)                   |
+|                                                                   |
+---------------------------------------------------------------------
+
+ 1- Entrada Manual
+ 2- Fichero de datos de última ejecución (datos.txt)
+ 3- Otros ficheros de datos
+ 4- Rangos aleatorios
+ 5- Fichero de rangos de última ejecución (datosrangos.txt)
+ 6- Otros ficheros de rangos
+2
+		>> Numero de particiones: 4
+		>> Tamaño de particiones: 7 5 3 6
+		>> Quantum de tiempo: 2
+		>> Numero de particiones: 4
+		>> Tamaño de particiones: 7 5 3 6
+		>> Quantum de tiempo: 2
+		>> 4 procesos.
+		>> Procesos y sus datos:
+			Ref Tll Tej Mem 
+      	----------------
+                [96mP02   2   7   7 [0m
+                [95mP03   3   5   5 [0m
+                [94mP04   4   4   4 [0m
+                [92mP00             [0m
+		> ROUND ROBIN
+ ┌────────────┬───────────────┬────────────┐
+ │Nº Part:    │Tam Part:      │Quantum:    │
+ │4           │7 5 3 6        │2           │
+ └────────────┴───────────────┴────────────┘
+ ┌─────┬─────┬─────┬─────┬──────┬──────┬──────┬──────┬──────────────────┐
+ │ Ref │ Tll │ Tej │ Mem │ Tesp │ Tret │ Trej │ Part │ Estado           │
+ ├─────┼─────┼─────┼─────┼──────┼──────┼──────┼──────┼──────────────────┤
+ │ [96mP01[0m │ [96m  1[0m │ [96m  3[0m │ [96m  3[0m │ [96m   -[0m │ [96m   -[0m │ [96m   -[0m │ [96m    [0m │ [96mFuera de Sistema[0m │ [0m
+ │ [95mP02[0m │ [95m  2[0m │ [95m  7[0m │ [95m  7[0m │ [95m   -[0m │ [95m   -[0m │ [95m   -[0m │ [95m    [0m │ [95mFuera de Sistema[0m │ [0m
+ │ [94mP03[0m │ [94m  3[0m │ [94m  5[0m │ [94m  5[0m │ [94m   -[0m │ [94m   -[0m │ [94m   -[0m │ [94m    [0m │ [94mFuera de Sistema[0m │ [0m
+ │ [35mP04[0m │ [35m  4[0m │ [35m  4[0m │ [35m  4[0m │ [35m   -[0m │ [35m   -[0m │ [35m   -[0m │ [35m    [0m │ [35mFuera de Sistema[0m │ [0m
+ └─────┴─────┴─────┴─────┴──────┴──────┴──────┴──────┴──────────────────┘
+ Tesp medio = 0.00	 Tret medio = 0.00
+ Cola RR: 
+    |Part 0                Part 1          Part 2    Part 3              |
+    |                                                                    |
+ BM |█████████████████████ ███████████████ █████████ ██████████████████  | M=21
+    |  0                     5               6        18                 |
+
+    | |
+ BT | | T=0
+    | |
+---------------------------------------------------------

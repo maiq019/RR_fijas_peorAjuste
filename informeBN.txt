@@ -1,0 +1,82 @@
+---------------------------------------------------------------------
+|                                                                   |
+|                         INFORME DE PRÁCTICA                       |
+|                         GESTIÓN DE PROCESOS                       |
+|             -------------------------------------------           |
+|     Antiguo alumno:                                               |
+|     Alumno: Mario Juez Gil                                        |
+|     Sistemas Operativos 2º Semestre                               |
+|     Grado en ingeniería informática (2012-2013)                   |
+|             -------------------------------------------           |
+|     Alumno: Omar Santos Bernabe                                   |
+|     Sistemas Operativos 2º Semestre                               |
+|     Grado en ingeniería informática (2014-2015)                   |
+|             -------------------------------------------           |
+|     Alumnos:                                                      |
+|     Alumno: Alvaro Urdiales Santidrian                            |
+|     Alumno: Javier Rodriguez Barcenilla                           |
+|     Sistemas Operativos 2º Semestre                               |
+|     Grado en ingeniería informática (2015-2016)                   |
+|                                                                   |
+|             -------------------------------------------           |
+|     Alumno: Gonzalo Burgos de la Hera                             |
+|     Sistemas Operativos 2º Semestre                               |
+|     Grado en ingeniería informática (2019-2020)                   |
+|                                                                   |
+|             -------------------------------------------           |
+|     Alumno: Lucas Olmedo Díez                                     |
+|     Sistemas Operativos 2º Semestre                               |
+|     Grado en ingeniería informática (2021-2022)                   |
+|                                                                   |
+|             -------------------------------------------           |
+|     Alumno: Miguel Díaz Hernando                                  |
+|     Sistemas Operativos 2º Semestre                               |
+|     Grado en ingeniería informática (2022-2023)                   |
+|                                                                   |
+---------------------------------------------------------------------
+
+ 1- Entrada Manual
+ 2- Fichero de datos de última ejecución (datos.txt)
+ 3- Otros ficheros de datos
+ 4- Rangos aleatorios
+ 5- Fichero de rangos de última ejecución (datosrangos.txt)
+ 6- Otros ficheros de rangos
+2
+		>> Numero de particiones: 4
+		>> Tamaño de particiones: 7 5 3 6
+		>> Quantum de tiempo: 2
+		>> Numero de particiones: 4
+		>> Tamaño de particiones: 7 5 3 6
+		>> Quantum de tiempo: 2
+		>> 4 procesos.
+		>> Procesos y sus datos:
+			Ref Tll Tej Mem 
+      	----------------
+                P02   2   7   7  
+                P03   3   5   5  
+                P04   4   4   4  
+                P00              
+		> ROUND ROBIN
+ ┌────────────┬───────────────┬────────────┐
+ │Nº Part:    │Tam Part:      │Quantum:    │
+ │4           │7 5 3 6        │2           │
+ └────────────┴───────────────┴────────────┘
+ ┌─────┬─────┬─────┬─────┬──────┬──────┬──────┬──────┬──────────────────┐
+ │ Ref │ Tll │ Tej │ Mem │ Tesp │ Tret │ Trej │ Part │ Estado           │
+ ├─────┼─────┼─────┼─────┼──────┼──────┼──────┼──────┼──────────────────┤
+ │ P01 │   1 │   3 │   3 │    - │    - │    - │      │ Fuera de Sistema │ 
+ │ P02 │   2 │   7 │   7 │    - │    - │    - │      │ Fuera de Sistema │ 
+ │ P03 │   3 │   5 │   5 │    - │    - │    - │      │ Fuera de Sistema │ 
+ │ P04 │   4 │   4 │   4 │    - │    - │    - │      │ Fuera de Sistema │ 
+ └─────┴─────┴─────┴─────┴──────┴──────┴──────┴──────┴──────────────────┘
+ Tesp medio = 0.00	 Tret medio = 0.00
+ Cola RR: 
+    |Part 0                Part 1          Part 2    Part 3              |
+    |                                                                    |
+ BM |█████████████████████ ███████████████ █████████ ██████████████████  | M=21
+    |  0                     5               6        18                 |
+
+    | |
+ BT | | T=0
+    | |
+---------------------------------------------------------
