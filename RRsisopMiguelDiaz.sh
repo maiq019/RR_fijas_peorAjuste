@@ -2809,7 +2809,8 @@ tabla_ejecucion()
 	echo "" >> informeCOLOR.txt
 	echo "" >> informeBN.txt
 	
-	contmemo=0
+	#Variable que guarda el tamaño del espacio representado en la barra por cada unidad de memoria.
+	tam_unidad=3
 
 	#Cadena de procesos en la BM.
 	cad_proc_bm=""
@@ -2822,6 +2823,9 @@ tabla_ejecucion()
 
 	#Cadena de los tamaños de memoria en la BM.
 	cad_tam_mem=""
+
+	#Variable para contar la memoria representada.
+	mem_rep=0
 
 	#Cadena de particiones en la BM.
 	cad_particiones=""
@@ -2861,7 +2865,7 @@ tabla_ejecucion()
 
 		## Montaje de la cadena de particiones en la barra de memoria.
 		cad_particiones=${cad_particiones[@]}"Part $(($pa+1))" 	#Añado el numero de la partición.
-		for (( esp=0; esp<(${tam_par[$pa]}*3-6); esp++ ))
+		for (( esp=0; esp<(${tam_par[$pa]}*$tam_unidad-6); esp++ ))
 		do
 			cad_particiones=${cad_particiones[@]}" "			#Añado espacios hasta completar el tamaño de la partición.
 		done
@@ -2883,14 +2887,14 @@ tabla_ejecucion()
 				cad_proc_bm=${cad_proc_bm[@]}"P${PARTS[$pa]}"			#Añado el número del proceso sin ceros delante.
 			fi
 
-			for (( esp=0; esp<(${tam_par[$pa]}*3-3); esp++ ))			
+			for (( esp=0; esp<(${tam_par[$pa]}*$tam_unidad-3); esp++ ))	#Por cada hueco hasta completar la partición, (-3 porque se introdujeron 3 caracteres, PXX)
 			do
-				cad_proc_bm=${cad_proc_bm[@]}" "						#Añado espacios hasta completar el tamaño de la partición.
+				cad_proc_bm=${cad_proc_bm[@]}" "						#Añado espacios.
 			done
 		else 															#Si no tiene un proceso,
-			for (( esp=0; esp<${tam_par[$pa]}*3; esp++ ))			
+			for (( esp=0; esp<${tam_par[$pa]}*$tam_unidad; esp++ ))		#Por cada hueco hasta completar la partición,
 			do
-				cad_proc_bm=${cad_proc_bm[@]}" "						#Añado espacios hasta completar el tamaño de la partición.
+				cad_proc_bm=${cad_proc_bm[@]}" "						#Añado espacios.
 			done
 		fi
 		if [[ $pa -ne $(($n_par-1)) ]]									#Si no es la última partición,
@@ -2904,28 +2908,23 @@ tabla_ejecucion()
 		## Montaje de la cadena de cuadros en la barra de memoria.
 		if [[ ${PARTS[$pa]} -ne -1 ]]											#Si tiene un proceso,
 		then
-			for (( tam_pr=0; tam_pr<${MEMORIA[${PARTS[$pa]}]}; tam_pr++ ))		
+			memo_proc=${MEMORIA[${PARTS[$pa]}]}									#Recupero lo que ocupa en memoria el proceso.
+			for (( mem_pr=0; mem_pr<$(($memo_proc*$tam_unidad)); mem_pr++ ))	#Por lo que ocupe en memoria el proceso,
 			do
-				cad_mem_col=${cad_mem_col[@]}"\e[${color[$colimp]}m\u2588\e[0m"	#Añado 3 cuadrados de color por lo que ocupe en memoria el proceso. 
-				cad_mem_col=${cad_mem_col[@]}"\e[${color[$colimp]}m\u2588\e[0m"
-				cad_mem_col=${cad_mem_col[@]}"\e[${color[$colimp]}m\u2588\e[0m"
-				cad_mem_byn=${cad_mem_byn[@]}"\u2588"							#Añado 3 cuadrados blancos por lo que ocupe en memoria el proceso.
-				cad_mem_byn=${cad_mem_byn[@]}"\u2588"
-				cad_mem_byn=${cad_mem_byn[@]}"\u2588"
+				cad_mem_col=${cad_mem_col[@]}"\e[${color[$colimp]}m\u2588\e[0m"	#Añado cuadrados de color a la cadena en color.
+				cad_mem_byn=${cad_mem_byn[@]}"\u2588"							#Añado cuadrados blancos a la cadena en blanco y negro.
 			done
-			for (( esp=0; esp<$(( ${tam_par[$pa]} - ${MEMORIA[${PARTS[$pa]}]} )); esp++ ))	
+
+			memo_rest=$((${tam_par[$pa]} - ${MEMORIA[${PARTS[$pa]}]}))			#Calculo la memoria restante de la partición.
+			for (( esp=0; esp<$(($memo_rest*$tam_unidad)); esp++ ))				#Por lo que queda de memoria en la partición,
 			do
-				cad_mem_col=${cad_mem_col[@]}"\u2588"							#Añado 3 cuadrados blancos hasta completar la partición. 
-				cad_mem_col=${cad_mem_col[@]}"\u2588"
-				cad_mem_col=${cad_mem_col[@]}"\u2588"
-				cad_mem_byn=${cad_mem_byn[@]}"\u2588"							#Añado 3 cuadrados blancos hasta completar la partición.
-				cad_mem_byn=${cad_mem_byn[@]}"\u2588"
+				cad_mem_col=${cad_mem_col[@]}"\u2588"							#Añado 3 cuadrados blancos hasta completar la partición.
 				cad_mem_byn=${cad_mem_byn[@]}"\u2588"
 			done
 		else 																	#Si no tiene un proceso,
-			for (( esp=0; esp<${tam_par[$pa]}*3; esp++ ))			
+			for (( esp=0; esp<${tam_par[$pa]}*$tam_unidad; esp++ ))				#Por lo que ocupe lapartición,		
 			do
-				cad_mem_col=${cad_mem_col[@]}"\u2588"							#Añado cuadrados blancos hasta completar la partición.
+				cad_mem_col=${cad_mem_col[@]}"\u2588"							#Añado cuadrados blancos.
 				cad_mem_byn=${cad_mem_byn[@]}"\u2588"
 			done
 		fi
@@ -2938,15 +2937,41 @@ tabla_ejecucion()
 			cad_mem_byn=${cad_mem_byn[@]}"| M=$memoria_total"
 		fi
 		
+		## Montaje de la cadena de memoria en la barra de memoria.
+		cad_tam_mem=${cad_tam_mem[@]}"$mem_rep"										#Añado la memoria que se ha usado hasta el momento.
+		if [[ ${PARTS[$pa]} -ne -1 ]]												#Si tiene un proceso,
+		then
+			let esp_a_proc=${MEMORIA[${PARTS[$pa]}]} - ${#mem_rep}					#Calculo el espacio que ocupa el proceso menos los caracteres usados al escribir la memoria usada.
+			for (( tam_pr=0; tam_pr<$(($esp_a_proc*$tam_unidad)); tam_pr++ ))		#Por cada espacio hasta el punto que ocupa el proceso,
+			do
+				cad_tam_mem=${cad_tam_mem[@]}" "									#Añado un espacio.
+			done
 
-		
+			let mem_rep=mem_rep+${MEMORIA[${PARTS[$pa]}]}							#Calculo la cantidad de memoria que se ha representado hasta ahora.
+			cad_tam_mem=${cad_tam_mem[@]}"$mem_rep"									#Añado la cifra de memoria que se ha representado.
 
+			let esp_rest=${tam_par[$pa]} - ${MEMORIA[${PARTS[$pa]}]} - ${#mem_rep}	#Calculo los espacios restantes de la partición.
+			for (( esp=0; esp<$(($esp_rest*$tam_unidad)); esp++ ))					#Por lo que queda de memoria en la partición,
+			do
+				cad_tam_mem=${cad_tam_mem[@]}" "									#Añado espacios.
+			done
+			let mem_rep=mem_rep-${MEMORIA[${PARTS[$pa]}]}+${tam_par[$pa]}			#Actualizo la cantidad de memoria representada.
+		else 																		#Si no tiene un proceso,
+			for (( esp=0; esp<${tam_par[$pa]}*$tam_unidad; esp++ ))					#Por lo que ocupe lapartición,		
+			do
+				cad_tam_mem=${cad_tam_mem[@]}" "									#Añado espacios.
+			done
+		fi
+		if [[ $pa -ne $(($n_par-1)) ]]												#Si no es la última partición,
+		then										
+			cad_tam_mem=${cad_tam_mem[@]}" "										#Añado un espacio adicional entre particiones.
+		else 
+			cad_tam_mem=${cad_tam_mem[@]}"|"										#Si es la última, añado una barra.
+		fi
 	done
-
-	#Esta parte crea las barras verticales y la memoria total al final de la Banda de Memoria
-	cad_tam_mem[$cad_tem_bt]=${cad_tam_mem[$cad_tem_bt]}"|"
 	
-	## Representacion de la Barra de Memoria
+	## Representacion de la Barra de Memoria.
+	#Reseteo las cadenas para calcular la próxima representación.
 	echo -e "    |${cad_particiones[@]}"
 	echo -e "    |${cad_particiones[@]}" >> informeCOLOR.txt
 	echo -e "    |${cad_particiones[@]}" >> informeBN.txt
@@ -2963,22 +2988,10 @@ tabla_ejecucion()
 	cad_mem_col=""
 	cad_mem_byn=""
 
-	for(( i = 0, j = 0, k = 0; i <= $cad_col_bt, j <= $cad_proc_bt, k <= $cad_tem_bt; i++, j++, k++ ))
-	do
-		#Representacion de la Barra de Memoria
-		if [[ $j == 0 ]]
-		then
-
-			echo -e "    |${cad_tam_mem[$k]}"
-			echo -e "    |${cad_tam_mem[$k]}" >> informeCOLOR.txt
-			echo -e "    |${cad_tam_mem[$k]}" >> informeBN.txt
-		else
-			echo -e "     ${cad_tam_mem[$k]}"
-			echo -e "     ${cad_tam_mem[$k]}" >> informeCOLOR.txt
-			echo -e "     ${cad_tam_mem[$k]}" >> informeBN.txt
-		fi
-		cad_tam_mem[$k]=""
-	done
+	echo -e "    |${cad_tam_mem[@]}"
+	echo -e "    |${cad_tam_mem[@]}" >> informeCOLOR.txt
+	echo -e "    |${cad_tam_mem[@]}" >> informeBN.txt
+	cad_tam_mem=""
 		
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -2986,6 +2999,7 @@ tabla_ejecucion()
 
 	for (( i = 0, j = 0; i <= $const, j <= $constb; i++, j++ ))
 	do
+
 
 	#Comandos que ajustan las 3 lineas verticales del final de la barra de tiempo
 	if [[ $primvez = 0 ]]
