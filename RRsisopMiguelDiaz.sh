@@ -1890,8 +1890,9 @@ solucion_impresa()
 	echo " "
 }
 
-#Inicia una serie de datos de los procesos.
-inicio_estado(){
+### Inicia una serie de datos de los procesos.
+inicio_estado()
+{
 	for(( xp=0 ; xp < $num_proc ; xp++ ))
 	do
 		ESTADO[$xp]="Fuera de Sistema"
@@ -1914,23 +1915,23 @@ inicio_particiones()
 
 	for (( pa = 0; pa < $n_par; pa++ ))
 	do
-		if [[ ${ESTADO[$(( ${PARTS[$pa]} - 1 ))]} == "Terminado" ]]
+		if [[ ${ESTADO[${PARTS[$pa]}]} == "Terminado" ]]
 		then
-			PARTS[$pa]=0
+			PARTS[$pa]=-1
 		fi
 
 		for (( pr=0; pr<$num_proc; pr++ ))
 		do
-			if [[ ${EN_MEMO[$pr]} == "Si" ]] && [[ ${PARTS[$pa]} -eq 0 ]] && [[ ${PART[$pr]} == "" ]]
+			if [[ ${EN_MEMO[$pr]} == "Si" ]] && [[ ${PART[$pr]} == "" ]] && [[ ${PARTS[$pa]} -eq -1 ]] && [[ ${tam_par[$pa]} -ge ${MEMORIA[$pr]} ]]
 			then
-				PARTS[$pa]=$(( $pr + 1))
-				PART[$pr]=$i
-				NUMPART[$pr]=$i
+				PARTS[$pa]=$pr
+				PART[$pr]=$pa
+				NUMPART[$pr]=$pa
 				continue 2
 			fi
 		done
 
-		if [[ ${PARTS[$pa]} -eq 0 ]]
+		if [[ ${PARTS[$pa]} -eq -1 ]]
 		then
 			let vacias=vacias+1
 		fi
@@ -2809,14 +2810,13 @@ tabla_ejecucion()
 	echo "" >> informeBN.txt
 	
 	contmemo=0
-	cadproc="" #Cadena de procesos en la BM
-	cadmem="" #Cadena de cuadrados de colores en la BM
-	cadmembn="" #Cadena de cuadrados en blanco y negro en la BM
-	cadocu="" #Cadena de los tamaños de memoria en la BM
-	cadparticiones="" #Cadena de particiones en la BM
-	cadenaespacios=" " #Separación entre las particiones de la cadena de particiones
-	#espproc=$(( $(( $tam_par -1 )) *3 )) #Variable usada para la separación de cadproc
-	fsist=0 #Variable que indica si un proceso está fuera del sistema
+	cad_proc_bm="" #Cadena de procesos en la BM
+	cad_mem_col="" #Cadena de cuadrados de colores en la BM
+	cad_mem_bn="" #Cadena de cuadrados en blanco y negro en la BM
+	cad_tam_mem="" #Cadena de los tamaños de memoria en la BM
+	cad_particiones="" #Cadena de particiones en la BM
+	cad_espacios_particiones=" " #Separación entre las particiones de la cadena de particiones
+	fuera_sist=0 #Variable que indica cuántos procesos están fuera del sistema
 	columnasm=$(( $(tput cols) - 5 )) #Columnas de margen a la derecha de la pantalla en la BM
 	cadsm=0 #Cadena de cuadrados de colores de la BT
 	cadsm1=0 #Cadena de procesos de la BT
@@ -2830,28 +2830,31 @@ tabla_ejecucion()
 	do
 
 		#Montaje de la cadena de particiones
-		cadparticiones[$cadsm]=${cadparticiones[$cadsm]}"Part $i"
+		cad_particiones[$cadsm]=${cad_particiones[$cadsm]}"Part $i"
 	
 		if [[ $caractmem0 == $columnasm ]] || [[ $caractmem0 == $(( $columnasm - 1 )) ]] || [[ $caractmem0 == $(( $columnasm - 2 )) ]] || [[ $caractmem0 == $(( $columnasm -3 )) ]] || [[ $caractmem0 == $(( $columnasm -4 )) ]] || [[ $caractmem0 == $(( $columnasm -5 )) ]]
 		then
-			cadsm0=$(( $cadsm + 1 ))
+			let cadsm0=cadsm+1
 			caractmem0=0
 		fi
 
 		for (( xdespacios=0; xdespacios < ( ${tam_par[$i]}*3-5 ); xdespacios++ ))
 		do
-			cadparticiones[$cadsm]=${cadparticiones[$cadsm]}"$cadenaespacios"
+			if [[ $i -ne $(($n_par-1)) || $xdespacios -ne $(( (${tam_par[$i]}*3-5)-1)) ]] #He añadido este condicional para que no ponga un espacio detrás de la última partición.
+			then
+				cad_particiones[$cadsm]=${cad_particiones[$cadsm]}"$cad_espacios_particiones"
+			fi
 		done
 
 		#Montaje de la cadena de procesos
-		if [[ $(( ${PARTS[$i]} - 1 )) -ge 0 ]]
+		if [[ ${PARTS[$i]} -ge 0 ]]
 		then
-			if [[ ${PROC[$(( ${PARTS[$i]} - 1 ))]} -le 9 ]]
+			if [[ ${PROC[${PARTS[$i]}]} -le 9 ]]
 			then
 
-				cadproc[$cadsm]=${cadproc[$cadsm]}"P0${PROC[$(( ${PARTS[$i]} - 1 ))]}"
+				cad_proc_bm[$cadsm]=${cad_proc_bm[$cadsm]}"P0${PROC[${PARTS[$i]}]}"
 			else
-				cadproc[$cadsm]=${cadproc[$cadsm]}"P${PROC[$(( ${PARTS[$i]} - 1 ))]}"
+				cad_proc_bm[$cadsm]=${cad_proc_bm[$cadsm]}"P${PROC[${PARTS[$i]}]}"
 			fi
 			let caractmem=caractmem+3
 
@@ -2863,7 +2866,7 @@ tabla_ejecucion()
 		else
 			for(( var = 0; var < 3; var++ ))
 			do
-				cadproc[$cadsm]=${cadproc[$cadsm]}" "
+				cad_proc_bm[$cadsm]=${cad_proc_bm[$cadsm]}" "
 			done
 			let caractmem=caractmem+3
 
@@ -2875,10 +2878,10 @@ tabla_ejecucion()
 
 		fi
 
-		espproc=$(( $(( ${tam_par[$i]} -1 )) *3 )) #Variable usada para la separación de cadproc
+		espproc=$(( $(( ${tam_par[$i]} -1 )) *3 )) #Variable usada para la separación de cad_proc_bm
 		for(( p = 0; p < $espproc; p++ ))
 		do
-			cadproc[$cadsm]=${cadproc[$cadsm]}" "
+			cad_proc_bm[$cadsm]=${cad_proc_bm[$cadsm]}" "
 			caractmem=$(( $caractmem + 1 ))
 			if [[ $caractmem == $columnasm ]] || [[ $caractmem == $(( $columnasm - 1 )) ]] || [[ $caractmem == $(( $columnasm - 2 )) ]] || [[ $caractmem == $(( $columnasm -3 )) ]] || [[ $caractmem == $(( $columnasm -4 )) ]] || [[ $caractmem == $(( $columnasm -5 )) ]]
 			then
@@ -2888,7 +2891,7 @@ tabla_ejecucion()
 
 		done
 
-		cadproc[$cadsm]=${cadproc[$cadsm]}" "
+		cad_proc_bm[$cadsm]=${cad_proc_bm[$cadsm]}" "
 		caractmem=$(( $caractmem + 1 ))
 		if [[ $caractmem == $columnasm ]] || [[ $caractmem == $(( $columnasm - 1 )) ]] || [[ $caractmem == $(( $columnasm - 2 )) ]] || [[ $caractmem == $(( $columnasm -3 )) ]] || [[ $caractmem == $(( $columnasm -4 )) ]] || [[ $caractmem == $(( $columnasm -5 )) ]]
 		then
@@ -2914,8 +2917,8 @@ tabla_ejecucion()
 					do
 						for(( l = 0; l < 3; l++ ))
 						do
-							cadmem[$cadsm1]=${cadmem[$cadsm1]}"\e[${color[$colimp]}m\u2588\e[0m"	
-							cadmembn[$cadsm1]=${cadmembn[$cadsm1]}"\u2588"
+							cad_mem_col[$cadsm1]=${cad_mem_col[$cadsm1]}"\e[${color[$colimp]}m\u2588\e[0m"	
+							cad_mem_bn[$cadsm1]=${cad_mem_bn[$cadsm1]}"\u2588"
 							caractmem1=$(( $caractmem1 + 1 ))
 							if [[ $caractmem1 == $columnasm ]] || [[ $caractmem1 == $(( $columnasm - 1 )) ]] || [[ $caractmem1 == $(( $columnasm - 2 )) ]] || [[ $caractmem1 == $(( $columnasm - 3 )) ]] || [[ $caractmem1 == $(( $columnasm -4 )) ]] || [[ $caractmem1 == $(( $columnasm -5 )) ]]
 							then
@@ -2929,8 +2932,8 @@ tabla_ejecucion()
 						for(( l = 0; l < 3; l++ ))
 						do
 				#Se ha cambiado el color de la barra de blanco a "Falta de color" para que esta sea visible en cualquier terminal independientemente del color del mismo
-							cadmem[$cadsm1]=${cadmem[$cadsm1]}"\u2588"
-							cadmembn[$cadsm1]=${cadmembn[$cadsm1]}"\u2588"
+							cad_mem_col[$cadsm1]=${cad_mem_col[$cadsm1]}"\u2588"
+							cad_mem_bn[$cadsm1]=${cad_mem_bn[$cadsm1]}"\u2588"
 							caractmem1=$(( $caractmem1 + 1 ))
 							if [[ $caractmem1 == $columnasm ]] || [[ $caractmem1 == $(( $columnasm - 1 )) ]] || [[ $caractmem1 == $(( $columnasm - 2 )) ]] || [[ $caractmem1 == $(( $columnasm - 3 )) ]] || [[ $caractmem1 == $(( $columnasm -4 )) ]] || [[ $caractmem1 == $(( $columnasm -5 )) ]]
 							then
@@ -2939,8 +2942,8 @@ tabla_ejecucion()
 							fi
 						done	
 					done
-					cadmem[$cadsm1]=${cadmem[$cadsm1]}" "
-					cadmembn[$cadsm1]=${cadmembn[$cadsm1]}" "
+					cad_mem_col[$cadsm1]=${cad_mem_col[$cadsm1]}" "
+					cad_mem_bn[$cadsm1]=${cad_mem_bn[$cadsm1]}" "
 					caractmem1=$(( $caractmem1 + 1 ))
 					if [[ $caractmem1 == $columnasm ]] || [[ $caractmem1 == $(( $columnasm - 1 )) ]] || [[ $caractmem1 == $(( $columnasm - 2 )) ]] || [[ $caractmem1 == $(( $columnasm - 3 )) ]] || [[ $caractmem1 == $(( $columnasm -4 )) ]] || [[ $caractmem1 == $(( $columnasm -5 )) ]]
 					then
@@ -2952,8 +2955,8 @@ tabla_ejecucion()
 					do
 						for(( l = 0; l < 3; l++ ))
 						do
-							cadmem[$cadsm1]=${cadmem[$cadsm1]}"\e[${color[$colimp]}m\u2588\e[0m"
-							cadmembn[$cadsm1]=${cadmembn[$cadsm1]}"\u2588"
+							cad_mem_col[$cadsm1]=${cad_mem_col[$cadsm1]}"\e[${color[$colimp]}m\u2588\e[0m"
+							cad_mem_bn[$cadsm1]=${cad_mem_bn[$cadsm1]}"\u2588"
 							caractmem1=$(( $caractmem1 + 1 ))
 							if [[ $caractmem1 == $columnasm ]] || [[ $caractmem1 == $(( $columnasm - 1 )) ]] || [[ $caractmem1 == $(( $columnasm - 2 )) ]] || [[ $caractmem1 == $(( $columnasm - 3 )) ]] || [[ $caractmem1 == $(( $columnasm -4 )) ]] || [[ $caractmem1 == $(( $columnasm -5 )) ]]
 							then
@@ -2963,8 +2966,8 @@ tabla_ejecucion()
 						done
 					done
 					#He corregido un error que hacía que la BM cortara espacios si había particiones totalmente llenas
-					cadmem[$cadsm1]=${cadmem[$cadsm1]}" "
-					cadmembn[$cadsm1]=${cadmembn[$cadsm1]}" "
+					cad_mem_col[$cadsm1]=${cad_mem_col[$cadsm1]}" "
+					cad_mem_bn[$cadsm1]=${cad_mem_bn[$cadsm1]}" "
 				fi
 				MEMPART[$i]=$xp
 				contmemo=1
@@ -2983,8 +2986,8 @@ tabla_ejecucion()
 					for (( k = 0; k < 3; k++))
 					do
 				#Se ha cambiado el color de la barra de blanco a "Falta de color" para que esta sea visible en cualquier terminal independientemente del color del mismo
-						cadmem[$cadsm1]=${cadmem[$cadsm1]}"\u2588"
-						cadmembn[$cadsm1]=${cadmembn[$cadsm1]}"\u2588"
+						cad_mem_col[$cadsm1]=${cad_mem_col[$cadsm1]}"\u2588"
+						cad_mem_bn[$cadsm1]=${cad_mem_bn[$cadsm1]}"\u2588"
 						caractmem1=$(( $caractmem1 + 1 ))
 						if [[ $caractmem1 == $columnasm ]] || [[ $caractmem1 == $(( $columnasm - 1 )) ]] || [[ $caractmem1 == $(( $columnasm - 2 )) ]] || [[ $caractmem1 == $(( $columnasm - 3 )) ]] || [[ $caractmem1 == $(( $columnasm -4 )) ]] || [[ $caractmem1 == $(( $columnasm -5 )) ]]
 						then
@@ -2993,8 +2996,8 @@ tabla_ejecucion()
 						fi
 					done
 				done
-				cadmem[$cadsm1]=${cadmem[$cadsm1]}" "
-				cadmembn[$cadsm1]=${cadmembn[$cadsm1]}" "
+				cad_mem_col[$cadsm1]=${cad_mem_col[$cadsm1]}" "
+				cad_mem_bn[$cadsm1]=${cad_mem_bn[$cadsm1]}" "
 				caractmem1=$(( $caractmem1 + 1 ))
 				if [[ $caractmem1 == $columnasm ]] || [[ $caractmem1 == $(( $columnasm - 1 )) ]] || [[ $caractmem1 == $(( $columnasm - 2 )) ]] || [[ $caractmem1 == $(( $columnasm - 3 )) ]] || [[ $caractmem1 == $(( $columnasm -4 )) ]] || [[ $caractmem1 == $(( $columnasm -5 )) ]]
 				then
@@ -3005,9 +3008,9 @@ tabla_ejecucion()
 			contmemo=0	
 		done
 
-		if [[ $(( ${PARTS[$i]} - 1 )) -ge 0 ]]
+		if [[ ${PARTS[$i]} -ge 0 ]]
 		then
-			tamespacios=${MEMORIA[$(( ${PARTS[$i]} - 1 ))]}
+			tamespacios=${MEMORIA[${PARTS[$i]}]}
 		else
 			tamespacios=${tam_par[$i]}
 		fi
@@ -3032,7 +3035,7 @@ tabla_ejecucion()
 		then
 			for(( p = 0; p < $just; p++ ))
 			do
-				cadocu[$cadsm2]=${cadocu[$cadsm2]}" "
+				cad_tam_mem[$cadsm2]=${cad_tam_mem[$cadsm2]}" "
 				caractmem2=$(( $caractmem2 + 1 ))
 				if [[ $caractmem2 == $columnasm ]] || [[ $caractmem2 == $(( $columnasm - 1 )) ]] || [[ $caractmem2 == $(( $columnasm - 2 )) ]] || [[ $caractmem2 == $(( $columnasm - 3 )) ]] || [[ $caractmem2 == $(( $columnasm -4 )) ]] || [[ $caractmem2 == $(( $columnasm -5 )) ]]
 				then
@@ -3041,7 +3044,7 @@ tabla_ejecucion()
 				fi
 			done
 		fi
-		cadocu[$cadsm2]=${cadocu[$cadsm2]}"$memi"
+		cad_tam_mem[$cadsm2]=${cad_tam_mem[$cadsm2]}"$memi"
 		if [[ $memi -le 9 ]]
 		then
 			caractmem2=$(( $caractmem2 + 1 ))
@@ -3061,7 +3064,7 @@ tabla_ejecucion()
 		
 		for(( $esp; esp < espacios; esp++ ))
 		do
-			cadocu[$cadsm2]=${cadocu[$cadsm2]}" "
+			cad_tam_mem[$cadsm2]=${cad_tam_mem[$cadsm2]}" "
 			caractmem2=$(( $caractmem2 + 1 ))
 			if [[ $caractmem2 == $columnasm ]] || [[ $caractmem2 == $(( $columnasm - 1 )) ]] || [[ $caractmem2 == $(( $columnasm - 2 )) ]] || [[ $caractmem2 == $(( $columnasm - 3 )) ]] || [[ $caractmem2 == $(( $columnasm -4 )) ]] || [[ $caractmem2 == $(( $columnasm -5 )) ]]
 			then
@@ -3087,7 +3090,7 @@ tabla_ejecucion()
 		then
 			for (( p = 0; p < $just2; p++ ))
 			do
-				cadocu[$cadsm2]=${cadocu[$cadsm2]}" "
+				cad_tam_mem[$cadsm2]=${cad_tam_mem[$cadsm2]}" "
 				caractmem2=$(( $caractmem2 + 1 ))
 				if [[ $caractmem2 == $columnasm ]] || [[ $caractmem2 == $(( $columnasm - 1 )) ]] || [[ $caractmem2 == $(( $columnasm - 2 )) ]] || [[ $caractmem2 == $(( $columnasm - 3 )) ]] || [[ $caractmem2 == $(( $columnasm -4 )) ]] || [[ $caractmem2 == $(( $columnasm -5 )) ]]
 				then
@@ -3099,7 +3102,7 @@ tabla_ejecucion()
 
 		if [[ $tamespacios -lt ${tam_par[$i]} ]]
 		then
-			cadocu[$cadsm2]=${cadocu[$cadsm2]}"$(( $memi + $tamespacios ))"
+			cad_tam_mem[$cadsm2]=${cad_tam_mem[$cadsm2]}"$(( $memi + $tamespacios ))"
 			if [[ $(( $memi + $tamespacios )) -le 9 ]]
 			then
 				caractmem2=$(( $caractmem2 + 1 ))
@@ -3121,7 +3124,7 @@ tabla_ejecucion()
 
 		for (( p = 0; p < $espacios2; p++ ))
 		do
-			cadocu[$cadsm2]=${cadocu[$cadsm2]}" "
+			cad_tam_mem[$cadsm2]=${cad_tam_mem[$cadsm2]}" "
 			caractmem2=$(( $caractmem2 + 1 ))
 			if [[ $caractmem2 == $columnasm ]] || [[ $caractmem2 == $(( $columnasm - 1 )) ]] || [[ $caractmem2 == $(( $columnasm - 2 )) ]] || [[ $caractmem2 == $(( $columnasm - 3 )) ]] || [[ $caractmem2 == $(( $columnasm -4 )) ]] || [[ $caractmem2 == $(( $columnasm -5 )) ]]
 			then
@@ -3129,7 +3132,7 @@ tabla_ejecucion()
 				caractmem2=0
 			fi
 		done
-		cadocu[$cadsm2]=${cadocu[$cadsm2]}" "
+		cad_tam_mem[$cadsm2]=${cad_tam_mem[$cadsm2]}" "
 		caractmem2=$(( $caractmem2 + 1 ))
 		if [[ $caractmem2 == $columnasm ]] || [[ $caractmem2 == $(( $columnasm - 1 )) ]] || [[ $caractmem2 == $(( $columnasm - 2 )) ]] || [[ $caractmem2 == $(( $columnasm - 3 )) ]] || [[ $caractmem2 == $(( $columnasm -4 )) ]] || [[ $caractmem2 == $(( $columnasm -5 )) ]]
 		then
@@ -3139,65 +3142,65 @@ tabla_ejecucion()
 	done
 
 	#Esta parte crea las 3 barras verticales y la memoria total al final de la Banda de Memoria
-	cadparticiones[$cadsm0]=${cadparticiones[$cadsm0]}" |"
-	cadproc[$cadsm]=${cadproc[$cadsm]}" |"
-	cadmem[$cadsm1]=${cadmem[$cadsm1]}" | M=$memoria_total"
-	cadocu[$cadsm2]=${cadocu[$cadsm2]}" |"
-	cadmembn[$cadsm1]=${cadmembn[$cadsm1]}" | M=$memoria_total"
+	cad_particiones[$cadsm0]=${cad_particiones[$cadsm0]}"|"
+	cad_proc_bm[$cadsm]=${cad_proc_bm[$cadsm]}"|"
+	cad_mem_col[$cadsm1]=${cad_mem_col[$cadsm1]}"| M=$memoria_total"
+	cad_tam_mem[$cadsm2]=${cad_tam_mem[$cadsm2]}"|"
+	cad_mem_bn[$cadsm1]=${cad_mem_bn[$cadsm1]}"| M=$memoria_total"
 
 
 	for(( i = 0, j = 0, k = 0; i <= $cadsm, j <= $cadsm1, k <= $cadsm2; i++, j++, k++ ))
 	do
-	#Representacion de la Barra de Memoria
-	if [[ $j == 0 ]]
-	then
-		echo -e "    |${cadparticiones[$i]}"
-		echo -e "    |${cadparticiones[$i]}" >> informeCOLOR.txt
-		echo -e "    |${cadparticiones[$i]}" >> informeBN.txt
-	else
-		echo -e "     ${cadparticiones[$i]}"
-		echo -e "     ${cadparticiones[$i]}" >> informeCOLOR.txt
-		echo -e "     ${cadparticiones[$i]}" >> informeBN.txt
-	fi
-		cadparticiones[$i]=""
-
-	if [[ $j == 0 ]]
-	then
-		echo -e "    |${cadproc[$i]}"
-		echo -e "    |${cadproc[$i]}" >> informeCOLOR.txt
-		echo -e "    |${cadproc[$i]}" >> informeBN.txt
-	else
-		echo -e "     ${cadproc[$i]}"
-		echo -e "     ${cadproc[$i]}" >> informeCOLOR.txt
-		echo -e "     ${cadproc[$i]}" >> informeBN.txt
-	fi
-		cadproc[$i]=""
+		#Representacion de la Barra de Memoria
+		if [[ $j == 0 ]]
+		then
+			echo -e "    |${cad_particiones[$i]}"
+			echo -e "    |${cad_particiones[$i]}" >> informeCOLOR.txt
+			echo -e "    |${cad_particiones[$i]}" >> informeBN.txt
+		else
+			echo -e "     ${cad_particiones[$i]}"
+			echo -e "     ${cad_particiones[$i]}" >> informeCOLOR.txt
+			echo -e "     ${cad_particiones[$i]}" >> informeBN.txt
+		fi
+			cad_particiones[$i]=""
 
 		if [[ $j == 0 ]]
 		then
-			echo -e " BM |${cadmem[$j]}"
-			echo -e " BM |${cadmem[$j]}" >> informeCOLOR.txt
-			echo -e " BM |${cadmembn[$j]}" >> informeBN.txt
+			echo -e "    |${cad_proc_bm[$i]}"
+			echo -e "    |${cad_proc_bm[$i]}" >> informeCOLOR.txt
+			echo -e "    |${cad_proc_bm[$i]}" >> informeBN.txt
 		else
-			echo -e "     ${cadmem[$j]}"
-			echo -e "     ${cadmem[$j]}" >> informeCOLOR.txt
-			echo -e "     ${cadmembn[$j]}" >> informeBN.txt
+			echo -e "     ${cad_proc_bm[$i]}"
+			echo -e "     ${cad_proc_bm[$i]}" >> informeCOLOR.txt
+			echo -e "     ${cad_proc_bm[$i]}" >> informeBN.txt
 		fi
-		cadmem[$j]=""
-		cadmembn[$j]=""
+			cad_proc_bm[$i]=""
 
-	if [[ $j == 0 ]]
-	then
+			if [[ $j == 0 ]]
+			then
+				echo -e " BM |${cad_mem_col[$j]}"
+				echo -e " BM |${cad_mem_col[$j]}" >> informeCOLOR.txt
+				echo -e " BM |${cad_mem_bn[$j]}" >> informeBN.txt
+			else
+				echo -e "     ${cad_mem_col[$j]}"
+				echo -e "     ${cad_mem_col[$j]}" >> informeCOLOR.txt
+				echo -e "     ${cad_mem_bn[$j]}" >> informeBN.txt
+			fi
+			cad_mem_col[$j]=""
+			cad_mem_bn[$j]=""
 
-		echo -e "    |${cadocu[$k]}"
-		echo -e "    |${cadocu[$k]}" >> informeCOLOR.txt
-		echo -e "    |${cadocu[$k]}" >> informeBN.txt
-	else
-		echo -e "     ${cadocu[$k]}"
-		echo -e "     ${cadocu[$k]}" >> informeCOLOR.txt
-		echo -e "     ${cadocu[$k]}" >> informeBN.txt
-	fi
-		cadocu[$k]=""
+		if [[ $j == 0 ]]
+		then
+
+			echo -e "    |${cad_tam_mem[$k]}"
+			echo -e "    |${cad_tam_mem[$k]}" >> informeCOLOR.txt
+			echo -e "    |${cad_tam_mem[$k]}" >> informeBN.txt
+		else
+			echo -e "     ${cad_tam_mem[$k]}"
+			echo -e "     ${cad_tam_mem[$k]}" >> informeCOLOR.txt
+			echo -e "     ${cad_tam_mem[$k]}" >> informeBN.txt
+		fi
+		cad_tam_mem[$k]=""
 	done
 		
 	echo ""
@@ -3428,13 +3431,13 @@ calcula_espacios()
 #He cambiado algunos comandos expr por let.
 actualizar_linea()
 { 
-	fsist=0
+	fuera_sist=0
 
 	for((xp = 0; xp < $num_proc; xp++))
 	do
 		if [[ ${ESTADO[$xp]} == "Fuera de Sistema" ]]
 		then
-			let fsist=fsist+1
+			let fuera_sist=fuera_sist+1
 		fi
 	done
 
@@ -3449,7 +3452,7 @@ actualizar_linea()
 	if [[ $ultvez == 0 ]]
 	then
 		#Cuadrados grises hasta que llegue el primer proceso
-		if [[ $fsist == $num_proc ]]
+		if [[ $fuera_sist == $num_proc ]]
 		then
 			for(( k = 0; k < ${T_ENTRADA[0]}; k++ ))
 			do
@@ -3507,13 +3510,13 @@ actualizar_linea()
 ### Actualiza el texto de la linea de tiempo.
 actualizar_ltsec()
 { 
-	fsist=0
+	fuera_sist=0
 
 	for((xp = 0; xp < $num_proc; xp++))
 	do
 		if [[ ${ESTADO[$xp]} == "Fuera de Sistema" ]]
 		then
-			fsist=$(( $fsist + 1 ))
+			let fuera_sist=fuera_sist+1
 		fi
 		if [[ $xp != $proc_actual ]]
 		then
@@ -3531,7 +3534,7 @@ actualizar_ltsec()
 	if [[ $ultvez == 0 ]]
 	then
 		#Separacion inicial
-		if [[ $fsist == $num_proc ]]
+		if [[ $fuera_sist == $num_proc ]]
 		then
 			for(( k = 0; k < ${T_ENTRADA[0]}; k++ ))
 			do
@@ -3739,7 +3742,7 @@ inicializar()
 
 	for (( i = 0; i < $n_par; i++ ))
 	do
-		PARTS[$i]=0
+		PARTS[$i]=-1
 	done
 }
 
@@ -3774,7 +3777,7 @@ meterenmemo()
 			then
 				for (( pa=0; pa<n_par; pa++ ))
 				do
-					if [[ ${PARTS[$pa]} -eq 0 ]] && [[ ${MEMORIA[$pr]} -le ${tam_par[$pa]} ]]
+					if [[ ${PARTS[$pa]} -eq -1 ]] && [[ ${MEMORIA[$pr]} -le ${tam_par[$pa]} ]]
 					then
 						EN_MEMO[$pr]="Si"
 						let valor=valor+1
