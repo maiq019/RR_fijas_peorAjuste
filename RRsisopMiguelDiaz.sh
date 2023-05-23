@@ -1913,7 +1913,7 @@ inicio_particiones()
 		fi
 	done
 
-	for (( pa = 0; pa < $n_par; pa++ ))
+	for (( pa=0; pa<$n_par; pa++ ))
 	do
 		if [[ ${ESTADO[${PARTS[$pa]}]} == "Terminado" ]]
 		then
@@ -2812,6 +2812,9 @@ tabla_ejecucion()
 	#Variable que guarda el tamaño del espacio representado en la barra por cada unidad de memoria.
 	tam_unidad=3
 
+	#Cadena de particiones en la BM.
+	cad_particiones=""
+
 	#Cadena de procesos en la BM.
 	cad_proc_bm=""
 
@@ -2826,9 +2829,6 @@ tabla_ejecucion()
 
 	#Variable para contar la memoria representada.
 	mem_rep=0
-
-	#Cadena de particiones en la BM.
-	cad_particiones=""
 
 	#Espacio de separación.
 	cad_espacio=" "
@@ -2941,26 +2941,35 @@ tabla_ejecucion()
 		cad_tam_mem=${cad_tam_mem[@]}"$mem_rep"										#Añado la memoria que se ha usado hasta el momento.
 		if [[ ${PARTS[$pa]} -ne -1 ]]												#Si tiene un proceso,
 		then
-			let esp_a_proc=${MEMORIA[${PARTS[$pa]}]} - ${#mem_rep}					#Calculo el espacio que ocupa el proceso menos los caracteres usados al escribir la memoria usada.
-			for (( tam_pr=0; tam_pr<$(($esp_a_proc*$tam_unidad)); tam_pr++ ))		#Por cada espacio hasta el punto que ocupa el proceso,
+			memo_proc=${MEMORIA[${PARTS[$pa]}]}										#Guardo la memoria del proceso en una variable para facilitar su uso.
+			carac_impr=${#mem_rep}													#Guardo en una variable los espacios que ha ocupado el escribir la memoria usada.
+			let esp_rest_proc=memo_proc*tam_unidad-carac_impr						#Calculo el espacio que ocupa el proceso menos los caracteres usados al escribir la memoria usada.
+			for (( tam_pr=0; tam_pr<$esp_rest_proc; tam_pr++ ))						#Por cada espacio hasta el punto que ocupa el proceso,
 			do
 				cad_tam_mem=${cad_tam_mem[@]}" "									#Añado un espacio.
 			done
+			let mem_rep=mem_rep+memo_proc											#Actualizo la cantidad de memoria representada.
 
-			let mem_rep=mem_rep+${MEMORIA[${PARTS[$pa]}]}							#Calculo la cantidad de memoria que se ha representado hasta ahora.
-			cad_tam_mem=${cad_tam_mem[@]}"$mem_rep"									#Añado la cifra de memoria que se ha representado.
+			if [[ $memo_proc -lt ${tam_par[$pa]} ]]									#Si el proceso no ocupa toda la partición,
+			then
+				cad_tam_mem=${cad_tam_mem[@]}"$mem_rep"								#Añado la cifra de memoria que se ha representado.
 
-			let esp_rest=${tam_par[$pa]} - ${MEMORIA[${PARTS[$pa]}]} - ${#mem_rep}	#Calculo los espacios restantes de la partición.
-			for (( esp=0; esp<$(($esp_rest*$tam_unidad)); esp++ ))					#Por lo que queda de memoria en la partición,
-			do
-				cad_tam_mem=${cad_tam_mem[@]}" "									#Añado espacios.
-			done
-			let mem_rep=mem_rep-${MEMORIA[${PARTS[$pa]}]}+${tam_par[$pa]}			#Actualizo la cantidad de memoria representada.
+				carac_impr=${#mem_rep}												#Actualizo los espacios que han ocupado el esribir la memoria usada.
+																						
+				let esp_rest_par=(${tam_par[$pa]}-memo_proc)*tam_unidad-carac_impr	#Calculo los espacios restantes de la partición.
+				for (( esp=0; esp<$esp_rest_par; esp++ ))							#Por lo que queda de memoria en la partición,
+				do
+					cad_tam_mem=${cad_tam_mem[@]}" "								#Añado espacios.
+				done
+				let mem_rep=mem_rep-memo_proc+${tam_par[$pa]}						#Actualizo la cantidad de memoria representada.
+			fi
 		else 																		#Si no tiene un proceso,
-			for (( esp=0; esp<${tam_par[$pa]}*$tam_unidad; esp++ ))					#Por lo que ocupe lapartición,		
+			let esp_rest_par=${tam_par[$pa]}*tam_unidad-${#mem_rep}					#Calculo los espacios restantes de la partición.
+			for (( esp=0; esp<$(($esp_rest_par)); esp++ ))							#Por lo que ocupe lapartición,		
 			do
 				cad_tam_mem=${cad_tam_mem[@]}" "									#Añado espacios.
 			done
+			let mem_rep=mem_rep+${tam_par[$pa]}										#Actualizo la cantidad de memoria representada.
 		fi
 		if [[ $pa -ne $(($n_par-1)) ]]												#Si no es la última partición,
 		then										
@@ -2992,6 +3001,7 @@ tabla_ejecucion()
 	echo -e "    |${cad_tam_mem[@]}" >> informeCOLOR.txt
 	echo -e "    |${cad_tam_mem[@]}" >> informeBN.txt
 	cad_tam_mem=""
+	mem_rep=0
 		
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -3214,7 +3224,7 @@ calcula_espacios()
 			CARACTERESMEM[$contespacios3]=$charmem
 		fi
 
-		ESPACIOSMEM[$contespacios3]=$(($espacios_mayormem_tabla - ${CARACTERESMEM[$contespacios1]}))
+		ESPACIOSMEM[$contespacios3]=$(($espacios_mayormem_tabla-${CARACTERESMEM[$contespacios1]}))
 	done
 }
 
@@ -3327,20 +3337,20 @@ actualizar_ltsec()
 		#Separacion inicial
 		if [[ $fuera_sist == $num_proc ]]
 		then
-			for(( k = 0; k < ${T_ENTRADA[0]}; k++ ))
+			for(( k=0; k<${T_ENTRADA[0]}; k++ ))
 			do
-				for(( l = 0; l < 3; l++ ))
+				for(( l=0; l<3; l++ ))
 				do
 					cad2b=$cad2b" -"
 					cad2bbn=$cad2bbn" -"
 					let saltocad=saltocad+1
 				done
-				if [[ $k == 0 ]]
+				if [[ $k -eq 0 ]]
 				then
 					cad3b=$cad3b" - - -"
 					let saltocad=saltocad+1
 				else
-					for(( l = 0; l < 3; l++ ))
+					for(( l=0; l<3; l++ ))
 					do
 						cad3b=$cad3b" -"
 						let saltocad=saltocad+1
@@ -3349,7 +3359,7 @@ actualizar_ltsec()
 			done
 		elif [[ -z $proc_actual ]]
 		then
-			if [[ $nulcontrol == 0 ]]
+			if [[ $nulcontrol -eq 0 ]]
 			then
 				if [[ $tiempo_transcurrido -le 9 ]]
 				then
@@ -3367,14 +3377,14 @@ actualizar_ltsec()
 					t3="${vart:2:3}"
 					cad3b=$cad3b"$t1-$t2-$t3-"
 				fi
-				for((l = 0; l < 3; l++))
+				for(( l=0; l<3; l++ ))
 				do
 					cad2b=$cad2b" -"
 					cad2bbn=$cad2bbn" -"
 				done
 				let saltocadc=saltocadc+3
 			else
-				for((l = 0; l < 3; l++))
+				for(( l=0; l<3; l++ ))
 				do
 					cad2b=$cad2b" -"
 					cad2bbn=$cad2bbn" -"
@@ -3434,9 +3444,9 @@ actualizar_ltsec()
 	IFS='-' read -r -a cad2bnarray <<< "$cad2bbn"
 	IFS='-' read -r -a cad3array <<< "$cad3b"
 
-	constb=$(( $saltocad / $columnas ))
+	let constb=saltocad/columnas
 	const1b=0
-	constc=$(( $saltocadc / $columnas ))
+	let constc=saltocadc/columnas
 	const1c=0
 
 	while [ $const1b -le $constb ]
@@ -3531,9 +3541,9 @@ inicializar()
 		EJEC[$xp]=0
 	done
 
-	for (( i = 0; i < $n_par; i++ ))
+	for (( pa=0; pa<$n_par; pa++ ))
 	do
-		PARTS[$i]=-1
+		PARTS[$pa]=-1
 	done
 }
 
@@ -3714,7 +3724,7 @@ algoritmob()
 	tabla_ejecucion
 	actualizar_linea
 	tablapvez=0
-	tiempo_transcurrido=$(( $tiempo_transcurrido + ${T_ENTRADA[0]} ))
+	tiempo_transcurrido=$(($tiempo_transcurrido+${T_ENTRADA[0]}))
 
 	#El bucle se repite hasta que no queden procesos por ejecutar
 	while [ $procesos_terminados -lt $num_proc ]
@@ -3876,22 +3886,22 @@ echo "		> ROUND ROBIN" >> informeCOLOR.txt
 echo "		> ROUND ROBIN" >> informeBN.txt
 
 #Condicional que determinará el guardado de los datos manuales
-if [ $opcion_guardado == "1" ]
+if [[ $opcion_guardado -eq 1 ]]
 then
 		meterAfichero datos
 fi
-if [ $opcion_guardado == "2" ]
+if [[ $opcion_guardado -eq 2 ]]
 then
 		meterAfichero "$nombre_fichero"
 fi
 
 #Condicionales que determinarán el guardado de los datos manuales aleatorios
-if [ $opcion_guardado_aleatorio_datos == "1" ]
+if [[ $opcion_guardado_aleatorio_datos -eq 1 ]]
 then
 		meterAfichero datos
 fi
 
-if [ $opcion_guardado_aleatorio_datos == "2" ]
+if [[ $opcion_guardado_aleatorio_datos -eq 2 ]]
 then
 		meterAfichero "$nombre_fichero"
 fi
