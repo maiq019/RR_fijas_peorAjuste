@@ -194,7 +194,7 @@ lee_datos() {
 		echo $dat_fich >> informeBN.txt
 	done
 
-	clear
+	#clear
 	#Introducción de datos a mano
 	#He agrupado en el mismo if la selección de guardado y la introducción/lectura de datos.
 	if [ "${dat_fich}" == "1" ]
@@ -260,7 +260,7 @@ lee_datos() {
 	#Entrada por otros ficheros.
 	if [ $dat_fich = '3' ] 
 	then
-		clear
+		#clear
 		#Como ahora los otros ficheros de datos también terminan en .txt se eliminan los informes y el archivo últimos de la búsqueda.
 		ls | grep .txt | grep -v informeBN.txt | grep -v informeCOLOR.txt | grep -v datosrangos.txt | grep -v RNG* > listado.temp
 	
@@ -335,7 +335,7 @@ lee_datos() {
 			read nombre_fichero_aleatorio
 		fi
 
-		clear
+		#clear
 		imprime_cabecera
 		echo  " ¿Dónde guardar los datos?"
 		echo  " ¿Dónde guardar los datos?" >> informeCOLOR.txt
@@ -388,7 +388,7 @@ lee_datos() {
 	#Lectura de otros ficheros con datos aleatorios
 	if [ $dat_fich = '6' ] 
 	then 
-		clear
+		#clear
 		ls | grep RNG* | grep -v datos.txt  > listado.temp
 		ls | grep datosrangos.txt | grep -v datos.txt  >> listado.temp
 
@@ -489,7 +489,7 @@ lectura_dat_particiones()
 
 	#Se piden las particiones y su tamaño junto al quantum.
 	#Lectura del numero de particiones.
-	clear
+	#clear
 	imprime_cabecera
 	imprime_info_datos
 	echo -n " Introduzca numero de particiones: "
@@ -517,7 +517,7 @@ lectura_dat_particiones()
 	#He modificado esta entrada de datos para particiones no iguales, pidiendo el tamaño de cada una de las particiones.
 	for ((p=0; p < $n_par; p++))
 	{
-		clear
+		#clear
 		imprime_cabecera
 		imprime_info_datos
 		echo -ne " Introduce tamaño de la partición $(($p+1)): "
@@ -545,7 +545,7 @@ lectura_dat_particiones()
 	###  QUANTUM  ###
 
 	#Lectura del quantum.
-	clear
+	#clear
 	imprime_cabecera
 	imprime_info_datos
 	echo -n " Introduce el quantum de ejecución: "
@@ -569,7 +569,7 @@ lectura_dat_particiones()
 		echo $quantum >> informeBN.txt
 	done
 
-	clear
+	#clear
 	imprime_cabecera
 	imprime_info_datos
 }
@@ -613,7 +613,6 @@ lectura_dat_procesos()
 		#He añadido una explicación más detallada del error de introducción de opción.
 		while ! mayor_cero $entrada
 		do
-			clear
 			echo " Entrada no válida, por favor introduce un número natural mayor que cero"
 			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
 			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
@@ -774,7 +773,7 @@ lectura_dat_particiones_aleatorias()
 {
 	###  NÚMERO DE PARTICIONES MÍNIMO  ###
 
-	clear
+	#clear
 	imprime_cabecera
 	imprime_info_datos_aleatorios
 	echo -n " Introduzca numero de particiones mínimo: "
@@ -800,7 +799,7 @@ lectura_dat_particiones_aleatorias()
 
 	###  NÚMERO DE PARTICIONES MÁXIMO  ###
 
-	clear
+	#clear
 	imprime_cabecera
 	imprime_info_datos_aleatorios
 	echo -n " Introduzca numero de particiones máximo: "
@@ -844,7 +843,7 @@ lectura_dat_particiones_aleatorias()
 
 	###  TAMAÑO DE PARTICIONES MÍNIMO  ###
 
-	clear
+	#clear
 	imprime_cabecera
 	imprime_info_datos_aleatorios
 	echo -n " Introduce tamaño de particiones mínimo: "
@@ -870,7 +869,7 @@ lectura_dat_particiones_aleatorias()
 
 	###  TAMAÑO DE PARTICIONES MÁXIMO  ###
 
-	clear
+	#clear
 	imprime_cabecera
 	imprime_info_datos_aleatorios
 	echo -n " Introduce tamaño de particiones máximo: "
@@ -917,7 +916,7 @@ lectura_dat_particiones_aleatorias()
 
 	###  QUÁNTUM MÍNIMO  ###
 
-	clear
+	#clear
 	imprime_cabecera
 	imprime_info_datos_aleatorios		
 	echo -n " Introduce el quantum de ejecución mínimo: "
@@ -943,7 +942,7 @@ lectura_dat_particiones_aleatorias()
 
 	###  QUÁNTUM MÁXIMO  ###
 
-	clear
+	#clear
 	imprime_cabecera
 	imprime_info_datos_aleatorios
 	echo -n " Introduce el quantum de ejecución máximo: "
@@ -985,7 +984,7 @@ lectura_dat_particiones_aleatorias()
 	#Asignación aleatoria del quántum en el rango.
 	quantum=`shuf -i $quantum_min-$quantum_max -n 1`
 
-	clear
+	#clear
 	imprime_cabecera
 	imprime_info_datos_aleatorios
 }
@@ -1637,7 +1636,7 @@ escribe_datos_informe()
 ### Función para elegir el modo de ejecución del algoritmo.
 modo_ejecucion()
 {
-	clear
+	#clear
 	imprime_cabecera
 	echo " 1- Por eventos (Intro)"
 	echo " 2- Automática (Tras n segundos)"
@@ -1660,7 +1659,7 @@ modo_ejecucion()
 		done
 	fi
 
-	clear
+	#clear
 }
 
 
@@ -1671,7 +1670,7 @@ imprimir_tabla_procesos()
 	#color=(cyan, pink, dark blue, purple, green, red)
 	color=(96 95 94 35 92 91)
 
-	clear
+	#clear
 	imprime_cabecera
 	imprime_info_datos
 
@@ -1712,7 +1711,7 @@ imprimir_tabla_RNG()
 	#color=(cyan, pink, dark blue, purple, green, red)
 	color=(96 95 94 35 92 91)
 	
-	clear
+	#clear
 	imprime_cabecera
 	imprime_info_datos_aleatorios
 
@@ -2805,7 +2804,92 @@ tabla_ejecucion()
 	echo ""
 	echo "" >> informeCOLOR.txt
 	echo "" >> informeBN.txt
+
+	actualizar_bm
+
+	for (( i = 0, j = 0; i <= $const, j <= $constb; i++, j++ ))
+	do
+		#Comandos que ajustan las 3 lineas verticales del final de la barra de tiempo
+		if [[ $primvez = 0 ]]
+		then
+			cadtiempo[$j]=" | T=$tiempo_transcurrido"
+			cadtiempo2[$j]=" |"
+			cadtiempobn[$j]=" | T=$tiempo_transcurrido"
+			cadtiempo2bn[$j]=" |"
+			cadtiempo3[$j]=" |"
+		fi
+
+		if [[ $primvez = 1 ]]
+		then
+			cadtiempo[$j]=${cad[$j]}"    | T=$tiempo_transcurrido"
+			cadtiempo2[$j]=${cad2[$j]}" |"
+			cadtiempobn[$j]=${cadbn[$j]}"    | T=$tiempo_transcurrido"
+			cadtiempo2bn[$j]=${cad2bn[$j]}" |"
+			cadtiempo3[$j]=${cad3[$j]}" |"
+		fi
+
+		#Representacion de la Barra de tiempo
+		if [[ $i == 0 ]]
+		then
+			echo -e "    |${cadtiempo2[$j]}"
+			echo -e "    |${cadtiempo2[$j]}" >> informeCOLOR.txt
+			echo -e "    |${cadtiempo2bn[$i]}" >> informeBN.txt
+		else
+			echo -e "     ${cadtiempo2[$j]}"
+			echo -e "     ${cadtiempo2[$j]}" >> informeCOLOR.txt
+			echo -e "     ${cadtiempo2bn[$i]}" >> informeBN.txt
+		fi
+
+		if [[ $i == 0 ]]
+		then
+			echo -e " BT |${cadtiempo[$i]}"
+			echo -e " BT |${cadtiempo[$i]}" >> informeCOLOR.txt
+			echo -e " BT |${cadtiempobn[$i]}" >> informeBN.txt
+		else
+			echo -e "     ${cadtiempo[$i]}"
+			echo -e "     ${cadtiempo[$i]}" >> informeCOLOR.txt
+			echo -e "     ${cadtiempobn[$i]}" >> informeBN.txt
+		fi
+
+		if [[ $i == 0 ]]
+		then
+			echo -e "    |${cadtiempo3[$j]}"
+			echo -e "    |${cadtiempo3[$j]}" >> informeCOLOR.txt
+			echo -e "    |${cadtiempo3[$j]}" >> informeBN.txt
+		else
+			echo -e "     ${cadtiempo3[$j]}"
+			echo -e "     ${cadtiempo3[$j]}" >> informeCOLOR.txt
+			echo -e "     ${cadtiempo3[$j]}" >> informeBN.txt
+		fi
+	done
+
+	for(( i = 0; i < 20; i++ ))
+	do
+		cad[$i]=""
+		cad2[$i]=""
+		cad3[$i]=""
+	done
 	
+	echo ""
+	echo "---------------------------------------------------------" >> informeCOLOR.txt
+	echo "---------------------------------------------------------" >> informeBN.txt
+	#Toma de decisión de cómo se va a actualizar el siguiente evento en función de lo elegido
+	if [ $opcion_ejecucion == 1 ]
+	then
+		read -p " Pulsa Intro para continuar"
+
+	fi
+
+	if [ $opcion_ejecucion == 2 ]
+	then
+		echo " El siguiente evento ocurrirá en $segundos_evento segundos..."
+		sleep $segundos_evento
+	fi
+	primvez=1
+}
+
+actualizar_bm()
+{	
 	#Variable que guarda el tamaño del espacio representado en la barra por cada unidad de memoria.
 	tam_unidad=3
 
@@ -2821,44 +2905,47 @@ tabla_ejecucion()
 	#Cadena de cuadrados en blanco y negro en la BM.
 	cad_mem_byn=""
 
-	#Cadena de los tamaños de memoria en la BM.
-	cad_tam_mem=""
+	#Cadena de la cantidad de memoria en la BM.
+	cad_can_mem=""
 
 	#Variable para contar la memoria representada.
 	mem_rep=0
 
-	#Espacio de separación.
-	cad_espacio=" "
-
-	#Variable que indica cuántos procesos están fuera del sistema.
-	fuera_sist=0
-
 	#Columnas que quedan en la consola a la derecha de la barra inicial en la BM.
-	columnas_bm=$(( $(tput cols) - 5 ))
+	let columnas_bm=$(tput cols)-5
 
-	#Cadena de cuadrados de colores de la BT.
-	cad_col_bt=0
-
-	#Cadena de procesos de la BT.
-	cad_proc_bt=0
-
-	#Cadena de tiempo de la BT.
-	cad_tem_bt=0
-
-	#Caracteres de justificado de la cadena de particiones.
-	carac_just_cad_part=0
-
-	#Caracteres de justificado de la cadena de cuadrados. 
-	carac_just_cad_cua=0
-
-	#Caracteres de justificado de la cadena de procesos.
-	carac_just_cad_proc=0
-
-	#Caracteres de justificado de la cadena de tamaño de la memoria.
-	carac_just_cad_mem=0 
 		
 	for ((pa=0; pa<$n_par; pa++))
 	do
+		if [[ ${tam_par[$pa]} -gt $columnas_bm ]]						#Si la partición va a ocupar más de lo que queda de pantalla,
+		then
+			echo -e "    |${cad_particiones[@]}"						#Represento lo que llevo de barra de memoria.
+			echo -e "    |${cad_particiones[@]}" >> informeCOLOR.txt
+			echo -e "    |${cad_particiones[@]}" >> informeBN.txt
+
+			echo -e "    |${cad_proc_bm[@]}"
+			echo -e "    |${cad_proc_bm[@]}" >> informeCOLOR.txt
+			echo -e "    |${cad_proc_bm[@]}" >> informeBN.txt
+
+			echo -e " BM |${cad_mem_col[@]}"
+			echo -e " BM |${cad_mem_col[@]}" >> informeCOLOR.txt
+			echo -e " BM |${cad_mem_byn[@]}" >> informeBN.txt
+
+			echo -e "    |${cad_can_mem[@]}"
+			echo -e "    |${cad_can_mem[@]}" >> informeCOLOR.txt
+			echo -e "    |${cad_can_mem[@]}" >> informeBN.txt
+
+			cad_particiones=""											#Reseteo las cadenas.
+			cad_proc_bm=""
+			cad_mem_col=""
+			cad_mem_byn=""
+			cad_can_mem=""
+
+			let columnas_bm=$(tput cols)-5 								#Reseteo el numero de columnas que quedan en la pantalla.
+		else 															#Si no va a ocupar más,
+			let columnas_bm=columnas_bm-${tam_par[$pa]}-1				#Actualizo las columnas que quedan restando lo que ocupa la partición y un espacio o barra final.
+		fi		 			
+
 
 		## Montaje de la cadena de particiones en la barra de memoria.
 		cad_particiones=${cad_particiones[@]}"Part $(($pa+1))" 	#Añado el numero de la partición.
@@ -2915,11 +3002,11 @@ tabla_ejecucion()
 			memo_rest=$((${tam_par[$pa]} - ${MEMORIA[${PROC[$pa]}]}))			#Calculo la memoria restante de la partición.
 			for (( esp=0; esp<$(($memo_rest*$tam_unidad)); esp++ ))				#Por lo que queda de memoria en la partición,
 			do
-				cad_mem_col=${cad_mem_col[@]}"\u2588"							#Añado 3 cuadrados blancos hasta completar la partición.
+				cad_mem_col=${cad_mem_col[@]}"\u2588"							#Añado cuadrados blancos.
 				cad_mem_byn=${cad_mem_byn[@]}"\u2588"
 			done
 		else 																	#Si no tiene un proceso,
-			for (( esp=0; esp<${tam_par[$pa]}*$tam_unidad; esp++ ))				#Por lo que ocupe lapartición,		
+			for (( esp=0; esp<${tam_par[$pa]}*$tam_unidad; esp++ ))				#Por lo que ocupe la partición,		
 			do
 				cad_mem_col=${cad_mem_col[@]}"\u2588"							#Añado cuadrados blancos.
 				cad_mem_byn=${cad_mem_byn[@]}"\u2588"
@@ -2934,29 +3021,29 @@ tabla_ejecucion()
 			cad_mem_byn=${cad_mem_byn[@]}"| M=$memoria_total"
 		fi
 		
-		## Montaje de la cadena de memoria en la barra de memoria.
-		cad_tam_mem=${cad_tam_mem[@]}"$mem_rep"										#Añado la memoria que se ha usado hasta el momento.
+		## Montaje de la cadena de cantidad de memoria en la barra de memoria.
+		cad_can_mem=${cad_can_mem[@]}"$mem_rep"										#Añado la memoria que se ha usado hasta el momento.
 		if [[ ${PROC[$pa]} -ne -1 ]]												#Si tiene un proceso,
 		then
 			memo_proc=${MEMORIA[${PROC[$pa]}]}										#Guardo la memoria del proceso en una variable para facilitar su uso.
 			carac_impr=${#mem_rep}													#Guardo en una variable los espacios que ha ocupado el escribir la memoria usada.
-			let esp_rest_proc=memo_proc*tam_unidad-carac_impr						#Calculo el espacio que ocupa el proceso menos los caracteres usados al escribir la memoria usada.
+			let esp_rest_proc=memo_proc*tam_unidad-${#mem_rep}						#Calculo el espacio que ocupa el proceso menos los caracteres usados al escribir la memoria usada.
 			for (( tam_pr=0; tam_pr<$esp_rest_proc; tam_pr++ ))						#Por cada espacio hasta el punto que ocupa el proceso,
 			do
-				cad_tam_mem=${cad_tam_mem[@]}" "									#Añado un espacio.
+				cad_can_mem=${cad_can_mem[@]}" "									#Añado un espacio.
 			done
 			let mem_rep=mem_rep+memo_proc											#Actualizo la cantidad de memoria representada.
 
 			if [[ $memo_proc -lt ${tam_par[$pa]} ]]									#Si el proceso no ocupa toda la partición,
 			then
-				cad_tam_mem=${cad_tam_mem[@]}"$mem_rep"								#Añado la cifra de memoria que se ha representado.
+				cad_can_mem=${cad_can_mem[@]}"$mem_rep"								#Añado la cifra de memoria que se ha representado.
 
 				carac_impr=${#mem_rep}												#Actualizo los espacios que han ocupado el esribir la memoria usada.
 																						
-				let esp_rest_par=(${tam_par[$pa]}-memo_proc)*tam_unidad-carac_impr	#Calculo los espacios restantes de la partición.
+				let esp_rest_par=(${tam_par[$pa]}-memo_proc)*tam_unidad-${#mem_rep}	#Calculo los espacios restantes de la partición.
 				for (( esp=0; esp<$esp_rest_par; esp++ ))							#Por lo que queda de memoria en la partición,
 				do
-					cad_tam_mem=${cad_tam_mem[@]}" "								#Añado espacios.
+					cad_can_mem=${cad_can_mem[@]}" "								#Añado espacios.
 				done
 				let mem_rep=mem_rep-memo_proc+${tam_par[$pa]}						#Actualizo la cantidad de memoria representada.
 			fi
@@ -2964,168 +3051,104 @@ tabla_ejecucion()
 			let esp_rest_par=${tam_par[$pa]}*tam_unidad-${#mem_rep}					#Calculo los espacios restantes de la partición.
 			for (( esp=0; esp<$(($esp_rest_par)); esp++ ))							#Por lo que ocupe lapartición,		
 			do
-				cad_tam_mem=${cad_tam_mem[@]}" "									#Añado espacios.
+				cad_can_mem=${cad_can_mem[@]}" "									#Añado espacios.
 			done
 			let mem_rep=mem_rep+${tam_par[$pa]}										#Actualizo la cantidad de memoria representada.
 		fi
 		if [[ $pa -ne $(($n_par-1)) ]]												#Si no es la última partición,
 		then										
-			cad_tam_mem=${cad_tam_mem[@]}" "										#Añado un espacio adicional entre particiones.
+			cad_can_mem=${cad_can_mem[@]}" "										#Añado un espacio adicional entre particiones.
 		else 
-			cad_tam_mem=${cad_tam_mem[@]}"|"										#Si es la última, añado una barra.
+			cad_can_mem=${cad_can_mem[@]}"|"										#Si es la última, añado una barra.
 		fi
 	done
 	
 	## Representacion de la Barra de Memoria.
-	#Reseteo las cadenas para calcular la próxima representación.
 	echo -e "    |${cad_particiones[@]}"
 	echo -e "    |${cad_particiones[@]}" >> informeCOLOR.txt
 	echo -e "    |${cad_particiones[@]}" >> informeBN.txt
-	cad_particiones=""
 
 	echo -e "    |${cad_proc_bm[@]}"
 	echo -e "    |${cad_proc_bm[@]}" >> informeCOLOR.txt
 	echo -e "    |${cad_proc_bm[@]}" >> informeBN.txt
-	cad_proc_bm=""
 
 	echo -e " BM |${cad_mem_col[@]}"
 	echo -e " BM |${cad_mem_col[@]}" >> informeCOLOR.txt
 	echo -e " BM |${cad_mem_byn[@]}" >> informeBN.txt
-	cad_mem_col=""
-	cad_mem_byn=""
 
-	echo -e "    |${cad_tam_mem[@]}"
-	echo -e "    |${cad_tam_mem[@]}" >> informeCOLOR.txt
-	echo -e "    |${cad_tam_mem[@]}" >> informeBN.txt
-	cad_tam_mem=""
-	mem_rep=0
+	echo -e "    |${cad_can_mem[@]}"
+	echo -e "    |${cad_can_mem[@]}" >> informeCOLOR.txt
+	echo -e "    |${cad_can_mem[@]}" >> informeBN.txt
 		
 	echo ""
 	echo "" >> informeCOLOR.txt
 	echo "" >> informeBN.txt
+}
 
-	for (( i = 0, j = 0; i <= $const, j <= $constb; i++, j++ ))
-	do
+actualizar_bt()
+{
+	#Variable que guarda el tamaño del espacio representado en la barra por cada unidad de memoria.
+	tam_unidad=3
+
+	#Cadena de procesos en la BT.
+	cad_proc_bt=""
+
+	#Cadena de cuadrados de colores en la BT.
+	cad_tie_col=""
+
+	#Cadena de cuadrados en blanco y negro en la BT.
+	cad_tie_byn=""
+
+	#Cadena de la cantidad de tiempo en la BT.
+	cad_can_tie=""
+
+	#Variable para contar el tiempo representada.
+	tie_rep=0
+
+	#Columnas que quedan en la consola a la derecha de la barra inicial en la BM.
+	let columnas_bt=$(tput cols)-5
 
 
-	#Comandos que ajustan las 3 lineas verticales del final de la barra de tiempo
-	if [[ $primvez = 0 ]]
-	then
-
-	cadtiempo[$j]=" | T=$tiempo_transcurrido"
-	cadtiempo2[$j]=" |"
-	cadtiempobn[$j]=" | T=$tiempo_transcurrido"
-	cadtiempo2bn[$j]=" |"
-	cadtiempo3[$j]=" |"
-	fi
-
-	if [[ $primvez = 1 ]]
-	then
-	cadtiempo[$j]=${cad[$j]}"    | T=$tiempo_transcurrido"
-	cadtiempo2[$j]=${cad2[$j]}" |"
-	cadtiempobn[$j]=${cadbn[$j]}"    | T=$tiempo_transcurrido"
-	cadtiempo2bn[$j]=${cad2bn[$j]}" |"
-	cadtiempo3[$j]=${cad3[$j]}" |"
-	fi
-
-		#Representacion de la Barra de tiempo
-	if [[ $i == 0 ]]
-	then
-		echo -e "    |${cadtiempo2[$j]}"
-		echo -e "    |${cadtiempo2[$j]}" >> informeCOLOR.txt
-		echo -e "    |${cadtiempo2bn[$i]}" >> informeBN.txt
-	else
-		echo -e "     ${cadtiempo2[$j]}"
-		echo -e "     ${cadtiempo2[$j]}" >> informeCOLOR.txt
-		echo -e "     ${cadtiempo2bn[$i]}" >> informeBN.txt
-	fi
-		if [[ $i == 0 ]]
-		then
-			echo -e " BT |${cadtiempo[$i]}"
-			echo -e " BT |${cadtiempo[$i]}" >> informeCOLOR.txt
-			echo -e " BT |${cadtiempobn[$i]}" >> informeBN.txt
-		else
-			echo -e "     ${cadtiempo[$i]}"
-			echo -e "     ${cadtiempo[$i]}" >> informeCOLOR.txt
-			echo -e "     ${cadtiempobn[$i]}" >> informeBN.txt
-		fi
-
-	if [[ $i == 0 ]]
-	then
-		echo -e "    |${cadtiempo3[$j]}"
-		echo -e "    |${cadtiempo3[$j]}" >> informeCOLOR.txt
-		echo -e "    |${cadtiempo3[$j]}" >> informeBN.txt
-	else
-		echo -e "     ${cadtiempo3[$j]}"
-		echo -e "     ${cadtiempo3[$j]}" >> informeCOLOR.txt
-		echo -e "     ${cadtiempo3[$j]}" >> informeBN.txt
-	fi
-	done
-
-	for(( i = 0; i < 20; i++ ))
-	do
-		cad[$i]=""
-		cad2[$i]=""
-		cad3[$i]=""
-	done
-	
-	echo ""
-	echo "---------------------------------------------------------" >> informeCOLOR.txt
-	echo "---------------------------------------------------------" >> informeBN.txt
-	#Toma de decisión de cómo se va a actualizar el siguiente evento en función de lo elegido
-	if [ $opcion_ejecucion == 1 ]
-	then
-		read -p " Pulsa Intro para continuar"
-
-	fi
-
-	if [ $opcion_ejecucion == 2 ]
-	then
-		echo " El siguiente evento ocurrirá en $segundos_evento segundos..."
-		sleep $segundos_evento
-
-	fi
-	primvez=1
 }
 
 ### Función que calcula el mayor dato de todos los procesos para cada dato (por ejemplo el mayor tiempo de llegada de 12 procesos) para ajustar la tabla a los datos introducidos.
 mayor_dato_procesos()
 {
-	for (( contadortll = 0; contadortll < num_proc; contadortll++))
-	do
-		if [[ $contadortll == 0 ]]
-		then
-			mayortll=${T_ENTRADA_I[0]}
-		fi
-		if [[ $mayortll -lt ${T_ENTRADA_I[$contadortll]} ]]
-		then
-			mayortll=${T_ENTRADA_I[$contadortll]}
-		fi
-	done
+	mayortll=0
+	mayortej=0
+	mayormem=0
 
-	for (( contadortej = 0; contadortej < num_proc; contadortej++))
+	for (( pr=0; pr<$num_proc; pr++ ))
 	do
-		if [[ $contadortej == 0 ]]
+		#Tiempo de llegada.
+		if [[ $mayortll -lt ${T_ENTRADA_I[$pr]} ]]
 		then
-			mayortej=${PROCESOS_I[0]}
+			mayortll=${T_ENTRADA_I[$pr]}
 		fi
-		if [[ $mayortej -lt ${PROCESOS_I[$contadortej]} ]]
-		then
-			mayortej=${PROCESOS_I[$contadortej]}
-		fi
-	done
 
-	for (( contadormem = 0; contadormem < num_proc; contadormem++))
-	do
-		if [[ $contadormem == 0 ]]
+		#Tiempo de ejecución.
+		if [[ $mayortej -lt ${PROCESOS_I[$pr]} ]]
 		then
-			mayormem=${MEMORIA_I[0]}
+			mayortej=${PROCESOS_I[$pr]}
 		fi
-		if [[ $mayormem -lt ${MEMORIA_I[$contadormem]} ]]
+
+		#Espacio en memoria.
+		if [[ $mayormem -lt ${MEMORIA_I[$pr]} ]]
 		then
-			mayormem=${MEMORIA_I[$contadormem]}
+			mayormem=${MEMORIA_I[$pr]}
 		fi
 	done
+}
+
+### Calcula la memoria total de las particiones.
+memoria_total()
+{
+	memoria_total=0
+	for tp in "${tam_par[@]}"
+	do
+		let memoria_total=memoria_total+$tp
+	done
+	#return $memoria_total
 }
 
 ### Función que calcula el número de espacios en base a las cifras para una tabla equilibrada.
@@ -3749,12 +3772,12 @@ algoritmob()
 			then
 				if [[ $nulcontrol == 0 ]]
 				then
-					clear
+					#clear
 					tabla_ejecucion
 					nulcontrol=1
 				fi
 			else
-				clear
+				#clear
 				tabla_ejecucion
 				nulcontrol=0
 			fi
@@ -3800,7 +3823,7 @@ then
 fi
 
 #Inicio del script (Con alumno nuevo 2022) para los 2 informes.
-clear
+#clear
 echo "---------------------------------------------------------------------" >> informeCOLOR.txt
 echo "|                                                                   |" >> informeCOLOR.txt
 echo "|                         INFORME DE PRÁCTICA                       |" >> informeCOLOR.txt
@@ -3879,51 +3902,38 @@ echo "" >> informeBN.txt
 
 imprime_cabecera
 lee_datos
-clear
+#clear
 echo "		> ROUND ROBIN" >> informeCOLOR.txt
 echo "		> ROUND ROBIN" >> informeBN.txt
 
-#Condicional que determinará el guardado de los datos manuales
-if [[ $opcion_guardado -eq 1 ]]
+#Guardado incondicional en datosLast.txt.
+meterAFichero datosLast
+
+#Condicional que determinará el guardado de los datos manuales.
+if [[ $opcion_guardado -eq 1 || $opcion_guardado_aleatorio_datos -eq 1 ]]
 then
 		meterAfichero datos
 fi
-if [[ $opcion_guardado -eq 2 ]]
+if [[ $opcion_guardado -eq 2 || $opcion_guardado_aleatorio_datos -eq 2 ]]
 then
 		meterAfichero "$nombre_fichero"
 fi
-
-#Condicionales que determinarán el guardado de los datos manuales aleatorios
-if [[ $opcion_guardado_aleatorio_datos -eq 1 ]]
-then
-		meterAfichero datos
-fi
-
-if [[ $opcion_guardado_aleatorio_datos -eq 2 ]]
-then
-		meterAfichero "$nombre_fichero"
-fi
-
-if [[ $opcion_guardado_aleatorio == "1" ]] || [[ $nombre_fichero_aleatorio == "datosrangos" ]]
+if [[ $opcion_guardado_aleatorio -eq 1 ]] || [[ $nombre_fichero_aleatorio == "datosrangos" ]]
 then
 		meterAficheroAleatorio datosrangos
 fi
 
-if [[ $opcion_guardado_aleatorio == "2" ]] && [[ $nombre_fichero_aleatorio != "datosrangos" ]]
+if [[ $opcion_guardado_aleatorio -eq 2 ]] && [[ $nombre_fichero_aleatorio != "datosrangos" ]]
 then
 		meterAficheroAleatorio "$nombre_fichero_aleatorio"
 fi
 
 datos_aux #Copia los datos
 mayor_dato_procesos #Calcula el mayor dato
-memoria_total=0
-for tp in "${tam_par[@]}"
-do
-	let memoria_total=memoria_total+$tp
-done
+memoria_total
 calcula_espacios #Calcula los espacios para la tabla
 algoritmob #Algoritmo principal
-clear
+#clear
 ultvez=1
 tabla_ejecucion
 
