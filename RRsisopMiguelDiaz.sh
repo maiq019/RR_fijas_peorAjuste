@@ -457,22 +457,24 @@ escribe_enunciado()
 	#He añadido un comentario con los colores usados en el código, y acortado el array de colores repetidos dado que su funcionamiento es cíclico.
 	#color=(cyan, purple, blue, green, red)
 	color=(96 95 94 92 91)
-	for(( c = 0, pr = 1; pr <= $num_proc; c++, pr++ ))
+	for(( c = 0, pr = 0; pr < $num_proc; c++, pr++ ))
 	do
 		if [[ $c -gt 4 ]] #Si se sale del array de colores, vuelve al primero.
 		then
 			c=0
 		fi
 
+
+
 		echo -ne "                \e[${color[$c]}mP" >> informeCOLOR.txt
-		printf "%02d " "${PROC[$pr]}" >> informeCOLOR.txt
+		printf "%02d " "$(($pr+1))" >> informeCOLOR.txt
 		printf "%3s " "${T_ENTRADA[$pr]}" >> informeCOLOR.txt
 		printf "%3s " "${TEJ[$pr]}" >> informeCOLOR.txt
 		printf "%3s " "${MEMORIA[$pr]}" >> informeCOLOR.txt
 		echo -e "$resetColor" >> informeCOLOR.txt
 
 		echo -ne "                P" >> informeBN.txt
-		printf "%02d " "${PROC[$pr]}" >> informeBN.txt
+		printf "%02d " "$(($pr+1))" >> informeBN.txt
 		printf "%3s " "${T_ENTRADA[$pr]}" >> informeBN.txt
 		printf "%3s " "${TEJ[$pr]}" >> informeBN.txt
 		printf "%3s " "${MEMORIA[$pr]}" >> informeBN.txt
@@ -1908,12 +1910,11 @@ solucion_impresa()
 inicio_particiones()
 {
 	vacias=0
-	#Función modificada para que aparezca un - en la particion de memoria de un proceso cuando este ha terminado de ejecutarse
 	for (( pr=0; pr<$num_proc; pr++ ))
 	do
 		if [[ ${ESTADO[$pr]} == "Terminado" ]]
 		then
-			PART[$pr]="-"
+			PART[$pr]=-1
 		fi
 	done
 
@@ -1923,17 +1924,6 @@ inicio_particiones()
 		then
 			PROC[$pa]=-1
 		fi
-
-		for (( pr=0; pr<$num_proc; pr++ ))
-		do
-			if [[ ${EN_MEMO[$pr]} == "Si" ]] && [[ ${PART[$pr]} == "" ]] && [[ ${PROC[$pa]} -eq -1 ]] && [[ ${tam_par[$pa]} -ge ${MEMORIA[$pr]} ]]
-			then
-				PROC[$pa]=$pr
-				PART[$pr]=$pa
-				NUMPART[$pr]=$pa
-				continue 2
-			fi
-		done
 
 		if [[ ${PROC[$pa]} -eq -1 ]]
 		then
@@ -2252,9 +2242,16 @@ tabla_ejecucion()
 		printf "%4s" "${TREJ[$xp]}" >> informeCOLOR.txt
 		echo -ne "\e[0m" >> informeCOLOR.txt
 
+
+		if [[ PART[$xp] -eq -1 ]]
+		then
+			part_displ="-"
+		else 
+			let part_displ=${PART[$xp]}+1
+		fi
 		printf " │ " >> informeCOLOR.txt
 		echo -ne "\e[${color[$colimp]}m" >> informeCOLOR.txt
-		printf "%4s" "${PART[$xp]}" >> informeCOLOR.txt
+		printf "%4s" "$part_displ" >> informeCOLOR.txt
 		echo -ne "\e[0m" >> informeCOLOR.txt
 
 		printf " │ " >> informeCOLOR.txt
@@ -2452,8 +2449,14 @@ tabla_ejecucion()
 		printf " │ " >> informeBN.txt
 		printf "%4s" "${TREJ[$xp]}" >> informeBN.txt
 
+		if [[ PART[$xp] -eq -1 ]]
+		then
+			part_displ="-"
+		else 
+			let part_displ=${PART[$xp]}+1
+		fi
 		printf " │ " >> informeBN.txt
-		printf "%4s" "${PART[$xp]}" >> informeBN.txt
+		printf "%4s" "$part_displ" >> informeBN.txt
 
 		printf " │ " >> informeBN.txt
 		if [[ ${ESTADO[$xp]} == "Ejecucion" ]]
@@ -2676,9 +2679,15 @@ tabla_ejecucion()
 		printf "%4s" "${TREJ[$xp]}"
 		echo -ne "\e[0m"
 
+		if [[ PART[$xp] -eq -1 ]]
+		then
+			part_displ="-"
+		else 
+			let part_displ=${PART[$xp]}+1
+		fi
 		printf " │ "
 		echo -ne "\e[${color[$colimp]}m"
-		printf "%4s" "${PART[$xp]}"
+		printf "%4s" "$part_displ"
 		echo -ne "\e[0m"
 
 		printf " │ "
@@ -3157,17 +3166,17 @@ actualizar_bt_try()
 	fi
 
 	## Representación de la Barra de Tiempo.
-	echo -e "${cab_cad_bt[@]}${cad_proc_bt[@]}${fin_cad_bt[@]}"
-	echo -e "${cab_cad_bt[@]}${cad_proc_bt[@]}${fin_cad_bt[@]}" >> informeCOLOR.txt
-	echo -e "${cab_cad_bt[@]}${cad_proc_bt[@]}${fin_cad_bt[@]}" >> informeBN.txt
+	echo -e "    |${cad_proc_bt[@]}|"
+	echo -e "    |${cad_proc_bt[@]}|" >> informeCOLOR.txt
+	echo -e "    |${cad_proc_bt[@]}|" >> informeBN.txt
 
-	echo -e "${cab_cad_tie[@]}${cad_tie_col[@]}${fin_cad_tie[@]}"
-	echo -e "${cab_cad_tie[@]}${cad_tie_col[@]}${fin_cad_tie[@]}" >> informeCOLOR.txt
-	echo -e "${cab_cad_tie[@]}${cad_tie_byn[@]}${fin_cad_tie[@]}" >> informeBN.txt
+	echo -e " BT |${cad_tie_col[@]}|T=$tiempo_transcurrido"
+	echo -e " BT |${cad_tie_col[@]}|T=$tiempo_transcurrido" >> informeCOLOR.txt
+	echo -e " BT |${cad_tie_byn[@]}|T=$tiempo_transcurrido" >> informeBN.txt
 
-	echo -e "${cab_cad_bt[@]}${cad_can_tie[@]}${fin_cad_bt[@]}"
-	echo -e "${cab_cad_bt[@]}${cad_can_tie[@]}${fin_cad_bt[@]}" >> informeCOLOR.txt
-	echo -e "${cab_cad_bt[@]}${cad_can_tie[@]}${fin_cad_bt[@]}" >> informeBN.txt
+	echo -e "    |${cad_can_tie[@]}|"
+	echo -e "    |${cad_can_tie[@]}|" >> informeCOLOR.txt
+	echo -e "    |${cad_can_tie[@]}|" >> informeBN.txt
 
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -3660,55 +3669,48 @@ inicializar()
 }
 
 
-
-
-
 ### Meter en memoria un proceso.
 meterenmemoVIEJO()
 {
 	for(( xp = 0; xp < $num_proc; xp++ ))
 	do
-		if [[ $vacias -gt 0 ]]
+		if [[ $vacias -gt 0 ]] && [[ ${TIEMPO[$xp]} != 0 ]] && [[ $tiempo_transcurrido -ge ${T_ENTRADA[$xp]} ]] && [[ ${EN_MEMO[$xp]} == "S/E" ]]
 		then
-			if [[ ${TIEMPO[$xp]} != 0 ]] && [[ $tiempo_transcurrido -ge ${T_ENTRADA[$xp]} ]] && [[ ${EN_MEMO[$xp]} == "S/E" ]] 
-			then
-				EN_MEMO[$xp]="Si"
-				let valor=valor+1
-				let vacias=vacias-1
-			elif [[ $tiempo_transcurrido -lt ${T_ENTRADA[$xp]} ]]
-			then
-				EN_MEMO[$xp]="S/E"
-			fi
+			EN_MEMO[$xp]="Si"
+			let vacias=vacias-1
 		fi
 	done
 }
 
-### Comprueba y mete un proceso en memoria.
+### Comprueba y mete un proceso en memoria al peor ajuste.
 meterenmemo()
 {
-	for(( pr=0; pr<$num_proc; pr++ ))
+	mayor_tam_par=0
+	part_vacia_may=-1
+	for (( pa=0; pa<n_par; pa++ ))												#Busco la particion vacía más grande.
 	do
-		if [[ $vacias -gt 0 ]]
+		if [[ ${PROC[$pa]} -eq -1 ]] && [[ ${tam_par[$pa]} -gt  $mayor_tam_par ]] 
 		then
-			if [[ ${TIEMPO[$pr]} != 0 ]] && [[ $tiempo_transcurrido -ge ${T_ENTRADA[$pr]} ]] && [[ ${EN_MEMO[$pr]} == "S/E" ]] 
-			then
-				for (( pa=0; pa<n_par; pa++ ))
-				do
-					if [[ ${PROC[$pa]} -eq -1 ]] && [[ ${MEMORIA[$pr]} -le ${tam_par[$pa]} ]]
-					then
-						EN_MEMO[$pr]="Si"
-						let valor=valor+1
-						let vacias=vacias-1
-					else
-						EN_MEMO[$pr]="S/E"
-					fi
-				done
-			elif [[ $tiempo_transcurrido -lt ${T_ENTRADA[$pr]} ]]
-			then
-				EN_MEMO[$pr]="S/E"
-			fi
+			mayor_tam_par=${tam_par[$pa]}
+			part_vacia_may=$pa
 		fi
 	done
+
+	echo "mayor particion vacia: P0$part_vacia_may"
+
+	if [[ $part_vacia_may -ne -1 ]]												#Si existe, será la que recoja el proceso.
+	then
+		for(( pr=0; pr<$num_proc; pr++ ))
+		do
+			#Si el proceso puede entrar en memoria y cabe en la partición mayor,
+			if [[ ${TIEMPO[$pr]} != 0 ]] && [[ $tiempo_transcurrido -ge ${T_ENTRADA[$pr]} ]] && [[ ${EN_MEMO[$pr]} == "S/E" ]] && [[ ${MEMORIA[$pr]} -le $mayor_tam_par ]]
+			then
+				EN_MEMO[$pr]="Si"												#Cambia el estado del proceso.
+				PART[$pr]=$part_vacia_may 										#Asigna la partición al proceso.
+				PROC[$pa]=$pr 													#Asigna el proceso a la partición.
+			fi
+		done
+	fi
 }
 
 ### Asigna los estados a los procesos.
@@ -3859,30 +3861,6 @@ algoritmob()
 		asignar_estados
 		comparar_estados
 		actualizar_ltsec
-
-		#Cabecera de la cadena de procesos y cantidad de tiempo en la BT.
-		cab_cad_bt="    |"
-
-		#Cabecera de la cadena de cuadrados en la BT.
-		cab_cad_tie=" BT |"
-
-		#Cadena de procesos en la BT.
-		cad_proc_bt=""
-
-		#Cadena de cuadrados de colores en la BT.
-		cad_tie_col=""
-
-		#Cadena de cuadrados en blanco y negro en la BT.
-		cad_tie_byn=" "
-
-		#Cadena de la cantidad de tiempo en la BT.
-		cad_can_tie=""
-
-		#Final de la cadena de procesos y cantidad de tiempo en la BT.
-		fin_cad_bt="|"
-
-		#Final de la cadena de cuadrados en la BT.
-		fin_cad_tie="|T=$tiempo_transcurrido"
 
 		#actualizar_bt_try
 
