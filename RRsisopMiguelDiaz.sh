@@ -2911,7 +2911,7 @@ actualizar_bm()
 	#Variable para contar la memoria representada.
 	mem_rep=0
 
-	shopt -s checkwinsize
+	#shopt -s checkwinsize
 
 	#Columnas que quedan en la consola a la derecha de la barra inicial en la BM.
 	columnas_bm=$(($(tput cols)-5))
@@ -2920,11 +2920,9 @@ actualizar_bm()
 	for ((pa=0; pa<$n_par; pa++))
 	do
 		let ocup_par=${tam_par[$pa]}*tam_unidad
-		if [[ $ocup_par -gt $columnas_bm ]]								#Si la partición va a ocupar más de lo que queda de pantalla,
+		if [[ $ocup_par -gt $columnas_bm ]]							#Si la partición va a ocupar más de lo que queda de pantalla,
 		then
-			echo -e "tam_par: $ocup_par, espacio pantalla: $columnas_bm"
-			echo -e "no cabe"
-			echo -e "${cad_particiones[@]}"								#Represento lo que llevo de barra de memoria.
+			echo -e "${cad_particiones[@]}"							#Represento lo que llevo de barra de memoria.
 			echo -e "${cad_particiones[@]}" >> informeCOLOR.txt
 			echo -e "${cad_particiones[@]}" >> informeBN.txt
 
@@ -2940,18 +2938,14 @@ actualizar_bm()
 			echo -e "${cad_can_mem[@]}" >> informeCOLOR.txt
 			echo -e "${cad_can_mem[@]}" >> informeBN.txt
 
-			cad_particiones=" "											#Reseteo las cadenas.
+			cad_particiones=" "										#Reseteo las cadenas.
 			cad_proc_bm=" "
 			cad_mem_col=" "
 			cad_mem_byn=" "
 			cad_can_mem=" "
-
-			columnas_bm=$(($(tput cols)-5)) 							#Reseteo las columnas que quedan libres.
-		else 															#Si no va a ocupar más,
-			echo -e "tam_par: $ocup_par, espacio pantalla: $columnas_bm"
-			echo -e "si cabe"
+			columnas_bm=$(($(tput cols)-5)) 						#Reseteo las columnas que quedan libres.
 		fi
-		let columnas_bm=columnas_bm-ocup_par-1							#Actualizo las columnas que quedan restando lo que ocupa la partición y un espacio o barra final.
+		let columnas_bm=columnas_bm-ocup_par-2						#Actualizo las columnas que quedan restando lo que ocupa la partición, un espacio al principio y un espacio o barra final.
 
 
 		## Montaje de la cadena de particiones en la barra de memoria.
@@ -3024,8 +3018,8 @@ actualizar_bm()
 			cad_mem_col=${cad_mem_col[@]}" "									#Añado un espacio adicional entre particiones.
 			cad_mem_byn=${cad_mem_byn[@]}" "
 		else 
-			cad_mem_col=${cad_mem_col[@]}"| M=$memoria_total"					#Si es la última, añado una barra y la memoria total.
-			cad_mem_byn=${cad_mem_byn[@]}"| M=$memoria_total"
+			cad_mem_col=${cad_mem_col[@]}"|"									#Si es la última, añado una barra y la memoria total.
+			cad_mem_byn=${cad_mem_byn[@]}"|"
 		fi
 		
 		## Montaje de la cadena de cantidad de memoria en la barra de memoria.
@@ -3069,7 +3063,37 @@ actualizar_bm()
 			cad_can_mem=${cad_can_mem[@]}"|"										#Si es la última, añado una barra.
 		fi
 	done
-	
+
+	let ocup_mem_total=4+${#memoria_total}					#Calculo lo que ocupa escribir la memoria total.
+	if [[ $ocup_mem_total -gt $columnas_bm ]]				#Si va a ocupar más de lo que queda de pantalla,
+	then
+		echo -e "${cad_particiones[@]}"						#Represento lo que llevo de barra de memoria.
+		echo -e "${cad_particiones[@]}" >> informeCOLOR.txt
+		echo -e "${cad_particiones[@]}" >> informeBN.txt
+
+		echo -e "${cad_proc_bm[@]}"
+		echo -e "${cad_proc_bm[@]}" >> informeCOLOR.txt
+		echo -e "${cad_proc_bm[@]}" >> informeBN.txt
+
+		echo -e "${cad_mem_col[@]}"
+		echo -e "${cad_mem_col[@]}" >> informeCOLOR.txt
+		echo -e "${cad_mem_byn[@]}" >> informeBN.txt
+
+		echo -e "${cad_can_mem[@]}"
+		echo -e "${cad_can_mem[@]}" >> informeCOLOR.txt
+		echo -e "${cad_can_mem[@]}" >> informeBN.txt
+
+		cad_particiones=" "										#Añado el final de las cadenas.
+		cad_proc_bm=" "
+		cad_mem_col=" "
+		cad_mem_byn=" "
+		cad_can_mem=" "
+	fi
+
+	## Añado la memoria total a la cadena.
+	cad_mem_col=${cad_mem_col[@]}"M=$memoria_total"
+	cad_mem_byn=${cad_mem_byn[@]}"M=$memoria_total"
+
 	## Representacion de la Barra de Memoria.
 	echo -e "${cad_particiones[@]}"
 	echo -e "${cad_particiones[@]}" >> informeCOLOR.txt
