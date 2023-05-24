@@ -997,7 +997,7 @@ lectura_dat_procesos_aleatorios()
 	procesos_ejecutables=0 	#Número de procesos que entran en memoria y se pueden ejecutar en CPU
 
 	###  NÚMERO DE PROCESOS MÍNIMO  ###
-	imprimir_tabla_RNG
+	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce el número de procesos mínimo: "
 	echo -n " Introduce el número de procesos mínimo: " >> informeCOLOR.txt
 	echo -n " Introduce el número de procesos mínimo: " >> informeBN.txt
@@ -1021,7 +1021,7 @@ lectura_dat_procesos_aleatorios()
 
 	###  NÚMERO DE PROCESOS MÁXIMO  ###
 
-	imprimir_tabla_RNG
+	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce el número de procesos máximo: "
 	echo -n " Introduce el número de procesos máximo: " >> informeCOLOR.txt
 	echo -n " Introduce el número de procesos máximo: " >> informeBN.txt
@@ -1064,7 +1064,7 @@ lectura_dat_procesos_aleatorios()
 	###   TIEMPO DE LLEGADA MÍNIMO  ###
 
 	ordenacion_procesos
-	imprimir_tabla_RNG
+	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce el tiempo de llegada mínimo a CPU de los procesos: "
 	echo -n " Introduce el tiempo de llegada mínimo a CPU de los procesos: " >> informeCOLOR.txt
 	echo -n " Introduce el tiempo de llegada mínimo a CPU de los procesos: " >> informeBN.txt
@@ -1089,7 +1089,7 @@ lectura_dat_procesos_aleatorios()
 	###   TIEMPO DE LLEGADA MÁXIMO  ###
 
 	ordenacion_procesos
-	imprimir_tabla_RNG
+	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce el tiempo de llegada máximo a CPU de los procesos: "
 	echo -n " Introduce el tiempo de llegada máximo a CPU de los procesos: " >> informeCOLOR.txt
 	echo -n " Introduce el tiempo de llegada máximo a CPU de los procesos: " >> informeBN.txt
@@ -1129,7 +1129,7 @@ lectura_dat_procesos_aleatorios()
 	###  RÁFAGA MÍNIMA  ###
 
 	ordenacion_procesos
-	imprimir_tabla_RNG
+	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce la ráfaga mínima de CPU de los procesos: "
 	echo -n " Introduce la ráfaga mínima de CPU de los procesos: " >> informeCOLOR.txt
 	echo -n " Introduce la ráfaga mínima de CPU de los procesos: " >> informeBN.txt
@@ -1154,7 +1154,7 @@ lectura_dat_procesos_aleatorios()
 	###  RÁFAGA MÁXIMA  ###
 
 	ordenacion_procesos
-	imprimir_tabla_RNG
+	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce la ráfaga máxima de CPU de los procesos: "
 	echo -n " Introduce la ráfaga máxima de CPU de los procesos: " >> informeCOLOR.txt
 	echo -n " Introduce la ráfaga máxima de CPU de los procesos: " >> informeBN.txt
@@ -1207,7 +1207,7 @@ lectura_dat_procesos_aleatorios()
 	###  MEMORIA MÍNIMA  ###
 
 	ordenacion_procesos
-	imprimir_tabla_RNG
+	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce la memoria mínima de los procesos: "
 	echo -n " Introduce la memoria mínima de los procesos: " >> informeCOLOR.txt
 	echo -n " Introduce la memoria mínima de los procesos: " >> informeBN.txt
@@ -1249,7 +1249,7 @@ lectura_dat_procesos_aleatorios()
 	###  MEMORIA MÁXIMA  ###
 
 	ordenacion_procesos
-	imprimir_tabla_RNG
+	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce la memoria máxima de los procesos: "
 	echo -n " Introduce la memoria máxima de los procesos: " >> informeCOLOR.txt
 	echo -n " Introduce la memoria máxima de los procesos: " >> informeBN.txt
@@ -1301,7 +1301,7 @@ lectura_dat_procesos_aleatorios()
 	done
 
 	ordenacion_procesos
-	imprimir_tabla_RNG
+	imprimir_tabla_procesos_aleatorios
 
 	#Bucle que calcula los datos de los procesos con los rangos y los imprime antes de que comience la ejecución del algoritmo RR.
 	#He eliminado variables redundantes y cambiado los comandos de expr por let.
@@ -1310,7 +1310,7 @@ lectura_dat_procesos_aleatorios()
 		if [ $pr -gt 0 ] 	#Si hay algún proceso.
 		then 				#Imprime tabla con datos.
 			ordenacion_procesos
-			imprimir_tabla_RNG
+			imprimir_tabla_procesos_aleatorios
 		fi
 
 		#Asignación aleatoria del tiempo de entrada en el rango.
@@ -1337,9 +1337,6 @@ lectura_dat_procesos_aleatorios()
 		echo ${T_ENTRADA_I[$pr]} >> archivo.temp
 		echo ${EN_ESPERA_I[$pr]} >> archivo.temp
 
-		ordenacion_procesos
-		imprimir_tabla_RNG
-
 		#Asignación aleatoria de la ráfaga en el rango.
 		rafaga=`shuf -i $rafaga_min-$rafaga_max -n 1`
 		PROCESOS_I[$pr]=$rafaga  #Almacena la ráfaga del proceso
@@ -1349,9 +1346,6 @@ lectura_dat_procesos_aleatorios()
 		#Almacenamiento de datos en un archivo temporal
 		echo $rafaga >> archivo.temp
 
-		ordenacion_procesos
-		imprimir_tabla_RNG
-
 		#Asignación aleatoria de la memoria en el rango.
 		memo_proc=`shuf -i $memo_proc_min-$memo_proc_max -n 1`
 		MEMORIA_I[$pr]=$memo_proc
@@ -1360,7 +1354,7 @@ lectura_dat_procesos_aleatorios()
 		echo $memo_proc >> archivo.temp
 
 		ordenacion_procesos
-		imprimir_tabla_RNG
+		imprimir_tabla_procesos_aleatorios
 	done
 
 	#Si no hay procesos ejecutables, saca de espera al proceso con el menor tiempo de llegada y suma procesos ejecutables.
@@ -1617,49 +1611,41 @@ datos_fichTfich()
 }
 
 
-### Escribe las filas solución del informe.
-#He cambiado el comando expr por let.
-escribe_datos_informe()
+### Función para guardar datos en un fichero con nombre elegido (terminará en .txt).
+#He eliminado las funciones "meterAficheroUltimos" y "meterAficheroNuevo" y las he agrupado en ésta, dado que al seleccionar la opción ya se puede pasar como parámetro datos.txt.
+meterAfichero()
 {
-	let tiempo_final=tiempo_transcurrido - ${T_ENTRADA[$proc_actual]}
-	#Escritura del proceso terminado en la tabla del informe.
-	if [ $proc -lt '10' ]
-		then
-		echo "		  $proc   | $tiempo_final"	>> informeCOLOR.txt
-	else
-		echo "		  $proc  | $tiempo_final"	>> informeCOLOR.txt
-	fi
-	echo "		----------------" >> informeCOLOR.txt
+	#rm datos.txt (única diferencia entre métodos)
+	#Datos principales.
+	echo "Datos iniciales (Particiones Tamaño Quantum)" > "$1".txt
+	echo "$n_par ${tam_par[@]} $quantum" >> "$1".txt
+	echo "Procesos (T-Entrada Rafaga Memoria)" >> "$1".txt
+	#Bucle para meter los datos de cada proceso.
+	for(( pr=0; pr<$num_proc; pr++ ))
+	do
+		echo "${T_ENTRADA_I[$pr]} ${PROCESOS_I[$pr]} ${MEMORIA_I[$pr]}" >> "$1".txt
+	done
 }
 
 
-### Función para elegir el modo de ejecución del algoritmo.
-modo_ejecucion()
+### Función para guardar datos en un fichero con nombre elegido (terminará en RNG.txt para que no aparezca en los listados de ficheros no aleatorios).
+#He eliminado las funciones "meterAficheroUltimos_aleatorio" y "meterAficheroNuevo_aleatorio" y las he agrupado en ésta, dado que al seleccionar la opción ya se puede pasar como parámetro datos.txt.
+meterAficheroAleatorio()
 {
-	#clear
-	imprime_cabecera
-	echo " 1- Por eventos (Intro)"
-	echo " 2- Automática (Tras n segundos)"
-	echo " 3- Completa (Todo seguido)"
-	read -p " Modo de ejecución: " opcion_ejecucion
-
-	while [ "${opcion_ejecucion}" != 1 -a "${opcion_ejecucion}" != 2 -a "${opcion_ejecucion}" != 3 ]
-	do
-		read -p "Entrada no válida, Elige un modo de ejecución: " opcion_ejecucion
-	done
-
-	#Lectura de segundos introducidos por el usuario en caso de opción 2.
-	if [ "${opcion_ejecucion}" == 2 ]
-	then
-		read -p " Nº de segundos: " segundos_evento
-
-		while ! mayor_cero $segundos_evento
-		do
-			read -p " Entrada no válida, Introduce el número de segundos que debe pasar entre cada evento: " segundos_evento
-		done
-	fi
-
-	#clear
+	echo "Rangos del número de particiones" > "$1"RNG.txt
+	echo "$n_par_min $n_par_max" >> "$1"RNG.txt
+	echo "Rangos del tamaño de particiones" >> "$1"RNG.txt
+	echo "$tam_par_min $tam_par_max" >> "$1"RNG.txt
+	echo "Rangos del quantum" >> "$1"RNG.txt
+	echo "$quantum_min $quantum_max" >> "$1"RNG.txt
+	echo "Rango del número de procesos" >> "$1"RNG.txt
+	echo "$num_proc_min $num_proc_max" >> "$1"RNG.txt
+	echo "Rangos del tiempo de llegada)" >> "$1"RNG.txt
+	echo "$entrada_min $entrada_max" >> "$1"RNG.txt
+	echo "Rangos del tiempo de ejecución" >> "$1"RNG.txt
+	echo "$rafaga_min $rafaga_max" >> "$1"RNG.txt
+	echo "Rangos de la memoria de cada proceso" >> "$1"RNG.txt
+	echo "$memo_proc_min $memo_proc_max" >> "$1"RNG.txt
 }
 
 
@@ -1704,8 +1690,9 @@ imprimir_tabla_procesos()
 	done
 }
 
+
 ### Imprime los datos generados para los procesos introducidos hasta el momento.
-imprimir_tabla_RNG()
+imprimir_tabla_procesos_aleatorios()
 {
 	#He añadido un comentario con los colores usados en el código, y acortado el array de colores repetidos dado que su funcionamiento es cíclico.
 	#color=(cyan, pink, dark blue, purple, green, red)
@@ -1748,6 +1735,36 @@ imprimir_tabla_RNG()
 }
 
 
+### Función para elegir el modo de ejecución del algoritmo.
+modo_ejecucion()
+{
+	#clear
+	imprime_cabecera
+	echo " 1- Por eventos (Intro)"
+	echo " 2- Automática (Tras n segundos)"
+	echo " 3- Completa (Todo seguido)"
+	read -p " Modo de ejecución: " opcion_ejecucion
+
+	while [ "${opcion_ejecucion}" != 1 -a "${opcion_ejecucion}" != 2 -a "${opcion_ejecucion}" != 3 ]
+	do
+		read -p "Entrada no válida, Elige un modo de ejecución: " opcion_ejecucion
+	done
+
+	#Lectura de segundos introducidos por el usuario en caso de opción 2.
+	if [ "${opcion_ejecucion}" == 2 ]
+	then
+		read -p " Nº de segundos: " segundos_evento
+
+		while ! mayor_cero $segundos_evento
+		do
+			read -p " Entrada no válida, Introduce el número de segundos que debe pasar entre cada evento: " segundos_evento
+		done
+	fi
+
+	#clear
+}
+
+
 ### Ordena los procesos por tiempo de llegada.
 #He cambiado los comandos expr por let, y los he quitado de las asignaciones.
 ordenacion_procesos() 
@@ -1760,10 +1777,10 @@ ordenacion_procesos()
 			let caca=nn-1
 			if [ ${T_ENTRADA_I[$j]} -eq $caca ]
 			then
+				T_ENTRADA[$proceso]=${T_ENTRADA_I[$j]}
 				TEJ[$proceso]=${PROCESOS_I[$j]}
 				PROCESOS[$proceso]=${PROCESOS_I[$j]}
 				MEMORIA[$proceso]=${MEMORIA_I[$j]}
-				T_ENTRADA[$proceso]=${T_ENTRADA_I[$j]}
 				#EN_ESPERA[$proceso]=`expr ${EN_ESPERA_I[$j]}`
 				#QT_PROC[$proceso]=`expr ${QT_PROC_I[$j]}`
 				#PROC_ENAUX[$proceso]=`expr ${PROC_ENAUX_I[$j]}`
@@ -1886,16 +1903,7 @@ solucion_impresa()
 	echo " "
 }
 
-### Inicia una serie de datos de los procesos.
-inicio_estado()
-{
-	for(( pr=0 ; pr<$num_proc ; pr++ ))
-	do
-		ESTADO[$pr]="Fuera de Sistema"
-		EN_MEMO[$pr]="S/E"
-		TIEMPO_FIN[$pr]=0
-	done
-}
+
 
 inicio_particiones()
 {
@@ -2807,72 +2815,12 @@ tabla_ejecucion()
 
 	actualizar_bm
 
-	for (( i = 0, j = 0; i <= $const, j <= $constb; i++, j++ ))
-	do
-		#Comandos que ajustan las 3 lineas verticales del final de la barra de tiempo
-		if [[ $primvez = 0 ]]
-		then
-			cadtiempo[$j]=" | T=$tiempo_transcurrido"
-			cadtiempo2[$j]=" |"
-			cadtiempobn[$j]=" | T=$tiempo_transcurrido"
-			cadtiempo2bn[$j]=" |"
-			cadtiempo3[$j]=" |"
-		fi
+	actualizar_bt
 
-		if [[ $primvez = 1 ]]
-		then
-			cadtiempo[$j]=${cad[$j]}"    | T=$tiempo_transcurrido"
-			cadtiempo2[$j]=${cad2[$j]}" |"
-			cadtiempobn[$j]=${cadbn[$j]}"    | T=$tiempo_transcurrido"
-			cadtiempo2bn[$j]=${cad2bn[$j]}" |"
-			cadtiempo3[$j]=${cad3[$j]}" |"
-		fi
-
-		#Representacion de la Barra de tiempo
-		if [[ $i == 0 ]]
-		then
-			echo -e "    |${cadtiempo2[$j]}"
-			echo -e "    |${cadtiempo2[$j]}" >> informeCOLOR.txt
-			echo -e "    |${cadtiempo2bn[$i]}" >> informeBN.txt
-		else
-			echo -e "     ${cadtiempo2[$j]}"
-			echo -e "     ${cadtiempo2[$j]}" >> informeCOLOR.txt
-			echo -e "     ${cadtiempo2bn[$i]}" >> informeBN.txt
-		fi
-
-		if [[ $i == 0 ]]
-		then
-			echo -e " BT |${cadtiempo[$i]}"
-			echo -e " BT |${cadtiempo[$i]}" >> informeCOLOR.txt
-			echo -e " BT |${cadtiempobn[$i]}" >> informeBN.txt
-		else
-			echo -e "     ${cadtiempo[$i]}"
-			echo -e "     ${cadtiempo[$i]}" >> informeCOLOR.txt
-			echo -e "     ${cadtiempobn[$i]}" >> informeBN.txt
-		fi
-
-		if [[ $i == 0 ]]
-		then
-			echo -e "    |${cadtiempo3[$j]}"
-			echo -e "    |${cadtiempo3[$j]}" >> informeCOLOR.txt
-			echo -e "    |${cadtiempo3[$j]}" >> informeBN.txt
-		else
-			echo -e "     ${cadtiempo3[$j]}"
-			echo -e "     ${cadtiempo3[$j]}" >> informeCOLOR.txt
-			echo -e "     ${cadtiempo3[$j]}" >> informeBN.txt
-		fi
-	done
-
-	for(( i = 0; i < 20; i++ ))
-	do
-		cad[$i]=""
-		cad2[$i]=""
-		cad3[$i]=""
-	done
-	
 	echo ""
 	echo "---------------------------------------------------------" >> informeCOLOR.txt
 	echo "---------------------------------------------------------" >> informeBN.txt
+
 	#Toma de decisión de cómo se va a actualizar el siguiente evento en función de lo elegido
 	if [ $opcion_ejecucion == 1 ]
 	then
@@ -2891,7 +2839,7 @@ tabla_ejecucion()
 actualizar_bm()
 {	
 	#Variable que guarda el tamaño del espacio representado en la barra por cada unidad de memoria.
-	tam_unidad=3
+	tam_unidad_bm=3
 
 	#Cadena de particiones en la BM.
 	cad_particiones="    |"
@@ -2919,7 +2867,7 @@ actualizar_bm()
 		
 	for ((pa=0; pa<$n_par; pa++))
 	do
-		let ocup_par=${tam_par[$pa]}*tam_unidad
+		let ocup_par=${tam_par[$pa]}*tam_unidad_bm
 		if [[ $ocup_par -gt $columnas_bm ]]							#Si la partición va a ocupar más de lo que queda de pantalla,
 		then
 			echo -e "${cad_particiones[@]}"							#Represento lo que llevo de barra de memoria.
@@ -2949,16 +2897,16 @@ actualizar_bm()
 
 
 		## Montaje de la cadena de particiones en la barra de memoria.
-		cad_particiones=${cad_particiones[@]}"Part $(($pa+1))" 	#Añado el numero de la partición.
-		for (( esp=0; esp<(${tam_par[$pa]}*$tam_unidad-6); esp++ ))
+		cad_particiones=${cad_particiones[@]}"Part $(($pa+1))" 		#Añado el numero de la partición.
+		for (( esp=0; esp<(${tam_par[$pa]}*$tam_unidad_bm-6); esp++ ))
 		do
-			cad_particiones=${cad_particiones[@]}" "			#Añado espacios hasta completar el tamaño de la partición.
+			cad_particiones=${cad_particiones[@]}" "				#Añado espacios hasta completar el tamaño de la partición.
 		done
-		if [[ $pa -ne $(($n_par-1)) ]]							#Si no es la última partición,
+		if [[ $pa -ne $(($n_par-1)) ]]								#Si no es la última partición,
 		then										
-			cad_particiones=${cad_particiones[@]}" "			#Añado un espacio adicional entre particiones.
+			cad_particiones=${cad_particiones[@]}" "				#Añado un espacio adicional entre particiones.
 		else 
-			cad_particiones=${cad_particiones[@]}"|"			#Si es la última, añado una barra.
+			cad_particiones=${cad_particiones[@]}"|"				#Si es la última, añado una barra.
 		fi
 
 
@@ -2972,12 +2920,12 @@ actualizar_bm()
 				cad_proc_bm=${cad_proc_bm[@]}"P$((${PROC[$pa]}+1))"		#Añado el número del proceso sin ceros delante.
 			fi
 
-			for (( esp=0; esp<(${tam_par[$pa]}*$tam_unidad-3); esp++ ))	#Por cada hueco hasta completar la partición, (-3 porque se introdujeron 3 caracteres, PXX)
+			for (( esp=0; esp<(${tam_par[$pa]}*$tam_unidad_bm-3); esp++ ))	#Por cada hueco hasta completar la partición, (-3 porque se introdujeron 3 caracteres, PXX)
 			do
 				cad_proc_bm=${cad_proc_bm[@]}" "						#Añado espacios.
 			done
 		else 															#Si no tiene un proceso,
-			for (( esp=0; esp<${tam_par[$pa]}*$tam_unidad; esp++ ))		#Por cada hueco hasta completar la partición,
+			for (( esp=0; esp<${tam_par[$pa]}*$tam_unidad_bm; esp++ ))	#Por cada hueco hasta completar la partición,
 			do
 				cad_proc_bm=${cad_proc_bm[@]}" "						#Añado espacios.
 			done
@@ -2994,20 +2942,20 @@ actualizar_bm()
 		if [[ ${PROC[$pa]} -ne -1 ]]											#Si tiene un proceso,
 		then
 			memo_proc=${MEMORIA[${PROC[$pa]}]}									#Recupero lo que ocupa en memoria el proceso.
-			for (( mem_pr=0; mem_pr<$(($memo_proc*$tam_unidad)); mem_pr++ ))	#Por lo que ocupe en memoria el proceso,
+			for (( mem_pr=0; mem_pr<$(($memo_proc*$tam_unidad_bm)); mem_pr++ ))	#Por lo que ocupe en memoria el proceso,
 			do
 				cad_mem_col=${cad_mem_col[@]}"\e[${color[$colimp]}m\u2588\e[0m"	#Añado cuadrados de color a la cadena en color.
 				cad_mem_byn=${cad_mem_byn[@]}"\u2588"							#Añado cuadrados blancos a la cadena en blanco y negro.
 			done
 
 			memo_rest=$((${tam_par[$pa]} - ${MEMORIA[${PROC[$pa]}]}))			#Calculo la memoria restante de la partición.
-			for (( esp=0; esp<$(($memo_rest*$tam_unidad)); esp++ ))				#Por lo que queda de memoria en la partición,
+			for (( esp=0; esp<$(($memo_rest*$tam_unidad_bm)); esp++ ))			#Por lo que queda de memoria en la partición,
 			do
 				cad_mem_col=${cad_mem_col[@]}"\u2588"							#Añado cuadrados blancos.
 				cad_mem_byn=${cad_mem_byn[@]}"\u2588"
 			done
 		else 																	#Si no tiene un proceso,
-			for (( esp=0; esp<${tam_par[$pa]}*$tam_unidad; esp++ ))				#Por lo que ocupe la partición,		
+			for (( esp=0; esp<${tam_par[$pa]}*$tam_unidad_bm; esp++ ))			#Por lo que ocupe la partición,		
 			do
 				cad_mem_col=${cad_mem_col[@]}"\u2588"							#Añado cuadrados blancos.
 				cad_mem_byn=${cad_mem_byn[@]}"\u2588"
@@ -3028,7 +2976,7 @@ actualizar_bm()
 		then
 			memo_proc=${MEMORIA[${PROC[$pa]}]}										#Guardo la memoria del proceso en una variable para facilitar su uso.
 			carac_impr=${#mem_rep}													#Guardo en una variable los espacios que ha ocupado el escribir la memoria usada.
-			let esp_rest_proc=memo_proc*tam_unidad-${#mem_rep}						#Calculo el espacio que ocupa el proceso menos los caracteres usados al escribir la memoria usada.
+			let esp_rest_proc=memo_proc*tam_unidad_bm-${#mem_rep}					#Calculo el espacio que ocupa el proceso menos los caracteres usados al escribir la memoria usada.
 			for (( tam_pr=0; tam_pr<$esp_rest_proc; tam_pr++ ))						#Por cada espacio hasta el punto que ocupa el proceso,
 			do
 				cad_can_mem=${cad_can_mem[@]}" "									#Añado un espacio.
@@ -3041,7 +2989,7 @@ actualizar_bm()
 
 				carac_impr=${#mem_rep}												#Actualizo los espacios que han ocupado el esribir la memoria usada.
 																						
-				let esp_rest_par=(${tam_par[$pa]}-memo_proc)*tam_unidad-${#mem_rep}	#Calculo los espacios restantes de la partición.
+				let esp_rest_par=(${tam_par[$pa]}-memo_proc)*tam_unidad_bm-${#mem_rep}	#Calculo los espacios restantes de la partición.
 				for (( esp=0; esp<$esp_rest_par; esp++ ))							#Por lo que queda de memoria en la partición,
 				do
 					cad_can_mem=${cad_can_mem[@]}" "								#Añado espacios.
@@ -3049,7 +2997,7 @@ actualizar_bm()
 				let mem_rep=mem_rep-memo_proc+${tam_par[$pa]}						#Actualizo la cantidad de memoria representada.
 			fi
 		else 																		#Si no tiene un proceso,
-			let esp_rest_par=${tam_par[$pa]}*tam_unidad-${#mem_rep}					#Calculo los espacios restantes de la partición.
+			let esp_rest_par=${tam_par[$pa]}*tam_unidad_bm-${#mem_rep}				#Calculo los espacios restantes de la partición.
 			for (( esp=0; esp<$(($esp_rest_par)); esp++ ))							#Por lo que ocupe lapartición,		
 			do
 				cad_can_mem=${cad_can_mem[@]}" "									#Añado espacios.
@@ -3116,166 +3064,179 @@ actualizar_bm()
 	echo "" >> informeBN.txt
 }
 
+actualizar_bt_try()
+{
+	#Calculo el tamaño del espacio representado en la barra por cada unidad de tiempo en función del tamaño del mayor tiempo de entrada.
+	mas_tarde=0
+	for ((pr=0; pr<$num_proc; pr++ ))
+	do
+		if [[ ${T_ENTRADA[$pr]} -gt $mas_tarde ]]
+		then
+			mas_tarde=${T_ENTRADA[$pr]}
+			let mas_tarde=mas_tarde+${TEJ[$pr]}
+		fi
+	done
+	#Si va a haber procesos que lleven el tiempo a más de 3 cifras, se aumenta el tamaño de la unidad de tiempo.
+	if [[ ${#mas_tarde} -gt 3 ]]
+	then
+		tam_unidad_bt=${#mas_tarde}
+	fi
+
+	#Variable que cuenta los procesos que hay fuera del sistema.
+	fuera_sist=0
+
+	for((pr=0; pr<$num_proc; pr++))						#Bucle para contar los procesos fuera del sistema.
+	do
+		if [[ ${ESTADO[$pr]} == "Fuera de Sistema" ]]
+		then
+			let fuera_sist=fuera_sist+1
+		fi
+	done
+
+	if [[ $proc_actual -ge 5 ]] 						#Condicional para ajustar el color del proceso.
+	then
+		let colimp=proc_actual%5
+	else
+		colimp=$proc_actual
+	fi
+
+	#Esta función se ejecutará para cada unidad de tiempo.
+
+	## Montaje de la cadena de procesos en la barra de tiempo.
+	if [[ $fuera_sist -eq $num_proc || -z $proc_actual ]] 		#Si no hay ningún proceso en el sistema,
+	then
+		for (( n=0; n<$tam_unidad_bt; n++ ))					#Por lo que ocupe la unidad de tiempo en la barra,
+		do
+			cad_proc_bt=${cad_proc_bt[@]}" "					#Añado espacios.
+		done
+	else 														#Si hay un proceso,
+		if [[ $proc_actual -lt 9 ]]								#Si el proceso tiene un dígito,			
+		then				
+			cad_proc_bt=${cad_proc_bt[@]}"P0$(($proc_actual+1))" #Añado el proceso a la cadena de procesos con un cero delante.
+		else 													#Si tiene más dígitos,
+			cad_proc_bt=${cad_proc_bt[@]}"P$(($proc_actual+1))"	#Añado el proceso a la cadena de procesos sin el cero delante.
+		fi
+
+		for (( esp=0; esp<$tam_unidad_bt-3; esp++ ))			#Por lo que queda hasta acabar la unidad de tiempo (-3 porque se introdujeron 3 caracteres, PXX)
+		do
+			cad_proc_bt=${cad_proc_bt[@]}" "					#Añado espacios.
+		done
+	fi
+
+
+	## Montaje de la cadena de cuadros en la barra de tiempo.
+	if [[ $fuera_sist -eq $num_proc || -z $proc_actual ]] 						#Si no hay ningún proceso en el sistema,
+	then
+		for (( n=0; n<$tam_unidad_bt; n++ ))									#Por lo que ocupe cada unidad de tiempo en la barra,
+		do
+			cad_tie_col=${cad_tie_col[@]}"\u2588-"								#Añado cuadrados blancos.
+			cad_tie_byn=${cad_tie_byn[@]}"\u2588-"
+		done
+	else 																		#Si hay un proceso,
+		for (( n=0; n<$tam_unidad_bt; n++ ))									#Por lo que ocupe cada unidad de tiempo en la barra,
+		do
+			cad_tie_col=${cad_tie_col[@]}"\e[${color[$colimp]}m\u2588-\e[0m-"	#Añado cuadrados de color a la cadena en color.
+			cad_tie_byn=${cad_tie_byn[@]}"\u2588-"								#Añado cuadrados blancos a la cadena en blanco y negro.
+		done
+	fi
+
+
+	##Montaje de la cadena de cantidad de tiempo en la barra de tiempo.
+	if [[ $evento = 1 ]]													#Si hay un evento,
+	then
+		cad_can_tie=${cad_can_tie[@]}"$tiempo_transcurrido"					#Añado el tiempo transcurrido hasta el momento.
+		for (( n=0; n<$tam_unidad_bt-${#tiempo_transcurrido}; n++ ))		#Por lo que ocupe la unidad de tiempo en la barra menos lo que ocupó el escribir el tiempo,
+		do
+			cad_proc_bt=${cad_proc_bt[@]}" "								#Añado espacios.
+		done
+	else 																	#Si no hay evento,
+		for (( n=0; n<$tam_unidad_bt; n++ ))								#Por lo que ocupe la unidad de tiempo en la barra,
+		do
+			cad_proc_bt=${cad_proc_bt[@]}" "								#Añado espacios.
+		done
+	fi
+
+	## Representación de la Barra de Tiempo.
+	echo -e "${cab_cad_bt[@]}${cad_proc_bt[@]}${fin_cad_bt[@]}"
+	echo -e "${cab_cad_bt[@]}${cad_proc_bt[@]}${fin_cad_bt[@]}" >> informeCOLOR.txt
+	echo -e "${cab_cad_bt[@]}${cad_proc_bt[@]}${fin_cad_bt[@]}" >> informeBN.txt
+
+	echo -e "${cab_cad_tie[@]}${cad_tie_col[@]}${fin_cad_tie[@]}"
+	echo -e "${cab_cad_tie[@]}${cad_tie_col[@]}${fin_cad_tie[@]}" >> informeCOLOR.txt
+	echo -e "${cab_cad_tie[@]}${cad_tie_byn[@]}${fin_cad_tie[@]}" >> informeBN.txt
+
+	echo -e "${cab_cad_bt[@]}${cad_can_tie[@]}${fin_cad_bt[@]}"
+	echo -e "${cab_cad_bt[@]}${cad_can_tie[@]}${fin_cad_bt[@]}" >> informeCOLOR.txt
+	echo -e "${cab_cad_bt[@]}${cad_can_tie[@]}${fin_cad_bt[@]}" >> informeBN.txt
+
+	echo ""
+	echo "" >> informeCOLOR.txt
+	echo "" >> informeBN.txt
+}
+
 actualizar_bt()
 {
-	#Variable que guarda el tamaño del espacio representado en la barra por cada unidad de memoria.
-	tam_unidad=3
-
-	#Cadena de procesos en la BT.
-	cad_proc_bt=""
-
-	#Cadena de cuadrados de colores en la BT.
-	cad_tie_col=""
-
-	#Cadena de cuadrados en blanco y negro en la BT.
-	cad_tie_byn=""
-
-	#Cadena de la cantidad de tiempo en la BT.
-	cad_can_tie=""
-
-	#Variable para contar el tiempo representada.
-	tie_rep=0
-
-	#Columnas que quedan en la consola a la derecha de la barra inicial en la BM.
-	let columnas_bt=$(tput cols)-5
-
-
-}
-
-### Función que calcula el mayor dato de todos los procesos para cada dato (por ejemplo el mayor tiempo de llegada de 12 procesos) para ajustar la tabla a los datos introducidos.
-mayor_dato_procesos()
-{
-	mayortll=0
-	mayortej=0
-	mayormem=0
-
-	for (( pr=0; pr<$num_proc; pr++ ))
+	for (( i = 0, j = 0; i <= $const, j <= $constb; i++, j++ ))
 	do
-		#Tiempo de llegada.
-		if [[ $mayortll -lt ${T_ENTRADA_I[$pr]} ]]
+		#Comandos que ajustan las 3 lineas verticales del final de la barra de tiempo
+		if [[ $primvez = 0 ]]
 		then
-			mayortll=${T_ENTRADA_I[$pr]}
+			cadtiempo[$j]="|T=$tiempo_transcurrido"
+			cadtiempo2[$j]="|"
+			cadtiempobn[$j]="|T=$tiempo_transcurrido"
+			cadtiempo2bn[$j]="|"
+			cadtiempo3[$j]="|"
 		fi
 
-		#Tiempo de ejecución.
-		if [[ $mayortej -lt ${PROCESOS_I[$pr]} ]]
+		if [[ $primvez = 1 ]]
 		then
-			mayortej=${PROCESOS_I[$pr]}
+			cadtiempo[$j]=${cad[$j]}"\u2588-\u2588-\u2588-|T=$tiempo_transcurrido"
+			cadtiempo2[$j]=${cad2[$j]}"|"
+			cadtiempobn[$j]=${cadbn[$j]}"\u2588-\u2588-\u2588-|T=$tiempo_transcurrido"
+			cadtiempo2bn[$j]=${cad2bn[$j]}"|"
+			cadtiempo3[$j]=${cad3[$j]}"|"
 		fi
 
-		#Espacio en memoria.
-		if [[ $mayormem -lt ${MEMORIA_I[$pr]} ]]
+		#Representacion de la Barra de tiempo
+		if [[ $i == 0 ]]
 		then
-			mayormem=${MEMORIA_I[$pr]}
-		fi
-	done
-}
-
-### Calcula la memoria total de las particiones.
-memoria_total()
-{
-	memoria_total=0
-	for tp in "${tam_par[@]}"
-	do
-		let memoria_total=memoria_total+$tp
-	done
-	#return $memoria_total
-}
-
-### Función que calcula el número de espacios en base a las cifras para una tabla equilibrada.
-#He modificado la parte de las particiones para tener en cuenta que se muestra el tamaño de cada partición mas un espacio.
-calcula_espacios()
-{
-
-	espacios_n_par=${#n_par}
-
-	if [[ $espacios_n_par == 1 ]] || [[ $espacios_n_par == 2 ]] || [[ $espacios_n_par == 3 ]] || [[ $espacios_n_par == 4 ]]
-	then
-		espacios_n_par_tabla=4
-	else
-		espacios_n_par_tabla=$espacios_n_par
-	fi
-
-	let espacios_tam_par=${#tam_par[@]}*2
-	espacios_quantum=${#quantum}
-	espacios_mayortll=${#mayortll}
-
-	if [[ $espacios_mayortll == 1 ]] || [[ $espacios_mayortll == 2 ]] || [[ $espacios_mayortll == 3 ]]
-	then
-		espacios_mayortll_tabla=3
-	else
-		espacios_mayortll_tabla=$espacios_mayortll
-	fi
-
-	espacios_mayormem=${#mayormem}
-
-	if [[ $espacios_mayormem == 1 ]] || [[ $espacios_mayormem == 2 ]] || [[ $espacios_mayortej == 3 ]]
-	then
-		espacios_mayormem_tabla=3
-	else
-		espacios_mayormem_tabla=$espacios_mayormem
-	fi
-
-	espacios_mayortej=${#mayortej}
-
-	if [[ $espacios_mayortej == 1 ]] || [[ $espacios_mayortej == 2 ]] || [[ $espacios_mayormem == 3 ]]
-	then
-		espacios_mayortej_tabla=3
-	else
-		espacios_mayortej_tabla=$espacios_mayortej
-	fi
-
-	espacios_num_proc=${#num_proc}
-
-	if [[ $espacios_num_proc == 1 ]] || [[ $espacios_num_proc == 2 ]]
-	then
-		espacios_num_proc_tabla=2
-	else
-		espacios_num_proc_tabla=$espacios_num_proc
-	fi
-		
-	espacios_memoria_total=${#memoria_total}
-
-	for((contespacios1 = 0; contespacios1 < num_proc; contespacios1++))
-	do
-		chartll=${#T_ENTRADA_I[contespacios1]}
-
-		if [[ $chartll == 1 ]] || [[ $chartll == 2 ]] || [[ $chartll == 3 ]]
-		then
-			CARACTERESTLL[$contespacios1]=3
+			echo -e "    |${cadtiempo2[$j]}"
+			echo -e "    |${cadtiempo2[$j]}" >> informeCOLOR.txt
+			echo -e "    |${cadtiempo2bn[$i]}" >> informeBN.txt
 		else
-			CARACTERESTLL[$contespacios1]=$chartll
+			echo -e "     ${cadtiempo2[$j]}"
+			echo -e "     ${cadtiempo2[$j]}" >> informeCOLOR.txt
+			echo -e "     ${cadtiempo2bn[$i]}" >> informeBN.txt
 		fi
 
-		ESPACIOSTLL[$contespacios1]=$(($espacios_mayortll_tabla - ${CARACTERESTLL[$contespacios1]}))
+		if [[ $i == 0 ]]
+		then
+			echo -e " BT |${cadtiempo[$i]}"
+			echo -e " BT |${cadtiempo[$i]}" >> informeCOLOR.txt
+			echo -e " BT |${cadtiempobn[$i]}" >> informeBN.txt
+		else
+			echo -e "     ${cadtiempo[$i]}"
+			echo -e "     ${cadtiempo[$i]}" >> informeCOLOR.txt
+			echo -e "     ${cadtiempobn[$i]}" >> informeBN.txt
+		fi
+
+		if [[ $i == 0 ]]
+		then
+			echo -e "    |${cadtiempo3[$j]}"
+			echo -e "    |${cadtiempo3[$j]}" >> informeCOLOR.txt
+			echo -e "    |${cadtiempo3[$j]}" >> informeBN.txt
+		else
+			echo -e "     ${cadtiempo3[$j]}"
+			echo -e "     ${cadtiempo3[$j]}" >> informeCOLOR.txt
+			echo -e "     ${cadtiempo3[$j]}" >> informeBN.txt
+		fi
 	done
 
-	for((contespacios2 = 0; contespacios2 < num_proc; contespacios2++))
+	for(( i = 0; i < 20; i++ ))
 	do
-		chartej=${#PROCESOS_I[contespacios2]}
-
-		if [[ $chartej == 1 ]] || [[ $chartej == 2 ]] || [[ $chartej == 3 ]]
-		then
-			CARACTERESTEJ[$contespacios2]=3
-		else
-			CARACTERESTEJ[$contespacios2]=$chartej
-		fi
-
-		ESPACIOSTEJ[$contespacios2]=$(($espacios_mayortej_tabla - ${CARACTERESTEJ[$contespacios2]}))
-	done
-
-	for((contespacios3 = 0; contespacios3 < num_proc; contespacios3++))
-	do
-		charmem=${#MEMORIA_I[contespacios3]}
-
-		if [[ $charmem == 1 ]] || [[ $charmem == 2 ]] || [[ $charmem == 3 ]]
-		then
-			CARACTERESMEM[$contespacios3]=3
-		else
-			CARACTERESMEM[$contespacios3]=$charmem
-		fi
-
-		ESPACIOSMEM[$contespacios3]=$(($espacios_mayormem_tabla-${CARACTERESMEM[$contespacios1]}))
+		cad[$i]=""
+		cad2[$i]=""
+		cad3[$i]=""
 	done
 }
 
@@ -3533,70 +3494,174 @@ actualizar_ltsec()
 	then
 		EJEC[$proc_actual]=1
 	fi
-
 }
 
 
-### Función para guardar datos en un fichero con nombre elegido (terminará en .txt).
-#He eliminado las funciones "meterAficheroUltimos" y "meterAficheroNuevo" y las he agrupado en ésta, dado que al seleccionar la opción ya se puede pasar como parámetro datos.txt.
-meterAfichero()
+### Función que calcula el mayor dato de todos los procesos para cada dato (por ejemplo el mayor tiempo de llegada de 12 procesos) para ajustar la tabla a los datos introducidos.
+mayor_dato_procesos()
 {
-	#rm datos.txt (única diferencia entre métodos)
-	#Datos principales.
-	echo "Datos iniciales (Particiones Tamaño Quantum)" > "$1".txt
-	echo "$n_par ${tam_par[@]} $quantum" >> "$1".txt
-	echo "Procesos (T-Entrada Rafaga Memoria)" >> "$1".txt
-	#Bucle para meter los datos de cada proceso.
-	for(( pr=0; pr<$num_proc; pr++ ))
+	mayortll=0
+	mayortej=0
+	mayormem=0
+
+	for (( pr=0; pr<$num_proc; pr++ ))
 	do
-		echo "${T_ENTRADA_I[$pr]} ${PROCESOS_I[$pr]} ${MEMORIA_I[$pr]}" >> "$1".txt
+		#Tiempo de llegada.
+		if [[ $mayortll -lt ${T_ENTRADA_I[$pr]} ]]
+		then
+			mayortll=${T_ENTRADA_I[$pr]}
+		fi
+
+		#Tiempo de ejecución.
+		if [[ $mayortej -lt ${PROCESOS_I[$pr]} ]]
+		then
+			mayortej=${PROCESOS_I[$pr]}
+		fi
+
+		#Espacio en memoria.
+		if [[ $mayormem -lt ${MEMORIA_I[$pr]} ]]
+		then
+			mayormem=${MEMORIA_I[$pr]}
+		fi
 	done
 }
 
-
-### Función para guardar datos en un fichero con nombre elegido (terminará en RNG.txt para que no aparezca en los listados de ficheros no aleatorios).
-#He eliminado las funciones "meterAficheroUltimos_aleatorio" y "meterAficheroNuevo_aleatorio" y las he agrupado en ésta, dado que al seleccionar la opción ya se puede pasar como parámetro datos.txt.
-meterAficheroAleatorio()
+### Calcula la memoria total de las particiones.
+memoria_total()
 {
-	echo "Rangos del número de particiones" > "$1"RNG.txt
-	echo "$n_par_min $n_par_max" >> "$1"RNG.txt
-	echo "Rangos del tamaño de particiones" >> "$1"RNG.txt
-	echo "$tam_par_min $tam_par_max" >> "$1"RNG.txt
-	echo "Rangos del quantum" >> "$1"RNG.txt
-	echo "$quantum_min $quantum_max" >> "$1"RNG.txt
-	echo "Rango del número de procesos" >> "$1"RNG.txt
-	echo "$num_proc_min $num_proc_max" >> "$1"RNG.txt
-	echo "Rangos del tiempo de llegada)" >> "$1"RNG.txt
-	echo "$entrada_min $entrada_max" >> "$1"RNG.txt
-	echo "Rangos del tiempo de ejecución" >> "$1"RNG.txt
-	echo "$rafaga_min $rafaga_max" >> "$1"RNG.txt
-	echo "Rangos de la memoria de cada proceso" >> "$1"RNG.txt
-	echo "$memo_proc_min $memo_proc_max" >> "$1"RNG.txt
+	memoria_total=0
+	for tp in "${tam_par[@]}"
+	do
+		let memoria_total=memoria_total+$tp
+	done
+	#return $memoria_total
+}
+
+### Función que calcula el número de espacios en base a las cifras para una tabla equilibrada.
+#He modificado la parte de las particiones para tener en cuenta que se muestra el tamaño de cada partición mas un espacio.
+calcula_espacios()
+{
+
+	espacios_n_par=${#n_par}
+
+	if [[ $espacios_n_par == 1 ]] || [[ $espacios_n_par == 2 ]] || [[ $espacios_n_par == 3 ]] || [[ $espacios_n_par == 4 ]]
+	then
+		espacios_n_par_tabla=4
+	else
+		espacios_n_par_tabla=$espacios_n_par
+	fi
+
+	let espacios_tam_par=${#tam_par[@]}*2
+	espacios_quantum=${#quantum}
+	espacios_mayortll=${#mayortll}
+
+	if [[ $espacios_mayortll == 1 ]] || [[ $espacios_mayortll == 2 ]] || [[ $espacios_mayortll == 3 ]]
+	then
+		espacios_mayortll_tabla=3
+	else
+		espacios_mayortll_tabla=$espacios_mayortll
+	fi
+
+	espacios_mayormem=${#mayormem}
+
+	if [[ $espacios_mayormem == 1 ]] || [[ $espacios_mayormem == 2 ]] || [[ $espacios_mayortej == 3 ]]
+	then
+		espacios_mayormem_tabla=3
+	else
+		espacios_mayormem_tabla=$espacios_mayormem
+	fi
+
+	espacios_mayortej=${#mayortej}
+
+	if [[ $espacios_mayortej == 1 ]] || [[ $espacios_mayortej == 2 ]] || [[ $espacios_mayormem == 3 ]]
+	then
+		espacios_mayortej_tabla=3
+	else
+		espacios_mayortej_tabla=$espacios_mayortej
+	fi
+
+	espacios_num_proc=${#num_proc}
+
+	if [[ $espacios_num_proc == 1 ]] || [[ $espacios_num_proc == 2 ]]
+	then
+		espacios_num_proc_tabla=2
+	else
+		espacios_num_proc_tabla=$espacios_num_proc
+	fi
+		
+	espacios_memoria_total=${#memoria_total}
+
+	for((contespacios1 = 0; contespacios1 < num_proc; contespacios1++))
+	do
+		chartll=${#T_ENTRADA_I[contespacios1]}
+
+		if [[ $chartll == 1 ]] || [[ $chartll == 2 ]] || [[ $chartll == 3 ]]
+		then
+			CARACTERESTLL[$contespacios1]=3
+		else
+			CARACTERESTLL[$contespacios1]=$chartll
+		fi
+
+		ESPACIOSTLL[$contespacios1]=$(($espacios_mayortll_tabla - ${CARACTERESTLL[$contespacios1]}))
+	done
+
+	for((contespacios2 = 0; contespacios2 < num_proc; contespacios2++))
+	do
+		chartej=${#PROCESOS_I[contespacios2]}
+
+		if [[ $chartej == 1 ]] || [[ $chartej == 2 ]] || [[ $chartej == 3 ]]
+		then
+			CARACTERESTEJ[$contespacios2]=3
+		else
+			CARACTERESTEJ[$contespacios2]=$chartej
+		fi
+
+		ESPACIOSTEJ[$contespacios2]=$(($espacios_mayortej_tabla - ${CARACTERESTEJ[$contespacios2]}))
+	done
+
+	for((contespacios3 = 0; contespacios3 < num_proc; contespacios3++))
+	do
+		charmem=${#MEMORIA_I[contespacios3]}
+
+		if [[ $charmem == 1 ]] || [[ $charmem == 2 ]] || [[ $charmem == 3 ]]
+		then
+			CARACTERESMEM[$contespacios3]=3
+		else
+			CARACTERESMEM[$contespacios3]=$charmem
+		fi
+
+		ESPACIOSMEM[$contespacios3]=$(($espacios_mayormem_tabla-${CARACTERESMEM[$contespacios1]}))
+	done
 }
 
 
 ### Setea valores al inicio del algoritmo.
 inicializar()
 {
-	inicio_estado
-
-	for((pr=0; pr<$num_proc; pr++))
+	for(( pr=0 ; pr<$num_proc ; pr++ ))		#Setea todos los procesos:
 	do
-		EN_COLA[$pr]="No"
-		contrcad[$pr]=0
-		contrcad2[$pr]=0
-		EJECUTADO[$pr]=0
-		T_EJEC[$pr]=0
-		TIEMPO[$pr]=${TEJ[$pr]}
-		EN_COLA[$pr]="No"
-		EJEC[$pr]=0
+		ESTADO[$pr]="Fuera de Sistema"		#Fuera del sistema.
+		EN_MEMO[$pr]="S/E"					#Fuera de memoria.
+		TIEMPO_FIN[$pr]=0 					#Sin tiempo de fin.
+
+		EN_COLA[$pr]="No"					#Fuera de la cola.
+		contrcad[$pr]=0 					#
+		contrcad2[$pr]=0 					#
+		EJECUTADO[$pr]=0 					#No ejecutado.
+		T_EJEC[$pr]=0 						#Sin tiempo de ejecución.
+		TIEMPO[$pr]=${TEJ[$pr]}				#Sin tiempo de proceso.
+		EJEC[$pr]=0 						#Fuera de ejecución.
 	done
 
-	for (( pa=0; pa<$n_par; pa++ ))
+	for (( pa=0; pa<$n_par; pa++ ))			#Setea todas las particiones sin un proceso asociado con el valor especial -1.
 	do
 		PROC[$pa]=-1
 	done
 }
+
+
+
+
 
 ### Meter en memoria un proceso.
 meterenmemoVIEJO()
@@ -3618,7 +3683,7 @@ meterenmemoVIEJO()
 	done
 }
 
-### Comprueba si un proceso puede entrar en memoria.
+### Comprueba y mete un proceso en memoria.
 meterenmemo()
 {
 	for(( pr=0; pr<$num_proc; pr++ ))
@@ -3795,6 +3860,32 @@ algoritmob()
 		comparar_estados
 		actualizar_ltsec
 
+		#Cabecera de la cadena de procesos y cantidad de tiempo en la BT.
+		cab_cad_bt="    |"
+
+		#Cabecera de la cadena de cuadrados en la BT.
+		cab_cad_tie=" BT |"
+
+		#Cadena de procesos en la BT.
+		cad_proc_bt=""
+
+		#Cadena de cuadrados de colores en la BT.
+		cad_tie_col=""
+
+		#Cadena de cuadrados en blanco y negro en la BT.
+		cad_tie_byn=" "
+
+		#Cadena de la cantidad de tiempo en la BT.
+		cad_can_tie=""
+
+		#Final de la cadena de procesos y cantidad de tiempo en la BT.
+		fin_cad_bt="|"
+
+		#Final de la cadena de cuadrados en la BT.
+		fin_cad_tie="|T=$tiempo_transcurrido"
+
+		#actualizar_bt_try
+
 		#Ahora aparece en el texto de la BT un proceso y el tiempo transcurrido si termina su cuantum, aunque sea el unico proceso en memoria.
 		#Esta parte pausa la ejecucion en cada evento
 		if [[ $evento = 1 ]] || [[ -z $proc_actual ]] || [[ $((${T_EJEC[$proc_actual]} % $quantum)) = 1 ]] || [[ $quantum = 1 ]]
@@ -3933,12 +4024,9 @@ echo "" >> informeBN.txt
 
 imprime_cabecera
 lee_datos
-#clear
-echo "		> ROUND ROBIN" >> informeCOLOR.txt
-echo "		> ROUND ROBIN" >> informeBN.txt
 
 #Guardado incondicional en datosLast.txt.
-meterAFichero datosLast
+meterAfichero datosLast
 
 #Condicional que determinará el guardado de los datos manuales.
 if [[ $opcion_guardado -eq 1 || $opcion_guardado_aleatorio_datos -eq 1 ]]
@@ -3957,6 +4045,26 @@ fi
 if [[ $opcion_guardado_aleatorio -eq 2 ]] && [[ $nombre_fichero_aleatorio != "datosrangos" ]]
 then
 		meterAficheroAleatorio "$nombre_fichero_aleatorio"
+fi
+
+#clear
+echo "		> ROUND ROBIN" >> informeCOLOR.txt
+echo "		> ROUND ROBIN" >> informeBN.txt
+
+#Calculo el tamaño del espacio representado en la barra por cada unidad de tiempo en función del tamaño del mayor tiempo de entrada.
+mas_tarde=0
+for ((pr=0; pr<$num_proc; pr++ ))
+do
+	if [[ ${T_ENTRADA[$pr]} -gt $mas_tarde ]]
+	then
+		mas_tarde=${T_ENTRADA[$pr]}
+		let mas_tarde=mas_tarde+${TEJ[$pr]}
+	fi
+done
+#Si va a haber procesos que lleven el tiempo a más de 3 cifras, se aumenta el tamaño de la unidad de tiempo.
+if [[ ${#mas_tarde} -gt 3 ]]
+then
+	tam_unidad_bt=${#mas_tarde}
 fi
 
 datos_aux #Copia los datos
