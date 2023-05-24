@@ -2873,6 +2873,7 @@ actualizar_bm()
 	#Columnas que quedan en la consola a la derecha de la barra inicial en la BM.
 	columnas_bm=$(($(tput cols)-5))
 
+
 		
 	for ((pa=0; pa<$n_par; pa++))
 	do
@@ -2950,6 +2951,13 @@ actualizar_bm()
 		## Montaje de la cadena de cuadros en la barra de memoria.
 		if [[ ${PROC[$pa]} -ne -1 ]]											#Si tiene un proceso,
 		then
+			if [[ ${PROC[$pa]} -ge 5 ]]											#Recupero el color del proceso.
+			then
+				let colimp=${PROC[$pa]}%5
+			else
+				colimp=${PROC[$pa]}
+			fi
+
 			memo_proc=${MEMORIA[${PROC[$pa]}]}									#Recupero lo que ocupa en memoria el proceso.
 			for (( mem_pr=0; mem_pr<$(($memo_proc*$tam_unidad_bm)); mem_pr++ ))	#Por lo que ocupe en memoria el proceso,
 			do
@@ -3668,49 +3676,30 @@ inicializar()
 	done
 }
 
-
-### Meter en memoria un proceso.
-meterenmemoVIEJO()
-{
-	for(( xp = 0; xp < $num_proc; xp++ ))
-	do
-		if [[ $vacias -gt 0 ]] && [[ ${TIEMPO[$xp]} != 0 ]] && [[ $tiempo_transcurrido -ge ${T_ENTRADA[$xp]} ]] && [[ ${EN_MEMO[$xp]} == "S/E" ]]
-		then
-			EN_MEMO[$xp]="Si"
-			let vacias=vacias-1
-		fi
-	done
-}
-
 ### Comprueba y mete un proceso en memoria al peor ajuste.
 meterenmemo()
 {
-	mayor_tam_par=0
-	part_vacia_may=-1
-	for (( pa=0; pa<n_par; pa++ ))												#Busco la particion vacía más grande.
+	for(( pr=0; pr<$num_proc; pr++ ))
 	do
-		if [[ ${PROC[$pa]} -eq -1 ]] && [[ ${tam_par[$pa]} -gt  $mayor_tam_par ]] 
-		then
-			mayor_tam_par=${tam_par[$pa]}
-			part_vacia_may=$pa
-		fi
-	done
-
-	echo "mayor particion vacia: P0$part_vacia_may"
-
-	if [[ $part_vacia_may -ne -1 ]]												#Si existe, será la que recoja el proceso.
-	then
-		for(( pr=0; pr<$num_proc; pr++ ))
+		mayor_tam_par=0
+		part_vacia_may=-1
+		for (( pa=0; pa<n_par; pa++ ))										#Busco la particion vacía más grande.
 		do
-			#Si el proceso puede entrar en memoria y cabe en la partición mayor,
-			if [[ ${TIEMPO[$pr]} != 0 ]] && [[ $tiempo_transcurrido -ge ${T_ENTRADA[$pr]} ]] && [[ ${EN_MEMO[$pr]} == "S/E" ]] && [[ ${MEMORIA[$pr]} -le $mayor_tam_par ]]
+			if [[ ${PROC[$pa]} -eq -1 ]] && [[ ${tam_par[$pa]} -gt  $mayor_tam_par ]] 
 			then
-				EN_MEMO[$pr]="Si"												#Cambia el estado del proceso.
-				PART[$pr]=$part_vacia_may 										#Asigna la partición al proceso.
-				PROC[$pa]=$pr 													#Asigna el proceso a la partición.
+				mayor_tam_par=${tam_par[$pa]}
+				part_vacia_may=$pa
 			fi
 		done
-	fi
+
+		#Si el proceso puede entrar en memoria y cabe en la partición mayor,
+		if [[ ${TIEMPO[$pr]} != 0 ]] && [[ $tiempo_transcurrido -ge ${T_ENTRADA[$pr]} ]] && [[ ${EN_MEMO[$pr]} == "S/E" ]] && [[ ${MEMORIA[$pr]} -le $mayor_tam_par ]]
+		then
+			EN_MEMO[$pr]="Si"												#Cambia el estado del proceso.
+			PART[$pr]=$part_vacia_may 										#Asigna la partición al proceso.
+			PROC[$part_vacia_may]=$pr 													#Asigna el proceso a la partición.
+		fi
+	done
 }
 
 ### Asigna los estados a los procesos.
