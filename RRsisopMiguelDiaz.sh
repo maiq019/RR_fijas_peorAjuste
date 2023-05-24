@@ -63,11 +63,11 @@ colorTexto="\e[1;36m"		#cian bold
 ### Función para comprobar si el parámetro pasado es un número entero mayor que 0 comparándolo con una expresión regular.
 mayor_cero()
 {
-	if ! [[ $1 =~ ^[1-9][0-9]*$ ]]
+	if [[ $1 =~ ^[0-9]+$ ]] && [[ $1 -gt 0 ]]
 	then
-		return 1
-	else
 		return 0
+	else
+		return 1
 	fi
 }
 
@@ -1306,9 +1306,9 @@ lectura_dat_procesos_aleatorios()
 
 	#Bucle que calcula los datos de los procesos con los rangos y los imprime antes de que comience la ejecución del algoritmo RR.
 	#He eliminado variables redundantes y cambiado los comandos de expr por let.
-	for(( i = 0, proc = 1; i < ($num_proc); i++, proc++ ))
+	for(( pr = 0; pr<$num_proc; pr++ ))
 	do
-		if [ $proc -gt 1 ] 	#Si hay algún proceso.
+		if [ $pr -gt 0 ] 	#Si hay algún proceso.
 		then 				#Imprime tabla con datos.
 			ordenacion_procesos
 			imprimir_tabla_RNG
@@ -1316,36 +1316,36 @@ lectura_dat_procesos_aleatorios()
 
 		#Asignación aleatoria del tiempo de entrada en el rango.
 		entrada=`shuf -i $entrada_min-$entrada_max -n 1`
-		T_ENTRADA_I[$i]="$entrada"
+		T_ENTRADA_I[$pr]="$entrada"
 
 		#Almacena el proceso con el menor tiempo de llegada, por orden de introducción.
 		if [ $entrada -lt $min ]
 		then
 			min=$entrada
-			pos=$i
+			pos=$pr
 		fi
 
 		#La condición se cumplirá siempre porque el tiempo de llegada debe ser mayor que 0, pero he decidido dejar la comprobación en caso de futuras modificaciones a la restricción.
 		if [ $entrada -ne '0' ]  #Si el tiempo de llegada no es 0. (Se cumplirá siempre)
 		then	
-			EN_ESPERA_I[$i]="Si" #Por defecto en t=0 todos los procesos estarán en espera ya que llegan a partir de t=1.
+			EN_ESPERA_I[$pr]="Si" #Por defecto en t=0 todos los procesos estarán en espera ya que llegan a partir de t=1.
 		else
-			EN_ESPERA[$i]="No"
+			EN_ESPERA[$pr]="No"
 			let procesos_ejecutables=procesos_ejecutables+1
 		fi
 
 		#Almacenamiento de datos en un archivo temporal.
-		echo ${T_ENTRADA_I[$i]} >> archivo.temp
-		echo ${EN_ESPERA_I[$i]} >> archivo.temp
+		echo ${T_ENTRADA_I[$pr]} >> archivo.temp
+		echo ${EN_ESPERA_I[$pr]} >> archivo.temp
 
 		ordenacion_procesos
 		imprimir_tabla_RNG
 
 		#Asignación aleatoria de la ráfaga en el rango.
 		rafaga=`shuf -i $rafaga_min-$rafaga_max -n 1`
-		PROCESOS_I[$i]=$rafaga  #Almacena la ráfaga del proceso
-		QT_PROC_I[$i]=$quantum 	#Almacena el quantum restante del proceso (en caso de E/S)
-		PROC_ENAUX_I[$i]="No" 	#Por defecto ningún proceso estará en la cola auxiliar FIFO de E/S
+		PROCESOS_I[$pr]=$rafaga  #Almacena la ráfaga del proceso
+		QT_PROC_I[$pr]=$quantum 	#Almacena el quantum restante del proceso (en caso de E/S)
+		PROC_ENAUX_I[$pr]="No" 	#Por defecto ningún proceso estará en la cola auxiliar FIFO de E/S
 
 		#Almacenamiento de datos en un archivo temporal
 		echo $rafaga >> archivo.temp
@@ -1355,7 +1355,7 @@ lectura_dat_procesos_aleatorios()
 
 		#Asignación aleatoria de la memoria en el rango.
 		memo_proc=`shuf -i $memo_proc_min-$memo_proc_max -n 1`
-		MEMORIA_I[$i]=$memo_proc
+		MEMORIA_I[$pr]=$memo_proc
 
 		#Almacenamiento de datos en un archivo temporal
 		echo $memo_proc >> archivo.temp
@@ -1454,7 +1454,6 @@ lectura_fichero()
 lectura_fichero_aleatorio()
 {
 	n_linea=0
-	#num_proc=0
 	procesos_ejecutables=0
 
 	cp $1 copia.txt
@@ -1589,14 +1588,14 @@ lectura_fichero_aleatorio()
 	quantum=`shuf -i $quantum_min-$quantum_max -n 1`
 	num_proc=`shuf -i $num_proc_min-$num_proc_max -n 1`
 	
-	for(( i = 0; i < $num_proc; i++ ))
+	for(( pr=0; pr<$num_proc; pr++ ))
 	do
 		entrada=`shuf -i $entrada_min-$entrada_max -n 1`
-		T_ENTRADA_I[$i]="$entrada"
+		T_ENTRADA_I[$pr]="$entrada"
 		rafaga=`shuf -i $rafaga_min-$rafaga_max -n 1`
-		PROCESOS_I[$i]="$rafaga"
+		PROCESOS_I[$pr]="$rafaga"
 		memo_proc=`shuf -i $memo_proc_min-$memo_proc_max -n 1`
-		MEMORIA_I[$i]="$memo_proc"
+		MEMORIA_I[$pr]="$memo_proc"
 	done
 
 	datos_fichTfich
@@ -1627,9 +1626,9 @@ escribe_datos_informe()
 	#Escritura del proceso terminado en la tabla del informe.
 	if [ $proc -lt '10' ]
 		then
-		echo "		  ${PROC[$proc_actual]}   | $tiempo_final"	>> informeCOLOR.txt
+		echo "		  $proc   | $tiempo_final"	>> informeCOLOR.txt
 	else
-		echo "		  ${PROC[$proc_actual]}  | $tiempo_final"	>> informeCOLOR.txt
+		echo "		  $proc  | $tiempo_final"	>> informeCOLOR.txt
 	fi
 	echo "		----------------" >> informeCOLOR.txt
 }
@@ -1676,29 +1675,29 @@ imprimir_tabla_procesos()
 	imprime_cabecera
 	imprime_info_datos
 
-	for ((pr=0; pr < $num_proc; pr++ ))
+	for ((pr=0; pr<$num_proc; pr++ ))
 	do
-		if [ $(( ${PROC[$pr]} - 1 )) -ge 6 ]
+		if [[ $pr -ge 5 ]]
 		then
-			colimp=$(( $(( ${PROC[$pr]} - 1 )) % 6 ))
+			let colimp=pr%5
 		else
-			colimp=$(( ${PROC[$pr]} - 1 ))
+			colimp=$pr
 		fi
 
 		echo -ne " \e[${color[$colimp]}mP"
-		printf "%02d " "${PROC[$pr]}"
+		printf "%02d " "$(($pr+1))"
 		printf "%3s " "${T_ENTRADA[$pr]}"
 		printf "%3s " "${TEJ[$pr]}"
 		printf "%3s " "${MEMORIA[$pr]}"	
 		echo -e $resetColor
 		echo -ne " \e[${color[$colimp]}mP" >> informeCOLOR.txt
-		printf "%02d " "${PROC[$pr]}" >> informeCOLOR.txt
+		printf "%02d " "$(($pr+1))" >> informeCOLOR.txt
 		printf "%3s " "${T_ENTRADA[$pr]}" >> informeCOLOR.txt
 		printf "%3s " "${TEJ[$pr]}" >> informeCOLOR.txt
 		printf "%3s " "${MEMORIA[$pr]}" >> informeCOLOR.txt
 		echo -e $resetColor >> informeCOLOR.txt
 		echo -ne " P" >> informeBN.txt
-		printf "%02d " "${PROC[$pr]}" >> informeBN.txt
+		printf "%02d " "$(($pr+1))" >> informeBN.txt
 		printf "%3s " "${T_ENTRADA[$pr]}" >> informeBN.txt
 		printf "%3s " "${TEJ[$pr]}" >> informeBN.txt
 		printf "%3s " "${MEMORIA[$pr]}" >> informeBN.txt
@@ -1717,31 +1716,31 @@ imprimir_tabla_RNG()
 	imprime_cabecera
 	imprime_info_datos_aleatorios
 
-	for((pr=0; pr < $num_proc; pr++ ))
+	for((pr=0; pr<$num_proc; pr++ ))
 	do
-		if [ $(( ${PROC[$pr]} - 1 )) -ge 6 ]
+		if [[ $pr -ge 5 ]]
 		then
-			colimp=$(( $(( ${PROC[$pr]} - 1 )) % 6 ))
+			let colimp=pr%5
 		else
-			colimp=$(( ${PROC[$pr]} - 1 ))
+			colimp=$pr
 		fi
 
 		echo -ne " \e[${color[$colimp]}mP"
-		printf "%02d " "${PROC[$pr]}"
+		printf "%02d " "$(($pr+1))"
 		printf "%3s " "${T_ENTRADA[$pr]}"
 		printf "%3s " "${TEJ[$pr]}"
 		printf "%3s " "${MEMORIA[$pr]}"	
 		echo -e $resetColor
 
 		echo -ne " \e[${color[$colimp]}mP" >> informeCOLOR.txt
-		printf "%02d " "${PROC[$pr]}" >> informeCOLOR.txt
+		printf "%02d " "$(($pr+1))" >> informeCOLOR.txt
 		printf "%3s " "${T_ENTRADA[$pr]}" >> informeCOLOR.txt
 		printf "%3s " "${TEJ[$pr]}" >> informeCOLOR.txt
 		printf "%3s " "${MEMORIA[$pr]}" >> informeCOLOR.txt
 		echo -e $resetColor >> informeCOLOR.txt
 
 		echo -ne " P" >> informeBN.txt
-		printf "%02d " "${PROC[$pr]}" >> informeBN.txt
+		printf "%02d " "$(($pr+1))" >> informeBN.txt
 		printf "%3s " "${T_ENTRADA[$pr]}" >> informeBN.txt
 		printf "%3s " "${TEJ[$pr]}" >> informeBN.txt
 		printf "%3s " "${MEMORIA[$pr]}" >> informeBN.txt
@@ -1755,9 +1754,9 @@ imprimir_tabla_RNG()
 ordenacion_procesos() 
 {
 	proceso=0
-	for (( nn=1; $proceso < $num_proc; nn++ ))
+	for (( nn=1; $proceso<$num_proc; nn++ ))
 	do
-		for(( j=0; j < $num_proc ; j++ ))
+		for(( j=0; j<$num_proc ; j++ ))
 		do
 			let caca=nn-1
 			if [ ${T_ENTRADA_I[$j]} -eq $caca ]
@@ -1769,8 +1768,6 @@ ordenacion_procesos()
 				#EN_ESPERA[$proceso]=`expr ${EN_ESPERA_I[$j]}`
 				#QT_PROC[$proceso]=`expr ${QT_PROC_I[$j]}`
 				#PROC_ENAUX[$proceso]=`expr ${PROC_ENAUX_I[$j]}`
-				let pp=j+1
-				PROC[$proceso]=$pp
 				FIN[$proceso]=0
 				TIEMPO[$proceso]=${PROCESOS_I[$j]}
 				let proceso=proceso+1
@@ -1783,7 +1780,7 @@ ordenacion_procesos()
 ### Guarda datos en en auxiliares para evitar su modificacion.
 datos_aux()
 {
-	for(( cc=0; cc < $num_proc; cc++ ))
+	for(( cc=0; cc<$num_proc; cc++ ))
 	do
 		RAFAGA_AUX[$cc]=${PROCESOS[$cc]}
 		MEMORIA_AUX[$cc]=${MEMORIA[$cc]}
@@ -1793,7 +1790,7 @@ datos_aux()
 ### Comprueba si un proceso entra en memoria guardandolo en un array.
 en_memoria()
 {
-	for(( co=0; co < $num_proc; co++ ))
+	for(( co=0; co<$num_proc; co++ ))
 	do
 		if [ ${MEMORIA[$co]} -ne ${MEMORIA_AUX[$co]} ]
 		then
@@ -1812,30 +1809,30 @@ datosfin_inf()
 	echo "	---------------------------------------------------------------------"  >> informeCOLOR.txt
 	echo "	  PRO | T LLEGADA | RAFAGA | MEMORIA | EN MEMORIA | L TEMP | ESTADO  "  >> informeCOLOR.txt
 	echo "	---------------------------------------------------------------------"  >> informeCOLOR.txt
-	for(( xp=0 ; xp < $num_proc ; xp++ ))
+	for(( pr=0 ; pr<$num_proc ; pr++ ))
 	do
-		echo "	    ${PROC[$xp]}|		${T_ENTRADA[$xp]}|	${RAFAGA_AUX[$xp]}|	${MEMORIA_AUX[$xp]}   |    ${EN_MEMO[$xp]}	|    ${TIEMPO_FIN[$xp]}    | ${ESTADO[$xp]}"  >> informeCOLOR.txt
+		echo "	    "$(($pr+1))"|		${T_ENTRADA[$pr]}|	${RAFAGA_AUX[$pr]}|	${MEMORIA_AUX[$pr]}   |    ${EN_MEMO[$pr]}	|    ${TIEMPO_FIN[$pr]}    | ${ESTADO[$pr]}"  >> informeCOLOR.txt
 		echo "	---------------------------------------------------------------------"  >> informeCOLOR.txt	
 	done
 
 	echo "	-----------------------------------"  >> informeCOLOR.txt	
 	echo " 	    PRO |  T RETORNO  | T ESPERA   "  >> informeCOLOR.txt
 	echo "	-----------------------------------"  >> informeCOLOR.txt
-	for(( xp=0 ; xp < $num_proc ; xp++ ))
+	for(( pr=0 ; pr<$num_proc ; pr++ ))
 	do
-		if [ "${ESTADO[$xp]}" != "Bloqueado" ]
+		if [ "${ESTADO[$pr]}" != "Bloqueado" ]
 		then
-			T_RETORNO[$xp]=`expr ${TIEMPO_FIN[$xp]} - ${T_ENTRADA[$xp]}`
-			T_ESPERA[$xp]=`expr ${TIEMPO_FIN[$xp]} - ${T_ENTRADA[$xp]} - ${RAFAGA_AUX[$xp]}`
+			T_RETORNO[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]}`
+			T_ESPERA[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]} - ${RAFAGA_AUX[$pr]}`
 		else
-			T_RETORNO[$xp]=0
-			T_ESPERA[$xp]=0			
+			T_RETORNO[$pr]=0
+			T_ESPERA[$pr]=0			
 		fi
 
-		T_MEDIO_R=`expr $T_MEDIO_R + ${T_RETORNO[$xp]}`
-		T_MEDIO_E=`expr $T_MEDIO_E + ${T_ESPERA[$xp]}`
+		let T_MEDIO_R=T_MEDIO_R + ${T_RETORNO[$pr]}
+		let T_MEDIO_E=T_MEDIO_E + ${T_ESPERA[$pr]}
 
-		echo "	       ${PROC[$xp]}|   	    ${T_RETORNO[$xp]} |    ${T_ESPERA[$xp]}"  >> informeCOLOR.txt
+		echo "	       "$(($pr+1))"|   	    ${T_RETORNO[$pr]} |    ${T_ESPERA[$pr]}"  >> informeCOLOR.txt
 		echo "	-----------------------------------"  >> informeCOLOR.txt
 	done
 	
@@ -1856,30 +1853,30 @@ solucion_impresa()
 	echo "	---------------------------------------------------------------------" 
 	echo "	  PRO | T LLEGADA | RAFAGA | MEMORIA | EN MEMORIA | L TEMP | ESTADO  " 
 	echo "	---------------------------------------------------------------------" 
-	for(( xp=0 ; xp < $num_proc ; xp++ ))
+	for(( pr=0 ; pr<$num_proc ; pr++ ))
 	do
-		echo "	    "${PROC[$xp]}"|		${T_ENTRADA[$xp]}|	${RAFAGA_AUX[$xp]}|	${MEMORIA_AUX[$xp]}   |    ${EN_MEMO[$xp]}	|    ${TIEMPO_FIN[$xp]}    | ${ESTADO[$xp]}"
+		echo "	    "$(($pr+1))"|		${T_ENTRADA[$pr]}|	${RAFAGA_AUX[$pr]}|	${MEMORIA_AUX[$pr]}   |    ${EN_MEMO[$pr]}	|    ${TIEMPO_FIN[$pr]}    | ${ESTADO[$pr]}"
 		echo "	---------------------------------------------------------------------"		
 	done
 
 	echo "	-----------------------------------"	
 	echo " 	    PRO |  T RETORNO  | T ESPERA	 "
 	echo "	-----------------------------------" 
-	for(( xp=0 ; xp < $num_proc ; xp++ ))
+	for(( pr=0 ; pr<$num_proc ; pr++ ))
 	do
-		if [ "${ESTADO[$xp]}" != "Bloqueado" ]
+		if [ "${ESTADO[$pr]}" != "Bloqueado" ]
 		then
-			T_RETORNO[$xp]=`expr ${TIEMPO_FIN[$xp]} - ${T_ENTRADA[$xp]}`
-			T_ESPERA[$xp]=`expr ${TIEMPO_FIN[$xp]} - ${T_ENTRADA[$xp]} - ${RAFAGA_AUX[$xp]}`
+			T_RETORNO[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]}`
+			T_ESPERA[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]} - ${RAFAGA_AUX[$pr]}`
 		else
-			T_RETORNO[$xp]=0
-			T_ESPERA[$xp]=0			
+			T_RETORNO[$pr]=0
+			T_ESPERA[$pr]=0			
 		fi
 
-		T_MEDIO_R=`expr $T_MEDIO_R + ${T_RETORNO[$xp]}`
-		T_MEDIO_E=`expr $T_MEDIO_E + ${T_ESPERA[$xp]}`
+		let T_MEDIO_R=T_MEDIO_R + ${T_RETORNO[$pr]}
+		let T_MEDIO_E=T_MEDIO_E + ${T_ESPERA[$pr]}
 
-		echo "	      " ${PROC[$xp]}"|   	    "${T_RETORNO[$xp]}" |   " $((${T_ESPERA[$xp]} + 1))
+		echo "	      " $(($pr+1))"|   	    "${T_RETORNO[$pr]}" |   " $((${T_ESPERA[$pr]} + 1))
 		echo "	-----------------------------------" 
 	done
 	
@@ -1893,11 +1890,11 @@ solucion_impresa()
 ### Inicia una serie de datos de los procesos.
 inicio_estado()
 {
-	for(( xp=0 ; xp < $num_proc ; xp++ ))
+	for(( pr=0 ; pr<$num_proc ; pr++ ))
 	do
-		ESTADO[$xp]="Fuera de Sistema"
-		EN_MEMO[$xp]="S/E"
-		TIEMPO_FIN[$xp]=0
+		ESTADO[$pr]="Fuera de Sistema"
+		EN_MEMO[$pr]="S/E"
+		TIEMPO_FIN[$pr]=0
 	done
 }
 
@@ -1915,23 +1912,23 @@ inicio_particiones()
 
 	for (( pa=0; pa<$n_par; pa++ ))
 	do
-		if [[ ${ESTADO[${PARTS[$pa]}]} == "Terminado" ]]
+		if [[ ${ESTADO[${PROC[$pa]}]} == "Terminado" ]]
 		then
-			PARTS[$pa]=-1
+			PROC[$pa]=-1
 		fi
 
 		for (( pr=0; pr<$num_proc; pr++ ))
 		do
-			if [[ ${EN_MEMO[$pr]} == "Si" ]] && [[ ${PART[$pr]} == "" ]] && [[ ${PARTS[$pa]} -eq -1 ]] && [[ ${tam_par[$pa]} -ge ${MEMORIA[$pr]} ]]
+			if [[ ${EN_MEMO[$pr]} == "Si" ]] && [[ ${PART[$pr]} == "" ]] && [[ ${PROC[$pa]} -eq -1 ]] && [[ ${tam_par[$pa]} -ge ${MEMORIA[$pr]} ]]
 			then
-				PARTS[$pa]=$pr
+				PROC[$pa]=$pr
 				PART[$pr]=$pa
 				NUMPART[$pr]=$pa
 				continue 2
 			fi
 		done
 
-		if [[ ${PARTS[$pa]} -eq -1 ]]
+		if [[ ${PROC[$pa]} -eq -1 ]]
 		then
 			let vacias=vacias+1
 		fi
@@ -1954,7 +1951,7 @@ tabla_ejecucion()
 
 	inicio_particiones
 
-	for((xp = 0; xp < $num_proc; xp++))
+	for((xp=0; xp<$num_proc; xp++))
 	do	
 		t_espera[$xp]=$(( ${T_ENTRADA[$xp]} + $(( ${TEJ[$xp]} - ${TIEMPO[$xp]} )) ))
 		if [ ${t_espera[$xp]} -lt $(( $tiempo_transcurrido + 1 )) -a "${ESTADO[$xp]}" != "Terminado" ]
@@ -2201,17 +2198,17 @@ tabla_ejecucion()
 
 	for((xp = 0; xp < $num_proc; xp++ ))
 	do
-		if [ $(( ${PROC[$xp]} - 1 )) -ge 6 ]
+		if [ $xp -ge 5 ]
 		then
-			colimp=$(( $(( ${PROC[$xp]} - 1 )) % 6 ))
+			let colimp=xp%5
 		else
-			colimp=$(( ${PROC[$xp]} - 1 ))
+			colimp=$xp
 		fi
 
 		#Ahora los datos aparecen entablados
 		printf " │ " >> informeCOLOR.txt
 		echo -ne "\e[${color[$colimp]}mP" >> informeCOLOR.txt
-		printf "%02d" "${PROC[$xp]}" >> informeCOLOR.txt
+		printf "%02d" "$(($xp+1))" >> informeCOLOR.txt
 		for (( l = 0; l < ($espacios_num_proc_tabla - 2); l++))
 		do
 			echo -ne " "
@@ -2412,19 +2409,19 @@ tabla_ejecucion()
 	done
 	echo "┼──────────────────┤" >> informeBN.txt
 
-	for((xp = 0; xp < $num_proc; xp++ ))
+	for((xp=0; xp<$num_proc; xp++ ))
 	do
-		if [ $(( ${PROC[$xp]} - 1 )) -ge 6 ]
+		if [ $xp -ge 5 ]
 		then
-			colimp=$(( $(( ${PROC[$xp]} - 1 )) % 6 ))
+			let colimp=$xp%5
 		else
-			colimp=$(( ${PROC[$xp]} - 1 ))
+			colimp=$xp
 		fi
 
 		#Ahora los datos aparecen entablados
 		printf " │ " >> informeBN.txt
 		echo -ne "P" >> informeBN.txt
-		printf "%02d" "${PROC[$xp]}" >> informeBN.txt
+		printf "%02d" "$(($xp+1))" >> informeBN.txt
 		for (( l = 0; l < ($espacios_num_proc_tabla - 2); l++))
 		do
 			echo -ne " "
@@ -2604,20 +2601,20 @@ tabla_ejecucion()
 	done
 	echo "┼──────────────────┤"
 
-	for((xp = 0; xp < $num_proc; xp++ ))
+	for((xp=0; xp<$num_proc; xp++ ))
 	do
-		if [ $(( ${PROC[$xp]} - 1 )) -ge 6 ]
+		if [ $xp -ge 5 ]
 		then
-			colimp=$(( $(( ${PROC[$xp]} - 1 )) % 6 ))
+			let colimp=xp%5
 		else
-			colimp=$(( ${PROC[$xp]} - 1 ))
+			colimp=$xp
 		fi
 
 		#Impresión de los procesos y sus datos en la tabla
 		#Ahora los datos aparecen entablados
 		printf " │ "
 		echo -ne "\e[${color[$colimp]}mP"
-		printf "%02d" "${PROC[$xp]}"
+		printf "%02d" "$(($xp+1))"
 		for (( l = 0; l < ($espacios_num_proc_tabla - 2); l++))
 		do
 			echo -ne " "
@@ -2794,16 +2791,16 @@ tabla_ejecucion()
 	echo -n " Cola RR: " >> informeBN.txt
 	for(( i = 1; i < ${#colaprocs[@]}; i++ ))
 	do
-		if [ $(( ${PROC[${colaprocs[$i]}]} - 1 )) -ge 6 ]
+		if [  ${colaprocs[$i]} -ge 5 ]
 		then
-			colimp=$(( $(( ${PROC[${colaprocs[$i]}]} - 1 )) % 6 ))
+			let colimp=${colaprocs[$i]}%5
 		else
-			colimp=$(( ${PROC[${colaprocs[$i]}]} - 1 ))
+			colimp=${colaprocs[$i]}
 		fi
 
-		printf "\e[${color[$colimp]}mP%02d$resetColor " "${PROC[${colaprocs[$i]}]}"
-		printf "\e[${color[$colimp]}mP%02d$resetColor " "${PROC[${colaprocs[$i]}]}" >> informeCOLOR.txt
-		printf "P%02d " "${PROC[${colaprocs[$i]}]}" >> informeBN.txt
+		printf "\e[${color[$colimp]}mP%02d$resetColor " "$((${colaprocs[$i]}+1))"
+		printf "\e[${color[$colimp]}mP%02d$resetColor " "$((${colaprocs[$i]}+1))" >> informeCOLOR.txt
+		printf "P%02d " "$((${colaprocs[$i]}+1))" >> informeBN.txt
 	done
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -2878,13 +2875,13 @@ tabla_ejecucion()
 
 
 		## Montaje de la cadena de procesos en la barra de memoria.
-		if [[ ${PARTS[$pa]} -ne -1 ]]									#Si tiene un proceso,
+		if [[ ${PROC[$pa]} -ne -1 ]]									#Si tiene un proceso,
 		then
-			if [[ ${#PARTS[$pa]} -eq 1 ]]								#Si el proceso tiene un caracter,
+			if [[ ${#PROC[$pa]} -eq 1 ]]								#Si el proceso tiene un caracter,
 			then								
-				cad_proc_bm=${cad_proc_bm[@]}"P0$((${PARTS[$pa]}+1))"	#Añado el numero del proceso con un cero delante.
+				cad_proc_bm=${cad_proc_bm[@]}"P0$((${PROC[$pa]}+1))"	#Añado el numero del proceso con un cero delante.
 			else 														#Si tiene más de un caracter,
-				cad_proc_bm=${cad_proc_bm[@]}"P${PARTS[$pa]}"			#Añado el número del proceso sin ceros delante.
+				cad_proc_bm=${cad_proc_bm[@]}"P$((${PROC[$pa]}+1))"		#Añado el número del proceso sin ceros delante.
 			fi
 
 			for (( esp=0; esp<(${tam_par[$pa]}*$tam_unidad-3); esp++ ))	#Por cada hueco hasta completar la partición, (-3 porque se introdujeron 3 caracteres, PXX)
@@ -2906,16 +2903,16 @@ tabla_ejecucion()
 
 
 		## Montaje de la cadena de cuadros en la barra de memoria.
-		if [[ ${PARTS[$pa]} -ne -1 ]]											#Si tiene un proceso,
+		if [[ ${PROC[$pa]} -ne -1 ]]											#Si tiene un proceso,
 		then
-			memo_proc=${MEMORIA[${PARTS[$pa]}]}									#Recupero lo que ocupa en memoria el proceso.
+			memo_proc=${MEMORIA[${PROC[$pa]}]}									#Recupero lo que ocupa en memoria el proceso.
 			for (( mem_pr=0; mem_pr<$(($memo_proc*$tam_unidad)); mem_pr++ ))	#Por lo que ocupe en memoria el proceso,
 			do
 				cad_mem_col=${cad_mem_col[@]}"\e[${color[$colimp]}m\u2588\e[0m"	#Añado cuadrados de color a la cadena en color.
 				cad_mem_byn=${cad_mem_byn[@]}"\u2588"							#Añado cuadrados blancos a la cadena en blanco y negro.
 			done
 
-			memo_rest=$((${tam_par[$pa]} - ${MEMORIA[${PARTS[$pa]}]}))			#Calculo la memoria restante de la partición.
+			memo_rest=$((${tam_par[$pa]} - ${MEMORIA[${PROC[$pa]}]}))			#Calculo la memoria restante de la partición.
 			for (( esp=0; esp<$(($memo_rest*$tam_unidad)); esp++ ))				#Por lo que queda de memoria en la partición,
 			do
 				cad_mem_col=${cad_mem_col[@]}"\u2588"							#Añado 3 cuadrados blancos hasta completar la partición.
@@ -2939,9 +2936,9 @@ tabla_ejecucion()
 		
 		## Montaje de la cadena de memoria en la barra de memoria.
 		cad_tam_mem=${cad_tam_mem[@]}"$mem_rep"										#Añado la memoria que se ha usado hasta el momento.
-		if [[ ${PARTS[$pa]} -ne -1 ]]												#Si tiene un proceso,
+		if [[ ${PROC[$pa]} -ne -1 ]]												#Si tiene un proceso,
 		then
-			memo_proc=${MEMORIA[${PARTS[$pa]}]}										#Guardo la memoria del proceso en una variable para facilitar su uso.
+			memo_proc=${MEMORIA[${PROC[$pa]}]}										#Guardo la memoria del proceso en una variable para facilitar su uso.
 			carac_impr=${#mem_rep}													#Guardo en una variable los espacios que ha ocupado el escribir la memoria usada.
 			let esp_rest_proc=memo_proc*tam_unidad-carac_impr						#Calculo el espacio que ocupa el proceso menos los caracteres usados al escribir la memoria usada.
 			for (( tam_pr=0; tam_pr<$esp_rest_proc; tam_pr++ ))						#Por cada espacio hasta el punto que ocupa el proceso,
@@ -3234,19 +3231,19 @@ actualizar_linea()
 { 
 	fuera_sist=0
 
-	for((xp = 0; xp < $num_proc; xp++))
+	for((pr=0; pr<$num_proc; pr++))
 	do
-		if [[ ${ESTADO[$xp]} == "Fuera de Sistema" ]]
+		if [[ ${ESTADO[$pr]} == "Fuera de Sistema" ]]
 		then
 			let fuera_sist=fuera_sist+1
 		fi
 	done
 
-	if [ $(( ${PROC[$proc_actual]} - 1 )) -ge 6 ]
+	if [[ $proc_actual -ge 5 ]]
 	then
-		colimp=$(( $(( ${PROC[$proc_actual]} - 1 )) % 6 ))
+		let colimp=proc_actual%5
 	else
-		colimp=$(( ${PROC[$proc_actual]} - 1 ))
+		colimp=$proc_actual
 	fi
 
 
@@ -3313,23 +3310,23 @@ actualizar_ltsec()
 { 
 	fuera_sist=0
 
-	for((xp = 0; xp < $num_proc; xp++))
+	for((pr=0; pr<$num_proc; pr++))
 	do
-		if [[ ${ESTADO[$xp]} == "Fuera de Sistema" ]]
+		if [[ ${ESTADO[$pr]} == "Fuera de Sistema" ]]
 		then
 			let fuera_sist=fuera_sist+1
 		fi
-		if [[ $xp != $proc_actual ]]
+		if [[ $pr != $proc_actual ]]
 		then
-			EJEC[$xp]=0
+			EJEC[$pr]=0
 		fi	
 	done
 
-	if [ $(( ${PROC[$proc_actual]} - 1 )) -ge 6 ]
+	if [[ $proc_actual -ge 5 ]]
 	then
-		colimp=$(( $(( ${PROC[$proc_actual]} - 1 )) % 6 ))
+		let colimp=proc_actual%5
 	else
-		colimp=$(( ${PROC[$proc_actual]} - 1 ))
+		colimp=$proc_actual
 	fi
 
 	if [[ $ultvez == 0 ]]
@@ -3398,18 +3395,18 @@ actualizar_ltsec()
 			#Ahora aparece en el texto de la BT un proceso y el tiempo transcurrido si termina su cuantum, aunque sea el unico proceso en memoria.
 			if [[ ${EJEC[$proc_actual]} == 0 ]] || [[ $((${T_EJEC[$proc_actual]} % $quantum)) = 1 ]] || [[ $quantum = 1 ]]
 			then
-				if [[ ${PROC[$proc_actual]} -le 9 ]]
+				varproc=$(($proc_actual+1))
+				if [[ $varproc -lt 10 ]]
 				then
-					cad2b=$cad2b"\e[${color[$colimp]}mP\e[0m-\e[${color[$colimp]}m0\e[0m-\e[${color[$colimp]}m${PROC[$proc_actual]}\e[0m-"
-					cad2bbn=$cad2bbn"P-0-${PROC[$proc_actual]}-"
+					cad2b=$cad2b"\e[${color[$colimp]}mP\e[0m-\e[${color[$colimp]}m0\e[0m-\e[${color[$colimp]}m$varproc\e[0m-"
+					cad2bbn=$cad2bbn"P-0-$varproc-"
 				else 
-					varproc=${PROC[$proc_actual]}
 					fchar="${varproc:0:1}"
 					schar="${varproc:1:2}"
 					cad2b=$cad2b"\e[${color[$colimp]}mP\e[0m-\e[${color[$colimp]}m$fchar\e[0m-\e[${color[$colimp]}m$schar\e[0m-"
 					cad2bbn=$cad2bbn"P-$fchar-$schar-"
 				fi
-				if [[ $tiempo_transcurrido -le 9 ]]
+				if [[ $tiempo_transcurrido -lt 10 ]]
 				then
 					cad3b=$cad3b" - -$tiempo_transcurrido-"
 				elif [[ $tiempo_transcurrido -le 99 ]]
@@ -3496,7 +3493,7 @@ meterAfichero()
 	echo "$n_par ${tam_par[@]} $quantum" >> "$1".txt
 	echo "Procesos (T-Entrada Rafaga Memoria)" >> "$1".txt
 	#Bucle para meter los datos de cada proceso.
-	for(( pr = 0; pr < $num_proc; pr++ ))
+	for(( pr=0; pr<$num_proc; pr++ ))
 	do
 		echo "${T_ENTRADA_I[$pr]} ${PROCESOS_I[$pr]} ${MEMORIA_I[$pr]}" >> "$1".txt
 	done
@@ -3529,21 +3526,21 @@ inicializar()
 {
 	inicio_estado
 
-	for((xp = 0; xp < $num_proc; xp++))
+	for((pr=0; pr<$num_proc; pr++))
 	do
-		EN_COLA[$xp]="No"
-		contrcad[$xp]=0
-		contrcad2[$xp]=0
-		EJECUTADO[$xp]=0
-		T_EJEC[$xp]=0
-		TIEMPO[$xp]=${TEJ[$xp]}
-		EN_COLA[$xp]="No"
-		EJEC[$xp]=0
+		EN_COLA[$pr]="No"
+		contrcad[$pr]=0
+		contrcad2[$pr]=0
+		EJECUTADO[$pr]=0
+		T_EJEC[$pr]=0
+		TIEMPO[$pr]=${TEJ[$pr]}
+		EN_COLA[$pr]="No"
+		EJEC[$pr]=0
 	done
 
 	for (( pa=0; pa<$n_par; pa++ ))
 	do
-		PARTS[$pa]=-1
+		PROC[$pa]=-1
 	done
 }
 
@@ -3570,7 +3567,7 @@ meterenmemoVIEJO()
 ### Comprueba si un proceso puede entrar en memoria.
 meterenmemo()
 {
-	for(( pr = 0; pr < $num_proc; pr++ ))
+	for(( pr=0; pr<$num_proc; pr++ ))
 	do
 		if [[ $vacias -gt 0 ]]
 		then
@@ -3578,7 +3575,7 @@ meterenmemo()
 			then
 				for (( pa=0; pa<n_par; pa++ ))
 				do
-					if [[ ${PARTS[$pa]} -eq -1 ]] && [[ ${MEMORIA[$pr]} -le ${tam_par[$pa]} ]]
+					if [[ ${PROC[$pa]} -eq -1 ]] && [[ ${MEMORIA[$pr]} -le ${tam_par[$pa]} ]]
 					then
 						EN_MEMO[$pr]="Si"
 						let valor=valor+1
@@ -3601,16 +3598,16 @@ asignar_estados()
 	inicio_particiones
 	meterenmemo
 
-	for(( xp = 0; xp < $num_proc; xp++ ))
+	for(( pr=0; pr<$num_proc; pr++ ))
 	do
-		if [[ ${T_ENTRADA[$xp]} -le $tiempo_transcurrido ]] && [[ ${EN_MEMO[$xp]} != "No" ]]
+		if [[ ${T_ENTRADA[$pr]} -le $tiempo_transcurrido ]] && [[ ${EN_MEMO[$pr]} != "No" ]]
 		then
-			ESTADO[$xp]="En espera"
+			ESTADO[$pr]="En espera"
 		fi
 	
-		if [[ ${EN_MEMO[$xp]} == "Si" ]]
+		if [[ ${EN_MEMO[$pr]} == "Si" ]]
 		then
-			ESTADO[$xp]="En memoria"
+			ESTADO[$pr]="En memoria"
 		fi
 	done
 	
@@ -3620,25 +3617,26 @@ asignar_estados()
 		T_EJEC[$proc_actual]=$(( ${T_EJEC[$proc_actual]} + 1 ))
 	fi
 
-	for(( xp = 0; xp < $num_proc; xp++ ))
+	for(( pr=0; pr<$num_proc; pr++ ))
 	do
-		if [[ ${ESTADO[$xp]} == "Ejecucion" ]]
+		if [[ ${ESTADO[$pr]} == "Ejecucion" ]]
 		then
-			EJECUTADO[$xp]="Si"
+			EJECUTADO[$pr]="Si"
 		fi
 
-		if [[ ${ESTADO[$xp]} == "En memoria" ]] && [[ ${EJECUTADO[$xp]} == "Si" ]]
+		if [[ ${ESTADO[$pr]} == "En memoria" ]] && [[ ${EJECUTADO[$pr]} == "Si" ]]
 		then
-			ESTADO[$xp]="En pausa"
+			ESTADO[$pr]="En pausa"
 		fi
 	done
 }
 
 #Copia estados para compararlo con el estado del mismo proceso más tarde y ver si este ha cambiado.
-copiar_estados(){
-	for(( xp = 0; xp < $num_proc; xp++ ))
+copiar_estados()
+{
+	for(( pr=0; pr<$num_proc; pr++ ))
 	do
-		ESTADOANT[$xp]=${ESTADO[$xp]}
+		ESTADOANT[$pr]=${ESTADO[$pr]}
 	done
 }
 
@@ -3646,9 +3644,9 @@ copiar_estados(){
 comparar_estados()
 {
 	evento=0
-	for((xp = 0; xp < $num_proc; xp++))
+	for((pr=0; pr<$num_proc; pr++))
 	do
-		if [[ ${ESTADOANT[$xp]} != ${ESTADO[$xp]} ]]
+		if [[ ${ESTADOANT[$pr]} != ${ESTADO[$pr]} ]]
 		then
 			evento=1
 		fi
@@ -3657,12 +3655,12 @@ comparar_estados()
 
 cola()
 {
-	for(( xp = 0; xp < $num_proc; xp++ ))
+	for(( pr=0; pr<$num_proc; pr++ ))
 	do
-		if [[ ${EN_MEMO[$xp]} == "Si" ]] && [[ ${EN_COLA[$xp]} == "No" ]] && [[ ${#colaprocs[@]} -lt $n_par ]]
+		if [[ ${EN_MEMO[$pr]} == "Si" ]] && [[ ${EN_COLA[$pr]} == "No" ]] && [[ ${#colaprocs[@]} -lt $n_par ]]
 		then
-			colaprocs=( "${colaprocs[@]}" "$xp" )
-			EN_COLA[$xp]="Si"
+			colaprocs=( "${colaprocs[@]}" "$pr" )
+			EN_COLA[$pr]="Si"
 		fi
 	done
 }
