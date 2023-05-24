@@ -3081,6 +3081,8 @@ actualizar_bm()
 	echo "" >> informeBN.txt
 }
 
+
+#Esta función se ejecutará para cada unidad de tiempo.
 actualizar_bt_try()
 {
 	#Calculo el tamaño del espacio representado en la barra por cada unidad de tiempo en función del tamaño del mayor tiempo de entrada.
@@ -3117,8 +3119,6 @@ actualizar_bt_try()
 		colimp=$proc_actual
 	fi
 
-	#Esta función se ejecutará para cada unidad de tiempo.
-
 	## Montaje de la cadena de procesos en la barra de tiempo.
 	if [[ $fuera_sist -eq $num_proc || -z $proc_actual ]] 		#Si no hay ningún proceso en el sistema,
 	then
@@ -3146,14 +3146,14 @@ actualizar_bt_try()
 	then
 		for (( n=0; n<$tam_unidad_bt; n++ ))									#Por lo que ocupe cada unidad de tiempo en la barra,
 		do
-			cad_tie_col=${cad_tie_col[@]}"\u2588-"								#Añado cuadrados blancos.
-			cad_tie_byn=${cad_tie_byn[@]}"\u2588-"
+			cad_tie_col=${cad_tie_col[@]}"\u2588"								#Añado cuadrados blancos.
+			cad_tie_byn=${cad_tie_byn[@]}"\u2588"
 		done
 	else 																		#Si hay un proceso,
 		for (( n=0; n<$tam_unidad_bt; n++ ))									#Por lo que ocupe cada unidad de tiempo en la barra,
 		do
-			cad_tie_col=${cad_tie_col[@]}"\e[${color[$colimp]}m\u2588-\e[0m-"	#Añado cuadrados de color a la cadena en color.
-			cad_tie_byn=${cad_tie_byn[@]}"\u2588-"								#Añado cuadrados blancos a la cadena en blanco y negro.
+			cad_tie_col=${cad_tie_col[@]}"\e[${color[$colimp]}m\u2588\e[0m-"	#Añado cuadrados de color a la cadena en color.
+			cad_tie_byn=${cad_tie_byn[@]}"\u2588"								#Añado cuadrados blancos a la cadena en blanco y negro.
 		done
 	fi
 
@@ -3193,23 +3193,47 @@ actualizar_bt_try()
 
 actualizar_bt()
 {
+	#Calculo el tamaño del espacio representado en la barra por cada unidad de tiempo en función del tamaño del mayor tiempo de entrada.
+	mas_tarde=0
+	for ((pr=0; pr<$num_proc; pr++ ))
+	do
+		if [[ ${T_ENTRADA[$pr]} -gt $mas_tarde ]]
+		then
+			mas_tarde=${T_ENTRADA[$pr]}
+			let mas_tarde=mas_tarde+${TEJ[$pr]}
+		fi
+	done
+	#Si va a haber procesos que lleven el tiempo a más de 3 cifras, se aumenta el tamaño de la unidad de tiempo.
+	if [[ ${#mas_tarde} -gt 3 ]]
+	then
+		tam_unidad_bt=${#mas_tarde}
+	fi
+
+	cad_tex_aux_bt=""
+	cad_cua_aux_bt=""
+	for (( esp_ini=0; esp_ini<$tam_unidad_bt; esp_ini++ ))
+	do
+		cad_tex_aux_bt=${cad_tex_aux_bt[@]}" "
+		cad_cua_aux_bt=${cad_cua_aux_bt[@]}"\u2588"
+	done
+
 	for (( i = 0, j = 0; i <= $const, j <= $constb; i++, j++ ))
 	do
 		#Comandos que ajustan las 3 lineas verticales del final de la barra de tiempo
 		if [[ $primvez = 0 ]]
 		then
-			cadtiempo[$j]="|T=$tiempo_transcurrido"
-			cadtiempo2[$j]="|"
-			cadtiempobn[$j]="|T=$tiempo_transcurrido"
-			cadtiempo2bn[$j]="|"
-			cadtiempo3[$j]="|"
+			cadtiempo[$j]="\u2588\u2588\u2588|T=$tiempo_transcurrido"
+			cadtiempo2[$j]="   |"
+			cadtiempobn[$j]="\u2588\u2588\u2588|T=$tiempo_transcurrido"
+			cadtiempo2bn[$j]="   |"
+			cadtiempo3[$j]="${cad_tex_aux_bt[@]}|"
 		fi
 
 		if [[ $primvez = 1 ]]
 		then
-			cadtiempo[$j]=${cad[$j]}"\u2588-\u2588-\u2588-|T=$tiempo_transcurrido"
+			cadtiempo[$j]=${cad[$j]}"   |T=$tiempo_transcurrido"
 			cadtiempo2[$j]=${cad2[$j]}"|"
-			cadtiempobn[$j]=${cadbn[$j]}"\u2588-\u2588-\u2588-|T=$tiempo_transcurrido"
+			cadtiempobn[$j]=${cadbn[$j]}"   |T=$tiempo_transcurrido"
 			cadtiempo2bn[$j]=${cad2bn[$j]}"|"
 			cadtiempo3[$j]=${cad3[$j]}"|"
 		fi
@@ -3288,8 +3312,8 @@ actualizar_linea()
 			do
 				for(( l = 0; l < 3; l++ ))
 				do
-					cad1=$cad1"\u2588-"
-					cad1bn=$cad1bn"\u2588-"
+					cad1=$cad1"\u2588"
+					cad1bn=$cad1bn"\u2588"
 					let escritos=escritos+1
 				done
 			done
@@ -3297,8 +3321,8 @@ actualizar_linea()
 		then
 			for((l = 0; l < 3; l++))
 			do
-				cad1=$cad1"\u2588-"
-				cad1bn=$cad1bn"\u2588-"
+				cad1=$cad1"\u2588"
+				cad1bn=$cad1bn"\u2588"
 				let escritos=escritos+1
 			done
 		else #Si hay procesos
@@ -3306,8 +3330,8 @@ actualizar_linea()
 			do
 				for((l = 0; l < 3; l++))
 				do
-					cad1=$cad1"\e[${color[$colimp]}m\u2588\e[0m-"
-					cad1bn=$cad1bn"\u2588-"
+					cad1=$cad1"\e[${color[$colimp]}m\u2588\e[0m"
+					cad1bn=$cad1bn"\u2588"
 					let escritos=escritos+1
 				done
 			done
