@@ -2894,57 +2894,64 @@ actualizar_bm()
 	tam_unidad=3
 
 	#Cadena de particiones en la BM.
-	cad_particiones=""
+	cad_particiones="    |"
 
 	#Cadena de procesos en la BM.
-	cad_proc_bm=""
+	cad_proc_bm="    |"
 
 	#Cadena de cuadrados de colores en la BM.
-	cad_mem_col=""
+	cad_mem_col=" BM |"
 
 	#Cadena de cuadrados en blanco y negro en la BM.
-	cad_mem_byn=""
+	cad_mem_byn=" BM |"
 
 	#Cadena de la cantidad de memoria en la BM.
-	cad_can_mem=""
+	cad_can_mem="    |"
 
 	#Variable para contar la memoria representada.
 	mem_rep=0
 
+	shopt -s checkwinsize
+
 	#Columnas que quedan en la consola a la derecha de la barra inicial en la BM.
-	let columnas_bm=$(tput cols)-5
+	columnas_bm=$(($(tput cols)-5))
 
 		
 	for ((pa=0; pa<$n_par; pa++))
 	do
-		if [[ ${tam_par[$pa]} -gt $columnas_bm ]]						#Si la partición va a ocupar más de lo que queda de pantalla,
+		let ocup_par=${tam_par[$pa]}*tam_unidad
+		if [[ $ocup_par -gt $columnas_bm ]]								#Si la partición va a ocupar más de lo que queda de pantalla,
 		then
-			echo -e "    |${cad_particiones[@]}"						#Represento lo que llevo de barra de memoria.
-			echo -e "    |${cad_particiones[@]}" >> informeCOLOR.txt
-			echo -e "    |${cad_particiones[@]}" >> informeBN.txt
+			echo -e "tam_par: $ocup_par, espacio pantalla: $columnas_bm"
+			echo -e "no cabe"
+			echo -e "${cad_particiones[@]}"								#Represento lo que llevo de barra de memoria.
+			echo -e "${cad_particiones[@]}" >> informeCOLOR.txt
+			echo -e "${cad_particiones[@]}" >> informeBN.txt
 
-			echo -e "    |${cad_proc_bm[@]}"
-			echo -e "    |${cad_proc_bm[@]}" >> informeCOLOR.txt
-			echo -e "    |${cad_proc_bm[@]}" >> informeBN.txt
+			echo -e "${cad_proc_bm[@]}"
+			echo -e "${cad_proc_bm[@]}" >> informeCOLOR.txt
+			echo -e "${cad_proc_bm[@]}" >> informeBN.txt
 
-			echo -e " BM |${cad_mem_col[@]}"
-			echo -e " BM |${cad_mem_col[@]}" >> informeCOLOR.txt
-			echo -e " BM |${cad_mem_byn[@]}" >> informeBN.txt
+			echo -e "${cad_mem_col[@]}"
+			echo -e "${cad_mem_col[@]}" >> informeCOLOR.txt
+			echo -e "${cad_mem_byn[@]}" >> informeBN.txt
 
-			echo -e "    |${cad_can_mem[@]}"
-			echo -e "    |${cad_can_mem[@]}" >> informeCOLOR.txt
-			echo -e "    |${cad_can_mem[@]}" >> informeBN.txt
+			echo -e "${cad_can_mem[@]}"
+			echo -e "${cad_can_mem[@]}" >> informeCOLOR.txt
+			echo -e "${cad_can_mem[@]}" >> informeBN.txt
 
-			cad_particiones=""											#Reseteo las cadenas.
-			cad_proc_bm=""
-			cad_mem_col=""
-			cad_mem_byn=""
-			cad_can_mem=""
+			cad_particiones=" "											#Reseteo las cadenas.
+			cad_proc_bm=" "
+			cad_mem_col=" "
+			cad_mem_byn=" "
+			cad_can_mem=" "
 
-			let columnas_bm=$(tput cols)-5 								#Reseteo el numero de columnas que quedan en la pantalla.
+			columnas_bm=$(($(tput cols)-5)) 							#Reseteo las columnas que quedan libres.
 		else 															#Si no va a ocupar más,
-			let columnas_bm=columnas_bm-${tam_par[$pa]}-1				#Actualizo las columnas que quedan restando lo que ocupa la partición y un espacio o barra final.
-		fi		 			
+			echo -e "tam_par: $ocup_par, espacio pantalla: $columnas_bm"
+			echo -e "si cabe"
+		fi
+		let columnas_bm=columnas_bm-ocup_par-1							#Actualizo las columnas que quedan restando lo que ocupa la partición y un espacio o barra final.
 
 
 		## Montaje de la cadena de particiones en la barra de memoria.
@@ -3064,21 +3071,21 @@ actualizar_bm()
 	done
 	
 	## Representacion de la Barra de Memoria.
-	echo -e "    |${cad_particiones[@]}"
-	echo -e "    |${cad_particiones[@]}" >> informeCOLOR.txt
-	echo -e "    |${cad_particiones[@]}" >> informeBN.txt
+	echo -e "${cad_particiones[@]}"
+	echo -e "${cad_particiones[@]}" >> informeCOLOR.txt
+	echo -e "${cad_particiones[@]}" >> informeBN.txt
 
-	echo -e "    |${cad_proc_bm[@]}"
-	echo -e "    |${cad_proc_bm[@]}" >> informeCOLOR.txt
-	echo -e "    |${cad_proc_bm[@]}" >> informeBN.txt
+	echo -e "${cad_proc_bm[@]}"
+	echo -e "${cad_proc_bm[@]}" >> informeCOLOR.txt
+	echo -e "${cad_proc_bm[@]}" >> informeBN.txt
 
-	echo -e " BM |${cad_mem_col[@]}"
-	echo -e " BM |${cad_mem_col[@]}" >> informeCOLOR.txt
-	echo -e " BM |${cad_mem_byn[@]}" >> informeBN.txt
+	echo -e "${cad_mem_col[@]}"
+	echo -e "${cad_mem_col[@]}" >> informeCOLOR.txt
+	echo -e "${cad_mem_byn[@]}" >> informeBN.txt
 
-	echo -e "    |${cad_can_mem[@]}"
-	echo -e "    |${cad_can_mem[@]}" >> informeCOLOR.txt
-	echo -e "    |${cad_can_mem[@]}" >> informeBN.txt
+	echo -e "${cad_can_mem[@]}"
+	echo -e "${cad_can_mem[@]}" >> informeCOLOR.txt
+	echo -e "${cad_can_mem[@]}" >> informeBN.txt
 		
 	echo ""
 	echo "" >> informeCOLOR.txt
