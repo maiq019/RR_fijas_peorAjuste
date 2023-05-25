@@ -2407,7 +2407,7 @@ lectura_fichero_aleatorio()
 	rm $fich
 }
 
-#//TODO lectura_fichero_rangos_aleatorios
+### Lee los datos desde un fichero de rangos aleatorios.
 lectura_fichero_rangos_aleatorios()
 {
 	n_linea=0
@@ -2893,6 +2893,104 @@ inicio_particiones()
 			let vacias=vacias+1
 		fi
 	done	
+}
+
+
+### Función que calcula el número de espacios en base a las cifras para una tabla equilibrada.
+#He modificado la parte de las particiones para tener en cuenta que se muestra el tamaño de cada partición mas un espacio.
+calcula_espacios()
+{
+
+	espacios_n_par=${#n_par}
+
+	if [[ $espacios_n_par == 1 ]] || [[ $espacios_n_par == 2 ]] || [[ $espacios_n_par == 3 ]] || [[ $espacios_n_par == 4 ]]
+	then
+		espacios_n_par_tabla=4
+	else
+		espacios_n_par_tabla=$espacios_n_par
+	fi
+
+	let espacios_tam_par=${#tam_par[@]}*2
+	espacios_quantum=${#quantum}
+	espacios_mayortll=${#mayortll}
+
+	if [[ $espacios_mayortll == 1 ]] || [[ $espacios_mayortll == 2 ]] || [[ $espacios_mayortll == 3 ]]
+	then
+		espacios_mayortll_tabla=3
+	else
+		espacios_mayortll_tabla=$espacios_mayortll
+	fi
+
+	espacios_mayormem=${#mayormem}
+
+	if [[ $espacios_mayormem == 1 ]] || [[ $espacios_mayormem == 2 ]] || [[ $espacios_mayortej == 3 ]]
+	then
+		espacios_mayormem_tabla=3
+	else
+		espacios_mayormem_tabla=$espacios_mayormem
+	fi
+
+	espacios_mayortej=${#mayortej}
+
+	if [[ $espacios_mayortej == 1 ]] || [[ $espacios_mayortej == 2 ]] || [[ $espacios_mayormem == 3 ]]
+	then
+		espacios_mayortej_tabla=3
+	else
+		espacios_mayortej_tabla=$espacios_mayortej
+	fi
+
+	espacios_num_proc=${#num_proc}
+
+	if [[ $espacios_num_proc == 1 ]] || [[ $espacios_num_proc == 2 ]]
+	then
+		espacios_num_proc_tabla=2
+	else
+		espacios_num_proc_tabla=$espacios_num_proc
+	fi
+		
+	espacios_memoria_total=${#memoria_total}
+
+	for((contespacios1 = 0; contespacios1 < num_proc; contespacios1++))
+	do
+		chartll=${#T_ENTRADA_I[contespacios1]}
+
+		if [[ $chartll == 1 ]] || [[ $chartll == 2 ]] || [[ $chartll == 3 ]]
+		then
+			CARACTERESTLL[$contespacios1]=3
+		else
+			CARACTERESTLL[$contespacios1]=$chartll
+		fi
+
+		ESPACIOSTLL[$contespacios1]=$(($espacios_mayortll_tabla - ${CARACTERESTLL[$contespacios1]}))
+	done
+
+	for((contespacios2 = 0; contespacios2 < num_proc; contespacios2++))
+	do
+		chartej=${#T_EJECUCION_I[contespacios2]}
+
+		if [[ $chartej == 1 ]] || [[ $chartej == 2 ]] || [[ $chartej == 3 ]]
+		then
+			CARACTERESTEJ[$contespacios2]=3
+		else
+			CARACTERESTEJ[$contespacios2]=$chartej
+		fi
+
+		ESPACIOSTEJ[$contespacios2]=$(($espacios_mayortej_tabla - ${CARACTERESTEJ[$contespacios2]}))
+	done
+
+	for((contespacios3 = 0; contespacios3 < num_proc; contespacios3++))
+	do
+		charmem=${#MEMORIA_I[contespacios3]}
+
+		if [[ $charmem == 1 ]] || [[ $charmem == 2 ]] || [[ $charmem == 3 ]]
+		then
+			CARACTERESMEM[$contespacios3]=3
+		else
+			CARACTERESMEM[$contespacios3]=$charmem
+		fi
+
+		ESPACIOSMEM[$contespacios3]=$(($espacios_mayormem_tabla-${CARACTERESMEM[$contespacios1]}))
+	done
 }
 
 
@@ -3689,6 +3787,7 @@ tabla_ejecucion()
 	actualizar_bm
 
 	actualizar_bt
+	#imprimir_bt
 
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -4048,9 +4147,7 @@ actualizar_bm()
 	echo "" >> informeBN.txt
 }
 
-
-#Esta función se ejecutará para cada unidad de tiempo.
-actualizar_bt_try()
+iniciar_bt()
 {
 	#Calculo el tamaño del espacio representado en la barra por cada unidad de tiempo en función del tamaño del mayor tiempo de entrada.
 	mas_tarde=0
@@ -4068,6 +4165,28 @@ actualizar_bt_try()
 		tam_unidad_bt=${#mas_tarde}
 	fi
 
+
+	cad_proc_bt=""
+	cad_tie_col=""
+	cad_tie_byn=""
+	cad_can_tie="$tiempo_transcurrido"
+
+	for (( esp_ini=0; esp_ini<$tam_unidad_bt; esp_ini++ ))
+	do
+
+		cad_proc_bt=${cad_proc_bt[@]}" "
+		cad_tie_col=${cad_tie_col[@]}"\u2588"
+		cad_tie_byn=${cad_tie_byn[@]}"\u2588"
+	done
+	for (( esp_ini=0; esp_ini<$tam_unidad_bt-${#tiempo_transcurrido}; esp_ini++ ))
+	do
+		cad_can_tie=${cad_can_tie[@]}" "
+	done
+}
+
+#Esta función se ejecutará para cada unidad de tiempo.
+actualizar_bt_try()
+{
 	#Variable que cuenta los procesos que hay fuera del sistema.
 	fuera_sist=0
 
@@ -4086,8 +4205,10 @@ actualizar_bt_try()
 		colimp=$proc_actual
 	fi
 
+
+
 	## Montaje de la cadena de procesos en la barra de tiempo.
-	if [[ -z $proc_actual || $proc_actual -eq $last_proc ]] 									#Si no hay ningún proceso en ejecución, o el proceso actual ya estaba antes,
+	if [[ $fuera_sist == $num_proc || -z $proc_actual || $proc_actual -eq $last_proc ]] 		#Si no hay procesos en el sistema, en ejecución, o o el proceso actual ya estaba antes,
 	then
 		for (( n=0; n<$tam_unidad_bt; n++ ))													#Por lo que ocupe la unidad de tiempo en la barra,
 		do
@@ -4132,16 +4253,21 @@ actualizar_bt_try()
 		cad_can_tie=${cad_can_tie[@]}"$tiempo_transcurrido"					#Añado el tiempo transcurrido hasta el momento.
 		for (( n=0; n<$tam_unidad_bt-${#tiempo_transcurrido}; n++ ))		#Por lo que ocupe la unidad de tiempo en la barra menos lo que ocupó el escribir el tiempo,
 		do
-			cad_proc_bt=${cad_proc_bt[@]}" "								#Añado espacios.
+			cad_can_tie=${cad_can_tie[@]}" "								#Añado espacios.
 		done
 	else 																	#Si no hay evento,
 		for (( n=0; n<$tam_unidad_bt; n++ ))								#Por lo que ocupe la unidad de tiempo en la barra,
 		do
-			cad_proc_bt=${cad_proc_bt[@]}" "								#Añado espacios.
+			cad_can_tie=${cad_can_tie[@]}" "								#Añado espacios.
 		done
 	fi
+}
 
-	## Representación de la Barra de Tiempo.
+
+### Representación de la Barra de Tiempo.
+imprimir_bt()
+{
+	actualizar_bt_try
 	echo -e "    |${cad_proc_bt[@]}|"
 	echo -e "    |${cad_proc_bt[@]}|" >> informeCOLOR.txt
 	echo -e "    |${cad_proc_bt[@]}|" >> informeBN.txt
@@ -4192,19 +4318,19 @@ actualizar_bt()
 		#Comandos que ajustan las 3 lineas verticales del final de la barra de tiempo
 		if [[ $primvez = 0 ]]
 		then
-			cadtiempo[$j]="${cad_cua_aux_bt[@]}|T=$tiempo_transcurrido"
 			cadtiempo2[$j]="${cad_tex_aux_bt[@]}|"
-			cadtiempobn[$j]="${cad_cua_aux_bt[@]}|T=$tiempo_transcurrido"
+			cadtiempo[$j]="${cad_cua_aux_bt[@]}|T=$tiempo_transcurrido"
 			cadtiempo2bn[$j]="${cad_tex_aux_bt[@]}|"
+			cadtiempobn[$j]="${cad_cua_aux_bt[@]}|T=$tiempo_transcurrido"
 			cadtiempo3[$j]="${cad_tex_aux_bt[@]}|"
 		fi
 
 		if [[ $primvez = 1 ]]
 		then
-			cadtiempo[$j]=${cad[$j]}"   |T=$tiempo_transcurrido"
 			cadtiempo2[$j]=${cad2[$j]}"|"
-			cadtiempobn[$j]=${cadbn[$j]}"   |T=$tiempo_transcurrido"
+			cadtiempo[$j]=${cad[$j]}"   |T=$tiempo_transcurrido"
 			cadtiempo2bn[$j]=${cad2bn[$j]}"|"
+			cadtiempobn[$j]=${cadbn[$j]}"   |T=$tiempo_transcurrido"
 			cadtiempo3[$j]=${cad3[$j]}"|"
 		fi
 
@@ -4537,6 +4663,7 @@ mayor_dato_procesos()
 	done
 }
 
+
 ### Calcula la memoria total de las particiones.
 memoria_total()
 {
@@ -4546,103 +4673,6 @@ memoria_total()
 		let memoria_total=memoria_total+$tp
 	done
 	#return $memoria_total
-}
-
-### Función que calcula el número de espacios en base a las cifras para una tabla equilibrada.
-#He modificado la parte de las particiones para tener en cuenta que se muestra el tamaño de cada partición mas un espacio.
-calcula_espacios()
-{
-
-	espacios_n_par=${#n_par}
-
-	if [[ $espacios_n_par == 1 ]] || [[ $espacios_n_par == 2 ]] || [[ $espacios_n_par == 3 ]] || [[ $espacios_n_par == 4 ]]
-	then
-		espacios_n_par_tabla=4
-	else
-		espacios_n_par_tabla=$espacios_n_par
-	fi
-
-	let espacios_tam_par=${#tam_par[@]}*2
-	espacios_quantum=${#quantum}
-	espacios_mayortll=${#mayortll}
-
-	if [[ $espacios_mayortll == 1 ]] || [[ $espacios_mayortll == 2 ]] || [[ $espacios_mayortll == 3 ]]
-	then
-		espacios_mayortll_tabla=3
-	else
-		espacios_mayortll_tabla=$espacios_mayortll
-	fi
-
-	espacios_mayormem=${#mayormem}
-
-	if [[ $espacios_mayormem == 1 ]] || [[ $espacios_mayormem == 2 ]] || [[ $espacios_mayortej == 3 ]]
-	then
-		espacios_mayormem_tabla=3
-	else
-		espacios_mayormem_tabla=$espacios_mayormem
-	fi
-
-	espacios_mayortej=${#mayortej}
-
-	if [[ $espacios_mayortej == 1 ]] || [[ $espacios_mayortej == 2 ]] || [[ $espacios_mayormem == 3 ]]
-	then
-		espacios_mayortej_tabla=3
-	else
-		espacios_mayortej_tabla=$espacios_mayortej
-	fi
-
-	espacios_num_proc=${#num_proc}
-
-	if [[ $espacios_num_proc == 1 ]] || [[ $espacios_num_proc == 2 ]]
-	then
-		espacios_num_proc_tabla=2
-	else
-		espacios_num_proc_tabla=$espacios_num_proc
-	fi
-		
-	espacios_memoria_total=${#memoria_total}
-
-	for((contespacios1 = 0; contespacios1 < num_proc; contespacios1++))
-	do
-		chartll=${#T_ENTRADA_I[contespacios1]}
-
-		if [[ $chartll == 1 ]] || [[ $chartll == 2 ]] || [[ $chartll == 3 ]]
-		then
-			CARACTERESTLL[$contespacios1]=3
-		else
-			CARACTERESTLL[$contespacios1]=$chartll
-		fi
-
-		ESPACIOSTLL[$contespacios1]=$(($espacios_mayortll_tabla - ${CARACTERESTLL[$contespacios1]}))
-	done
-
-	for((contespacios2 = 0; contespacios2 < num_proc; contespacios2++))
-	do
-		chartej=${#T_EJECUCION_I[contespacios2]}
-
-		if [[ $chartej == 1 ]] || [[ $chartej == 2 ]] || [[ $chartej == 3 ]]
-		then
-			CARACTERESTEJ[$contespacios2]=3
-		else
-			CARACTERESTEJ[$contespacios2]=$chartej
-		fi
-
-		ESPACIOSTEJ[$contespacios2]=$(($espacios_mayortej_tabla - ${CARACTERESTEJ[$contespacios2]}))
-	done
-
-	for((contespacios3 = 0; contespacios3 < num_proc; contespacios3++))
-	do
-		charmem=${#MEMORIA_I[contespacios3]}
-
-		if [[ $charmem == 1 ]] || [[ $charmem == 2 ]] || [[ $charmem == 3 ]]
-		then
-			CARACTERESMEM[$contespacios3]=3
-		else
-			CARACTERESMEM[$contespacios3]=$charmem
-		fi
-
-		ESPACIOSMEM[$contespacios3]=$(($espacios_mayormem_tabla-${CARACTERESMEM[$contespacios1]}))
-	done
 }
 
 
@@ -5042,6 +5072,7 @@ mayor_dato_procesos 					#Calcula el mayor dato
 memoria_total 							#Calcula la memoria total.
 calcular_tabla_particiones_ejecucion	#Calcula la tabla de datos de las particiones.
 calcula_espacios 						#Calcula los espacios para la tabla de procesos.
+iniciar_bt								#Inicia la barra de tiempo.
 algoritmob 								#Algoritmo principal
 
 #clear
