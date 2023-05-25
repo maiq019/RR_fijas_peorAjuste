@@ -44,3 +44,191 @@
  7- Rangos manuales para rangos aleatorios (prueba de casos extremos)
  8- Fichero de rangos aleatorios de última ejecución (datosrangos2.txt)
  9- Otros ficheros de rangos para rangos aleatorios
+2
+		>> Numero de particiones: 3
+		>> Tamaño de particiones: 6 6 6
+		>> Quantum de tiempo: 2
+		>> Numero de particiones: 3
+		>> Tamaño de particiones: 6 6 6
+		>> Quantum de tiempo: 2
+		>> 26 procesos.
+      >> Procesos y sus datos:
+         Ref Tll Tej Mem 
+         ----------------
+                   P11  30  24   5  
+                   P15  33  22   5  
+                   P12  38  14   5  
+                   P26  38  14   5  
+                   P21  39  12   5  
+                   P09  41  18   5  
+                   P25  42  15   5  
+                   P19  45  21   5  
+                   P02  47  15   5  
+                   P24  47  16   5  
+                   P03  50  19   5  
+                   P08  53  22   5  
+                   P22  55  14   5  
+                   P01  57  17   5  
+                   P10  58  16   5  
+                   P05  62  18   5  
+                   P17  66  11   5  
+                   P16  70  20   5  
+                   P13  79  18   5  
+                   P06  80  23   5  
+                   P07  82  16   5  
+                   P20  82  22   5  
+                   P14  87  13   5  
+                   P18  87  16   5  
+                   P04  89  22   5  
+                   P23  89  24   5  
+		> ROUND ROBIN
+  ┌──────────┬───────────────┬──────────┐
+  │Nº Part:  │Tam Part:      │Quantum:  │
+  │ 3        │ 6 6 6         │ 2        │
+  └──────────┴───────────────┴──────────┘
+ ┌─────┬─────┬─────┬─────┬──────┬──────┬──────┬──────┬──────────────────┐
+ │ Ref │ Tll │ Tej │ Mem │ Tesp │ Tret │ Trej │ Part │ Estado           │
+ ├─────┼─────┼─────┼─────┼──────┼──────┼──────┼──────┼──────────────────┤
+ │ P01 │  30 │  24 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P02 │  33 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P03 │  38 │  14 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P04 │  38 │  14 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P05 │  39 │  12 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P06 │  41 │  18 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P07 │  42 │  15 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P08 │  45 │  21 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P09 │  47 │  15 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P10 │  47 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P11 │  50 │  19 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P12 │  53 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P13 │  55 │  14 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P14 │  57 │  17 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P15 │  58 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P16 │  62 │  18 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P17 │  66 │  11 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P18 │  70 │  20 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P19 │  79 │  18 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P20 │  80 │  23 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P21 │  82 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P22 │  82 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P23 │  87 │  13 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P24 │  87 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P25 │  89 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P26 │  89 │  24 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ └─────┴─────┴─────┴─────┴──────┴──────┴──────┴──────┴──────────────────┘
+ Tesp medio = 0.00	 Tret medio = 0.00
+ Cola RR: 
+    |Part 1             Part 2             Part 3            |
+    |                                                        |
+ BM |██████████████████ ██████████████████ ██████████████████|M=18
+    |0                  6                  12                |
+
+    |   |
+ BT |███|T=0
+    |   |
+        |
+     ███|T=0
+        |
+
+---------------------------------------------------------
+
+  ┌──────────┬───────────────┬──────────┐
+  │Nº Part:  │Tam Part:      │Quantum:  │
+  │ 3        │ 6 6 6         │ 2        │
+  └──────────┴───────────────┴──────────┘
+ ┌─────┬─────┬─────┬─────┬──────┬──────┬──────┬──────┬──────────────────┐
+ │ Ref │ Tll │ Tej │ Mem │ Tesp │ Tret │ Trej │ Part │ Estado           │
+ ├─────┼─────┼─────┼─────┼──────┼──────┼──────┼──────┼──────────────────┤
+ │ P01 │  30 │  24 │   5 │    0 │    0 │   24 │    1 │ Ejecucion        │ 
+ │ P02 │  33 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P03 │  38 │  14 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P04 │  38 │  14 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P05 │  39 │  12 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P06 │  41 │  18 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P07 │  42 │  15 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P08 │  45 │  21 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P09 │  47 │  15 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P10 │  47 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P11 │  50 │  19 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P12 │  53 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P13 │  55 │  14 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P14 │  57 │  17 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P15 │  58 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P16 │  62 │  18 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P17 │  66 │  11 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P18 │  70 │  20 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P19 │  79 │  18 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P20 │  80 │  23 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P21 │  82 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P22 │  82 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P23 │  87 │  13 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P24 │  87 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P25 │  89 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P26 │  89 │  24 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ └─────┴─────┴─────┴─────┴──────┴──────┴──────┴──────┴──────────────────┘
+ T medio de espera = 0.00	 T medio de retorno = 0.00
+ Cola RR: 
+    |Part 1             Part 2             Part 3            |
+    |P01                                                     |
+ BM |██████████████████ ██████████████████ ██████████████████|M=18
+    |0              5   6                  12                |
+
+    |                                                                                          P01|
+ BT |██████████████████████████████████████████████████████████████████████████████████████████   |T=30
+    |                                                                                           30|
+     |
+        |T=30
+     |
+
+---------------------------------------------------------
+
+  ┌──────────┬───────────────┬──────────┐
+  │Nº Part:  │Tam Part:      │Quantum:  │
+  │ 3        │ 6 6 6         │ 2        │
+  └──────────┴───────────────┴──────────┘
+ ┌─────┬─────┬─────┬─────┬──────┬──────┬──────┬──────┬──────────────────┐
+ │ Ref │ Tll │ Tej │ Mem │ Tesp │ Tret │ Trej │ Part │ Estado           │
+ ├─────┼─────┼─────┼─────┼──────┼──────┼──────┼──────┼──────────────────┤
+ │ P01 │  30 │  24 │   5 │    0 │    2 │   22 │    1 │ Ejecucion        │ 
+ │ P02 │  33 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P03 │  38 │  14 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P04 │  38 │  14 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P05 │  39 │  12 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P06 │  41 │  18 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P07 │  42 │  15 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P08 │  45 │  21 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P09 │  47 │  15 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P10 │  47 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P11 │  50 │  19 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P12 │  53 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P13 │  55 │  14 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P14 │  57 │  17 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P15 │  58 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P16 │  62 │  18 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P17 │  66 │  11 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P18 │  70 │  20 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P19 │  79 │  18 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P20 │  80 │  23 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P21 │  82 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P22 │  82 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P23 │  87 │  13 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P24 │  87 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P25 │  89 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P26 │  89 │  24 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ └─────┴─────┴─────┴─────┴──────┴──────┴──────┴──────┴──────────────────┘
+ T medio de espera = 0.00	 T medio de retorno = 0.00
+ Cola RR: 
+    |Part 1             Part 2             Part 3            |
+    |P01                                                     |
+ BM |██████████████████ ██████████████████ ██████████████████|M=18
+    |0              5   6                  12                |
+
+    |                                                                                          P01   P01|
+ BT |████████████████████████████████████████████████████████████████████████████████████████████████   |T=32
+    |                                                                                           30    32|
+     |
+        |T=32
+     |
+
+---------------------------------------------------------
+

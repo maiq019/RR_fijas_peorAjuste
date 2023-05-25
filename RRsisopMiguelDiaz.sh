@@ -413,9 +413,9 @@ lee_datos() {
 		echo  " ¿Dónde guardar los rangos?"
 		echo  " ¿Dónde guardar los rangos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los rangos?" >> informeBN.txt
-		echo  " 1- Fichero de rangos de última ejecución (datosrangos.txt)"
-		echo  " 1- Fichero de rangos de última ejecución (datosrangos.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de rangos de última ejecución (datosrangos.txt)" >> informeBN.txt
+		echo  " 1- Fichero de rangos de última ejecución (datosrangosRNG.txt)"
+		echo  " 1- Fichero de rangos de última ejecución (datosrangosRNG.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de rangos de última ejecución (datosrangosRNG.txt)" >> informeBN.txt
 		echo  " 2- Otros ficheros de rangos"
 		echo  " 2- Otros ficheros de rangos" >> informeCOLOR.txt
 		echo  " 2- Otros ficheros de rangos" >> informeBN.txt
@@ -486,7 +486,7 @@ lee_datos() {
 	#Lectura de fichero de última ejecución de datos aleatorios.
 	if [ $dat_fich = '5' ]
 	then 
-		lectura_fichero_aleatorio "datosrangos.txt"
+		lectura_fichero_aleatorio "datosrangosRNG.txt"
 	fi
 
 
@@ -526,7 +526,7 @@ lee_datos() {
 	fi
 
 
-	#Introduccion de datos aleatorios con rango a mano.
+	#Introduccion de rangos aleatorios a mano.
 	if [ $dat_fich = '7' ] 
 	then
 		###  MÉTODO DE GUARDADO  ###
@@ -536,9 +536,9 @@ lee_datos() {
 		echo  " ¿Dónde guardar los rangos para calcular rangos?"
 		echo  " ¿Dónde guardar los rangos para calcular rangos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los rangos para calcular rangos?" >> informeBN.txt
-		echo  " 1- Fichero de rangos para rangos de última ejecución (datosrangos2.txt)"
-		echo  " 1- Fichero de rangos para rangos de última ejecución (datosrangos2.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de rangos para rangos de última ejecución (datosrangos2.txt)" >> informeBN.txt
+		echo  " 1- Fichero de rangos para rangos de última ejecución (datosrangosRNGALE.txt)"
+		echo  " 1- Fichero de rangos para rangos de última ejecución (datosrangosRNGALE.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de rangos para rangos de última ejecución (datosrangosRNGALE.txt)" >> informeBN.txt
 		echo  " 2- Otros ficheros de rangos para rangos"
 		echo  " 2- Otros ficheros de rangos para rangos" >> informeCOLOR.txt
 		echo  " 2- Otros ficheros de rangos para rangos" >> informeBN.txt
@@ -569,9 +569,9 @@ lee_datos() {
 		echo  " ¿Dónde guardar los rangos?"
 		echo  " ¿Dónde guardar los rangos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los rangos?" >> informeBN.txt
-		echo  " 1- Fichero de rangos de última ejecución (datosrangos.txt)"
-		echo  " 1- Fichero de rangos de última ejecución (datosrangos.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de rangos de última ejecución (datosrangos.txt)" >> informeBN.txt
+		echo  " 1- Fichero de rangos de última ejecución (datosrangosRNG.txt)"
+		echo  " 1- Fichero de rangos de última ejecución (datosrangosRNG.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de rangos de última ejecución (datosrangosRNG.txt)" >> informeBN.txt
 		echo  " 2- Otros ficheros de rangos"
 		echo  " 2- Otros ficheros de rangos" >> informeCOLOR.txt
 		echo  " 2- Otros ficheros de rangos" >> informeBN.txt
@@ -633,16 +633,53 @@ lee_datos() {
 		lectura_dat_particiones_rangos_aleatorios
 
 		#Lectura de datos concretos de los procesos.
-
+		lectura_dat_procesos_rangos_aleatorios
 
 		ordenacion_procesos
 	fi
 
-	#Entrada por fichero de última ejecución.
+
+	#Entrada por fichero de última ejecución de rangos aleatorios.
 	if [ $dat_fich = '8' ] 
 	then
 		#fich="datos.txt"
-		lectura_fichero_rangos_aleatorios "datosrangos2.txt"
+		lectura_fichero_rangos_aleatorios "datosrangosRNGALE.txt"
+	fi
+
+
+	#Entrada por otro fichero de rangos aleatorios.
+	if [ $dat_fich = '9' ]
+	then
+		ls | grep RNGALE* | grep -v datos.txt > listado.temp
+		ls | grep datosrangos2.txt | grep -v datosrangos.txt | grep -v datos.txt >> listado.temp
+
+		#Muestra listados con ficheros.
+		cat listado.temp
+		cat listado.temp >> informeCOLOR.txt
+		cat listado.temp >> informeBN.txt
+		echo -n " Introduce uno de los ficheros del listado:"
+		echo -n " Introduce uno de los ficheros del listado:" >> informeCOLOR.txt
+		echo -n " Introduce uno de los ficheros del listado:" >> informeBN.txt
+		read fich
+		echo $fich >> informeCOLOR.txt
+		echo $fich >> informeBN.txt
+
+		while [ ! -f $fich ] #Si el fichero no existe, lectura erronea.
+		do
+			echo " Entrada no válida, el fichero no se ha encontrado o no existe"
+			echo " Entrada no válida, el fichero no se ha encontrado o no existe" >> informeCOLOR.txt
+			echo " Entrada no válida, el fichero no se ha encontrado o no existe" >> informeBN.txt
+			echo -n " Introduce uno de los ficheros del listado:"
+			echo -n " Introduce uno de los ficheros del listado:" >> informeCOLOR.txt
+			echo -n " Introduce uno de los ficheros del listado:" >> informeBN.txt
+			read fich
+			echo $fich >> informeCOLOR.txt
+			echo $fich >> informeBN.txt
+		done
+
+		#Lectura de los datos del fichero.
+		lectura_fichero_rangos_aleatorios "$fich"
+		rm -r listado.temp # Borra el temporal
 	fi
 
 
@@ -666,12 +703,12 @@ lee_datos() {
 ### Escribe la cabecera del informe para la tabla de procesos.
 escribe_cabecera_informe()
 {
-	echo "		>> Procesos y sus datos:" >> informeCOLOR.txt
-	echo "		>> Procesos y sus datos:" >> informeBN.txt
-	echo "			Ref Tll Tej Mem " >> informeCOLOR.txt
-	echo "			Ref Tll Tej Mem " >> informeBN.txt
-	echo "      	----------------" >> informeCOLOR.txt
-	echo "      	----------------" >> informeBN.txt
+	echo "      >> Procesos y sus datos:" >> informeCOLOR.txt
+	echo "      >> Procesos y sus datos:" >> informeBN.txt
+	echo "         Ref Tll Tej Mem " >> informeCOLOR.txt
+	echo "         Ref Tll Tej Mem " >> informeBN.txt
+	echo "         ----------------" >> informeCOLOR.txt
+	echo "         ----------------" >> informeBN.txt
 }
 
 
@@ -682,24 +719,23 @@ escribe_enunciado()
 	#He añadido un comentario con los colores usados en el código, y acortado el array de colores repetidos dado que su funcionamiento es cíclico.
 	#color=(cyan, purple, blue, green, red)
 	color=(96 95 94 92 91)
-	for(( c = 0, pr = 0; pr < $num_proc; c++, pr++ ))
+
+	for(( c=0, pr=0; pr<$num_proc; c++, pr++ ))
 	do
 		if [[ $c -gt 4 ]] #Si se sale del array de colores, vuelve al primero.
 		then
 			c=0
 		fi
 
-
-
-		echo -ne "                \e[${color[$c]}mP" >> informeCOLOR.txt
-		printf "%02d " "$(($pr+1))" >> informeCOLOR.txt
+		echo -ne "                   \e[${color[$c]}mP" >> informeCOLOR.txt
+		printf "%02d " "${NUMPROC[$pr]}" >> informeCOLOR.txt
 		printf "%3s " "${T_ENTRADA[$pr]}" >> informeCOLOR.txt
 		printf "%3s " "${TEJ[$pr]}" >> informeCOLOR.txt
 		printf "%3s " "${MEMORIA[$pr]}" >> informeCOLOR.txt
 		echo -e "$resetColor" >> informeCOLOR.txt
 
-		echo -ne "                P" >> informeBN.txt
-		printf "%02d " "$(($pr+1))" >> informeBN.txt
+		echo -ne "                   P" >> informeBN.txt
+		printf "%02d " "${NUMPROC[$pr]}" >> informeBN.txt
 		printf "%3s " "${T_ENTRADA[$pr]}" >> informeBN.txt
 		printf "%3s " "${TEJ[$pr]}" >> informeBN.txt
 		printf "%3s " "${MEMORIA[$pr]}" >> informeBN.txt
@@ -827,6 +863,7 @@ lectura_dat_procesos()
 
 		#Suma el número de proceso.
 		let num_proc=num_proc+1
+		NUMPROC_I[$i_proc]=$num_proc
 
 		###  LECTURA DE TIEMPO DE LLEGADA  ###
 
@@ -901,7 +938,7 @@ lectura_dat_procesos()
 		done
 
 		#Almacenamiento de valores en los arrays.
-		PROCESOS_I[$i_proc]=$rafaga  # Almacenará la ráfaga del proceso
+		T_EJECUCION_I[$i_proc]=$rafaga  # Almacenará la ráfaga del proceso
 		QT_PROC_I[$i_proc]=$quantum 	# Almacenará el quantum restante del proceso (en caso de E/S)
 		PROC_ENAUX_I[$i_proc]="No" 	# Por defecto ningún proceso estará en la cola auxiliar FIFO de E/S
 
@@ -1266,7 +1303,6 @@ lectura_dat_procesos_aleatorios()
 
 	###   TIEMPO DE LLEGADA MÍNIMO  ###
 
-	ordenacion_procesos
 	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce el tiempo de llegada mínimo a CPU de los procesos: "
 	echo -n " Introduce el tiempo de llegada mínimo a CPU de los procesos: " >> informeCOLOR.txt
@@ -1291,7 +1327,6 @@ lectura_dat_procesos_aleatorios()
 
 	###   TIEMPO DE LLEGADA MÁXIMO  ###
 
-	ordenacion_procesos
 	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce el tiempo de llegada máximo a CPU de los procesos: "
 	echo -n " Introduce el tiempo de llegada máximo a CPU de los procesos: " >> informeCOLOR.txt
@@ -1325,7 +1360,6 @@ lectura_dat_procesos_aleatorios()
 
 	###  RÁFAGA MÍNIMA  ###
 
-	ordenacion_procesos
 	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce la ráfaga mínima de CPU de los procesos: "
 	echo -n " Introduce la ráfaga mínima de CPU de los procesos: " >> informeCOLOR.txt
@@ -1350,7 +1384,6 @@ lectura_dat_procesos_aleatorios()
 
 	###  RÁFAGA MÁXIMA  ###
 
-	ordenacion_procesos
 	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce la ráfaga máxima de CPU de los procesos: "
 	echo -n " Introduce la ráfaga máxima de CPU de los procesos: " >> informeCOLOR.txt
@@ -1397,7 +1430,6 @@ lectura_dat_procesos_aleatorios()
 
 	###  MEMORIA MÍNIMA  ###
 
-	ordenacion_procesos
 	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce la memoria mínima de los procesos: "
 	echo -n " Introduce la memoria mínima de los procesos: " >> informeCOLOR.txt
@@ -1433,7 +1465,6 @@ lectura_dat_procesos_aleatorios()
 
 	###  MEMORIA MÁXIMA  ###
 
-	ordenacion_procesos
 	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce la memoria máxima de los procesos: "
 	echo -n " Introduce la memoria máxima de los procesos: " >> informeCOLOR.txt
@@ -1473,29 +1504,26 @@ lectura_dat_procesos_aleatorios()
 		echo $memo_proc_max >> informeBN.txt
 	done
 
-	ordenacion_procesos
-	imprimir_tabla_procesos_aleatorios
-
 	#Calculo los datos de los procesos.
 	datos_procesos_aleatorios
+
+	ordenacion_procesos
+	imprimir_tabla_procesos_aleatorios
 }
 
 
 ### Bucle que calcula los datos de los procesos con los rangos y los imprime antes de que comience la ejecución del algoritmo RR.
 #He separado este proceso en una función aparte para reutilizarlo, eliminado variables redundantes y cambiado los comandos de expr por let.
+#Recibe como parámetro si imprimir la tabla de rangos para datos o de rangos para rangos para datos.
 datos_procesos_aleatorios()
 {
-	for(( pr = 0; pr<$num_proc; pr++ ))
+	for(( pr=0; pr<$num_proc; pr++ ))
 	do
-		if [ $pr -gt 0 ] 	#Si hay algún proceso.
-		then 				#Imprime tabla con datos.
-			ordenacion_procesos
-			imprimir_tabla_procesos_aleatorios
-		fi
+		NUMPROC_I[$pr]=$(($pr+1))
 
 		#Asignación aleatoria del tiempo de entrada en el rango.
 		entrada=`shuf -i $entrada_min-$entrada_max -n 1`
-		T_ENTRADA_I[$pr]="$entrada"
+		T_ENTRADA_I[$pr]=$entrada
 
 		#Almacena el proceso con el menor tiempo de llegada, por orden de introducción.
 		if [ $entrada -lt $min ]
@@ -1519,7 +1547,7 @@ datos_procesos_aleatorios()
 
 		#Asignación aleatoria de la ráfaga en el rango.
 		rafaga=`shuf -i $rafaga_min-$rafaga_max -n 1`
-		PROCESOS_I[$pr]=$rafaga  #Almacena la ráfaga del proceso
+		T_EJECUCION_I[$pr]=$rafaga  #Almacena la ráfaga del proceso
 		QT_PROC_I[$pr]=$quantum 	#Almacena el quantum restante del proceso (en caso de E/S)
 		PROC_ENAUX_I[$pr]="No" 	#Por defecto ningún proceso estará en la cola auxiliar FIFO de E/S
 
@@ -1532,9 +1560,6 @@ datos_procesos_aleatorios()
 
 		#Almacenamiento de datos en un archivo temporal
 		echo $memo_proc >> archivo.temp
-
-		ordenacion_procesos
-		imprimir_tabla_procesos_aleatorios
 	done
 
 	#Si no hay procesos ejecutables, saca de espera al proceso con el menor tiempo de llegada y suma procesos ejecutables.
@@ -1549,14 +1574,14 @@ datos_procesos_aleatorios()
 ### Lectura de los rangos para rangos de las particiones y el quantum para la introducción a mano de rangos aleatorios (opción 7).
 lectura_dat_particiones_rangos_aleatorios()
 {
-	###  RANGO DE PARTICIONES MÍNIMO  ###
+	###  RANGO DE NÚMERO DE PARTICIONES MÍNIMO  ###
 
 	#clear
 	imprime_cabecera
 	imprime_info_datos_rangos_aleatorios
-	echo -n " Introduzca rango de particiones mínimo: "
-	echo -n " Introduzca rango de particiones mínimo: " >> informeCOLOR.txt
-	echo -n " Introduzca rango de particiones mínimo: " >> informeBN.txt
+	echo -n " Introduzca rango de número de particiones mínimo: "
+	echo -n " Introduzca rango de número de particiones mínimo: " >> informeCOLOR.txt
+	echo -n " Introduzca rango de número de particiones mínimo: " >> informeBN.txt
 	read rango_n_par_min
 	echo $rango_n_par_min >> informeCOLOR.txt
 	echo $rango_n_par_min >> informeBN.txt
@@ -1567,22 +1592,22 @@ lectura_dat_particiones_rangos_aleatorios()
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
-		echo -n " Introduzca rango de particiones mínimo: "
-		echo -n " Introduzca rango de particiones mínimo: " >> informeCOLOR.txt
-		echo -n " Introduzca rango de particiones mínimo: " >> informeBN.txt
+		echo -n " Introduzca rango de número de particiones mínimo: "
+		echo -n " Introduzca rango de número de particiones mínimo: " >> informeCOLOR.txt
+		echo -n " Introduzca rango de número de particiones mínimo: " >> informeBN.txt
 		read rango_n_par_min
 		echo $rango_n_par_min >> informeCOLOR.txt
 		echo $rango_n_par_min >> informeBN.txt
 	done
 
-	###  RANGO DE PARTICIONES MÁXIMO  ###
+	###  RANGO DE NÚMERO DE PARTICIONES MÁXIMO  ###
 
 	#clear
 	imprime_cabecera
 	imprime_info_datos_rangos_aleatorios
-	echo -n " Introduzca rango de particiones máximo: "
-	echo -n " Introduzca rango de particiones máximo: " >> informeCOLOR.txt
-	echo -n " Introduzca rango de particiones máximo: " >> informeBN.txt
+	echo -n " Introduzca rango de número de particiones máximo: "
+	echo -n " Introduzca rango de número de particiones máximo: " >> informeCOLOR.txt
+	echo -n " Introduzca rango de número de particiones máximo: " >> informeBN.txt
 	read rango_n_par_max
 	echo $rango_n_par_max >> informeCOLOR.txt
 	echo $rango_n_par_max >> informeBN.txt
@@ -1603,9 +1628,9 @@ lectura_dat_particiones_rangos_aleatorios()
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
 		fi
-		echo -n " Introduzca rango de particiones máximo: "
-		echo -n " Introduzca rango de particiones máximo: " >> informeCOLOR.txt
-		echo -n " Introduzca rango de particiones máximo: " >> informeBN.txt
+		echo -n " Introduzca rango de número de particiones máximo: "
+		echo -n " Introduzca rango de número de particiones máximo: " >> informeCOLOR.txt
+		echo -n " Introduzca rango de número de particiones máximo: " >> informeBN.txt
 		read rango_n_par_max
 		echo $rango_n_par_max >> informeCOLOR.txt
 		echo $rango_n_par_max >> informeBN.txt
@@ -1613,7 +1638,7 @@ lectura_dat_particiones_rangos_aleatorios()
 
 	#Asignación aleatoria del número de particiones mínimo en el rango.
 	n_par_min=`shuf -i $rango_n_par_min-$rango_n_par_max -n 1`
-	#Asignación aleatoria del número de particiones mínimo en el rango.
+	#Asignación aleatoria del número de particiones máximo en el rango.
 	n_par_max=`shuf -i $rango_n_par_min-$rango_n_par_max -n 1`
 
 	while [ $n_par_min -gt $n_par_max ]		#Mientras el mínimo sea mayor al máximo, se recalculan.
@@ -1627,14 +1652,14 @@ lectura_dat_particiones_rangos_aleatorios()
 	#Asignación aleatoria del número de particiones en el rango.
 	n_par=`shuf -i $n_par_min-$n_par_max -n 1`
 
-	###  RANGO DE PARTICIONES MÍNIMO  ###
+	###  RANGO DE TAMAÑO DE PARTICIONES MÍNIMO  ###
 
 	#clear
 	imprime_cabecera
 	imprime_info_datos_rangos_aleatorios
-	echo -n " Introduce rango de particiones mínimo: "
-	echo -n " Introduce rango de particiones mínimo: " >> informeCOLOR.txt
-	echo -n " Introduce rango de particiones mínimo: " >> informeBN.txt
+	echo -n " Introduce rango de tamaño de particiones mínimo: "
+	echo -n " Introduce rango de tamaño de particiones mínimo: " >> informeCOLOR.txt
+	echo -n " Introduce rango de tamaño de particiones mínimo: " >> informeBN.txt
 	read rango_tam_par_min
 	echo $rango_tam_par_min >> informeCOLOR.txt
 	echo $rango_tam_par_min >> informeBN.txt
@@ -1645,22 +1670,22 @@ lectura_dat_particiones_rangos_aleatorios()
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
-		echo -n " Introduzca rango de particiones mínimo: "
-		echo -n " Introduzca rango de particiones mínimo: " >> informeCOLOR.txt
-		echo -n " Introduzca rango de particiones mínimo: " >> informeBN.txt
+		echo -n " Introduzca rango de tamaño de particiones mínimo: "
+		echo -n " Introduzca rango de tamaño de particiones mínimo: " >> informeCOLOR.txt
+		echo -n " Introduzca rango de tamaño de particiones mínimo: " >> informeBN.txt
 		read rango_tam_par_min
 		echo $rango_tam_par_min >> informeCOLOR.txt
 		echo $rango_tam_par_min >> informeBN.txt
 	done
 
-	###  RANGO DE PARTICIONES MÁXIMO  ###
+	###  RANGO DE TAMAÑO DE PARTICIONES MÁXIMO  ###
 
 	#clear
 	imprime_cabecera
 	imprime_info_datos_rangos_aleatorios
-	echo -n " Introduce rango de particiones máximo: "
-	echo -n " Introduce rango de particiones máximo: " >> informeCOLOR.txt
-	echo -n " Introduce rango de particiones máximo: " >> informeBN.txt
+	echo -n " Introduce rango de tamaño de particiones máximo: "
+	echo -n " Introduce rango de tamaño de particiones máximo: " >> informeCOLOR.txt
+	echo -n " Introduce rango de tamaño de particiones máximo: " >> informeBN.txt
 	read rango_tam_par_max
 	echo $rango_tam_par_max >> informeCOLOR.txt
 	echo $rango_tam_par_max >> informeBN.txt
@@ -1680,9 +1705,9 @@ lectura_dat_particiones_rangos_aleatorios()
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
 		fi
-		echo -n " Introduzca rango de particiones máximo: "
-		echo -n " Introduzca rango de particiones máximo: " >> informeCOLOR.txt
-		echo -n " Introduzca rango de particiones máximo: " >> informeBN.txt
+		echo -n " Introduzca rango de tamaño de particiones máximo: "
+		echo -n " Introduzca rango de tamaño de particiones máximo: " >> informeCOLOR.txt
+		echo -n " Introduzca rango de tamaño de particiones máximo: " >> informeBN.txt
 		read rango_tam_par_max
 		echo $rango_tam_par_max >> informeCOLOR.txt
 		echo $rango_tam_par_max >> informeBN.txt
@@ -1720,7 +1745,7 @@ lectura_dat_particiones_rangos_aleatorios()
 	echo $rango_quantum_min >> informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
-	while ! mayor_cero $quantum_min
+	while ! mayor_cero $rango_quantum_min
 	do
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
@@ -1797,7 +1822,11 @@ lectura_dat_procesos_rangos_aleatorios()
 	procesos_ejecutables=0 	#Número de procesos que entran en memoria y se pueden ejecutar en CPU
 
 	###  RANGO DE PROCESOS MÍNIMO  ###
-	imprimir_tabla_procesos_rangos_aleatorios
+	imprime_cabecera
+	imprime_info_datos_rangos_aleatorios
+	echo ""
+	echo "" >> informeCOLOR.txt
+	echo "" >> informeBN.txt
 	echo -n " Introduce el rango de procesos mínimo: "
 	echo -n " Introduce el rango de procesos mínimo: " >> informeCOLOR.txt
 	echo -n " Introduce el rango de procesos mínimo: " >> informeBN.txt
@@ -1821,7 +1850,11 @@ lectura_dat_procesos_rangos_aleatorios()
 
 	###  RANGO DE PROCESOS MÁXIMO  ###
 
-	imprimir_tabla_procesos_rangos_aleatorios
+	imprime_cabecera
+	imprime_info_datos_rangos_aleatorios
+	echo ""
+	echo "" >> informeCOLOR.txt
+	echo "" >> informeBN.txt
 	echo -n " Introduce el rango de procesos máximo: "
 	echo -n " Introduce el rango de procesos máximo: " >> informeCOLOR.txt
 	echo -n " Introduce el rango de procesos máximo: " >> informeBN.txt
@@ -1870,8 +1903,11 @@ lectura_dat_procesos_rangos_aleatorios()
 
 	###   RANGO DE TIEMPO DE LLEGADA MÍNIMO  ###
 
-	ordenacion_procesos
-	imprimir_tabla_procesos_rangos_aleatorios
+	imprime_cabecera
+	imprime_info_datos_rangos_aleatorios
+	echo ""
+	echo "" >> informeCOLOR.txt
+	echo "" >> informeBN.txt
 	echo -n " Introduce el rango de tiempo de llegada mínimo a CPU de los procesos: "
 	echo -n " Introduce el rango de tiempo de llegada mínimo a CPU de los procesos: " >> informeCOLOR.txt
 	echo -n " Introduce el rango de tiempo de llegada mínimo a CPU de los procesos: " >> informeBN.txt
@@ -1895,8 +1931,11 @@ lectura_dat_procesos_rangos_aleatorios()
 
 	###   RANGO DE TIEMPO DE LLEGADA MÁXIMO  ###
 
-	ordenacion_procesos
-	imprimir_tabla_procesos_rangos_aleatorios
+	imprime_cabecera
+	imprime_info_datos_rangos_aleatorios
+	echo ""
+	echo "" >> informeCOLOR.txt
+	echo "" >> informeBN.txt
 	echo -n " Introduce el rango de tiempo de llegada máximo a CPU de los procesos: "
 	echo -n " Introduce el rango de tiempo de llegada máximo a CPU de los procesos: " >> informeCOLOR.txt
 	echo -n " Introduce el rango de tiempo de llegada máximo a CPU de los procesos: " >> informeBN.txt
@@ -1932,7 +1971,7 @@ lectura_dat_procesos_rangos_aleatorios()
 	#Asignación aleatoria del tiempo de llegada máximo en el rango.
 	entrada_max=`shuf -i $rango_entrada_min-$rango_entrada_max -n 1`
 
-	while [ $num_proc_min -gt $num_proc_max ]		#Mientras el mínimo sea mayor al máximo, se recalculan.
+	while [ $entrada_min -gt $entrada_max ]		#Mientras el mínimo sea mayor al máximo, se recalculan.
 	do
 		#Asignación aleatoria del tiempo de llegada mínimo en el rango.
 		entrada_min=`shuf -i $rango_entrada_min-$rango_entrada_max -n 1`
@@ -1942,8 +1981,11 @@ lectura_dat_procesos_rangos_aleatorios()
 
 	###  RANGO DE RÁFAGA MÍNIMA  ###
 
-	ordenacion_procesos
-	imprimir_tabla_procesos_rangos_aleatorios
+	imprime_cabecera
+	imprime_info_datos_rangos_aleatorios
+	echo ""
+	echo "" >> informeCOLOR.txt
+	echo "" >> informeBN.txt
 	echo -n " Introduce el rango de ráfaga mínima de CPU de los procesos: "
 	echo -n " Introduce el rango de ráfaga mínima de CPU de los procesos: " >> informeCOLOR.txt
 	echo -n " Introduce el rango de ráfaga mínima de CPU de los procesos: " >> informeBN.txt
@@ -1952,7 +1994,7 @@ lectura_dat_procesos_rangos_aleatorios()
 	echo $rango_rafaga_min >> informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
-	while ! mayor_cero $rafaga_min
+	while ! mayor_cero $rango_rafaga_min
 	do
 		echo " Entrada no válida, por favor introduce un número natural mayor que cero"
 		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
@@ -1967,8 +2009,11 @@ lectura_dat_procesos_rangos_aleatorios()
 
 	###  RANGO DE RÁFAGA MÁXIMA  ###
 
-	ordenacion_procesos
-	imprimir_tabla_procesos_rangos_aleatorios
+	imprime_cabecera
+	imprime_info_datos_rangos_aleatorios
+	echo ""
+	echo "" >> informeCOLOR.txt
+	echo "" >> informeBN.txt
 	echo -n " Introduce el rango de ráfaga máxima de CPU de los procesos: "
 	echo -n " Introduce el rango de ráfaga máxima de CPU de los procesos: " >> informeCOLOR.txt
 	echo -n " Introduce el rango de ráfaga máxima de CPU de los procesos: " >> informeBN.txt
@@ -2004,7 +2049,7 @@ lectura_dat_procesos_rangos_aleatorios()
 	#Asignación aleatoria de ráfaga máxima en el rango.
 	rafaga_max=`shuf -i $rango_rafaga_min-$rango_rafaga_max -n 1`
 
-	while [ $num_proc_min -gt $num_proc_max ]		#Mientras el mínimo sea mayor al máximo, se recalculan.
+	while [ $rafaga_min -gt $rafaga_max ]		#Mientras el mínimo sea mayor al máximo, se recalculan.
 	do
 		#Asignación aleatoria de ráfaga mínima en el rango.
 		rafaga_min=`shuf -i $rango_rafaga_min-$rango_rafaga_max -n 1`
@@ -2027,8 +2072,11 @@ lectura_dat_procesos_rangos_aleatorios()
 
 	###  RANGO DE MEMORIA MÍNIMA  ###
 
-	ordenacion_procesos
-	imprimir_tabla_procesos_rangos_aleatorios
+	imprime_cabecera
+	imprime_info_datos_rangos_aleatorios
+	echo ""
+	echo "" >> informeCOLOR.txt
+	echo "" >> informeBN.txt
 	echo -n " Introduce el rango de memoria mínima de los procesos: "
 	echo -n " Introduce el rango de memoria mínima de los procesos: " >> informeCOLOR.txt
 	echo -n " Introduce el rango de memoria mínima de los procesos: " >> informeBN.txt
@@ -2063,8 +2111,11 @@ lectura_dat_procesos_rangos_aleatorios()
 
 	###  RANGO DE MEMORIA MÁXIMA  ###
 
-	ordenacion_procesos
-	imprimir_tabla_procesos_rangos_aleatorios
+	imprime_cabecera
+	imprime_info_datos_rangos_aleatorios
+	echo ""
+	echo "" >> informeCOLOR.txt
+	echo "" >> informeBN.txt
 	echo -n " Introduce el rango de memoria máxima de los procesos: "
 	echo -n " Introduce el rango de memoria máxima de los procesos: " >> informeCOLOR.txt
 	echo -n " Introduce el rango de memoria máxima de los procesos: " >> informeBN.txt
@@ -2103,11 +2154,24 @@ lectura_dat_procesos_rangos_aleatorios()
 		echo $rango_memo_proc_max >> informeBN.txt
 	done
 
-	ordenacion_procesos
-	imprimir_tabla_procesos_rangos_aleatorios
+	#Asignación aleatoria de memoria mínima en el rango.
+	memo_proc_min=`shuf -i $rango_memo_proc_min-$rango_memo_proc_max -n 1`
+	#Asignación aleatoria de memoria máxima en el rango.
+	memo_proc_max=`shuf -i $rango_memo_proc_min-$rango_memo_proc_max -n 1`
+
+	while [ $memo_proc_min -gt $memo_proc_max ]		#Mientras el mínimo sea mayor al máximo, se recalculan.
+	do
+		#Asignación aleatoria de memoria mínima en el rango.
+		memo_proc_min=`shuf -i $rango_memo_proc_min-$rango_memo_proc_max -n 1`
+		#Asignación aleatoria de memoria máxima en el rango.
+		memo_proc_max=`shuf -i $rango_memo_proc_min-$rango_memo_proc_max -n 1`
+	done
 
 	#Calculo los datos de los procesos.
 	datos_procesos_aleatorios
+
+	ordenacion_procesos
+	imprimir_tabla_procesos_rangos_aleatorios
 }
 
 
@@ -2132,35 +2196,36 @@ lectura_fichero()
 	do
 		if [[ $n_linea == 0 ]] #La primera línea contiene los datos de las particiones
 		then
-			i=0
-			let last=${#line}/2 #Como el contro de caracteres cuenta los espacios, a un espacio por elemento (menos el último) 
-								#para saber el índice que tendrá el último elemento divido entre dos.
+			dat_part_leidos=0
+			last=99	 
 			for dat in $line 
 			do
-				case $i in 
+				case $dat_part_leidos in 
 					0)
 						n_par=$dat 				#El primer dato (0) de la línea es el número de procesos.
+						let last=$n_par+1 		#Calcula cual será el último dato, el del quantum, contando cuántos son de proceso mas el número de procesos y el propio quántum, menos 0 indexado.
 					;;
 					$last)
 						quantum=$dat 			#El último elemento del array es el quántum.
 					;;
 					*)
-						let i_par=i-1
-						tam_par[$i_par]=$dat 	#Desde el segundo dato (1) hasta el penúltimo es el tamaño de cada partición.
+						let i_part=dat_part_leidos-1
+						tam_par[$i_part]=$dat 	#Desde el segundo dato (1) hasta el penúltimo es el tamaño de cada partición.
 					;;
 				esac
-				let i=i+1
+				let dat_part_leidos=dat_part_leidos+1
 			done
 		else
 			dat_proc_leidos=0
 			for dat in $line #Cada línea siguiente contiene los datos de cada proceso.
 			do
+				NUMPROC_I[$num_proc]=$(($num_proc+1))
 				case $dat_proc_leidos in 
 					0)
 						T_ENTRADA_I[$num_proc]=$dat 
 					;;
 					1)
-						PROCESOS_I[$num_proc]=$dat 
+						T_EJECUCION_I[$num_proc]=$dat 
 					;;
 					2)
 						MEMORIA_I[$num_proc]=$dat 
@@ -2328,10 +2393,11 @@ lectura_fichero_aleatorio()
 	
 	for(( pr=0; pr<$num_proc; pr++ ))
 	do
+		NUMPROC_I[$pr]=$(($pr+1))
 		entrada=`shuf -i $entrada_min-$entrada_max -n 1`
 		T_ENTRADA_I[$pr]="$entrada"
 		rafaga=`shuf -i $rafaga_min-$rafaga_max -n 1`
-		PROCESOS_I[$pr]="$rafaga"
+		T_EJECUCION_I[$pr]="$rafaga"
 		memo_proc=`shuf -i $memo_proc_min-$memo_proc_max -n 1`
 		MEMORIA_I[$pr]="$memo_proc"
 	done
@@ -2342,6 +2408,241 @@ lectura_fichero_aleatorio()
 }
 
 #//TODO lectura_fichero_rangos_aleatorios
+lectura_fichero_rangos_aleatorios()
+{
+	n_linea=0
+	procesos_ejecutables=0
+
+	cp $1 copia.txt
+	fich="copia.txt"
+
+	#Elimina las fila con texto
+	sed -i 13d $fich
+	sed -i 11d $fich
+	sed -i 9d $fich
+	sed -i 7d $fich
+	sed -i 5d $fich
+	sed -i 3d $fich
+	sed -i 1d $fich
+
+	#Asigna las variables según donde se encuentre el dato.
+	while read line
+	do
+		dat_leidos=0
+		case $n_linea in 
+			0)									#Línea 0, número de particiones.
+				for dat in $line 
+				do
+					case $dat_leidos in
+						0)						#Primer dato, mínimo.
+							rango_n_par_min=$dat
+						;;
+						1)						#Segundo dato, máximo.
+							rango_n_par_max=$dat
+						;;
+					esac
+					let dat_leidos=dat_leidos+1
+				done
+			;;
+			1)									#Línea 1, tamaño de particiones.
+				for dat in $line 
+				do
+					case $dat_leidos in
+						0)						#Primer dato, mínimo.
+							rango_tam_par_min=$dat
+						;;
+						1)						#Segundo dato, máximo.
+							rango_tam_par_max=$dat
+						;;
+					esac
+					let dat_leidos=dat_leidos+1
+				done
+			;;
+			2)									#Línea 2, quántum.
+				for dat in $line 
+				do
+					case $dat_leidos in
+						0)						#Primer dato, mínimo.
+							rango_quantum_min=$dat
+						;;
+						1)						#Segundo dato, máximo.
+							rango_quantum_max=$dat
+						;;
+					esac
+					let dat_leidos=dat_leidos+1
+				done
+			;;
+			3)									#Línea 3, número de procesos.
+				for dat in $line 
+				do
+					case $dat_leidos in
+						0)						#Primer dato, mínimo.
+							rango_num_proc_min=$dat
+						;;
+						1)						#Segundo dato, máximo.
+							rango_num_proc_max=$dat
+						;;
+					esac
+					let dat_leidos=dat_leidos+1
+				done
+			;;
+			4)									#Línea 4, tiempo de llegada de procesos.
+				for dat in $line 
+				do
+					case $dat_leidos in
+						0)						#Primer dato, mínimo.
+							rango_entrada_min=$dat
+						;;
+						1)						#Segundo dato, máximo.
+							rango_entrada_max=$dat
+						;;
+					esac
+					let dat_leidos=dat_leidos+1
+				done
+			;;
+			5)									#Línea 5, tiempo de ejecución de procesos.
+				for dat in $line 
+				do
+					case $dat_leidos in
+						0)						#Primer dato, mínimo.
+							rango_rafaga_min=$dat
+						;;
+						1)						#Segundo dato, máximo.
+							rango_rafaga_max=$dat
+						;;
+					esac
+					let dat_leidos=dat_leidos+1
+				done
+			;;
+			6)									#Línea 6, memoria de procesos.
+				for dat in $line 
+				do
+					case $dat_leidos in
+						0)						#Primer dato, mínimo.
+							rango_memo_proc_min=$dat
+						;;
+						1)						#Segundo dato, máximo.
+							rango_memo_proc_max=$dat
+						;;
+					esac
+					let dat_leidos=dat_leidos+1
+				done
+			;;
+			*)
+				echo "Error al leer los procesos del fichero datos.txt"
+				read -p "close" x
+			;;
+		esac
+		let n_linea=n_linea+1 #Suma el número de líneas leídas.
+	done < $fich
+
+	#Asignación aleatoria del número de particiones mínimo en el rango.
+	n_par_min=`shuf -i $rango_n_par_min-$rango_n_par_max -n 1`
+	#Asignación aleatoria del número de particiones máximo en el rango.
+	n_par_max=`shuf -i $rango_n_par_min-$rango_n_par_max -n 1`
+	while [ $n_par_min -gt $n_par_max ]		#Mientras el mínimo sea mayor al máximo, se recalculan.
+	do
+		#Asignación aleatoria del número de particiones mínimo en el rango.
+		n_par_min=`shuf -i $rango_n_par_min-$rango_n_par_max -n 1`
+		#Asignación aleatoria del número de particiones máximo en el rango.
+		n_par_max=`shuf -i $rango_n_par_min-$rango_n_par_max -n 1`
+	done
+	#Asignación aleatoria del número de particiones en el rango.
+	n_par=`shuf -i $n_par_min-$n_par_max -n 1`
+
+	#Asignación aleatoria del tamaño de particiones mínimo en el rango.
+	tam_par_min=`shuf -i $rango_tam_par_min-$rango_tam_par_max -n 1`
+	#Asignación aleatoria del tamaño de particiones máximo en el rango.
+	tam_par_max=`shuf -i $rango_tam_par_min-$rango_tam_par_max -n 1`
+	while [ $tam_par_min -gt $tam_par_max ]		#Mientras el mínimo sea mayor al máximo, se recalculan.
+	do
+		#Asignación aleatoria del tamaño de particiones mínimo en el rango.
+		tam_par_min=`shuf -i $rango_tam_par_min-$rango_tam_par_max -n 1`
+		#Asignación aleatoria del tamaño de particiones máximo en el rango.
+		tam_par_max=`shuf -i $rango_tam_par_min-$rango_tam_par_max -n 1`
+	done
+	for (( pa = 0; pa < n_par; pa++ ))
+	do
+		tam_par[$pa]=`shuf -i $tam_par_min-$tam_par_max -n 1`
+	done
+
+	#Asignación aleatoria del quántum mínimo en el rango.
+	quantum_min=`shuf -i $rango_quantum_min-$rango_quantum_max -n 1`
+	#Asignación aleatoria del quántum máximo en el rango.
+	quantum_max=`shuf -i $rango_quantum_min-$rango_quantum_max -n 1`
+	while [ $quantum_min -gt $quantum_max ]		#Mientras el mínimo sea mayor al máximo, se recalculan.
+	do
+		#Asignación aleatoria del quántum mínimo en el rango.
+		quantum_min=`shuf -i $rango_quantum_min-$rango_quantum_max -n 1`
+		#Asignación aleatoria del quántums máximo en el rango.
+		quantum_max=`shuf -i $rango_quantum_min-$rango_quantum_max -n 1`
+	done
+	quantum=`shuf -i $quantum_min-$quantum_max -n 1`
+
+	#Asignación aleatoria del número de procesos mínimo en el rango.
+	num_proc_min=`shuf -i $rango_num_proc_min-$rango_num_proc_max -n 1`
+	#Asignación aleatoria del quántum máximo en el rango.
+	num_proc_max=`shuf -i $rango_num_proc_min-$rango_num_proc_max -n 1`
+	while [ $num_proc_min -gt $num_proc_max ]		#Mientras el mínimo sea mayor al máximo, se recalculan.
+	do
+		#Asignación aleatoria del número de procesos mínimo en el rango.
+		num_proc_min=`shuf -i $rango_num_proc_min-$rango_num_proc_max -n 1`
+		#Asignación aleatoria del quántum máximo en el rango.
+		num_proc_max=`shuf -i $rango_num_proc_min-$rango_num_proc_max -n 1`
+	done
+	num_proc=`shuf -i $num_proc_min-$num_proc_max -n 1`
+	
+	#Asignación aleatoria del tiempo de llegada mínimo en el rango.
+	entrada_min=`shuf -i $rango_entrada_min-$rango_entrada_max -n 1`
+	#Asignación aleatoria del tiempo de llegada máximo en el rango.
+	entrada_max=`shuf -i $rango_entrada_min-$rango_entrada_max -n 1`
+	while [ $entrada_min -gt $entrada_max ]		#Mientras el mínimo sea mayor al máximo, se recalculan.
+	do
+		#Asignación aleatoria del tiempo de llegada mínimo en el rango.
+		entrada_min=`shuf -i $rango_entrada_min-$rango_entrada_max -n 1`
+		#Asignación aleatoria del tiempo de llegada máximo en el rango.
+		entrada_max=`shuf -i $rango_entrada_min-$rango_entrada_max -n 1`
+	done
+
+	#Asignación aleatoria de ráfaga mínima en el rango.
+	rafaga_min=`shuf -i $rango_rafaga_min-$rango_rafaga_max -n 1`
+	#Asignación aleatoria de ráfaga máxima en el rango.
+	rafaga_max=`shuf -i $rango_rafaga_min-$rango_rafaga_max -n 1`
+	while [ $rafaga_min -gt $rafaga_max ]		#Mientras el mínimo sea mayor al máximo, se recalculan.
+	do
+		#Asignación aleatoria de ráfaga mínima en el rango.
+		rafaga_min=`shuf -i $rango_rafaga_min-$rango_rafaga_max -n 1`
+		#Asignación aleatoria de ráfaga máxima en el rango.
+		rafaga_max=`shuf -i $rango_rafaga_min-$rango_rafaga_max -n 1`
+	done
+
+	#Asignación aleatoria de memoria mínima en el rango.
+	memo_proc_min=`shuf -i $rango_memo_proc_min-$rango_memo_proc_max -n 1`
+	#Asignación aleatoria de memoria máxima en el rango.
+	memo_proc_max=`shuf -i $rango_memo_proc_min-$rango_memo_proc_max -n 1`
+	while [ $memo_proc_min -gt $memo_proc_max ]		#Mientras el mínimo sea mayor al máximo, se recalculan.
+	do
+		#Asignación aleatoria de memoria mínima en el rango.
+		memo_proc_min=`shuf -i $rango_memo_proc_min-$rango_memo_proc_max -n 1`
+		#Asignación aleatoria de memoria máxima en el rango.
+		memo_proc_max=`shuf -i $rango_memo_proc_min-$rango_memo_proc_max -n 1`
+	done
+
+	for(( pr=0; pr<$num_proc; pr++ ))
+	do
+		NUMPROC_I[$pr]=$(($pr+1))
+		entrada=`shuf -i $entrada_min-$entrada_max -n 1`
+		T_ENTRADA_I[$pr]="$entrada"
+		rafaga=`shuf -i $rafaga_min-$rafaga_max -n 1`
+		T_EJECUCION_I[$pr]="$rafaga"
+		memo_proc=`shuf -i $memo_proc_min-$memo_proc_max -n 1`
+		MEMORIA_I[$pr]="$memo_proc"
+	done
+
+	datos_fichTfich
+	ordenacion_procesos
+	rm $fich
+}
 
 
 ### Mete los datos sobre las particiones y el quantum obtenidos del fichero en el informe.
@@ -2370,14 +2671,14 @@ meterAfichero()
 	#Bucle para meter los datos de cada proceso.
 	for(( pr=0; pr<$num_proc; pr++ ))
 	do
-		echo "${T_ENTRADA_I[$pr]} ${PROCESOS_I[$pr]} ${MEMORIA_I[$pr]}" >> "$1".txt
+		echo "${T_ENTRADA_I[$pr]} ${T_EJECUCION_I[$pr]} ${MEMORIA_I[$pr]}" >> "$1".txt
 	done
 }
 
 
 ### Función para guardar datos en un fichero con nombre elegido (terminará en RNG.txt para que no aparezca en los listados de ficheros no aleatorios).
 #He eliminado las funciones "meterAficheroUltimos_aleatorio" y "meterAficheroNuevo_aleatorio" y las he agrupado en ésta, dado que al seleccionar la opción ya se puede pasar como parámetro datos.txt.
-meterAficheroAleatorio()
+meterAficheroRangos()
 {
 	echo "Rangos del número de particiones" > "$1"RNG.txt
 	echo "$n_par_min $n_par_max" >> "$1"RNG.txt
@@ -2393,6 +2694,26 @@ meterAficheroAleatorio()
 	echo "$rafaga_min $rafaga_max" >> "$1"RNG.txt
 	echo "Rangos de la memoria de cada proceso" >> "$1"RNG.txt
 	echo "$memo_proc_min $memo_proc_max" >> "$1"RNG.txt
+}
+
+
+### Función para guardar datos en un fichero con nombre elegido (terminará en RNGALE.txt para que no aparezca en los listados de ficheros no aleatorios).
+meterAficheroRangosAleatorios()
+{
+	echo "Rangos del número de particiones" > "$1"RNGALE.txt
+	echo "$rango_n_par_min $rango_n_par_max" >> "$1"RNGALE.txt
+	echo "Rangos del tamaño de particiones" >> "$1"RNGALE.txt
+	echo "$rango_tam_par_min $rango_tam_par_max" >> "$1"RNGALE.txt
+	echo "Rangos del quantum" >> "$1"RNGALE.txt
+	echo "$rango_quantum_min $rango_quantum_max" >> "$1"RNGALE.txt
+	echo "Rango del número de procesos" >> "$1"RNGALE.txt
+	echo "$rango_num_proc_min $rango_num_proc_max" >> "$1"RNGALE.txt
+	echo "Rangos del tiempo de llegada)" >> "$1"RNGALE.txt
+	echo "$rango_entrada_min $rango_entrada_max" >> "$1"RNGALE.txt
+	echo "Rangos del tiempo de ejecución" >> "$1"RNGALE.txt
+	echo "$rango_rafaga_min $rango_rafaga_max" >> "$1"RNGALE.txt
+	echo "Rangos de la memoria de cada proceso" >> "$1"RNGALE.txt
+	echo "$rango_memo_proc_min $rango_memo_proc_max" >> "$1"RNGALE.txt
 }
 
 
@@ -2443,25 +2764,53 @@ imprimir_tabla()
 		fi
 
 		echo -ne " \e[${color[$colimp]}mP"
-		printf "%02d " "$(($pr+1))"
+		printf "%02d " "${NUMPROC[$pr]}"
 		printf "%3s " "${T_ENTRADA[$pr]}"
 		printf "%3s " "${TEJ[$pr]}"
 		printf "%3s " "${MEMORIA[$pr]}"	
 		echo -e $resetColor
 
 		echo -ne " \e[${color[$colimp]}mP" >> informeCOLOR.txt
-		printf "%02d " "$(($pr+1))" >> informeCOLOR.txt
+		printf "%02d " "${NUMPROC[$pr]}" >> informeCOLOR.txt
 		printf "%3s " "${T_ENTRADA[$pr]}" >> informeCOLOR.txt
 		printf "%3s " "${TEJ[$pr]}" >> informeCOLOR.txt
 		printf "%3s " "${MEMORIA[$pr]}" >> informeCOLOR.txt
 		echo -e $resetColor >> informeCOLOR.txt
 
 		echo -ne " P" >> informeBN.txt
-		printf "%02d " "$(($pr+1))" >> informeBN.txt
+		printf "%02d " "${NUMPROC[$pr]}" >> informeBN.txt
 		printf "%3s " "${T_ENTRADA[$pr]}" >> informeBN.txt
 		printf "%3s " "${TEJ[$pr]}" >> informeBN.txt
 		printf "%3s " "${MEMORIA[$pr]}" >> informeBN.txt
 		echo "" >> informeBN.txt
+	done
+}
+
+
+### Ordena los procesos por tiempo de llegada.
+#He cambiado los comandos expr por let, y los he quitado de las asignaciones.
+ordenacion_procesos() 
+{
+	proceso=0
+	for (( nn=1; $proceso<$num_proc; nn++ ))
+	do
+		for(( pr=0; pr<$num_proc; pr++ ))
+		do
+			let caca=nn-1
+			if [[ ${T_ENTRADA_I[$pr]} -eq $caca ]]
+			then
+				NUMPROC[$proceso]=${NUMPROC_I[$pr]}
+				T_ENTRADA[$proceso]=${T_ENTRADA_I[$pr]}
+				TEJ[$proceso]=${T_EJECUCION_I[$pr]}
+				MEMORIA[$proceso]=${MEMORIA_I[$pr]}
+				#EN_ESPERA[$proceso]=`expr ${EN_ESPERA_I[$pr]}`
+				#QT_PROC[$proceso]=`expr ${QT_PROC_I[$pr]}`
+				#PROC_ENAUX[$proceso]=`expr ${PROC_ENAUX_I[$pr]}`
+				FIN[$proceso]=0
+				TIEMPO[$proceso]=${T_EJECUCION_I[$pr]}
+				let proceso=proceso+1
+			fi
+		done
 	done
 }
 
@@ -2496,43 +2845,16 @@ modo_ejecucion()
 }
 
 
-### Ordena los procesos por tiempo de llegada.
-#He cambiado los comandos expr por let, y los he quitado de las asignaciones.
-ordenacion_procesos() 
-{
-	proceso=0
-	for (( nn=1; $proceso<$num_proc; nn++ ))
-	do
-		for(( j=0; j<$num_proc ; j++ ))
-		do
-			let caca=nn-1
-			if [ ${T_ENTRADA_I[$j]} -eq $caca ]
-			then
-				T_ENTRADA[$proceso]=${T_ENTRADA_I[$j]}
-				TEJ[$proceso]=${PROCESOS_I[$j]}
-				PROCESOS[$proceso]=${PROCESOS_I[$j]}
-				MEMORIA[$proceso]=${MEMORIA_I[$j]}
-				#EN_ESPERA[$proceso]=`expr ${EN_ESPERA_I[$j]}`
-				#QT_PROC[$proceso]=`expr ${QT_PROC_I[$j]}`
-				#PROC_ENAUX[$proceso]=`expr ${PROC_ENAUX_I[$j]}`
-				FIN[$proceso]=0
-				TIEMPO[$proceso]=${PROCESOS_I[$j]}
-				let proceso=proceso+1
-			fi
-		done
-	done
-#	EN_ESPERA[0]="No"
-}
-
 ### Guarda datos en en auxiliares para evitar su modificacion.
 datos_aux()
 {
 	for(( cc=0; cc<$num_proc; cc++ ))
 	do
-		RAFAGA_AUX[$cc]=${PROCESOS[$cc]}
+		RAFAGA_AUX[$cc]=${TEJ[$cc]}
 		MEMORIA_AUX[$cc]=${MEMORIA[$cc]}
 	done
 }
+
 
 ### Comprueba si un proceso entra en memoria guardandolo en un array.
 en_memoria()
@@ -2546,96 +2868,8 @@ en_memoria()
 	done
 }
 
-### Mete la tabla final en el informe que se da la opcion de visualizar al final del programa
-datosfin_inf()
-{
-	en_memoria
-	media=0
 
-	echo " "  >> informeCOLOR.txt
-	echo "	---------------------------------------------------------------------"  >> informeCOLOR.txt
-	echo "	  PRO | T LLEGADA | RAFAGA | MEMORIA | EN MEMORIA | L TEMP | ESTADO  "  >> informeCOLOR.txt
-	echo "	---------------------------------------------------------------------"  >> informeCOLOR.txt
-	for(( pr=0 ; pr<$num_proc ; pr++ ))
-	do
-		echo "	    "$(($pr+1))"|		${T_ENTRADA[$pr]}|	${RAFAGA_AUX[$pr]}|	${MEMORIA_AUX[$pr]}   |    ${EN_MEMO[$pr]}	|    ${TIEMPO_FIN[$pr]}    | ${ESTADO[$pr]}"  >> informeCOLOR.txt
-		echo "	---------------------------------------------------------------------"  >> informeCOLOR.txt	
-	done
-
-	echo "	-----------------------------------"  >> informeCOLOR.txt	
-	echo " 	    PRO |  T RETORNO  | T ESPERA   "  >> informeCOLOR.txt
-	echo "	-----------------------------------"  >> informeCOLOR.txt
-	for(( pr=0 ; pr<$num_proc ; pr++ ))
-	do
-		if [ "${ESTADO[$pr]}" != "Bloqueado" ]
-		then
-			T_RETORNO[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]}`
-			T_ESPERA[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]} - ${RAFAGA_AUX[$pr]}`
-		else
-			T_RETORNO[$pr]=0
-			T_ESPERA[$pr]=0			
-		fi
-
-		let T_MEDIO_R=T_MEDIO_R + ${T_RETORNO[$pr]}
-		let T_MEDIO_E=T_MEDIO_E + ${T_ESPERA[$pr]}
-
-		echo "	       "$(($pr+1))"|   	    ${T_RETORNO[$pr]} |    ${T_ESPERA[$pr]}"  >> informeCOLOR.txt
-		echo "	-----------------------------------"  >> informeCOLOR.txt
-	done
-	
-	echo -n "	 El tiempo medio de retorno es: "  >> informeCOLOR.txt
-	echo " 		 scale = 2; $T_MEDIO_R/$num_proc"| bc  >> informeCOLOR.txt	
-	echo -n " 	 El tiempo medio de espera es:  "  >> informeCOLOR.txt
-	echo "		 scale = 2; $T_MEDIO_E/$num_proc"| bc  >> informeCOLOR.txt
-	echo " "  >> informeCOLOR.txt
-	echo " "  >> informeCOLOR.txt
-}
-
-#Imprime una tabla final con los datos de los diferentes procesos.
-solucion_impresa()
-{
-	en_memoria
-	media=0
-
-	echo "	---------------------------------------------------------------------" 
-	echo "	  PRO | T LLEGADA | RAFAGA | MEMORIA | EN MEMORIA | L TEMP | ESTADO  " 
-	echo "	---------------------------------------------------------------------" 
-	for(( pr=0 ; pr<$num_proc ; pr++ ))
-	do
-		echo "	    "$(($pr+1))"|		${T_ENTRADA[$pr]}|	${RAFAGA_AUX[$pr]}|	${MEMORIA_AUX[$pr]}   |    ${EN_MEMO[$pr]}	|    ${TIEMPO_FIN[$pr]}    | ${ESTADO[$pr]}"
-		echo "	---------------------------------------------------------------------"		
-	done
-
-	echo "	-----------------------------------"	
-	echo " 	    PRO |  T RETORNO  | T ESPERA	 "
-	echo "	-----------------------------------" 
-	for(( pr=0 ; pr<$num_proc ; pr++ ))
-	do
-		if [ "${ESTADO[$pr]}" != "Bloqueado" ]
-		then
-			T_RETORNO[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]}`
-			T_ESPERA[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]} - ${RAFAGA_AUX[$pr]}`
-		else
-			T_RETORNO[$pr]=0
-			T_ESPERA[$pr]=0			
-		fi
-
-		let T_MEDIO_R=T_MEDIO_R + ${T_RETORNO[$pr]}
-		let T_MEDIO_E=T_MEDIO_E + ${T_ESPERA[$pr]}
-
-		echo "	      " $(($pr+1))"|   	    "${T_RETORNO[$pr]}" |   " $((${T_ESPERA[$pr]} + 1))
-		echo "	-----------------------------------" 
-	done
-	
-	echo -n " El tiempo medio de retorno es: "
-	echo "  scale = 2; $T_MEDIO_R/$num_proc"| bc	
-	echo -n " El tiempo medio de espera es:  "
-	echo " scale = 2; $T_MEDIO_E/$num_proc"| bc
-	echo " "
-}
-
-
-
+### Actualiza la información de las particiones.
 inicio_particiones()
 {
 	vacias=0
@@ -2660,6 +2894,7 @@ inicio_particiones()
 		fi
 	done	
 }
+
 
 #Tabla que se va mostrando durante la ejecucion de los procesos.
 #Esta función también monta las barras de memoria y tiempo, la cola, y las representa.
@@ -2732,110 +2967,10 @@ tabla_ejecucion()
 		fi
 	done
 
-	#Imprime la tabla con los 3 datos principales, y se adapta al tamaño de los mismos.
-	#He modificado la parte de las particiones para mostrar el tamaño de cada una.
-	imprime_cabecera
-	printf " ┌────────────┬───────────────┬────────────┐\n"
-	printf " │Nº Part:    │Tam Part:      │Quantum:    │\n"
-	printf " │"
-	printf "$n_par" 
 
-	for ((contador_n_par = 0; contador_n_par < ( 12 - $espacios_n_par); contador_n_par++))
-	do
-		printf " "
-	done
+	#Imprime la tabla con los 3 datos principales.
+	imprimir_tabla_particiones_ejecucion
 
-	printf "│"
-	for tp in "${tam_par[@]}"
-	do
-		printf "$tp "
-	done
-	#for (( pa=0; pa<${#tam_par[@]}; pa++ ))
-	#do
-	#	printf "${tam_par[$pa]} "
-	#done
-
-	for ((contador_tam_par = 0; contador_tam_par < ( 15 - $espacios_tam_par); contador_tam_par++))
-	do
-		printf " "
-	done
-
-	printf "│"
-	printf "$quantum"
-
-	for ((contador_quantum = 0; contador_quantum < ( 12 - $espacios_quantum); contador_quantum++))
-	do
-		printf " "
-	done
-
-	printf "│\n"
-	printf " └────────────┴───────────────┴────────────┘\n"
-
-	#Tabla de datos principales del informe de color
-	printf " ┌────────────┬───────────────┬────────────┐\n" >> informeCOLOR.txt
-	printf " │Nº Part:    │Tam Part:      │Quantum:    │\n" >> informeCOLOR.txt
-	printf " │" >> informeCOLOR.txt
-	printf "$n_par"  >> informeCOLOR.txt
-
-	for ((contador_n_par = 0; contador_n_par < ( 12 - $espacios_n_par); contador_n_par++))
-	do
-		printf " " >> informeCOLOR.txt
-	done
-
-	printf "│" >> informeCOLOR.txt
-	for tp in "${tam_par[@]}"
-	do
-		printf "$tp " >> informeCOLOR.txt
-	done
-
-	for ((contador_tam_par = 0; contador_tam_par < ( 15 - $espacios_tam_par); contador_tam_par++))
-	do
-		printf " " >> informeCOLOR.txt
-	done
-
-	printf "│" >> informeCOLOR.txt
-	printf "$quantum" >> informeCOLOR.txt
-
-	for ((contador_quantum = 0; contador_quantum < ( 12 - $espacios_quantum); contador_quantum++))
-	do
-		printf " " >> informeCOLOR.txt
-	done
-
-	printf "│\n" >> informeCOLOR.txt
-	printf " └────────────┴───────────────┴────────────┘\n" >> informeCOLOR.txt
-
-	#Tabla de los 3 datos principales para el informe en blanco y negro
-	printf " ┌────────────┬───────────────┬────────────┐\n" >> informeBN.txt
-	printf " │Nº Part:    │Tam Part:      │Quantum:    │\n" >> informeBN.txt
-	printf " │" >> informeBN.txt
-	printf "$n_par"  >> informeBN.txt
-
-	for ((contador_n_par = 0; contador_n_par < ( 12 - $espacios_n_par); contador_n_par++))
-	do
-		printf " " >> informeBN.txt
-	done
-
-	printf "│" >> informeBN.txt
-	for tp in "${tam_par[@]}"
-	do
-		printf "$tp " >> informeBN.txt
-	done
-
-	for ((contador_tam_par = 0; contador_tam_par < ( 15 - $espacios_tam_par); contador_tam_par++))
-	do
-		printf " " >> informeBN.txt
-	done
-
-	printf "│" >> informeBN.txt
-	printf "$quantum" >> informeBN.txt
-
-	for ((contador_quantum = 0; contador_quantum < ( 12 - $espacios_quantum); contador_quantum++))
-	do
-		printf " " >> informeBN.txt
-	done
-
-	printf "│\n" >> informeBN.txt
-	printf " └────────────┴───────────────┴────────────┘\n" >> informeBN.txt
 
 	#Tabla principal, que se ajusta a los datos introducidos, para el informe a color
 	echo -ne " ┌────" >> informeCOLOR.txt
@@ -3556,8 +3691,13 @@ tabla_ejecucion()
 	actualizar_bt
 
 	echo ""
+	echo "" >> informeCOLOR.txt
+	echo "" >> informeBN.txt
 	echo "---------------------------------------------------------" >> informeCOLOR.txt
 	echo "---------------------------------------------------------" >> informeBN.txt
+	echo ""
+	echo "" >> informeCOLOR.txt
+	echo "" >> informeBN.txt
 
 	#Toma de decisión de cómo se va a actualizar el siguiente evento en función de lo elegido
 	if [ $opcion_ejecucion == 1 ]
@@ -3572,6 +3712,104 @@ tabla_ejecucion()
 		sleep $segundos_evento
 	fi
 	primvez=1
+}
+
+
+### Imprime la tabla con los datos de particiones y quántum.
+imprimir_tabla_particiones_ejecucion()
+{
+	imprime_cabecera
+	echo -e " ${cad_top_tab_pa[@]}"
+	echo -e " ${cad_top_tab_pa[@]}" >> informeCOLOR.txt
+	echo -e " ${cad_top_tab_pa[@]}" >> informeBN.txt
+	echo -e " ${cad_titulo_tab_pa[@]}"
+	echo -e " ${cad_titulo_tab_pa[@]}" >> informeCOLOR.txt
+	echo -e " ${cad_titulo_tab_pa[@]}" >> informeBN.txt
+	echo -e " ${cad_datos_tab_pa[@]}"
+	echo -e " ${cad_datos_tab_pa[@]}" >> informeCOLOR.txt
+	echo -e " ${cad_datos_tab_pa[@]}" >> informeBN.txt
+	echo -e " ${cad_bot_tab_pa[@]}"
+	echo -e " ${cad_bot_tab_pa[@]}" >> informeCOLOR.txt
+	echo -e " ${cad_bot_tab_pa[@]}" >> informeBN.txt
+}
+
+
+### Ajusta la tabla de los datos de particiones y quántum al tamaño necesario.
+calcular_tabla_particiones_ejecucion()
+{
+	#Cadena del top de la tabla de particiones.
+	cad_top_tab_pa=""
+
+	#Cadena de títulos de datos de la tabla de particiones.
+	cad_titulo_tab_pa=""
+
+	#Cadena de datos de la tabla de particiones.
+	cad_datos_tab_pa=""
+
+	#Cadena del final de la tabla de particiones.
+	cad_bot_tab_pa=""
+
+	      cad_top_tab_pa=${cad_top_tab_pa[@]}" ┌─────────"
+	cad_titulo_tab_pa=${cad_titulo_tab_pa[@]}" │Nº Part: "
+	  cad_datos_tab_pa=${cad_datos_tab_pa[@]}" │ $n_par"
+	      cad_bot_tab_pa=${cad_bot_tab_pa[@]}" └─────────"
+
+	if [[ ${#n_par} -lt 9 ]]									#Si el número de particiones ocupa menos de 9 espacios,
+	then
+		for (( esp=0; esp<8-${#n_par}; esp++ ))					#Para el hueco que quede hasta los 8 espacios,
+		do
+			cad_datos_tab_pa=${cad_datos_tab_pa[@]}" "			#Añado un espacio.
+		done
+	else 														#Si ocupa 9 o más espacios,
+		for (( esp=0; esp<${#n_par}-8; esp++ ))					#Para lo que ocupe el número de particiones de más,
+		do
+			cad_top_tab_pa=${cad_top_tab_pa[@]}"─"				#Añado una línea en la cadena del top.
+			cad_titulo_tab_pa=${cad_titulo_tab_pa[@]}" "		#Añado un espacio en la cadena de títulos.
+	      	cad_bot_tab_pa=${cad_bot_tab_pa[@]}"─"				#Añado una línea en la cadena del final.
+		done
+	fi
+	      cad_top_tab_pa=${cad_top_tab_pa[@]}"─┬───────────────"	#Añado la siguiente parte de la tabla.					
+	cad_titulo_tab_pa=${cad_titulo_tab_pa[@]}" │Tam Part:      "
+	  cad_datos_tab_pa=${cad_datos_tab_pa[@]}" │ ${tam_par[@]} "
+	      cad_bot_tab_pa=${cad_bot_tab_pa[@]}"─┴───────────────"
+
+	if [[ $(($n_par*2)) -le 15 ]]								#Si el tamaño de las particiones ocupa 15 espacios o menos, (numero de particiones con un espacio después de cada una)
+	then
+		for (( esp=0; esp<14-$(($n_par*2)); esp++ ))			#Para el hueco que quede hasta los 15 espacios, (14 porque hay un espacio delante de los tamaños de partición)
+		do
+			cad_datos_tab_pa=${cad_datos_tab_pa[@]}" "			#Añado un espacio.
+		done
+	else 														#Si ocupa más de 15 espacios,
+		for (( esp=0; esp<$(($n_par*2))-14; esp++ ))			#Para lo que ocupe el tamaño de particiones de más, (14 porque hay un espacio delante de los tamaños de partición)
+		do
+			cad_top_tab_pa=${cad_top_tab_pa[@]}"─"				#Añado una línea en la cadena del top.
+			cad_titulo_tab_pa=${cad_titulo_tab_pa[@]}" "		#Añado un espacio en la cadena de títulos.
+	      	cad_bot_tab_pa=${cad_bot_tab_pa[@]}"─"				#Añado una línea en la cadena del final.
+		done
+	fi
+	      cad_top_tab_pa=${cad_top_tab_pa[@]}"┬─────────"		#Añado la siguiente parte de la tabla.					
+	cad_titulo_tab_pa=${cad_titulo_tab_pa[@]}"│Quantum: "
+	  cad_datos_tab_pa=${cad_datos_tab_pa[@]}"│ $quantum"
+	      cad_bot_tab_pa=${cad_bot_tab_pa[@]}"┴─────────"
+
+	if [[ ${#quantum} -lt 9 ]]									#Si el quántum ocupa menos de 9 espacios,
+	then
+		for (( esp=0; esp<8-${#quantum}; esp++ ))				#Para el hueco que quede hasta los 8 espacios,
+		do
+			cad_datos_tab_pa=${cad_datos_tab_pa[@]}" "			#Añado un espacio.
+		done
+	else 														#Si ocupa 9 o más espacios,
+		for (( esp=0; esp<${#n_par}-8; esp++ ))					#Para lo que ocupe el quántum de más,
+		do
+			cad_top_tab_pa=${cad_top_tab_pa[@]}"─"				#Añado una línea en la cadena del top.
+			cad_titulo_tab_pa=${cad_titulo_tab_pa[@]}" "		#Añado un espacio en la cadena de títulos.
+	      	cad_bot_tab_pa=${cad_bot_tab_pa[@]}"─"				#Añado una línea en la cadena del final.
+		done
+	fi
+	      cad_top_tab_pa=${cad_top_tab_pa[@]}"─┐"				#Añado el final de la tabla.					
+	cad_titulo_tab_pa=${cad_titulo_tab_pa[@]}" │"
+	  cad_datos_tab_pa=${cad_datos_tab_pa[@]}" │"
+	      cad_bot_tab_pa=${cad_bot_tab_pa[@]}"─┘"
 }
 
 actualizar_bm()
@@ -3849,24 +4087,25 @@ actualizar_bt_try()
 	fi
 
 	## Montaje de la cadena de procesos en la barra de tiempo.
-	if [[ $fuera_sist -eq $num_proc || -z $proc_actual ]] 		#Si no hay ningún proceso en el sistema,
+	if [[ -z $proc_actual || $proc_actual -eq $last_proc ]] 									#Si no hay ningún proceso en ejecución, o el proceso actual ya estaba antes,
 	then
-		for (( n=0; n<$tam_unidad_bt; n++ ))					#Por lo que ocupe la unidad de tiempo en la barra,
+		for (( n=0; n<$tam_unidad_bt; n++ ))													#Por lo que ocupe la unidad de tiempo en la barra,
 		do
-			cad_proc_bt=${cad_proc_bt[@]}" "					#Añado espacios.
+			cad_proc_bt=${cad_proc_bt[@]}" "													#Añado espacios.
 		done
-	else 														#Si hay un proceso,
-		if [[ $proc_actual -lt 9 ]]								#Si el proceso tiene un dígito,			
+	else 																						#Si hay un proceso distinto al último instante temporal,
+		if [[ $proc_actual -lt 9 ]]																#Si el proceso tiene un dígito,			
 		then				
-			cad_proc_bt=${cad_proc_bt[@]}"P0$(($proc_actual+1))" #Añado el proceso a la cadena de procesos con un cero delante.
-		else 													#Si tiene más dígitos,
-			cad_proc_bt=${cad_proc_bt[@]}"P$(($proc_actual+1))"	#Añado el proceso a la cadena de procesos sin el cero delante.
+			cad_proc_bt=${cad_proc_bt[@]}"\e[${color[$colimp]}mP0${NUMPROC[$proc_actual]}\e[0m" #Añado el proceso a la cadena de procesos con su color y un cero delante.
+		else 																					#Si tiene más dígitos,
+			cad_proc_bt=${cad_proc_bt[@]}"\e[${color[$colimp]}mP${NUMPROC[$proc_actual]}\e[0m"	#Añado el proceso a la cadena de procesos con su color y sin el cero delante.
 		fi
 
-		for (( esp=0; esp<$tam_unidad_bt-3; esp++ ))			#Por lo que queda hasta acabar la unidad de tiempo (-3 porque se introdujeron 3 caracteres, PXX)
+		for (( esp=0; esp<$tam_unidad_bt-3; esp++ ))											#Por lo que queda hasta acabar la unidad de tiempo (-3 porque se introdujeron 3 caracteres, PXX)
 		do
-			cad_proc_bt=${cad_proc_bt[@]}" "					#Añado espacios.
+			cad_proc_bt=${cad_proc_bt[@]}" "													#Añado espacios.
 		done
+		last_proc=$proc_actual																	#Actualizo la referencia al último proceso que se representó.
 	fi
 
 
@@ -3920,6 +4159,7 @@ actualizar_bt_try()
 	echo "" >> informeBN.txt
 }
 
+
 actualizar_bt()
 {
 	#Calculo el tamaño del espacio representado en la barra por cada unidad de tiempo en función del tamaño del mayor tiempo de entrada.
@@ -3932,8 +4172,9 @@ actualizar_bt()
 			let mas_tarde=mas_tarde+${TEJ[$pr]}
 		fi
 	done
-	#Si va a haber procesos que lleven el tiempo a más de 3 cifras, se aumenta el tamaño de la unidad de tiempo.
-	if [[ ${#mas_tarde} -gt 3 ]]
+	#Si va a haber procesos que lleven el tiempo a más del default de 3 cifras, se aumenta el tamaño de la unidad de tiempo.
+	tam_unidad_bt=3
+	if [[ ${#mas_tarde} -gt $tam_unidad_bt ]]
 	then
 		tam_unidad_bt=${#mas_tarde}
 	fi
@@ -3951,10 +4192,10 @@ actualizar_bt()
 		#Comandos que ajustan las 3 lineas verticales del final de la barra de tiempo
 		if [[ $primvez = 0 ]]
 		then
-			cadtiempo[$j]="\u2588\u2588\u2588|T=$tiempo_transcurrido"
-			cadtiempo2[$j]="   |"
-			cadtiempobn[$j]="\u2588\u2588\u2588|T=$tiempo_transcurrido"
-			cadtiempo2bn[$j]="   |"
+			cadtiempo[$j]="${cad_cua_aux_bt[@]}|T=$tiempo_transcurrido"
+			cadtiempo2[$j]="${cad_tex_aux_bt[@]}|"
+			cadtiempobn[$j]="${cad_cua_aux_bt[@]}|T=$tiempo_transcurrido"
+			cadtiempo2bn[$j]="${cad_tex_aux_bt[@]}|"
 			cadtiempo3[$j]="${cad_tex_aux_bt[@]}|"
 		fi
 
@@ -4283,9 +4524,9 @@ mayor_dato_procesos()
 		fi
 
 		#Tiempo de ejecución.
-		if [[ $mayortej -lt ${PROCESOS_I[$pr]} ]]
+		if [[ $mayortej -lt ${T_EJECUCION_I[$pr]} ]]
 		then
-			mayortej=${PROCESOS_I[$pr]}
+			mayortej=${T_EJECUCION_I[$pr]}
 		fi
 
 		#Espacio en memoria.
@@ -4377,7 +4618,7 @@ calcula_espacios()
 
 	for((contespacios2 = 0; contespacios2 < num_proc; contespacios2++))
 	do
-		chartej=${#PROCESOS_I[contespacios2]}
+		chartej=${#T_EJECUCION_I[contespacios2]}
 
 		if [[ $chartej == 1 ]] || [[ $chartej == 2 ]] || [[ $chartej == 3 ]]
 		then
@@ -4746,26 +4987,35 @@ imprime_cabecera
 lee_datos
 
 #Guardado incondicional en datosLast.txt.
-meterAfichero datosLast
+meterAfichero datoslast
 
 #Condicional que determinará el guardado de los datos manuales.
-if [[ $opcion_guardado_datos -eq 1 || $opcion_guardado_datos_rangos -eq 1 || $opcion_guardado_datos_rangos_2 -eq 1 ]]
+if [[ $opcion_guardado_datos -eq 1 || $opcion_guardado_datos_rangos -eq 1 || $opcion_guardado_datos_rangos_2 -eq 1 || $nombre_fichero_datos == "datos" ]]
 then
 		meterAfichero datos
 fi
-if [[ $opcion_guardado_datos -eq 2 || $opcion_guardado_datos_rangos -eq 2 || $opcion_guardado_datos_rangos_2 -eq 1 ]]
+if [[ $opcion_guardado_datos -eq 2 || $opcion_guardado_datos_rangos -eq 2 || $opcion_guardado_datos_rangos_2 -eq 1 ]] && [[ $nombre_fichero_datos != "datos" ]]
 then
 		meterAfichero "$nombre_fichero_datos"
 fi
-if [[ $opcion_guardado_rangos -eq 1 ]] || [[ $nombre_fichero_rangos == "datosrangos" ]]
+if [[ $opcion_guardado_rangos -eq 1 || $opcion_guardado_rangos_2 -eq 1 || $nombre_fichero_rangos == "datosrangos" ]]
 then
-		meterAficheroAleatorio datosrangos
+		meterAficheroRangos datosrangos
+fi
+if [[ $opcion_guardado_rangos -eq 2 || $opcion_guardado_rangos_2 -eq 2 ]] && [[ $nombre_fichero_rangos != "datosrangos" ]]
+then
+		meterAficheroRangos "$nombre_fichero_rangos"
 fi
 
-if [[ $opcion_guardado_rangos -eq 2 ]] && [[ $nombre_fichero_rangos != "datosrangos" ]]
+if [[ $opcion_guardado_rangos_rangos -eq 1 || $nombre_fichero_rangos == "datosrangos" ]] 
 then
-		meterAficheroAleatorio "$nombre_fichero_rangos"
+	meterAficheroRangosAleatorios datosrangos
 fi
+if [[ $opcion_guardado_rangos_rangos -eq 2 ]] && [[ $nombre_fichero_rangos != "datosrangos" ]]
+then
+	meterAficheroRangosAleatorios "$opcion_guardado_rangos_rangos"
+fi
+
 
 #clear
 echo "		> ROUND ROBIN" >> informeCOLOR.txt
@@ -4787,11 +5037,13 @@ then
 	tam_unidad_bt=${#mas_tarde}
 fi
 
-datos_aux #Copia los datos
-mayor_dato_procesos #Calcula el mayor dato
-memoria_total
-calcula_espacios #Calcula los espacios para la tabla
-algoritmob #Algoritmo principal
+datos_aux 								#Copia los datos
+mayor_dato_procesos 					#Calcula el mayor dato
+memoria_total 							#Calcula la memoria total.
+calcular_tabla_particiones_ejecucion	#Calcula la tabla de datos de las particiones.
+calcula_espacios 						#Calcula los espacios para la tabla de procesos.
+algoritmob 								#Algoritmo principal
+
 #clear
 ultvez=1
 tabla_ejecucion
@@ -4838,3 +5090,104 @@ if [ -f listado.temp ]
 then
 	rm listado.temp
 fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Mete la tabla final en el informe que se da la opcion de visualizar al final del programa
+datosfin_inf()
+{
+	en_memoria
+	media=0
+
+	echo " "  >> informeCOLOR.txt
+	echo "	---------------------------------------------------------------------"  >> informeCOLOR.txt
+	echo "	  PRO | T LLEGADA | RAFAGA | MEMORIA | EN MEMORIA | L TEMP | ESTADO  "  >> informeCOLOR.txt
+	echo "	---------------------------------------------------------------------"  >> informeCOLOR.txt
+	for(( pr=0 ; pr<$num_proc ; pr++ ))
+	do
+		echo "	    "${NUMPROC[$pr]}"|		${T_ENTRADA[$pr]}|	${RAFAGA_AUX[$pr]}|	${MEMORIA_AUX[$pr]}   |    ${EN_MEMO[$pr]}	|    ${TIEMPO_FIN[$pr]}    | ${ESTADO[$pr]}"  >> informeCOLOR.txt
+		echo "	---------------------------------------------------------------------"  >> informeCOLOR.txt	
+	done
+
+	echo "	-----------------------------------"  >> informeCOLOR.txt	
+	echo " 	    PRO |  T RETORNO  | T ESPERA   "  >> informeCOLOR.txt
+	echo "	-----------------------------------"  >> informeCOLOR.txt
+	for(( pr=0 ; pr<$num_proc ; pr++ ))
+	do
+		if [ "${ESTADO[$pr]}" != "Bloqueado" ]
+		then
+			T_RETORNO[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]}`
+			T_ESPERA[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]} - ${RAFAGA_AUX[$pr]}`
+		else
+			T_RETORNO[$pr]=0
+			T_ESPERA[$pr]=0			
+		fi
+
+		let T_MEDIO_R=T_MEDIO_R + ${T_RETORNO[$pr]}
+		let T_MEDIO_E=T_MEDIO_E + ${T_ESPERA[$pr]}
+
+		echo "	       "${NUMPROC[$pr]}"|   	    ${T_RETORNO[$pr]} |    ${T_ESPERA[$pr]}"  >> informeCOLOR.txt
+		echo "	-----------------------------------"  >> informeCOLOR.txt
+	done
+	
+	echo -n "	 El tiempo medio de retorno es: "  >> informeCOLOR.txt
+	echo " 		 scale = 2; $T_MEDIO_R/$num_proc"| bc  >> informeCOLOR.txt	
+	echo -n " 	 El tiempo medio de espera es:  "  >> informeCOLOR.txt
+	echo "		 scale = 2; $T_MEDIO_E/$num_proc"| bc  >> informeCOLOR.txt
+	echo " "  >> informeCOLOR.txt
+	echo " "  >> informeCOLOR.txt
+}
+
+
+#Imprime una tabla final con los datos de los diferentes procesos.
+solucion_impresa()
+{
+	en_memoria
+	media=0
+
+	echo "	---------------------------------------------------------------------" 
+	echo "	  PRO | T LLEGADA | RAFAGA | MEMORIA | EN MEMORIA | L TEMP | ESTADO  " 
+	echo "	---------------------------------------------------------------------" 
+	for(( pr=0 ; pr<$num_proc ; pr++ ))
+	do
+		echo "	    "${NUMPROC[$pr]}"|		${T_ENTRADA[$pr]}|	${RAFAGA_AUX[$pr]}|	${MEMORIA_AUX[$pr]}   |    ${EN_MEMO[$pr]}	|    ${TIEMPO_FIN[$pr]}    | ${ESTADO[$pr]}"
+		echo "	---------------------------------------------------------------------"		
+	done
+
+	echo "	-----------------------------------"	
+	echo " 	    PRO |  T RETORNO  | T ESPERA	 "
+	echo "	-----------------------------------" 
+	for(( pr=0 ; pr<$num_proc ; pr++ ))
+	do
+		if [ "${ESTADO[$pr]}" != "Bloqueado" ]
+		then
+			T_RETORNO[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]}`
+			T_ESPERA[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]} - ${RAFAGA_AUX[$pr]}`
+		else
+			T_RETORNO[$pr]=0
+			T_ESPERA[$pr]=0			
+		fi
+
+		let T_MEDIO_R=T_MEDIO_R + ${T_RETORNO[$pr]}
+		let T_MEDIO_E=T_MEDIO_E + ${T_ESPERA[$pr]}
+
+		echo "	      " ${NUMPROC[$pr]}"|   	    "${T_RETORNO[$pr]}" |   " $((${T_ESPERA[$pr]} + 1))
+		echo "	-----------------------------------" 
+	done
+	
+	echo -n " El tiempo medio de retorno es: "
+	echo "  scale = 2; $T_MEDIO_R/$num_proc"| bc	
+	echo -n " El tiempo medio de espera es:  "
+	echo " scale = 2; $T_MEDIO_E/$num_proc"| bc
+	echo " "
+}
