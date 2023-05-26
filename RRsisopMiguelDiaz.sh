@@ -3987,6 +3987,7 @@ actualizar_bm()
 				num_par_pri="${num_par:0:1}"										#Separo los caracteres.
 				num_par_seg="${num_par:1:2}"
 			fi
+
 			if [[ $uni_par -eq 1 ]]													#Si es la primera unidad,
 			then
 				case $tam_unidad_bm in 												#Según el tamaño de la unidad,
@@ -4099,31 +4100,28 @@ actualizar_bm()
 		done
 
 
-		## Montaje de la cadena de procesos en la barra de memoria.
-		if [[ ${PROC[$pa]} -ne -1 ]]									#Si tiene un proceso,
+		##Montaje de la cadena de procesos en la abarra de memoria.
+		if [[ ${PROC[$pa]} -ne -1 ]] && [[ $uni_par -eq 1 ]]					#Si tiene un proceso y es la primera unidad, imprimo la partición.
 		then
-			if [[ ${#PROC[$pa]} -eq 1 ]]								#Si el proceso tiene un caracter,
+			if [[ ${#${PROC[$pa]}} -eq 1 ]]										#Si el proceso tiene un caracter,
 			then								
-				cad_proc_bm=${cad_proc_bm[@]}"P0$((${PROC[$pa]}+1))"	#Añado el numero del proceso con un cero delante.
-			else 														#Si tiene más de un caracter,
-				cad_proc_bm=${cad_proc_bm[@]}"P$((${PROC[$pa]}+1))"		#Añado el número del proceso sin ceros delante.
+				cad_proc_bm=${cad_proc_bm[@]}"P0$((${PROC[$pa]}+1))"			#Añado el numero del proceso con un cero delante.
+			else 																#Si tiene más de un caracter,
+				cad_proc_bm=${cad_proc_bm[@]}"P$((${PROC[$pa]}+1))"				#Añado el número del proceso sin ceros delante.
 			fi
-
-			for (( esp=0; esp<(${tam_par[$pa]}*$tam_unidad_bm-3); esp++ ))	#Por cada hueco hasta completar la partición, (-3 porque se introdujeron 3 caracteres, PXX)
+			for (( esp=0; esp<$tam_unidad_bm-3; esp++ ))						#Por cada hueco hasta completar la unidad, (menos 3 caracteres impresos PXX)
 			do
-				cad_proc_bm=${cad_proc_bm[@]}" "						#Añado espacios.
+				cad_proc_bm=${cad_proc_bm[@]}" "								#Añado un espacio.
 			done
-		else 															#Si no tiene un proceso,
-			for (( esp=0; esp<${tam_par[$pa]}*$tam_unidad_bm; esp++ ))	#Por cada hueco hasta completar la partición,
+		else  																	#Si no tiene proceso o no es la primera unidad,
+			for (( esp=0; esp<$tam_unidad_bm; esp++ ))							#Por cada hueco hasta completar la unidad,
 			do
-				cad_proc_bm=${cad_proc_bm[@]}" "						#Añado espacios.
+				cad_proc_bm=${cad_proc_bm[@]}" "								#Añado un espacio.
 			done
 		fi
-		if [[ $pa -ne $(($n_par-1)) ]]									#Si no es la última partición,
+		if [[ $pa -ne $(($n_par-1)) ]]											#Si no es la última partición,
 		then										
-			cad_proc_bm=${cad_proc_bm[@]}" "							#Añado un espacio adicional entre particiones.
-		#else 
-			#cad_proc_bm=${cad_proc_bm[@]}"|"							#Si es la última, añado una barra.
+			cad_proc_bm=${cad_proc_bm[@]}" "									#Añado un espacio adicional entre particiones.
 		fi
 
 
