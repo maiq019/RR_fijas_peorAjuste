@@ -3914,7 +3914,7 @@ calcular_tabla_particiones_ejecucion()
 actualizar_bm()
 {	
 	#Variable que guarda el tamaño del espacio representado en la barra por cada unidad de memoria.
-	tam_unidad_bm=3
+	tam_unidad_bm=$tam_unidad_bt
 
 	#Cadena de particiones en la BM.
 	cad_particiones="    |"
@@ -3943,47 +3943,160 @@ actualizar_bm()
 		
 	for ((pa=0; pa<$n_par; pa++))
 	do
-		let ocup_par=${tam_par[$pa]}*tam_unidad_bm
-		if [[ $ocup_par -gt $columnas_bm ]]							#Si la partición va a ocupar más de lo que queda de pantalla,
-		then
-			echo -e "${cad_particiones[@]}"							#Represento lo que llevo de barra de memoria.
-			echo -e "${cad_particiones[@]}" >> informeCOLOR.txt
-			echo -e "${cad_particiones[@]}" >> informeBN.txt
+		#Cortar a la siguiente línea la partición entera.
+		#let ocup_par=${tam_par[$pa]}*tam_unidad_bm
+		#if [[ $ocup_par -gt $columnas_bm ]]							#Si la unidad va a ocupar más de lo que queda de pantalla,
+		#then
+		#	echo -e "${cad_particiones[@]}"							#Represento lo que llevo de barra de memoria.
+		#	echo -e "${cad_particiones[@]}" >> informeCOLOR.txt
+		#	echo -e "${cad_particiones[@]}" >> informeBN.txt
 
-			echo -e "${cad_proc_bm[@]}"
-			echo -e "${cad_proc_bm[@]}" >> informeCOLOR.txt
-			echo -e "${cad_proc_bm[@]}" >> informeBN.txt
+		#	echo -e "${cad_proc_bm[@]}"
+		#	echo -e "${cad_proc_bm[@]}" >> informeCOLOR.txt
+		#	echo -e "${cad_proc_bm[@]}" >> informeBN.txt
 
-			echo -e "${cad_mem_col[@]}"
-			echo -e "${cad_mem_col[@]}" >> informeCOLOR.txt
-			echo -e "${cad_mem_byn[@]}" >> informeBN.txt
+		#	echo -e "${cad_mem_col[@]}"
+		#	echo -e "${cad_mem_col[@]}" >> informeCOLOR.txt
+		#	echo -e "${cad_mem_byn[@]}" >> informeBN.txt
 
-			echo -e "${cad_can_mem[@]}"
-			echo -e "${cad_can_mem[@]}" >> informeCOLOR.txt
-			echo -e "${cad_can_mem[@]}" >> informeBN.txt
+		#	echo -e "${cad_can_mem[@]}"
+		#	echo -e "${cad_can_mem[@]}" >> informeCOLOR.txt
+		#	echo -e "${cad_can_mem[@]}" >> informeBN.txt
 
-			cad_particiones=" "										#Reseteo las cadenas.
-			cad_proc_bm=" "
-			cad_mem_col=" "
-			cad_mem_byn=" "
-			cad_can_mem=" "
-			columnas_bm=$(($(tput cols)-5)) 						#Reseteo las columnas que quedan libres.
-		fi
-		let columnas_bm=columnas_bm-ocup_par-2						#Actualizo las columnas que quedan restando lo que ocupa la partición, un espacio al principio y un espacio o barra final.
+		#	cad_particiones="     "									#Reseteo las cadenas con el margen izquierdo de la cabecera de la barra.
+		#	cad_proc_bm="     "
+		#	cad_mem_col="     "
+		#	cad_mem_byn="     "
+		#	cad_can_mem="     "
+		#	columnas_bm=$(($(tput cols)-5)) 						#Reseteo las columnas que quedan libres.
+		#fi
+		#let columnas_bm=columnas_bm-ocup_par-6						#Actualizo las columnas que quedan restando lo que ocupa la partición, con 5 espacios al principio.
 
+		#Controladores de la unidad de la partición.
+		uni_cad_par=1
+		uni_cad_pro=1
+		uni_cad_cua=1
+		uni_cad_mem=1
 
-		## Montaje de la cadena de particiones en la barra de memoria.
-		cad_particiones=${cad_particiones[@]}"Part $(($pa+1))" 		#Añado el numero de la partición.
-		for (( esp=0; esp<(${tam_par[$pa]}*$tam_unidad_bm-6); esp++ ))
+		for (( uni_par=1; uni_par<=${tam_par[$pa]}; uni_par++ ))					#Para cada unidad imprimible de la partición (su tamaño).
 		do
-			cad_particiones=${cad_particiones[@]}" "				#Añado espacios hasta completar el tamaño de la partición.
+			## Montaje de la cadena de particiones en la barra de memoria.
+			num_par=$(($pa+1))														#Guardo el número imprimible de la partición.
+			if [[ ${#num_par} -eq 2 ]]												#Si tiene 2 caracteres,
+			then
+				num_par_pri="${num_par:0:1}"										#Separo los caracteres.
+				num_par_seg="${num_par:1:2}"
+			fi
+			if [[ $uni_par -eq 1 ]]													#Si es la primera unidad,
+			then
+				case $tam_unidad_bm in 												#Según el tamaño de la unidad,
+					3)																#El mínimo puede ser 3, un caracter y un espacio a cada lado.
+						cad_particiones=${cad_particiones[@]}"Par"
+					;;
+					4)																#Si tiene 4 caracteres,
+						cad_particiones=${cad_particiones[@]}"Part"					#Añado 4 caracteres.
+					;;
+					5)																#Si tiene 5 caracteres,
+						cad_particiones=${cad_particiones[@]}"Part "				#Añado 5 caracteres.
+					;;
+					6)																#Si tiene 6 caracteres,
+						if [[ ${#num_par} -eq 1 ]]									#Si el número de partición tiene un dígito,
+						then
+							cad_particiones=${cad_particiones[@]}"Part 0" 			#El número irá con un 0 delante.
+						else 														#Si tiene más de un dígito,
+							cad_particiones=${cad_particiones[@]}"Part $num_par_pri" #Añado el primer caracter del número sin el 0.
+						fi
+					;;
+					*)																#7 o más caracteres, (No debería tener nunca 0, 1 o 2 caracteres, ni valores negativos)
+						if [[ ${#num_par} -eq 1 ]]									#Si el número de partición tiene un dígito,
+						then
+							cad_particiones=${cad_particiones[@]}"Part 0$(($pa+1))" #Añado el número con un 0 delante.
+						else 														#Si tiene más de un dígito,
+							cad_particiones=${cad_particiones[@]}"Part $(($pa+1))"  #Añado el numero sin el 0.
+						fi
+						for (( esp=0; esp<($tam_unidad_bm-7); esp++ ))				#Por lo que queda de unidad (-7 de los caracteres "Part XX")
+						do
+							cad_particiones=${cad_particiones[@]}" "				#Añado un espacio.
+						done
+					;;
+				esac
+			elif [[ $uni_par -eq 2 ]] 												#Si es la segunda unidad,
+			then
+				case $tam_unidad_bm in 												#Según el tamaño de la unidad,
+					3)																#Si tiene 3 caracteres,
+						if [[ ${#num_par} -eq 1 ]]									#Si el número de partición tiene un dígito,
+						then
+							cad_particiones=${cad_particiones[@]}"t 0" 				#El número llevará un 0 delante.
+						else 														#Si tiene más de un dígito,
+							cad_particiones=${cad_particiones[@]}"t $num_par_pri"  	#Añado el primer dígito del número sin el 0.
+						fi
+					;;
+					4)																#Si tiene 4 caracteres,
+						cad_particiones=${cad_particiones[@]}" $(($pa+1))"			#Añado los siguientes 4 caracteres.
+						for (( esp=0; esp<$tam_unidad_bm-${#num_par}-1; esp++ ))	#Por lo que queda de unidad menos los caracteres escritos, (lo que ocupa el número y un espacio)
+						do
+							cad_particiones=${cad_particiones[@]}" "				#Añado un espacio.
+						done
+					;;
+					5)																#Si tiene 5 caracteres,
+						cad_particiones=${cad_particiones[@]}"$(($pa+1))"			#Añado los siguientes caracteres.
+						for (( esp=0; esp<$tam_unidad_bm-${#num_par}; esp++ ))		#Por lo que queda de unidad menos los caracteres escritos, (lo que ocupa el número)
+						do
+							cad_particiones=${cad_particiones[@]}" "				#Añado un espacio.
+						done
+					;;
+					6)																#Si tiene 6 caracteres,
+						if [[ ${#num_par} -eq 1 ]]									#Si el número de partición tiene un dígito,
+						then														#añado los siguientes caracteres.
+							cad_particiones=${cad_particiones[@]}"$(($pa+1))" 		#El número que iba con un 0 delante.
+						else 														#Si tiene más de un dígito,
+							cad_particiones=${cad_particiones[@]}"$num_par_seg" 	#El segundo caracter del número.
+						fi
+						for (( esp=0; esp<$tam_unidad_bm-1; esp++ ))				#Por lo que queda de unidad menos el caracter escrito, (el espacio que ocupa el número o el segundo caracter del mismo)
+						do
+							cad_particiones=${cad_particiones[@]}" "				#Añado un espacio.
+						done
+					;;
+					*)																#7 o más caracteres, (No debería tener nunca 0, 1 o 2 caracteres, ni valores negativos)
+						for (( esp=0; esp<($tam_unidad_bm-7); esp++ ))				#Por lo que queda de unidad (-7 de los caracteres "Part XX")
+						do
+							cad_particiones=${cad_particiones[@]}" "				#Añado un espacio. (ya debería haberse añadido toda la información de la partición)
+						done
+					;;
+				esac
+			elif [[ $uni_par -eq 3 ]]												#Si es la tercera unidad,
+			then
+				case $tam_unidad_bm in 												#Según el tamaño de la unidad,
+					3)																#Si tiene 3 caracteres,
+						if [[ ${#num_par} -eq 1 ]]									#Si el número de partición tiene un dígito,
+						then
+							cad_particiones=${cad_particiones[@]}"$(($pa+1))" 		#El número que llevaba un 0 delante.
+						else 														#Si tiene más de un dígito,
+							cad_particiones=${cad_particiones[@]}"$num_par_seg"  	#Añado el segundo dígito del número.
+						fi
+						for (( esp=0; esp<$tam_unidad_bm-1; esp++ ))				#Por lo que queda de unidad menos el caracter escrito, (lo que ocupa el número o el segundo caracter del mismo)
+						do
+							cad_particiones=${cad_particiones[@]}" "				#Añado un espacio.
+						done
+					;;
+					*)																#Para 4 o más caracteres ya se escibió toda la partición.
+						for (( esp=0; esp<$tam_unidad_bm; esp++ ))					#Por lo que queda de unidad,
+						do
+							cad_particiones=${cad_particiones[@]}" "				#Añado un espacio.
+						done
+					;;
+				esac
+			else 																	#A partir de la cuarta unidad, ya se escribió toda la partición.	
+				for (( esp=0; esp<$tam_unidad_bm; esp++ ))							#Por lo que queda de unidad,
+				do
+					cad_particiones=${cad_particiones[@]}" "						#Añado un espacio.
+				done
+				if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]] #Si es la última unidad, el final de la partición y no es la última partición,
+				then
+					cad_particiones=${cad_particiones[@]}" "						#Añado un espacio entre particiones.
+				fi
+			fi
 		done
-		if [[ $pa -ne $(($n_par-1)) ]]								#Si no es la última partición,
-		then										
-			cad_particiones=${cad_particiones[@]}" "				#Añado un espacio adicional entre particiones.
-		else 
-			cad_particiones=${cad_particiones[@]}"|"				#Si es la última, añado una barra.
-		fi
 
 
 		## Montaje de la cadena de procesos en la barra de memoria.
@@ -4009,8 +4122,8 @@ actualizar_bm()
 		if [[ $pa -ne $(($n_par-1)) ]]									#Si no es la última partición,
 		then										
 			cad_proc_bm=${cad_proc_bm[@]}" "							#Añado un espacio adicional entre particiones.
-		else 
-			cad_proc_bm=${cad_proc_bm[@]}"|"							#Si es la última, añado una barra.
+		#else 
+			#cad_proc_bm=${cad_proc_bm[@]}"|"							#Si es la última, añado una barra.
 		fi
 
 
@@ -4048,9 +4161,9 @@ actualizar_bm()
 		then										
 			cad_mem_col=${cad_mem_col[@]}" "									#Añado un espacio adicional entre particiones.
 			cad_mem_byn=${cad_mem_byn[@]}" "
-		else 
-			cad_mem_col=${cad_mem_col[@]}"|"									#Si es la última, añado una barra y la memoria total.
-			cad_mem_byn=${cad_mem_byn[@]}"|"
+		#else 
+			#cad_mem_col=${cad_mem_col[@]}"|"									#Si es la última, añado una barra.
+			#cad_mem_byn=${cad_mem_byn[@]}"|"
 		fi
 		
 		## Montaje de la cadena de cantidad de memoria en la barra de memoria.
@@ -4090,12 +4203,12 @@ actualizar_bm()
 		if [[ $pa -ne $(($n_par-1)) ]]												#Si no es la última partición,
 		then										
 			cad_can_mem=${cad_can_mem[@]}" "										#Añado un espacio adicional entre particiones.
-		else 
-			cad_can_mem=${cad_can_mem[@]}"|"										#Si es la última, añado una barra.
+		#else 
+			#cad_can_mem=${cad_can_mem[@]}"|"										#Si es la última, añado una barra.
 		fi
 	done
 
-	let ocup_mem_total=4+${#memoria_total}					#Calculo lo que ocupa escribir la memoria total.
+	let ocup_mem_total=5+${#memoria_total}					#Calculo lo que ocupa escribir la memoria total (mas 5 de barra, espacio, M, =, y espacio final.
 	if [[ $ocup_mem_total -gt $columnas_bm ]]				#Si va a ocupar más de lo que queda de pantalla,
 	then
 		echo -e "${cad_particiones[@]}"						#Represento lo que llevo de barra de memoria.
@@ -4114,16 +4227,19 @@ actualizar_bm()
 		echo -e "${cad_can_mem[@]}" >> informeCOLOR.txt
 		echo -e "${cad_can_mem[@]}" >> informeBN.txt
 
-		cad_particiones=" "										#Añado el final de las cadenas.
-		cad_proc_bm=" "
-		cad_mem_col=" "
-		cad_mem_byn=" "
-		cad_can_mem=" "
+		cad_particiones="     "								#Reseteo las cadenas con el margen izquierdo de la cabecera de la barra.
+		cad_proc_bm="     "
+		cad_mem_col="     "
+		cad_mem_byn="     "
+		cad_can_mem="     "
 	fi
 
-	## Añado la memoria total a la cadena.
-	cad_mem_col=${cad_mem_col[@]}"M=$memoria_total"
-	cad_mem_byn=${cad_mem_byn[@]}"M=$memoria_total"
+	## Añado la memoria total a las cadena.
+	cad_particiones=${cad_particiones[@]}"| "
+	cad_proc_bm=${cad_proc_bm[@]}"| "
+	cad_mem_col=${cad_mem_col[@]}"| M=$memoria_total "
+	cad_mem_byn=${cad_mem_byn[@]}"| M=$memoria_total "
+	cad_can_mem=${cad_can_mem[@]}"| "
 
 	## Representacion de la Barra de Memoria.
 	echo -e "${cad_particiones[@]}"
@@ -4159,8 +4275,9 @@ iniciar_bt()
 			let mas_tarde=mas_tarde+${TEJ[$pr]}
 		fi
 	done
+	tam_unidad_bt=5
 	#Si va a haber procesos que lleven el tiempo a más de 3 cifras, se aumenta el tamaño de la unidad de tiempo.
-	if [[ ${#mas_tarde} -gt 3 ]]
+	if [[ ${#mas_tarde} -gt $tam_unidad_bt ]]
 	then
 		tam_unidad_bt=${#mas_tarde}
 	fi
