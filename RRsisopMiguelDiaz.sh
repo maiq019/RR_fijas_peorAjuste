@@ -3167,7 +3167,7 @@ tabla_ejecucion()
 		#Ahora los datos aparecen entablados
 		printf " │ " >> informeCOLOR.txt
 		echo -ne "\e[${color[$colimp]}mP" >> informeCOLOR.txt
-		printf "%02d" "$(($xp+1))" >> informeCOLOR.txt
+		printf "%02d" "${NUMPROC[$xp]}" >> informeCOLOR.txt
 		for (( l = 0; l < ($espacios_num_proc_tabla - 2); l++))
 		do
 			echo -ne " "
@@ -3387,7 +3387,7 @@ tabla_ejecucion()
 		#Ahora los datos aparecen entablados
 		printf " │ " >> informeBN.txt
 		echo -ne "P" >> informeBN.txt
-		printf "%02d" "$(($xp+1))" >> informeBN.txt
+		printf "%02d" "${NUMPROC[$xp]}" >> informeBN.txt
 		for (( l = 0; l < ($espacios_num_proc_tabla - 2); l++))
 		do
 			echo -ne " "
@@ -3586,7 +3586,7 @@ tabla_ejecucion()
 		#Ahora los datos aparecen entablados
 		printf " │ "
 		echo -ne "\e[${color[$colimp]}mP"
-		printf "%02d" "$(($xp+1))"
+		printf "%02d" "${NUMPROC[$xp]}"
 		for (( l = 0; l < ($espacios_num_proc_tabla - 2); l++))
 		do
 			echo -ne " "
@@ -3934,8 +3934,6 @@ actualizar_bm()
 	#Variable para contar la memoria representada.
 	mem_rep=0
 
-	#shopt -s checkwinsize
-
 	#Columnas que quedan en la consola a la derecha de la barra inicial en la BM.
 	columnas_bm=$(($(tput cols)-5))
 
@@ -3945,7 +3943,7 @@ actualizar_bm()
 	do
 		#Cortar a la siguiente línea la partición entera.
 		#let ocup_par=${tam_par[$pa]}*tam_unidad_bm
-		#if [[ $ocup_par -gt $columnas_bm ]]							#Si la unidad va a ocupar más de lo que queda de pantalla,
+		#if [[ $ocup_par -gt $columnas_bm ]]						#Si la unidad va a ocupar más de lo que queda de pantalla,
 		#then
 		#	echo -e "${cad_particiones[@]}"							#Represento lo que llevo de barra de memoria.
 		#	echo -e "${cad_particiones[@]}" >> informeCOLOR.txt
@@ -3972,14 +3970,37 @@ actualizar_bm()
 		#fi
 		#let columnas_bm=columnas_bm-ocup_par-6						#Actualizo las columnas que quedan restando lo que ocupa la partición, con 5 espacios al principio.
 
-		#Controladores de la unidad de la partición.
-		uni_cad_par=1
-		uni_cad_pro=1
-		uni_cad_cua=1
-		uni_cad_mem=1
-
-		for (( uni_par=1; uni_par<=${tam_par[$pa]}; uni_par++ ))					#Para cada unidad imprimible de la partición (su tamaño).
+		for (( uni_par=1; uni_par<=${tam_par[$pa]}; uni_par++ ))		#Para cada unidad imprimible de la partición (su tamaño).
 		do
+			#cortar a la siguiente línea la unidad de memoria.
+			if [[ $tam_unidad_bm -gt $columnas_bm ]]
+			then
+				echo -e "${cad_particiones[@]}"							#Represento lo que llevo de barra de memoria.
+				echo -e "${cad_particiones[@]}" >> informeCOLOR.txt
+				echo -e "${cad_particiones[@]}" >> informeBN.txt
+
+				echo -e "${cad_proc_bm[@]}"
+				echo -e "${cad_proc_bm[@]}" >> informeCOLOR.txt
+				echo -e "${cad_proc_bm[@]}" >> informeBN.txt
+
+				echo -e "${cad_mem_col[@]}"
+				echo -e "${cad_mem_col[@]}" >> informeCOLOR.txt
+				echo -e "${cad_mem_byn[@]}" >> informeBN.txt
+
+				echo -e "${cad_can_mem[@]}"
+				echo -e "${cad_can_mem[@]}" >> informeCOLOR.txt
+				echo -e "${cad_can_mem[@]}" >> informeBN.txt
+
+				cad_particiones="     "									#Reseteo las cadenas con el margen izquierdo de la cabecera de la barra.
+				cad_proc_bm="     "
+				cad_mem_col="     "
+				cad_mem_byn="     "
+				cad_can_mem="     "
+				columnas_bm=$(($(tput cols)-5)) 						#Reseteo las columnas que quedan libres.
+			fi
+			let columnas_bm=columnas_bm-tam_unidad_bm					#Actualizo las columnas que quedan restando lo que ocupa la unidad.
+
+
 			## Montaje de la cadena de particiones en la barra de memoria.
 			num_par=$(($pa+1))														#Guardo el número imprimible de la partición.
 			if [[ ${#num_par} -eq 2 ]]												#Si tiene 2 caracteres,
@@ -4092,119 +4113,103 @@ actualizar_bm()
 				do
 					cad_particiones=${cad_particiones[@]}" "						#Añado un espacio.
 				done
-				if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]] #Si es la última unidad, el final de la partición y no es la última partición,
-				then
-					cad_particiones=${cad_particiones[@]}" "						#Añado un espacio entre particiones.
+			fi
+			if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]] #Si es la última unidad (el final de la partición), y no es la última partición,
+			then
+				cad_particiones=${cad_particiones[@]}" "						#Añado un espacio entre particiones.
+			fi
+
+
+			##Montaje de la cadena de procesos en la abarra de memoria.
+			if [[ ${PROC[$pa]} -ne -1 ]] && [[ $uni_par -eq 1 ]]					#Si tiene un proceso y es la primera unidad,
+			then
+				if [[ ${#NUMPROC[${PROC[$pa]}]} -eq 1 ]]							#Si el proceso tiene un caracter,
+				then								
+					cad_proc_bm=${cad_proc_bm[@]}"P0${NUMPROC[${PROC[$pa]}]}"		#Añado el numero del proceso con un cero delante.
+				else 																#Si tiene más de un caracter,
+					cad_proc_bm=${cad_proc_bm[@]}"P${NUMPROC[${PROC[$pa]}]}"		#Añado el número del proceso sin ceros delante.
 				fi
+				for (( esp=0; esp<$tam_unidad_bm-3; esp++ ))						#Por cada hueco hasta completar la unidad, (menos 3 caracteres impresos PXX)
+				do
+					cad_proc_bm=${cad_proc_bm[@]}" "								#Añado un espacio.
+				done
+			else  																	#Si no tiene proceso o no es la primera unidad,
+				for (( esp=0; esp<$tam_unidad_bm; esp++ ))							#Por cada hueco hasta completar la unidad,
+				do
+					cad_proc_bm=${cad_proc_bm[@]}" "								#Añado un espacio.
+				done
+			fi
+			if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]]	#Si es la última unidad (el final de la partición), y no es la última partición,
+			then										
+				cad_proc_bm=${cad_proc_bm[@]}" "									#Añado un espacio adicional entre particiones.
+			fi
+
+
+			## Montaje de la cadena de cuadros en la barra de memoria.
+			if [[ ${PROC[$pa]} -ne -1 ]] && [[ ${MEMORIA[${PROC[$pa]}]} -ge $uni_par ]]	#Si tiene un proceso y ocupa hasta la unidad de partición actual,
+			then
+				if [[ ${PROC[$pa]} -ge 5 ]]												#Recupero el color del proceso.
+				then
+					let colimp=${PROC[$pa]}%5
+				else
+					colimp=${PROC[$pa]}
+				fi
+
+				for (( esp=0; esp<$tam_unidad_bm; esp++ ))								#Por cada hueco en la unidad,
+				do
+					cad_mem_col=${cad_mem_col[@]}"\e[${color[$colimp]}m\u2588\e[0m"		#Añado cuadrados de color a la cadena en color.
+					cad_mem_byn=${cad_mem_byn[@]}"\u2588"								#Añado cuadrados blancos a la cadena en blanco y negro.
+				done
+			else 																		#Si no hay un proceso o no ocupa hasta la unidad actual,
+				for (( esp=0; esp<$tam_unidad_bm; esp++ ))								#Por cada hueco en la unidad,
+				do
+					cad_mem_col=${cad_mem_col[@]}"\u2588"								#Añado cuadrados blancos.
+					cad_mem_byn=${cad_mem_byn[@]}"\u2588"
+				done
+			fi
+			if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]] 		#Si es la última unidad (el final de la partición), y no es la última partición,
+			then
+				cad_mem_col=${cad_mem_col[@]}" "										#Añado un espacio entre particiones.
+				cad_mem_byn=${cad_mem_byn[@]}" "
+			fi
+
+
+			## Montaje de la cadena de cantidad de memoria en la barra de memoria.
+			if [[ ${PROC[$pa]} -ne -1 ]] && [[ ${MEMORIA[${PROC[$pa]}]} -eq $uni_par ]]
+			then																		#Si tiene un proceso que ocupa justo hasta la unidad actual,
+				memo_proc=${MEMORIA[${PROC[$pa]}]}
+				let mem_rep=mem_rep+memo_proc											#Actualizo la cantidad de memoria representada.
+				for (( esp=0; esp<$(($tam_unidad_bm-${#mem_rep})); esp++ ))				#Por lo que ocupe la unidad menos lo que ocupa escribir la memoria,
+				do
+					cad_can_mem=${cad_can_mem[@]}" "									#Añado un espacio.
+				done
+				cad_can_mem=${cad_can_mem[@]}"$mem_rep"									#Añado la cifra de memoria que se ha representado.
+			elif [[ $uni_par -eq ${tam_par[$pa]} ]] 									#Si es la última unidad de la partición,
+			then
+				if [[ ${PROC[$pa]} -eq -1 ]]											#Si no había un proceso,
+				then
+					let mem_rep=mem_rep+${tam_par[$pa]}									#Actualizo la memoria representada con el tamaño de la partición.
+				else 																	#Si había un proceso,
+					let mem_rep=mem_rep-memo_proc+${tam_par[$pa]}						#Actualizo la memoria representada con el tamaño de la partición menos la memoria que se sumó del proceso.
+				fi
+				for (( esp=0; esp<$(($tam_unidad_bm-${#mem_rep})); esp++ ))				#Por lo que ocupe la unidad menos lo que ocupa escribir la memoria,
+				do
+					cad_can_mem=${cad_can_mem[@]}" "									#Añado un espacio.
+				done
+				cad_can_mem=${cad_can_mem[@]}"$mem_rep"									#Añado la cifra de memoria que se ha representado.
+			else 																		#Si no hay memoria que representar,
+				for (( esp=0; esp<$tam_unidad_bm; esp++ ))								#Por lo que ocupe la unidad,
+				do
+					cad_can_mem=${cad_can_mem[@]}" "									#Añado un espacio.
+				done
+			fi
+			if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]] 		#Si es la última unidad (el final de la partición), y no es la última partición,
+			then
+				cad_can_mem=${cad_can_mem[@]}" "										#Añado un espacio entre particiones.
 			fi
 		done
-
-
-		##Montaje de la cadena de procesos en la abarra de memoria.
-		if [[ ${PROC[$pa]} -ne -1 ]] && [[ $uni_par -eq 1 ]]					#Si tiene un proceso y es la primera unidad, imprimo la partición.
-		then
-			if [[ ${#${PROC[$pa]}} -eq 1 ]]										#Si el proceso tiene un caracter,
-			then								
-				cad_proc_bm=${cad_proc_bm[@]}"P0$((${PROC[$pa]}+1))"			#Añado el numero del proceso con un cero delante.
-			else 																#Si tiene más de un caracter,
-				cad_proc_bm=${cad_proc_bm[@]}"P$((${PROC[$pa]}+1))"				#Añado el número del proceso sin ceros delante.
-			fi
-			for (( esp=0; esp<$tam_unidad_bm-3; esp++ ))						#Por cada hueco hasta completar la unidad, (menos 3 caracteres impresos PXX)
-			do
-				cad_proc_bm=${cad_proc_bm[@]}" "								#Añado un espacio.
-			done
-		else  																	#Si no tiene proceso o no es la primera unidad,
-			for (( esp=0; esp<$tam_unidad_bm; esp++ ))							#Por cada hueco hasta completar la unidad,
-			do
-				cad_proc_bm=${cad_proc_bm[@]}" "								#Añado un espacio.
-			done
-		fi
-		if [[ $pa -ne $(($n_par-1)) ]]											#Si no es la última partición,
-		then										
-			cad_proc_bm=${cad_proc_bm[@]}" "									#Añado un espacio adicional entre particiones.
-		fi
-
-
-		## Montaje de la cadena de cuadros en la barra de memoria.
-		if [[ ${PROC[$pa]} -ne -1 ]]											#Si tiene un proceso,
-		then
-			if [[ ${PROC[$pa]} -ge 5 ]]											#Recupero el color del proceso.
-			then
-				let colimp=${PROC[$pa]}%5
-			else
-				colimp=${PROC[$pa]}
-			fi
-
-			memo_proc=${MEMORIA[${PROC[$pa]}]}									#Recupero lo que ocupa en memoria el proceso.
-			for (( mem_pr=0; mem_pr<$(($memo_proc*$tam_unidad_bm)); mem_pr++ ))	#Por lo que ocupe en memoria el proceso,
-			do
-				cad_mem_col=${cad_mem_col[@]}"\e[${color[$colimp]}m\u2588\e[0m"	#Añado cuadrados de color a la cadena en color.
-				cad_mem_byn=${cad_mem_byn[@]}"\u2588"							#Añado cuadrados blancos a la cadena en blanco y negro.
-			done
-
-			memo_rest=$((${tam_par[$pa]} - ${MEMORIA[${PROC[$pa]}]}))			#Calculo la memoria restante de la partición.
-			for (( esp=0; esp<$(($memo_rest*$tam_unidad_bm)); esp++ ))			#Por lo que queda de memoria en la partición,
-			do
-				cad_mem_col=${cad_mem_col[@]}"\u2588"							#Añado cuadrados blancos.
-				cad_mem_byn=${cad_mem_byn[@]}"\u2588"
-			done
-		else 																	#Si no tiene un proceso,
-			for (( esp=0; esp<${tam_par[$pa]}*$tam_unidad_bm; esp++ ))			#Por lo que ocupe la partición,		
-			do
-				cad_mem_col=${cad_mem_col[@]}"\u2588"							#Añado cuadrados blancos.
-				cad_mem_byn=${cad_mem_byn[@]}"\u2588"
-			done
-		fi
-		if [[ $pa -ne $(($n_par-1)) ]]											#Si no es la última partición,
-		then										
-			cad_mem_col=${cad_mem_col[@]}" "									#Añado un espacio adicional entre particiones.
-			cad_mem_byn=${cad_mem_byn[@]}" "
-		#else 
-			#cad_mem_col=${cad_mem_col[@]}"|"									#Si es la última, añado una barra.
-			#cad_mem_byn=${cad_mem_byn[@]}"|"
-		fi
-		
-		## Montaje de la cadena de cantidad de memoria en la barra de memoria.
-		cad_can_mem=${cad_can_mem[@]}"$mem_rep"										#Añado la memoria que se ha usado hasta el momento.
-		if [[ ${PROC[$pa]} -ne -1 ]]												#Si tiene un proceso,
-		then
-			memo_proc=${MEMORIA[${PROC[$pa]}]}										#Guardo la memoria del proceso en una variable para facilitar su uso.
-			carac_impr=${#mem_rep}													#Guardo en una variable los espacios que ha ocupado el escribir la memoria usada.
-			let esp_rest_proc=memo_proc*tam_unidad_bm-${#mem_rep}					#Calculo el espacio que ocupa el proceso menos los caracteres usados al escribir la memoria usada.
-			for (( tam_pr=0; tam_pr<$esp_rest_proc; tam_pr++ ))						#Por cada espacio hasta el punto que ocupa el proceso,
-			do
-				cad_can_mem=${cad_can_mem[@]}" "									#Añado un espacio.
-			done
-			let mem_rep=mem_rep+memo_proc											#Actualizo la cantidad de memoria representada.
-
-			if [[ $memo_proc -lt ${tam_par[$pa]} ]]									#Si el proceso no ocupa toda la partición,
-			then
-				cad_can_mem=${cad_can_mem[@]}"$mem_rep"								#Añado la cifra de memoria que se ha representado.
-
-				carac_impr=${#mem_rep}												#Actualizo los espacios que han ocupado el esribir la memoria usada.
-																						
-				let esp_rest_par=(${tam_par[$pa]}-memo_proc)*tam_unidad_bm-${#mem_rep}	#Calculo los espacios restantes de la partición.
-				for (( esp=0; esp<$esp_rest_par; esp++ ))							#Por lo que queda de memoria en la partición,
-				do
-					cad_can_mem=${cad_can_mem[@]}" "								#Añado espacios.
-				done
-				let mem_rep=mem_rep-memo_proc+${tam_par[$pa]}						#Actualizo la cantidad de memoria representada.
-			fi
-		else 																		#Si no tiene un proceso,
-			let esp_rest_par=${tam_par[$pa]}*tam_unidad_bm-${#mem_rep}				#Calculo los espacios restantes de la partición.
-			for (( esp=0; esp<$(($esp_rest_par)); esp++ ))							#Por lo que ocupe lapartición,		
-			do
-				cad_can_mem=${cad_can_mem[@]}" "									#Añado espacios.
-			done
-			let mem_rep=mem_rep+${tam_par[$pa]}										#Actualizo la cantidad de memoria representada.
-		fi
-		if [[ $pa -ne $(($n_par-1)) ]]												#Si no es la última partición,
-		then										
-			cad_can_mem=${cad_can_mem[@]}" "										#Añado un espacio adicional entre particiones.
-		#else 
-			#cad_can_mem=${cad_can_mem[@]}"|"										#Si es la última, añado una barra.
-		fi
 	done
+
 
 	let ocup_mem_total=5+${#memoria_total}					#Calculo lo que ocupa escribir la memoria total (mas 5 de barra, espacio, M, =, y espacio final.
 	if [[ $ocup_mem_total -gt $columnas_bm ]]				#Si va a ocupar más de lo que queda de pantalla,
@@ -4261,6 +4266,7 @@ actualizar_bm()
 	echo "" >> informeBN.txt
 }
 
+
 iniciar_bt()
 {
 	#Calculo el tamaño del espacio representado en la barra por cada unidad de tiempo en función del tamaño del mayor tiempo de entrada.
@@ -4275,9 +4281,9 @@ iniciar_bt()
 	done
 	tam_unidad_bt=5
 	#Si va a haber procesos que lleven el tiempo a más de 3 cifras, se aumenta el tamaño de la unidad de tiempo.
-	if [[ ${#mas_tarde} -gt $tam_unidad_bt ]]
+	if [[ $((${#mas_tarde}+2)) -gt $tam_unidad_bt ]]
 	then
-		tam_unidad_bt=${#mas_tarde}
+		tam_unidad_bt=$((${#mas_tarde}+2))
 	fi
 
 
@@ -4403,23 +4409,6 @@ imprimir_bt()
 
 actualizar_bt()
 {
-	#Calculo el tamaño del espacio representado en la barra por cada unidad de tiempo en función del tamaño del mayor tiempo de entrada.
-	mas_tarde=0
-	for ((pr=0; pr<$num_proc; pr++ ))
-	do
-		if [[ ${T_ENTRADA[$pr]} -gt $mas_tarde ]]
-		then
-			mas_tarde=${T_ENTRADA[$pr]}
-			let mas_tarde=mas_tarde+${TEJ[$pr]}
-		fi
-	done
-	#Si va a haber procesos que lleven el tiempo a más del default de 3 cifras, se aumenta el tamaño de la unidad de tiempo.
-	tam_unidad_bt=3
-	if [[ ${#mas_tarde} -gt $tam_unidad_bt ]]
-	then
-		tam_unidad_bt=${#mas_tarde}
-	fi
-
 	cad_tex_aux_bt=""
 	cad_cua_aux_bt=""
 	for (( esp_ini=0; esp_ini<$tam_unidad_bt; esp_ini++ ))
