@@ -74,14 +74,23 @@ mayor_cero()
 
 ### Cabecera con el algoritmo, autor y versión.
 #He eliminado parámetros de color sobrante al final de la línea.
-imprime_cabecera()
+imprime_cabecera_larga()
 {
 	echo -e "$colorRecuadro┌─────────────────────────────────────────────────────────────────────┐"
-	echo -e "$colorRecuadro│    $colorTexto Round-Robin, particiones fijas no iguales al peor ajuste.       $colorRecuadro│"			
+	echo -e "$colorRecuadro│                 $colorTexto R.R. Fijas no iguales, peor ajuste.                $colorRecuadro│"			
 	echo -e "$colorRecuadro│     $colorTexto Mario Juez Gil, Omar Santos, Alvaro Urdiales Santidria,        $colorRecuadro│"
 	echo -e "$colorRecuadro│           $colorTexto Gonzalo Burgos de la Hera, Lucas Olmedo Díez             $colorRecuadro│"
 	echo -e "$colorRecuadro│                       $colorTexto Miguel Díaz Hernando                         $colorRecuadro│"
 	echo -e "$colorRecuadro│                        $colorTexto Versión Junio 2023                          $colorRecuadro│"
+	echo -e "$colorRecuadro└─────────────────────────────────────────────────────────────────────┘ $resetColor"
+}
+
+
+### Cabecera con el algoritmo.
+imprime_cabecera()
+{
+	echo -e "$colorRecuadro┌─────────────────────────────────────────────────────────────────────┐"
+	echo -e "$colorRecuadro│                 $colorTexto R.R. Fijas no iguales, peor ajuste.                $colorRecuadro│"
 	echo -e "$colorRecuadro└─────────────────────────────────────────────────────────────────────┘ $resetColor"
 }
 
@@ -311,7 +320,7 @@ lee_datos() {
 
 		#Se pide el método de guardado de los datos introducidos.
 		#Los métodos de guardado consisten en crear un fichero nuevo con los datos (Con nombre estandar o a elegir por el usuario), o guardarlo en la última ejecución.
-		imprime_cabecera
+		imprime_cabecera_larga
 		echo  " ¿Dónde guardar los datos?"
 		echo  " ¿Dónde guardar los datos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los datos?" >> informeBN.txt
@@ -409,7 +418,7 @@ lee_datos() {
 		###  MÉTODO DE GUARDADO  ###
 
 		#Guardado de datos en ficheros destinados a datos aleatorios con rango.
-		imprime_cabecera
+		imprime_cabecera_larga
 		echo  " ¿Dónde guardar los rangos?"
 		echo  " ¿Dónde guardar los rangos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los rangos?" >> informeBN.txt
@@ -442,7 +451,7 @@ lee_datos() {
 		fi
 
 		#clear
-		imprime_cabecera
+		imprime_cabecera_larga
 		echo  " ¿Dónde guardar los datos?"
 		echo  " ¿Dónde guardar los datos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los datos?" >> informeBN.txt
@@ -531,7 +540,7 @@ lee_datos() {
 		###  MÉTODO DE GUARDADO  ###
 
 		#Guardado de datos en ficheros destinados a rangos para rangos aleatorios.
-		imprime_cabecera
+		imprime_cabecera_larga
 		echo  " ¿Dónde guardar los rangos para calcular rangos?"
 		echo  " ¿Dónde guardar los rangos para calcular rangos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los rangos para calcular rangos?" >> informeBN.txt
@@ -564,7 +573,7 @@ lee_datos() {
 		fi
 
 		#Guardado de datos en ficheros destinados rangos para datos aleatorios.
-		imprime_cabecera
+		imprime_cabecera_larga
 		echo  " ¿Dónde guardar los rangos?"
 		echo  " ¿Dónde guardar los rangos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los rangos?" >> informeBN.txt
@@ -597,7 +606,7 @@ lee_datos() {
 		fi
 
 		#clear
-		imprime_cabecera
+		imprime_cabecera_larga
 		echo  " ¿Dónde guardar los datos?"
 		echo  " ¿Dónde guardar los datos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los datos?" >> informeBN.txt
@@ -752,7 +761,7 @@ lectura_dat_particiones()
 	#Se piden las particiones y su tamaño junto al quantum.
 	#Lectura del numero de particiones.
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos
 	echo -n " Introduzca numero de particiones: "
 	echo -n " Introduzca numero de particiones: " >> informeCOLOR.txt
@@ -780,7 +789,7 @@ lectura_dat_particiones()
 	for ((p=0; p < $n_par; p++))
 	{
 		#clear
-		imprime_cabecera
+		imprime_cabecera_larga
 		imprime_info_datos
 		echo -ne " Introduce tamaño de la partición $(($p+1)): "
 		echo -ne " Introduce tamaño de la partición $(($p+1)): " >> informeCOLOR.txt
@@ -808,7 +817,7 @@ lectura_dat_particiones()
 
 	#Lectura del quantum.
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos
 	echo -n " Introduce el quantum de ejecución: "
 	echo -n " Introduce el quantum de ejecución: " >> informeCOLOR.txt
@@ -832,7 +841,7 @@ lectura_dat_particiones()
 	done
 
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos
 }
 
@@ -1037,7 +1046,7 @@ lectura_dat_particiones_aleatorias()
 	###  NÚMERO DE PARTICIONES MÍNIMO  ###
 
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	echo -n " Introduzca numero de particiones mínimo: "
 	echo -n " Introduzca numero de particiones mínimo: " >> informeCOLOR.txt
@@ -1063,7 +1072,7 @@ lectura_dat_particiones_aleatorias()
 	###  NÚMERO DE PARTICIONES MÁXIMO  ###
 
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	echo -n " Introduzca numero de particiones máximo: "
 	echo -n " Introduzca numero de particiones máximo: " >> informeCOLOR.txt
@@ -1101,7 +1110,7 @@ lectura_dat_particiones_aleatorias()
 	###  TAMAÑO DE PARTICIONES MÍNIMO  ###
 
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	echo -n " Introduce tamaño de particiones mínimo: "
 	echo -n " Introduce tamaño de particiones mínimo: " >> informeCOLOR.txt
@@ -1127,7 +1136,7 @@ lectura_dat_particiones_aleatorias()
 	###  TAMAÑO DE PARTICIONES MÁXIMO  ###
 
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	echo -n " Introduce tamaño de particiones máximo: "
 	echo -n " Introduce tamaño de particiones máximo: " >> informeCOLOR.txt
@@ -1168,7 +1177,7 @@ lectura_dat_particiones_aleatorias()
 	###  QUÁNTUM MÍNIMO  ###
 
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_aleatorios		
 	echo -n " Introduce el quantum de ejecución mínimo: "
 	echo -n " Introduce el quantum de ejecución mínimo: " >> informeCOLOR.txt
@@ -1194,7 +1203,7 @@ lectura_dat_particiones_aleatorias()
 	###  QUÁNTUM MÁXIMO  ###
 
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	echo -n " Introduce el quantum de ejecución máximo: "
 	echo -n " Introduce el quantum de ejecución máximo: " >> informeCOLOR.txt
@@ -1230,7 +1239,7 @@ lectura_dat_particiones_aleatorias()
 	quantum=`shuf -i $quantum_min-$quantum_max -n 1`
 
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 }
 
@@ -1576,7 +1585,7 @@ lectura_dat_particiones_rangos_aleatorios()
 	###  RANGO DE NÚMERO DE PARTICIONES MÍNIMO  ###
 
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo -n " Introduzca rango de número de particiones mínimo: "
 	echo -n " Introduzca rango de número de particiones mínimo: " >> informeCOLOR.txt
@@ -1602,7 +1611,7 @@ lectura_dat_particiones_rangos_aleatorios()
 	###  RANGO DE NÚMERO DE PARTICIONES MÁXIMO  ###
 
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo -n " Introduzca rango de número de particiones máximo: "
 	echo -n " Introduzca rango de número de particiones máximo: " >> informeCOLOR.txt
@@ -1654,7 +1663,7 @@ lectura_dat_particiones_rangos_aleatorios()
 	###  RANGO DE TAMAÑO DE PARTICIONES MÍNIMO  ###
 
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo -n " Introduce rango de tamaño de particiones mínimo: "
 	echo -n " Introduce rango de tamaño de particiones mínimo: " >> informeCOLOR.txt
@@ -1680,7 +1689,7 @@ lectura_dat_particiones_rangos_aleatorios()
 	###  RANGO DE TAMAÑO DE PARTICIONES MÁXIMO  ###
 
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo -n " Introduce rango de tamaño de particiones máximo: "
 	echo -n " Introduce rango de tamaño de particiones máximo: " >> informeCOLOR.txt
@@ -1734,7 +1743,7 @@ lectura_dat_particiones_rangos_aleatorios()
 	###  RANGO DE QUÁNTUM MÍNIMO  ###
 
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios		
 	echo -n " Introduce el rango de quantum de ejecución mínimo: "
 	echo -n " Introduce el rango de quantum de ejecución mínimo: " >> informeCOLOR.txt
@@ -1760,7 +1769,7 @@ lectura_dat_particiones_rangos_aleatorios()
 	###  RANGO DE QUÁNTUM MÁXIMO  ###
 
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo -n " Introduce el rango de quantum de ejecución máximo: "
 	echo -n " Introduce el rango de quantum de ejecución máximo: " >> informeCOLOR.txt
@@ -1809,7 +1818,7 @@ lectura_dat_particiones_rangos_aleatorios()
 	quantum=`shuf -i $quantum_min-$quantum_max -n 1`
 
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 }
 
@@ -1821,7 +1830,7 @@ lectura_dat_procesos_rangos_aleatorios()
 	procesos_ejecutables=0 	#Número de procesos que entran en memoria y se pueden ejecutar en CPU
 
 	###  RANGO DE PROCESOS MÍNIMO  ###
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -1849,7 +1858,7 @@ lectura_dat_procesos_rangos_aleatorios()
 
 	###  RANGO DE PROCESOS MÁXIMO  ###
 
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -1902,7 +1911,7 @@ lectura_dat_procesos_rangos_aleatorios()
 
 	###   RANGO DE TIEMPO DE LLEGADA MÍNIMO  ###
 
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -1930,7 +1939,7 @@ lectura_dat_procesos_rangos_aleatorios()
 
 	###   RANGO DE TIEMPO DE LLEGADA MÁXIMO  ###
 
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -1980,7 +1989,7 @@ lectura_dat_procesos_rangos_aleatorios()
 
 	###  RANGO DE RÁFAGA MÍNIMA  ###
 
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -2008,7 +2017,7 @@ lectura_dat_procesos_rangos_aleatorios()
 
 	###  RANGO DE RÁFAGA MÁXIMA  ###
 
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -2071,7 +2080,7 @@ lectura_dat_procesos_rangos_aleatorios()
 
 	###  RANGO DE MEMORIA MÍNIMA  ###
 
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -2110,7 +2119,7 @@ lectura_dat_procesos_rangos_aleatorios()
 
 	###  RANGO DE MEMORIA MÁXIMA  ###
 
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -2720,7 +2729,7 @@ meterAficheroRangosAleatorios()
 imprimir_tabla_procesos()
 {
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos
 	imprimir_tabla
 }
@@ -2730,7 +2739,7 @@ imprimir_tabla_procesos()
 imprimir_tabla_procesos_aleatorios()
 {
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	imprimir_tabla
 }
@@ -2740,7 +2749,7 @@ imprimir_tabla_procesos_aleatorios()
 imprimir_tabla_procesos_rangos_aleatorios()
 {
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	imprimir_tabla
 }
@@ -2818,7 +2827,7 @@ ordenacion_procesos()
 modo_ejecucion()
 {
 	#clear
-	imprime_cabecera
+	imprime_cabecera_larga
 	echo " 1- Por eventos (Intro)"
 	echo " 2- Automática (Tras n segundos)"
 	echo " 3- Completa (Todo seguido)"
@@ -3835,9 +3844,6 @@ imprimir_tabla_particiones_ejecucion()
 	echo -e " ${cad_top_tab_pa[@]}"
 	echo -e " ${cad_top_tab_pa[@]}" >> informeCOLOR.txt
 	echo -e " ${cad_top_tab_pa[@]}" >> informeBN.txt
-	echo -e " ${cad_titulo_tab_pa[@]}"
-	echo -e " ${cad_titulo_tab_pa[@]}" >> informeCOLOR.txt
-	echo -e " ${cad_titulo_tab_pa[@]}" >> informeBN.txt
 	echo -e " ${cad_datos_tab_pa[@]}"
 	echo -e " ${cad_datos_tab_pa[@]}" >> informeCOLOR.txt
 	echo -e " ${cad_datos_tab_pa[@]}" >> informeBN.txt
@@ -3862,65 +3868,58 @@ calcular_tabla_particiones_ejecucion()
 	#Cadena del final de la tabla de particiones.
 	cad_bot_tab_pa=""
 
-	      cad_top_tab_pa=${cad_top_tab_pa[@]}" ┌─────────"
-	cad_titulo_tab_pa=${cad_titulo_tab_pa[@]}" │Nº Part: "
-	  cad_datos_tab_pa=${cad_datos_tab_pa[@]}" │ $n_par"
-	      cad_bot_tab_pa=${cad_bot_tab_pa[@]}" └─────────"
+	      cad_top_tab_pa=${cad_top_tab_pa[@]}" ┌──────────────"
+	  cad_datos_tab_pa=${cad_datos_tab_pa[@]}" │Nº Part: $n_par"
+	      cad_bot_tab_pa=${cad_bot_tab_pa[@]}" └──────────────"
 
-	if [[ ${#n_par} -lt 9 ]]									#Si el número de particiones ocupa menos de 9 espacios,
+	if [[ ${#n_par} -le 5 ]]									#Si el número de particiones ocupa 5 espacios o menos,
 	then
-		for (( esp=0; esp<8-${#n_par}; esp++ ))					#Para el hueco que quede hasta los 8 espacios,
+		for (( esp=0; esp<5-${#n_par}; esp++ ))					#Para el hueco que quede hasta los 5 espacios,
 		do
 			cad_datos_tab_pa=${cad_datos_tab_pa[@]}" "			#Añado un espacio.
 		done
-	else 														#Si ocupa 9 o más espacios,
-		for (( esp=0; esp<${#n_par}-8; esp++ ))					#Para lo que ocupe el número de particiones de más,
+	else 														#Si ocupa 6 o más espacios,
+		for (( esp=0; esp<${#n_par}-5; esp++ ))					#Para lo que ocupe el número de particiones de más,
 		do
 			cad_top_tab_pa=${cad_top_tab_pa[@]}"─"				#Añado una línea en la cadena del top.
-			cad_titulo_tab_pa=${cad_titulo_tab_pa[@]}" "		#Añado un espacio en la cadena de títulos.
 	      	cad_bot_tab_pa=${cad_bot_tab_pa[@]}"─"				#Añado una línea en la cadena del final.
 		done
 	fi
-	      cad_top_tab_pa=${cad_top_tab_pa[@]}"─┬───────────────"	#Añado la siguiente parte de la tabla.					
-	cad_titulo_tab_pa=${cad_titulo_tab_pa[@]}" │Tam Part:      "
-	  cad_datos_tab_pa=${cad_datos_tab_pa[@]}" │ ${tam_par[@]} "
+	      cad_top_tab_pa=${cad_top_tab_pa[@]}"─┬───────────────"	#Añado la siguiente parte de la tabla.
+	  cad_datos_tab_pa=${cad_datos_tab_pa[@]}" │Tam Part: ${tam_par[@]} "
 	      cad_bot_tab_pa=${cad_bot_tab_pa[@]}"─┴───────────────"
 
-	if [[ $(($n_par*2)) -le 15 ]]								#Si el tamaño de las particiones ocupa 15 espacios o menos, (numero de particiones con un espacio después de cada una)
+	if [[ $(($n_par*2)) -le 5 ]]								#Si el tamaño de las particiones ocupa 5 espacios o menos, (numero de particiones con un espacio después de cada una)
 	then
-		for (( esp=0; esp<14-$(($n_par*2)); esp++ ))			#Para el hueco que quede hasta los 15 espacios, (14 porque hay un espacio delante de los tamaños de partición)
+		for (( esp=0; esp<5-$(($n_par*2)); esp++ ))				#Para el hueco que quede hasta los 5 espacios,
 		do
 			cad_datos_tab_pa=${cad_datos_tab_pa[@]}" "			#Añado un espacio.
 		done
 	else 														#Si ocupa más de 15 espacios,
-		for (( esp=0; esp<$(($n_par*2))-14; esp++ ))			#Para lo que ocupe el tamaño de particiones de más, (14 porque hay un espacio delante de los tamaños de partición)
+		for (( esp=0; esp<$(($n_par*2))-5; esp++ ))				#Para lo que ocupe el tamaño de particiones de más,
 		do
 			cad_top_tab_pa=${cad_top_tab_pa[@]}"─"				#Añado una línea en la cadena del top.
-			cad_titulo_tab_pa=${cad_titulo_tab_pa[@]}" "		#Añado un espacio en la cadena de títulos.
 	      	cad_bot_tab_pa=${cad_bot_tab_pa[@]}"─"				#Añado una línea en la cadena del final.
 		done
 	fi
-	      cad_top_tab_pa=${cad_top_tab_pa[@]}"┬─────────"		#Añado la siguiente parte de la tabla.					
-	cad_titulo_tab_pa=${cad_titulo_tab_pa[@]}"│Quantum: "
-	  cad_datos_tab_pa=${cad_datos_tab_pa[@]}"│ $quantum"
-	      cad_bot_tab_pa=${cad_bot_tab_pa[@]}"┴─────────"
+	      cad_top_tab_pa=${cad_top_tab_pa[@]}"┬──────────────"	#Añado la siguiente parte de la tabla.
+	  cad_datos_tab_pa=${cad_datos_tab_pa[@]}"│Quantum: $quantum"
+	      cad_bot_tab_pa=${cad_bot_tab_pa[@]}"┴──────────────"
 
-	if [[ ${#quantum} -lt 9 ]]									#Si el quántum ocupa menos de 9 espacios,
+	if [[ ${#quantum} -le 5 ]]									#Si el quántum ocupa 5 espacios o menos,
 	then
-		for (( esp=0; esp<8-${#quantum}; esp++ ))				#Para el hueco que quede hasta los 8 espacios,
+		for (( esp=0; esp<5-${#quantum}; esp++ ))				#Para el hueco que quede hasta los 5 espacios,
 		do
 			cad_datos_tab_pa=${cad_datos_tab_pa[@]}" "			#Añado un espacio.
 		done
-	else 														#Si ocupa 9 o más espacios,
-		for (( esp=0; esp<${#n_par}-8; esp++ ))					#Para lo que ocupe el quántum de más,
+	else 														#Si ocupa más de 5 espacios,
+		for (( esp=0; esp<${#n_par}-5; esp++ ))					#Para lo que ocupe el quántum de más,
 		do
 			cad_top_tab_pa=${cad_top_tab_pa[@]}"─"				#Añado una línea en la cadena del top.
-			cad_titulo_tab_pa=${cad_titulo_tab_pa[@]}" "		#Añado un espacio en la cadena de títulos.
 	      	cad_bot_tab_pa=${cad_bot_tab_pa[@]}"─"				#Añado una línea en la cadena del final.
 		done
 	fi
-	      cad_top_tab_pa=${cad_top_tab_pa[@]}"─┐"				#Añado el final de la tabla.					
-	cad_titulo_tab_pa=${cad_titulo_tab_pa[@]}" │"
+	      cad_top_tab_pa=${cad_top_tab_pa[@]}"─┐"				#Añado el final de la tabla.
 	  cad_datos_tab_pa=${cad_datos_tab_pa[@]}" │"
 	      cad_bot_tab_pa=${cad_bot_tab_pa[@]}"─┘"
 }
@@ -5135,7 +5134,7 @@ echo "---------------------------------------------------------------------" >> 
 echo "" >> informeBN.txt
 
 
-imprime_cabecera
+imprime_cabecera_larga
 lee_datos
 
 #Guardado incondicional en datosLast.txt.
