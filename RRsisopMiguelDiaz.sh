@@ -53,7 +53,7 @@ echo "############################################################" >> informeBN
 
 #Variables Globales
 min=9999
-primvez=0
+primvez=true
 #He introducido variables para los colores para un mejor entendimiento en el código.
 resetColor="\e[0m"			#resetea el color
 colorRecuadro="\e[0;33m"	#amarillo normal
@@ -143,7 +143,6 @@ imprime_info_datos()
 
 
 ### He creado una nueva función que imprime la información de los datos que se están introduciendo en la opción 4. Este código estaba duplicado múltiples veces.
-#He sustituido también los printf por echo -e porque no había necesidad de printf y por añadir consistencia.
 imprime_info_datos_aleatorios()
 {
 	echo ""
@@ -204,7 +203,6 @@ imprime_info_datos_aleatorios()
 
 
 ### He creado una nueva función que imprime la información de los datos que se están introduciendo en la opción 4. Este código estaba duplicado múltiples veces.
-#He sustituido también los printf por echo -e porque no había necesidad de printf y por añadir consistencia.
 imprime_info_datos_rangos_aleatorios()
 {
 	echo ""
@@ -3833,7 +3831,7 @@ tabla_ejecucion()
 		echo " El siguiente evento ocurrirá en $segundos_evento segundos..."
 		sleep $segundos_evento
 	fi
-	primvez=1
+	primvez=false
 }
 
 
@@ -4082,7 +4080,7 @@ actualizar_bm()
 					;;
 					6)																#Si tiene 6 caracteres,
 						if [[ ${#num_par} -eq 1 ]]									#Si el número de partición tiene un dígito,
-						then														#añado los siguientes caracteres.
+						then														#Añado los siguientes caracteres.
 							cad_particiones=${cad_particiones[@]}"$(($pa+1))" 		#El número que iba con un 0 delante.
 						else 														#Si tiene más de un dígito,
 							cad_particiones=${cad_particiones[@]}"$num_par_seg" 	#El segundo caracter del número.
@@ -4173,7 +4171,7 @@ actualizar_bm()
 				for (( esp=0; esp<$tam_unidad_bm; esp++ ))								#Por cada hueco en la unidad,
 				do
 					cad_mem_col=${cad_mem_col[@]}"\e[${color[$colimp]}m\u2588\e[0m"		#Añado cuadrados de color a la cadena en color.
-					cad_mem_byn=${cad_mem_byn[@]}"\u2588"								#Añado cuadrados blancos a la cadena en blanco y negro.
+					cad_mem_byn=${cad_mem_byn[@]}"*"									#Añado asteriscos a la cadena en blanco y negro.
 				done
 			else 																		#Si no hay un proceso o no ocupa hasta la unidad actual,
 				for (( esp=0; esp<$tam_unidad_bm; esp++ ))								#Por cada hueco en la unidad,
@@ -4304,10 +4302,11 @@ iniciar_bt()
 	fi
 
 
-	cad_proc_bt=""
-	cad_tie_col=""
-	cad_tie_byn=""
-	cad_can_tie="$tiempo_transcurrido"
+	cad_proc_col_bt="    |"
+	cad_proc_byn_bt="    |"
+	cad_tie_col=" BT |"
+	cad_tie_byn=" BT |"
+	cad_can_tie="    |"
 
 	for (( esp_ini=0; esp_ini<$tam_unidad_bt; esp_ini++ ))
 	do
@@ -4320,15 +4319,16 @@ iniciar_bt()
 	do
 		cad_can_tie=${cad_can_tie[@]}" "
 	done
+	cad_can_tie=${cad_can_tie[@]}"$tiempo_transcurrido"
+
+	#Columnas que quedan en la consola a la derecha de la barra inicial en la BT.
+	columnas_bt=$(($(tput cols)-5-$tam_unidad_bt))
 }
 
-#Esta función se ejecutará para cada unidad de tiempo.
-actualizar_bt_try()
-{
-	#Variable que cuenta los procesos que hay fuera del sistema.
-	fuera_sist=0
 
-	for((pr=0; pr<$num_proc; pr++))						#Bucle para contar los procesos fuera del sistema.
+actualizar_bt_info()
+{
+	for((pr=0; pr<$num_proc; pr++))														#Bucle para contar los procesos que están fuera del sistema.
 	do
 		if [[ ${ESTADO[$pr]} == "Fuera de Sistema" ]]
 		then
@@ -4336,76 +4336,72 @@ actualizar_bt_try()
 		fi
 	done
 
-	if [[ $proc_actual -ge 5 ]] 						#Condicional para ajustar el color del proceso.
+	## Adición de la cadena de procesos en la barra de tiempo.
+	if [[ -z $proc_actual ]] && [[ ! -z $proc_ante || $proc_ante -ne $proc_actual ]]	#Si hay un proceso en ejecución y es distinto al anterior,
 	then
-		let colimp=proc_actual%5
-	else
-		colimp=$proc_actual
-	fi
-
-
-
-	## Montaje de la cadena de procesos en la barra de tiempo.
-	if [[ $fuera_sist == $num_proc || -z $proc_actual || $proc_actual -eq $last_proc ]] 		#Si no hay procesos en el sistema, en ejecución, o o el proceso actual ya estaba antes,
-	then
-		for (( n=0; n<$tam_unidad_bt; n++ ))													#Por lo que ocupe la unidad de tiempo en la barra,
-		do
-			cad_proc_bt=${cad_proc_bt[@]}" "													#Añado espacios.
-		done
-	else 																						#Si hay un proceso distinto al último instante temporal,
-		if [[ $proc_actual -lt 9 ]]																#Si el proceso tiene un dígito,			
-		then				
-			cad_proc_bt=${cad_proc_bt[@]}"\e[${color[$colimp]}mP0${NUMPROC[$proc_actual]}\e[0m" #Añado el proceso a la cadena de procesos con su color y un cero delante.
-		else 																					#Si tiene más dígitos,
-			cad_proc_bt=${cad_proc_bt[@]}"\e[${color[$colimp]}mP${NUMPROC[$proc_actual]}\e[0m"	#Añado el proceso a la cadena de procesos con su color y sin el cero delante.
+		if [[ $proc_actual -ge 5 ]] 													#Condicional para ajustar el color del proceso.
+		then
+			let colimp=proc_actual%5
+		else
+			colimp=$proc_actual
 		fi
 
-		for (( esp=0; esp<$tam_unidad_bt-3; esp++ ))											#Por lo que queda hasta acabar la unidad de tiempo (-3 porque se introdujeron 3 caracteres, PXX)
+		if [[ ${#NUMPROC[$proc_actual]} -eq 1 ]]										#Si el proceso tiene una cifra,
+		then
+			cad_proc_col_bt=${cad_proc_col_bt[@]}"\e[${color[$colimp]}mP0${NUMPROC[$proc_actual]}\e[0m"	#Añado el proceso con un 0 delante en color a la cadena de color.
+			cad_proc_byn_bt=${cad_proc_byn_bt[@]}"P0${NUMPROC[$proc_actual]}"			#Añado el proceso con un 0 delante a la cadena en blanco y negro.
+		else 																			#Si tiene más de una cifra,
+			cad_proc_col_bt=${cad_proc_bt[@]}"\e[${color[$colimp]}mP${NUMPROC[$proc_actual]}\e[0m"		#Añado el proceso sin el 0 delante en color a la cadena de color.
+			cad_proc_byn_bt=${cad_proc_byn_bt[@]}"P${NUMPROC[$proc_actual]}"			#Añado el proceso sin el 0 delante a la cadena en blanco y negro.
+		fi
+		for (( esp=0; esp<tam_unidad_bt-3; esp++ ))										#Por cada hueco hasta completar la unidad, (menos 3 caracteres impresos PXX)
 		do
-			cad_proc_bt=${cad_proc_bt[@]}" "													#Añado espacios.
+			cad_proc_col_bt=${cad_proc_bt[@]}" "										#Añado un espacio.
+			cad_proc_byn_bt=${cad_proc_byn_bt[@]}" "
 		done
-		last_proc=$proc_actual																	#Actualizo la referencia al último proceso que se representó.
+		proc_ante=$proc_actual															#Actualizo la referencia de proceso anterior.
+	else  																				#Si no tiene proceso o el proceso es el mismo de antes,
+		for (( esp=0; esp<$tam_unidad_bm; esp++ ))										#Por cada hueco hasta completar la unidad,
+		do
+			cad_proc_col_bt=${cad_proc_bm[@]}" "										#Añado un espacio.
+			cad_proc_byn_bt=${cad_proc_byn_bt[@]}" "
+		done
 	fi
 
 
-	## Montaje de la cadena de cuadros en la barra de tiempo.
-	if [[ $fuera_sist -eq $num_proc || -z $proc_actual ]] 						#Si no hay ningún proceso en el sistema,
+	##Adición de la cadena de cantidad de tiempo en la barra de tiempo.
+	if [[ $fuera_sist == $num_proc ]]													#Si no hay procesos en el sistema.
 	then
-		for (( n=0; n<$tam_unidad_bt; n++ ))									#Por lo que ocupe cada unidad de tiempo en la barra,
+		for (( esp=0; esp<$tam_unidad_bm; esp++ ))										#Por cada hueco hasta completar la unidad,
 		do
-			cad_tie_col=${cad_tie_col[@]}"\u2588"								#Añado cuadrados blancos.
-			cad_tie_byn=${cad_tie_byn[@]}"\u2588"
+			cad_can_tie=${cad_can_tie[@]}" "											#Añado un espacio.
 		done
-	else 																		#Si hay un proceso,
-		for (( n=0; n<$tam_unidad_bt; n++ ))									#Por lo que ocupe cada unidad de tiempo en la barra,
+	else																				#Si hay procesos,
+		for (( esp=0; esp<$tam_unidad_bm-${#tiempo_transcurrido}; esp++ ))				#Por cada hueco de la unidad menos lo que ocupe el tiempo,
 		do
-			cad_tie_col=${cad_tie_col[@]}"\e[${color[$colimp]}m\u2588\e[0m-"	#Añado cuadrados de color a la cadena en color.
-			cad_tie_byn=${cad_tie_byn[@]}"\u2588"								#Añado cuadrados blancos a la cadena en blanco y negro.
+			cad_can_tie=${cad_can_tie[@]}" "											#Añado un espacio.
 		done
+		cad_can_tie=${cad_can_tie[@]}"$tiempo_transcurrido"								#Añado el tiempo.
 	fi
-
-
-	##Montaje de la cadena de cantidad de tiempo en la barra de tiempo.
-	if [[ $evento = 1 ]]													#Si hay un evento,
-	then
-		cad_can_tie=${cad_can_tie[@]}"$tiempo_transcurrido"					#Añado el tiempo transcurrido hasta el momento.
-		for (( n=0; n<$tam_unidad_bt-${#tiempo_transcurrido}; n++ ))		#Por lo que ocupe la unidad de tiempo en la barra menos lo que ocupó el escribir el tiempo,
-		do
-			cad_can_tie=${cad_can_tie[@]}" "								#Añado espacios.
-		done
-	else 																	#Si no hay evento,
-		for (( n=0; n<$tam_unidad_bt; n++ ))								#Por lo que ocupe la unidad de tiempo en la barra,
-		do
-			cad_can_tie=${cad_can_tie[@]}" "								#Añado espacios.
-		done
-	fi
+	let columnas_bt=columnas_bt-tam_unidad_bt
 }
+
 
 
 ### Representación de la Barra de Tiempo.
 imprimir_bt()
 {
-	actualizar_bt_try
+	let ud_bt=${#cad_can_tie}/tam_unidad_bt
+
+	## Imprimir cadena de procesos en barra de tiempo.
+	for (( bt_impresa=0; bt_impresa<$ud_bt; bt_impresa++ ))
+	do
+		if [[ $tam_unidad_bt -le $columnas_bt ]]
+		then
+			printf ""
+		fi
+	done
+	
 	echo -e "    |${cad_proc_bt[@]}|"
 	echo -e "    |${cad_proc_bt[@]}|" >> informeCOLOR.txt
 	echo -e "    |${cad_proc_bt[@]}|" >> informeBN.txt
@@ -4437,21 +4433,18 @@ actualizar_bt()
 	for (( i = 0, j = 0; i <= $const, j <= $constb; i++, j++ ))
 	do
 		#Comandos que ajustan las 3 lineas verticales del final de la barra de tiempo
-		if [[ $primvez = 0 ]]
+		if [[ $primvez = true ]]
 		then
 			cadtiempo2[$j]="${cad_tex_aux_bt[@]}|"
 			cadtiempo[$j]="${cad_cua_aux_bt[@]}|T=$tiempo_transcurrido"
 			cadtiempo2bn[$j]="${cad_tex_aux_bt[@]}|"
 			cadtiempobn[$j]="${cad_cua_aux_bt[@]}|T=$tiempo_transcurrido"
 			cadtiempo3[$j]="${cad_tex_aux_bt[@]}|"
-		fi
-
-		if [[ $primvez = 1 ]]
-		then
+		else
 			cadtiempo2[$j]=${cad2[$j]}"|"
-			cadtiempo[$j]=${cad[$j]}"   |T=$tiempo_transcurrido"
+			cadtiempo[$j]=${cad[$j]}"${cad_tex_aux_bt[@]}|T=$tiempo_transcurrido"
 			cadtiempo2bn[$j]=${cad2bn[$j]}"|"
-			cadtiempobn[$j]=${cadbn[$j]}"   |T=$tiempo_transcurrido"
+			cadtiempobn[$j]=${cadbn[$j]}"${cad_tex_aux_bt[@]}|T=$tiempo_transcurrido"
 			cadtiempo3[$j]=${cad3[$j]}"|"
 		fi
 
@@ -4461,40 +4454,27 @@ actualizar_bt()
 			echo -e "    |${cadtiempo2[$j]}"
 			echo -e "    |${cadtiempo2[$j]}" >> informeCOLOR.txt
 			echo -e "    |${cadtiempo2bn[$i]}" >> informeBN.txt
-		else
-			echo -e "     ${cadtiempo2[$j]}"
-			echo -e "     ${cadtiempo2[$j]}" >> informeCOLOR.txt
-			echo -e "     ${cadtiempo2bn[$i]}" >> informeBN.txt
-		fi
 
-		if [[ $i == 0 ]]
-		then
 			echo -e " BT |${cadtiempo[$i]}"
 			echo -e " BT |${cadtiempo[$i]}" >> informeCOLOR.txt
 			echo -e " BT |${cadtiempobn[$i]}" >> informeBN.txt
-		else
-			echo -e "     ${cadtiempo[$i]}"
-			echo -e "     ${cadtiempo[$i]}" >> informeCOLOR.txt
-			echo -e "     ${cadtiempobn[$i]}" >> informeBN.txt
-		fi
 
-		if [[ $i == 0 ]]
-		then
 			echo -e "    |${cadtiempo3[$j]}"
 			echo -e "    |${cadtiempo3[$j]}" >> informeCOLOR.txt
 			echo -e "    |${cadtiempo3[$j]}" >> informeBN.txt
 		else
+			echo -e "     ${cadtiempo2[$j]}"
+			echo -e "     ${cadtiempo2[$j]}" >> informeCOLOR.txt
+			echo -e "     ${cadtiempo2bn[$i]}" >> informeBN.txt
+
+			echo -e "     ${cadtiempo[$i]}"
+			echo -e "     ${cadtiempo[$i]}" >> informeCOLOR.txt
+			echo -e "     ${cadtiempobn[$i]}" >> informeBN.txt
+
 			echo -e "     ${cadtiempo3[$j]}"
 			echo -e "     ${cadtiempo3[$j]}" >> informeCOLOR.txt
 			echo -e "     ${cadtiempo3[$j]}" >> informeBN.txt
 		fi
-	done
-
-	for(( i = 0; i < 20; i++ ))
-	do
-		cad[$i]=""
-		cad2[$i]=""
-		cad3[$i]=""
 	done
 }
 
@@ -4527,7 +4507,7 @@ actualizar_linea()
 		then
 			for(( k = 0; k < ${T_ENTRADA[0]}; k++ ))
 			do
-				for(( l = 0; l < 3; l++ ))
+				for(( l = 0; l < $tam_unidad_bt; l++ ))
 				do
 					cad1=$cad1"\u2588"
 					cad1bn=$cad1bn"\u2588"
@@ -4536,7 +4516,7 @@ actualizar_linea()
 			done
 		elif [[ -z $proc_actual ]] #Si no hay procesos
 		then
-			for((l = 0; l < 3; l++))
+			for((l = 0; l < $tam_unidad_bt; l++))
 			do
 				cad1=$cad1"\u2588"
 				cad1bn=$cad1bn"\u2588"
@@ -4545,7 +4525,7 @@ actualizar_linea()
 		else #Si hay procesos
 			for((k = 0; k < $yomismo; k++))
 			do
-				for((l = 0; l < 3; l++))
+				for((l = 0; l < $tam_unidad_bt; l++))
 				do
 					cad1=$cad1"\e[${color[$colimp]}m\u2588\e[0m"
 					cad1bn=$cad1bn"\u2588"
@@ -4609,7 +4589,7 @@ actualizar_ltsec()
 		then
 			for(( k=0; k<${T_ENTRADA[0]}; k++ ))
 			do
-				for(( l=0; l<3; l++ ))
+				for(( l=0; l<$tam_unidad_bt; l++ ))
 				do
 					cad2b=$cad2b" -"
 					cad2bbn=$cad2bbn" -"
@@ -4620,7 +4600,7 @@ actualizar_ltsec()
 					cad3b=$cad3b" - - -"
 					let saltocad=saltocad+1
 				else
-					for(( l=0; l<3; l++ ))
+					for(( l=0; l<$tam_unidad_bt; l++ ))
 					do
 						cad3b=$cad3b" -"
 						let saltocad=saltocad+1
@@ -4647,14 +4627,14 @@ actualizar_ltsec()
 					t3="${vart:2:3}"
 					cad3b=$cad3b"$t1-$t2-$t3-"
 				fi
-				for(( l=0; l<3; l++ ))
+				for(( l=0; l<$tam_unidad_bt; l++ ))
 				do
 					cad2b=$cad2b" -"
 					cad2bbn=$cad2bbn" -"
 				done
 				let saltocadc=saltocadc+3
 			else
-				for(( l=0; l<3; l++ ))
+				for(( l=0; l<$tam_unidad_bt; l++ ))
 				do
 					cad2b=$cad2b" -"
 					cad2bbn=$cad2bbn" -"
@@ -4668,41 +4648,35 @@ actualizar_ltsec()
 			#Ahora aparece en el texto de la BT un proceso y el tiempo transcurrido si termina su cuantum, aunque sea el unico proceso en memoria.
 			if [[ ${EJEC[$proc_actual]} == 0 ]] || [[ $((${T_EJEC[$proc_actual]} % $quantum)) = 1 ]] || [[ $quantum = 1 ]]
 			then
-				varproc=$(($proc_actual+1))
-				if [[ $varproc -lt 10 ]]
+				for (( esp=0; esp<$tam_unidad_bm-3; esp++ ))						#Por cada hueco hasta completar la unidad, (menos 3 caracteres impresos PXX)
+				do
+					cad2b=$cad2b" "													#Añado un espacio.
+					cad2bbn=$cad2bbn" "
+				done
+				if [[ ${#NUMPROC[$proc_actual]} -eq 1 ]]
 				then
-					cad2b=$cad2b"\e[${color[$colimp]}mP\e[0m-\e[${color[$colimp]}m0\e[0m-\e[${color[$colimp]}m$varproc\e[0m-"
-					cad2bbn=$cad2bbn"P-0-$varproc-"
+					cad2b=$cad2b"\e[${color[$colimp]}mP0${NUMPROC[$proc_actual]}\e[0m-"
+					cad2bbn=$cad2bbn"P0${NUMPROC[$proc_actual]}"
 				else 
 					fchar="${varproc:0:1}"
 					schar="${varproc:1:2}"
-					cad2b=$cad2b"\e[${color[$colimp]}mP\e[0m-\e[${color[$colimp]}m$fchar\e[0m-\e[${color[$colimp]}m$schar\e[0m-"
-					cad2bbn=$cad2bbn"P-$fchar-$schar-"
+					cad2b=$cad2b"\e[${color[$colimp]}mP${NUMPROC[$proc_actual]}\e[0m-"
+					cad2bbn=$cad2bbn"P${NUMPROC[$proc_actual]}"
 				fi
-				if [[ $tiempo_transcurrido -lt 10 ]]
-				then
-					cad3b=$cad3b" - -$tiempo_transcurrido-"
-				elif [[ $tiempo_transcurrido -le 99 ]]
-				then
-					vart=$tiempo_transcurrido
-					t1="${vart:0:1}"
-					t2="${vart:1:2}"
-					cad3b=$cad3b" -$t1-$t2-"
-				else
-					vart=$tiempo_transcurrido
-					t1="${vart:0:1}"
-					t2="${vart:1:2}"
-					t3="${vart:2:3}"
-					cad3b=$cad3b"$t1-$t2-$t3-"
-				fi
-				saltocad=$(( $saltocad + 3 ))
-				saltocadc=$(( $saltocadc + 3 ))
-			else
-				for((l = 0; l < 3; l++))
+
+				for (( esp=0; esp<$tam_unidad_bm-${#tiempo_transcurrido}; esp++ ))	#Por cada hueco hasta completar la unidad menos lo que ocupe el tiempo,
 				do
-					cad2b=$cad2b" -"
-					cad2bbn=$cad2bbn" -"
-					cad3b=$cad3b" -"
+					cad3b=$cad3b" "													#Añado un espacio.
+				done
+				cad3b=$cad3b"$tiempo_transcurrido"
+				let saltocad=saltocad+tam_unidad_bt
+				let saltocadc=saltocadc+tam_unidad_bt
+			else
+				for((l = 0; l < $tam_unidad_bt; l++))
+				do
+					cad2b=$cad2b" "
+					cad2bbn=$cad2bbn" "
+					cad3b=$cad3b" "
 					let saltocad=saltocad+1
 					let saltocadc=saltocadc+1
 				done
@@ -4973,7 +4947,10 @@ algoritmob()
 
 	tant=$tiempo_transcurrido
 	calcularcol
+
 	actualizar_ltsec
+	actualizar_bt_info
+	
 	tabla_ejecucion
 	actualizar_linea
 	tablapvez=0
@@ -4994,7 +4971,9 @@ algoritmob()
 		copiar_estados
 		asignar_estados
 		comparar_estados
+
 		actualizar_ltsec
+		actualizar_bt_info
 
 		#actualizar_bt_try
 
@@ -5045,14 +5024,21 @@ algoritmob()
 		fi
 	done
 	actualizar_ltsec
+	actualizar_bt_info
 }
 
 
 
-if [ -f archivo.temp -o -f informeCOLOR.txt ]
+if [[ -e archivo.temp ]]
 then
 	rm archivo.temp
+fi
+if [[ -e informeCOLOR.txt ]]
+then
 	rm informeCOLOR.txt
+fi
+if [[ -e informeBN.txt ]]
+then
 	rm informeBN.txt
 fi
 
