@@ -4114,9 +4114,10 @@ actualizar_bm()
 					cad_particiones=${cad_particiones[@]}" "						#Añado un espacio.
 				done
 			fi
-			if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]] #Si es la última unidad (el final de la partición), y no es la última partición,
+			if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]] 	#Si es la última unidad (el final de la partición), y no es la última partición,
 			then
-				cad_particiones=${cad_particiones[@]}" "						#Añado un espacio entre particiones.
+				cad_particiones=${cad_particiones[@]}" "							#Añado un espacio entre particiones.
+				let columnas_bm=columnas_bm-1										#Actualizo las columnas que quedan restando el espacio.
 			fi
 
 
@@ -4142,6 +4143,7 @@ actualizar_bm()
 			if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]]	#Si es la última unidad (el final de la partición), y no es la última partición,
 			then										
 				cad_proc_bm=${cad_proc_bm[@]}" "									#Añado un espacio adicional entre particiones.
+				let columnas_bm=columnas_bm-1										#Actualizo las columnas que quedan restando el espacio.
 			fi
 
 
@@ -4171,6 +4173,7 @@ actualizar_bm()
 			then
 				cad_mem_col=${cad_mem_col[@]}" "										#Añado un espacio entre particiones.
 				cad_mem_byn=${cad_mem_byn[@]}" "
+				let columnas_bm=columnas_bm-1											#Actualizo las columnas que quedan restando el espacio.
 			fi
 
 
@@ -4206,6 +4209,7 @@ actualizar_bm()
 			if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]] 		#Si es la última unidad (el final de la partición), y no es la última partición,
 			then
 				cad_can_mem=${cad_can_mem[@]}" "										#Añado un espacio entre particiones.
+				let columnas_bm=columnas_bm-1											#Actualizo las columnas que quedan restando el espacio.
 			fi
 		done
 	done
