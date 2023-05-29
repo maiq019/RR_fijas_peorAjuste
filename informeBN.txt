@@ -216,7 +216,7 @@
  │ P04 │  89 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
  │ P23 │  89 │  24 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
  └─────┴─────┴─────┴─────┴──────┴──────┴──────┴──────┴──────────────────┘
- T medio de espera = 0.00	 T medio de retorno = 0.00
+ T medio de espera = 0.00	 T medio de retorno = 2.00
  Cola RR: 
     |Part 1                         Part 2                    Part 3          Part 4                                  | 
     |                                                                         P11                                     | 
@@ -266,7 +266,7 @@
  │ P04 │  89 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
  │ P23 │  89 │  24 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
  └─────┴─────┴─────┴─────┴──────┴──────┴──────┴──────┴──────────────────┘
- T medio de espera = 0.00	 T medio de retorno = 0.00
+ T medio de espera = 0.00	 T medio de retorno = 1.50
  Cola RR: P02 
     |Part 1                         Part 2                    Part 3          Part 4                                  | 
     |P15                                                                      P11                                     | 
@@ -278,6 +278,56 @@
     |                                                                                           30    32   |
      |
         |T=33
+     |
+
+---------------------------------------------------------
+
+  ┌──────────┬───────────────┬──────────┐
+  │Nº Part:  │Tam Part:      │Quantum:  │
+  │ 4        │ 6 5 3 8       │ 2        │
+  └──────────┴───────────────┴──────────┘
+ ┌─────┬─────┬─────┬─────┬──────┬──────┬──────┬──────┬──────────────────┐
+ │ Ref │ Tll │ Tej │ Mem │ Tesp │ Tret │ Trej │ Part │ Estado           │
+ ├─────┼─────┼─────┼─────┼──────┼──────┼──────┼──────┼──────────────────┤
+ │ P11 │  30 │  24 │   5 │    0 │    4 │   20 │    4 │ En pausa         │ 
+ │ P15 │  33 │  22 │   5 │    1 │    1 │   22 │    1 │ Ejecucion        │ 
+ │ P12 │  38 │  14 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P26 │  38 │  14 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P21 │  39 │  12 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P09 │  41 │  18 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P25 │  42 │  15 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P19 │  45 │  21 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P02 │  47 │  15 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P24 │  47 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P03 │  50 │  19 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P08 │  53 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P22 │  55 │  14 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P01 │  57 │  17 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P10 │  58 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P05 │  62 │  18 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P17 │  66 │  11 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P16 │  70 │  20 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P13 │  79 │  18 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P06 │  80 │  23 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P07 │  82 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P20 │  82 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P14 │  87 │  13 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P18 │  87 │  16 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P04 │  89 │  22 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ │ P23 │  89 │  24 │   5 │    - │    - │    - │    1 │ Fuera de Sistema │ 
+ └─────┴─────┴─────┴─────┴──────┴──────┴──────┴──────┴──────────────────┘
+ T medio de espera = 0.50	 T medio de retorno = 2.50
+ Cola RR: P01 
+    |Part 1                         Part 2                    Part 3          Part 4                                  | 
+    |P15                                                                      P11                                     | 
+ BM |██████████████████████████████ █████████████████████████ ███████████████ ████████████████████████████████████████| M=22 
+    |                        5    6                        11              14                        19             22| 
+
+    |                                                                                          P01   P01   P02|
+ BT |██████████████████████████████████████████████████████████████████████████████████████████████████████   |T=34
+    |                                                                                           30    32    34|
+     |
+        |T=34
      |
 
 ---------------------------------------------------------

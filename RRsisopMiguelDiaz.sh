@@ -3020,7 +3020,7 @@ tabla_ejecucion()
 			TES[$xp]="0"
 		fi
 
-		if [[ ${T_ENTRADA[$xp]} -gt $tiempo_transcurrido ]]
+		if [[ ${T_ENTRADA[$xp]} -gt $tiempo_transcurrido ]] 
 		then
 			TES[$xp]="-"
 		elif [[ $pvez == 0 ]]
@@ -3032,7 +3032,7 @@ tabla_ejecucion()
 		if [[ ${TES[$xp]} != "-" ]]
 		then
 			TESMEDIA[$tesmed]=${TES[$xp]}
-			tesmed=$(( $tesmed + 1 ))
+			let tesmed=tesmed+1
 		fi
 		
 		TRET[$xp]=0
@@ -3729,38 +3729,53 @@ tabla_ejecucion()
 	done
 	echo "┴──────────────────┘"
 	
-	mediaret=0
-	mediaesp=0
-	
-	for (( buclemedia = 0; buclemedia < $tesmed; buclemedia++ ))
+
+	sum_t_esp=0
+	cont_t_esp=0
+	sum_t_ret=0
+	cont_t_ret=0
+	for (( pr=0; pr<$num_proc; pr++ ))
 	do
-		mediaesp=$(( $mediaesp + ${TESMEDIA[$buclemedia]} ))
-	done
-	for (( buclemedia2 = 0; buclemedia2 < $tretmed; buclemedia2++ ))
-	do
-		mediaret=$(( $mediaret + ${TRETMEDIA[$buclemedia2]} ))
+		if [[ ${TES[$pr]} != "-" ]]
+		then
+			let sum_t_esp=sum_t_esp+${TES[$pr]}
+			let cont_t_esp=cont_t_esp+1
+		fi
+		if [[ ${TRET[$pr]} != "-" ]]
+		then
+			let sum_t_ret=sum_t_ret+${TRET[$pr]}
+			let cont_t_ret=cont_t_ret+1
+		fi
 	done
 
 	#Representación de los tiempos medios
-	if [[ $tesmed == 0 ]]
+	if [[ $cont_t_esp -eq 0 ]]
 	then
 		printf " Tesp medio = 0.00\t"
 		printf " Tesp medio = 0.00\t" >> informeCOLOR.txt
 		printf " Tesp medio = 0.00\t" >> informeBN.txt
 	else
-		LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $(bc <<< scale=2\;$mediaesp/$tesmed)
-		LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $(bc <<< scale=2\;$mediaesp/$tesmed) >> informeCOLOR.txt
-		LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $(bc <<< scale=2\;$mediaesp/$tesmed) >> informeBN.txt
+		#LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $(bc <<< scale=2\;$mediaesp/$tesmed)
+		#LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $(bc <<< scale=2\;$mediaesp/$tesmed) >> informeCOLOR.txt
+		#LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $(bc <<< scale=2\;$mediaesp/$tesmed) >> informeBN.txt
+		med_t_esp=$(awk -v num1=$sum_t_esp -v num2=$cont_t_esp 'BEGIN {print num1/num2}')
+		LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $med_t_esp
+		LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $med_t_esp >> informeCOLOR.txt
+		LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $med_t_esp >> informeBN.txt
 	fi
-	if [[ $tretmed == 0 ]]
+	if [[ $tretmed -eq 0 ]]
 	then
 		printf " Tret medio = 0.00\n"
 		printf " Tret medio = 0.00\n" >> informeCOLOR.txt
 		printf " Tret medio = 0.00\n" >> informeBN.txt
 	else
-		LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $(bc <<< scale=2\;$mediaret/$tretmed)
-		LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $(bc <<< scale=2\;$mediaret/$tretmed) >> informeCOLOR.txt
-		LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $(bc <<< scale=2\;$mediaret/$tretmed) >> informeBN.txt
+		#LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $(bc <<< scale=2\;$mediaret/$tretmed)
+		#LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $(bc <<< scale=2\;$mediaret/$tretmed) >> informeCOLOR.txt
+		#LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $(bc <<< scale=2\;$mediaret/$tretmed) >> informeBN.txt
+		med_t_ret=$(awk -v num1=$sum_t_ret -v num2=$cont_t_ret 'BEGIN {print num1/num2}')
+		LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $med_t_ret
+		LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $med_t_ret >> informeCOLOR.txt
+		LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $med_t_ret >> informeBN.txt
 	fi
 
 	echo -n " Cola RR: "
@@ -5228,104 +5243,3 @@ if [ -f listado.temp ]
 then
 	rm listado.temp
 fi
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Mete la tabla final en el informe que se da la opcion de visualizar al final del programa
-datosfin_inf()
-{
-	en_memoria
-	media=0
-
-	echo " "  >> informeCOLOR.txt
-	echo "	---------------------------------------------------------------------"  >> informeCOLOR.txt
-	echo "	  PRO | T LLEGADA | RAFAGA | MEMORIA | EN MEMORIA | L TEMP | ESTADO  "  >> informeCOLOR.txt
-	echo "	---------------------------------------------------------------------"  >> informeCOLOR.txt
-	for(( pr=0 ; pr<$num_proc ; pr++ ))
-	do
-		echo "	    "${NUMPROC[$pr]}"|		${T_ENTRADA[$pr]}|	${RAFAGA_AUX[$pr]}|	${MEMORIA_AUX[$pr]}   |    ${EN_MEMO[$pr]}	|    ${TIEMPO_FIN[$pr]}    | ${ESTADO[$pr]}"  >> informeCOLOR.txt
-		echo "	---------------------------------------------------------------------"  >> informeCOLOR.txt	
-	done
-
-	echo "	-----------------------------------"  >> informeCOLOR.txt	
-	echo " 	    PRO |  T RETORNO  | T ESPERA   "  >> informeCOLOR.txt
-	echo "	-----------------------------------"  >> informeCOLOR.txt
-	for(( pr=0 ; pr<$num_proc ; pr++ ))
-	do
-		if [ "${ESTADO[$pr]}" != "Bloqueado" ]
-		then
-			T_RETORNO[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]}`
-			T_ESPERA[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]} - ${RAFAGA_AUX[$pr]}`
-		else
-			T_RETORNO[$pr]=0
-			T_ESPERA[$pr]=0			
-		fi
-
-		let T_MEDIO_R=T_MEDIO_R + ${T_RETORNO[$pr]}
-		let T_MEDIO_E=T_MEDIO_E + ${T_ESPERA[$pr]}
-
-		echo "	       "${NUMPROC[$pr]}"|   	    ${T_RETORNO[$pr]} |    ${T_ESPERA[$pr]}"  >> informeCOLOR.txt
-		echo "	-----------------------------------"  >> informeCOLOR.txt
-	done
-	
-	echo -n "	 El tiempo medio de retorno es: "  >> informeCOLOR.txt
-	echo " 		 scale = 2; $T_MEDIO_R/$num_proc"| bc  >> informeCOLOR.txt	
-	echo -n " 	 El tiempo medio de espera es:  "  >> informeCOLOR.txt
-	echo "		 scale = 2; $T_MEDIO_E/$num_proc"| bc  >> informeCOLOR.txt
-	echo " "  >> informeCOLOR.txt
-	echo " "  >> informeCOLOR.txt
-}
-
-
-#Imprime una tabla final con los datos de los diferentes procesos.
-solucion_impresa()
-{
-	en_memoria
-	media=0
-
-	echo "	---------------------------------------------------------------------" 
-	echo "	  PRO | T LLEGADA | RAFAGA | MEMORIA | EN MEMORIA | L TEMP | ESTADO  " 
-	echo "	---------------------------------------------------------------------" 
-	for(( pr=0 ; pr<$num_proc ; pr++ ))
-	do
-		echo "	    "${NUMPROC[$pr]}"|		${T_ENTRADA[$pr]}|	${RAFAGA_AUX[$pr]}|	${MEMORIA_AUX[$pr]}   |    ${EN_MEMO[$pr]}	|    ${TIEMPO_FIN[$pr]}    | ${ESTADO[$pr]}"
-		echo "	---------------------------------------------------------------------"		
-	done
-
-	echo "	-----------------------------------"	
-	echo " 	    PRO |  T RETORNO  | T ESPERA	 "
-	echo "	-----------------------------------" 
-	for(( pr=0 ; pr<$num_proc ; pr++ ))
-	do
-		if [ "${ESTADO[$pr]}" != "Bloqueado" ]
-		then
-			T_RETORNO[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]}`
-			T_ESPERA[$pr]=`expr ${TIEMPO_FIN[$pr]} - ${T_ENTRADA[$pr]} - ${RAFAGA_AUX[$pr]}`
-		else
-			T_RETORNO[$pr]=0
-			T_ESPERA[$pr]=0			
-		fi
-
-		let T_MEDIO_R=T_MEDIO_R + ${T_RETORNO[$pr]}
-		let T_MEDIO_E=T_MEDIO_E + ${T_ESPERA[$pr]}
-
-		echo "	      " ${NUMPROC[$pr]}"|   	    "${T_RETORNO[$pr]}" |   " $((${T_ESPERA[$pr]} + 1))
-		echo "	-----------------------------------" 
-	done
-	
-	echo -n " El tiempo medio de retorno es: "
-	echo "  scale = 2; $T_MEDIO_R/$num_proc"| bc	
-	echo -n " El tiempo medio de espera es:  "
-	echo " scale = 2; $T_MEDIO_E/$num_proc"| bc
-	echo " "
-}
