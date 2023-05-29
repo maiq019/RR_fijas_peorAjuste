@@ -262,27 +262,27 @@ lee_datos() {
 	echo " 1- Entrada Manual"
 	echo " 1- Entrada Manual" >> informeCOLOR.txt
 	echo " 1- Entrada Manual" >> informeBN.txt
-	echo " 2- Fichero de datos de última ejecución (datos.txt)"
-	echo " 2- Fichero de datos de última ejecución (datos.txt)" >> informeCOLOR.txt
-	echo " 2- Fichero de datos de última ejecución (datos.txt)" >> informeBN.txt
+	echo " 2- Fichero de datos de última ejecución (DatosLast.txt)"
+	echo " 2- Fichero de datos de última ejecución (DatosLast.txt)" >> informeCOLOR.txt
+	echo " 2- Fichero de datos de última ejecución (DatosLast.txt)" >> informeBN.txt
 	echo " 3- Otros ficheros de datos"
 	echo " 3- Otros ficheros de datos" >> informeCOLOR.txt
 	echo " 3- Otros ficheros de datos" >> informeBN.txt
 	echo " 4- Rangos manuales para valores aleatorios"
 	echo " 4- Rangos manuales para valores aleatorios" >> informeCOLOR.txt
 	echo " 4- Rangos manuales para valores aleatorios" >> informeBN.txt
-	echo " 5- Fichero de rangos de última ejecución (datosrangos.txt)"
-	echo " 5- Fichero de rangos de última ejecución (datosrangos.txt)" >> informeCOLOR.txt
-	echo " 5- Fichero de rangos de última ejecución (datosrangos.txt)" >> informeBN.txt
+	echo " 5- Fichero de rangos de última ejecución (DatosRangosRNG.txt)"
+	echo " 5- Fichero de rangos de última ejecución (DatosRangosRNG.txt)" >> informeCOLOR.txt
+	echo " 5- Fichero de rangos de última ejecución (DatosRangosRNG.txt)" >> informeBN.txt
 	echo " 6- Otros ficheros de rangos"
 	echo " 6- Otros ficheros de rangos" >> informeCOLOR.txt
 	echo " 6- Otros ficheros de rangos" >> informeBN.txt
 	echo " 7- Rangos manuales para rangos aleatorios (prueba de casos extremos)"
 	echo " 7- Rangos manuales para rangos aleatorios (prueba de casos extremos)" >> informeCOLOR.txt
 	echo " 7- Rangos manuales para rangos aleatorios (prueba de casos extremos)" >> informeBN.txt
-	echo " 8- Fichero de rangos aleatorios de última ejecución (datosrangos2.txt)"
-	echo " 8- Fichero de rangos aleatorios de última ejecución (datosrangos2.txt)" >> informeCOLOR.txt
-	echo " 8- Fichero de rangos aleatorios de última ejecución (datosrangos2.txt)" >> informeBN.txt
+	echo " 8- Fichero de rangos aleatorios de última ejecución (DatosRangosAleatoriosRNGALE.txt)"
+	echo " 8- Fichero de rangos aleatorios de última ejecución (DatosRangosAleatoriosRNGALE.txt)" >> informeCOLOR.txt
+	echo " 8- Fichero de rangos aleatorios de última ejecución (DatosRangosAleatoriosRNGALE.txt)" >> informeBN.txt
 	echo " 9- Otros ficheros de rangos para rangos aleatorios"
 	echo " 9- Otros ficheros de rangos para rangos aleatorios" >> informeCOLOR.txt
 	echo " 9- Otros ficheros de rangos para rangos aleatorios" >> informeBN.txt
@@ -315,9 +315,9 @@ lee_datos() {
 		echo  " ¿Dónde guardar los datos?"
 		echo  " ¿Dónde guardar los datos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los datos?" >> informeBN.txt
-		echo  " 1- Fichero de datos de última ejecución (datos.txt)"
-		echo  " 1- Fichero de datos de última ejecución (datos.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de datos de última ejecución (datos.txt)" >> informeBN.txt
+		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)"
+		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)" >> informeBN.txt
 		echo  " 2- Otros ficheros de datos"
 		echo  " 2- Otros ficheros de datos" >> informeCOLOR.txt
 		echo  " 2- Otros ficheros de datos" >> informeBN.txt
@@ -359,7 +359,7 @@ lee_datos() {
 	#Entrada por fichero de última ejecución.
 	if [ $dat_fich = '2' ] 
 	then
-		lectura_fichero "datos.txt"
+		lectura_fichero "DatosLast.txt"
 	fi
 
 
@@ -368,7 +368,7 @@ lee_datos() {
 	then
 		#clear
 		#Como ahora los otros ficheros de datos también terminan en .txt se eliminan los informes y el archivo últimos de la búsqueda.
-		ls | grep .txt | grep -v informeBN.txt | grep -v informeCOLOR.txt | grep -v datosrangos.txt | grep -v RNG* > listado.temp
+		ls | grep .txt | grep -v informeBN.txt | grep -v informeCOLOR.txt | grep -v DatosRangosRNG.txt | grep -v RNG* > listado.temp
 	
 		#Muestra el listado con ficheros posibles.
 		cat listado.temp
@@ -413,9 +413,9 @@ lee_datos() {
 		echo  " ¿Dónde guardar los rangos?"
 		echo  " ¿Dónde guardar los rangos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los rangos?" >> informeBN.txt
-		echo  " 1- Fichero de rangos de última ejecución (datosrangosRNG.txt)"
-		echo  " 1- Fichero de rangos de última ejecución (datosrangosRNG.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de rangos de última ejecución (datosrangosRNG.txt)" >> informeBN.txt
+		echo  " 1- Fichero de rangos de última ejecución (DatosRangosRNG.txt)"
+		echo  " 1- Fichero de rangos de última ejecución (DatosRangosRNG.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de rangos de última ejecución (DatosRangosRNG.txt)" >> informeBN.txt
 		echo  " 2- Otros ficheros de rangos"
 		echo  " 2- Otros ficheros de rangos" >> informeCOLOR.txt
 		echo  " 2- Otros ficheros de rangos" >> informeBN.txt
@@ -446,9 +446,9 @@ lee_datos() {
 		echo  " ¿Dónde guardar los datos?"
 		echo  " ¿Dónde guardar los datos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los datos?" >> informeBN.txt
-		echo  " 1- Fichero de datos de última ejecución (datos.txt)"
-		echo  " 1- Fichero de datos de última ejecución (datos.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de datos de última ejecución (datos.txt)" >> informeBN.txt
+		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)"
+		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)" >> informeBN.txt
 		echo  " 2- Otros ficheros de datos"
 		echo  " 2- Otros ficheros de datos" >> informeCOLOR.txt
 		echo  " 2- Otros ficheros de datos" >> informeBN.txt
@@ -486,15 +486,14 @@ lee_datos() {
 	#Lectura de fichero de última ejecución de datos aleatorios.
 	if [ $dat_fich = '5' ]
 	then 
-		lectura_fichero_aleatorio "datosrangosRNG.txt"
+		lectura_fichero_aleatorio "DatosRangosRNG.txt"
 	fi
 
 
 	#Lectura de otros ficheros con datos aleatorios
 	if [ $dat_fich = '6' ] 
 	then 
-		ls | grep RNG* | grep -v datos.txt  > listado.temp
-		ls | grep datosrangos.txt | grep -v datos.txt  >> listado.temp
+		ls | grep RNG* > listado.temp
 
 		#Muestra listados con ficheros.
 		cat listado.temp
@@ -536,9 +535,9 @@ lee_datos() {
 		echo  " ¿Dónde guardar los rangos para calcular rangos?"
 		echo  " ¿Dónde guardar los rangos para calcular rangos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los rangos para calcular rangos?" >> informeBN.txt
-		echo  " 1- Fichero de rangos para rangos de última ejecución (datosrangosRNGALE.txt)"
-		echo  " 1- Fichero de rangos para rangos de última ejecución (datosrangosRNGALE.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de rangos para rangos de última ejecución (datosrangosRNGALE.txt)" >> informeBN.txt
+		echo  " 1- Fichero de rangos para rangos de última ejecución (DatosRangosAleatoriosRNGALE.txt)"
+		echo  " 1- Fichero de rangos para rangos de última ejecución (DatosRangosAleatoriosRNGALE.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de rangos para rangos de última ejecución (DatosRangosAleatoriosRNGALE.txt)" >> informeBN.txt
 		echo  " 2- Otros ficheros de rangos para rangos"
 		echo  " 2- Otros ficheros de rangos para rangos" >> informeCOLOR.txt
 		echo  " 2- Otros ficheros de rangos para rangos" >> informeBN.txt
@@ -569,9 +568,9 @@ lee_datos() {
 		echo  " ¿Dónde guardar los rangos?"
 		echo  " ¿Dónde guardar los rangos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los rangos?" >> informeBN.txt
-		echo  " 1- Fichero de rangos de última ejecución (datosrangosRNG.txt)"
-		echo  " 1- Fichero de rangos de última ejecución (datosrangosRNG.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de rangos de última ejecución (datosrangosRNG.txt)" >> informeBN.txt
+		echo  " 1- Fichero de rangos de última ejecución (DatosRangosRNG.txt)"
+		echo  " 1- Fichero de rangos de última ejecución (DatosRangosRNG.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de rangos de última ejecución (DatosRangosRNG.txt)" >> informeBN.txt
 		echo  " 2- Otros ficheros de rangos"
 		echo  " 2- Otros ficheros de rangos" >> informeCOLOR.txt
 		echo  " 2- Otros ficheros de rangos" >> informeBN.txt
@@ -602,9 +601,9 @@ lee_datos() {
 		echo  " ¿Dónde guardar los datos?"
 		echo  " ¿Dónde guardar los datos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los datos?" >> informeBN.txt
-		echo  " 1- Fichero de datos de última ejecución (datos.txt)"
-		echo  " 1- Fichero de datos de última ejecución (datos.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de datos de última ejecución (datos.txt)" >> informeBN.txt
+		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)"
+		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)" >> informeBN.txt
 		echo  " 2- Otros ficheros de datos"
 		echo  " 2- Otros ficheros de datos" >> informeCOLOR.txt
 		echo  " 2- Otros ficheros de datos" >> informeBN.txt
@@ -643,15 +642,15 @@ lee_datos() {
 	if [ $dat_fich = '8' ] 
 	then
 		#fich="datos.txt"
-		lectura_fichero_rangos_aleatorios "datosrangosRNGALE.txt"
+		lectura_fichero_rangos_aleatorios "DatosRangosAleatoriosRNGALE.txt"
 	fi
 
 
 	#Entrada por otro fichero de rangos aleatorios.
 	if [ $dat_fich = '9' ]
 	then
-		ls | grep RNGALE* | grep -v datos.txt > listado.temp
-		ls | grep datosrangos2.txt | grep -v datosrangos.txt | grep -v datos.txt >> listado.temp
+		ls | grep RNGALE* > listado.temp
+		ls | grep RNG* >> listado.temp
 
 		#Muestra listados con ficheros.
 		cat listado.temp
@@ -2231,7 +2230,7 @@ lectura_fichero()
 						MEMORIA_I[$num_proc]=$dat 
 					;;
 					*)
-						echo "Error al leer los procesos del fichero datos.txt"
+						echo "Error al leer los procesos del fichero $1.txt"
 						read -p "close" x
 					;;
 				esac
@@ -2375,7 +2374,7 @@ lectura_fichero_aleatorio()
 				done
 			;;
 			*)
-				echo "Error al leer los procesos del fichero datos.txt"
+				echo "Error al leer los procesos del fichero $1.txt"
 				read -p "close" x
 			;;
 		esac
@@ -2529,7 +2528,7 @@ lectura_fichero_rangos_aleatorios()
 				done
 			;;
 			*)
-				echo "Error al leer los procesos del fichero datos.txt"
+				echo "Error al leer los procesos del fichero $1.txt"
 				read -p "close" x
 			;;
 		esac
@@ -5128,28 +5127,28 @@ lee_datos
 meterAfichero datoslast
 
 #Condicional que determinará el guardado de los datos manuales.
-if [[ $opcion_guardado_datos -eq 1 || $opcion_guardado_datos_rangos -eq 1 || $opcion_guardado_datos_rangos_2 -eq 1 || $nombre_fichero_datos == "datos" ]]
+if [[ $opcion_guardado_datos -eq 1 || $opcion_guardado_datos_rangos -eq 1 || $opcion_guardado_datos_rangos_2 -eq 1 || $nombre_fichero_datos == "DatosLast" ]]
 then
-		meterAfichero datos
+		meterAfichero DatosLast
 fi
-if [[ $opcion_guardado_datos -eq 2 || $opcion_guardado_datos_rangos -eq 2 || $opcion_guardado_datos_rangos_2 -eq 1 ]] && [[ $nombre_fichero_datos != "datos" ]]
+if [[ $opcion_guardado_datos -eq 2 || $opcion_guardado_datos_rangos -eq 2 || $opcion_guardado_datos_rangos_2 -eq 1 ]] && [[ $nombre_fichero_datos != "DatosLast" ]]
 then
 		meterAfichero "$nombre_fichero_datos"
 fi
-if [[ $opcion_guardado_rangos -eq 1 || $opcion_guardado_rangos_2 -eq 1 || $nombre_fichero_rangos == "datosrangos" ]]
+if [[ $opcion_guardado_rangos -eq 1 || $opcion_guardado_rangos_2 -eq 1 || $nombre_fichero_rangos == "DatosRangos" ]]
 then
-		meterAficheroRangos datosrangos
+		meterAficheroRangos DatosRangos
 fi
-if [[ $opcion_guardado_rangos -eq 2 || $opcion_guardado_rangos_2 -eq 2 ]] && [[ $nombre_fichero_rangos != "datosrangos" ]]
+if [[ $opcion_guardado_rangos -eq 2 || $opcion_guardado_rangos_2 -eq 2 ]] && [[ $nombre_fichero_rangos != "DatosRangos" ]]
 then
 		meterAficheroRangos "$nombre_fichero_rangos"
 fi
 
-if [[ $opcion_guardado_rangos_rangos -eq 1 || $nombre_fichero_rangos == "datosrangos" ]] 
+if [[ $opcion_guardado_rangos_rangos -eq 1 || $nombre_fichero_rangos == "DatosRangos" ]] 
 then
-	meterAficheroRangosAleatorios datosrangos
+	meterAficheroRangosAleatorios DatosRangosAleatorios
 fi
-if [[ $opcion_guardado_rangos_rangos -eq 2 ]] && [[ $nombre_fichero_rangos != "datosrangos" ]]
+if [[ $opcion_guardado_rangos_rangos -eq 2 ]] && [[ $nombre_fichero_rangos != "DatosRangos" ]]
 then
 	meterAficheroRangosAleatorios "$opcion_guardado_rangos_rangos"
 fi
