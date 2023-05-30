@@ -13,17 +13,17 @@
 #                                                                                                                                               #
 #	El script deberá contemplar la opción de Round Robin con particiones fijas no iguales al peor ajuste.						              	#
 #	Para resolver el problema he usado los Arrays de bash:                                                                                      #
-#		PROCESOS[indice] 	-> Almacena la ráfaga del proceso                                                                                   #
-#		QT_PROC[indice]	 	-> Almacena el quantum sin usar del proceso (útil cuando un proceso se bloquea por E/S)                             #
-#		PROC_ENAUX[indice] 	-> [ Si / No ] Nos dice si el proceso actual está en la cola auxiliar (bloqueado por E/S)                           #
-#		T_ENTRADA[indice]	-> Tiempo de llegada en el sistema del proceso                                                                      #
-#		EN_ESPERA[indice]	-> [ Si / No ] Proceso en espera por tiempo de llegada                                                              #
-#		[indice]		-> Momento en el cual el proceso se bloqueará por una situación de E/S                                              	#
-#		DURACION[indice]	-> Duración de la situación de E/S                                                                                  #
-#		FIN_ES[indice]		-> Almacena cuando va a terminar la E/S de un proceso, teniendo en cuenta su posicion en la cola FIFO               #
-#		AUX[indice]			-> Cola FIFO auxiliar para los procesos bloqueados por E/S. Almacena indices de procesos.                     		#
+#       NUMPROC[indicePr]     -> Número del proceso.                                                                                            #
+#		T_ENTRADA[indicePr]	  -> Tiempo de llegada en el sistema del proceso                                                                    #
+#       TEJ[indicePr]         -> Tiempo de ejecución (ráfaga) del proceso.                                                                      #
+#       MEMORIA[indicePr]     -> Tamaño en memoria del proceso.                                                                                 #
+#       EN_ESPERA[indicePr]	  -> [ Si / No ] Proceso en espera por tiempo de llegada.                                                           #
+#       ESTADO[indicePr]      -> Estado del proceso en el sistema (Ejecución, en pausa, terminado...).                                          #
+#		                                                                                                                                        #
+#       PROC[indicePa]        -> Referencia al índice de proceso que está en memoria en una partición (Valor especial -1 para partición vacía). #
+#       PART[indicePr]        -> Referencia a la partición en la que está el proceso (Valor especial -1 si no está en ninguna partición).       #
 #################################################################################################################################################
-#
+
 echo "############################################################"
 echo "#                     Creative Commons                     #"
 echo "#                                                          #"
@@ -49,7 +49,7 @@ echo "#                SA - Compartir Igual (SA)                 #" >> informeBN
 echo "############################################################" >> informeBN.txt
 
 
-#Se ha dejado un espacio de separación al principio de cada línea por si se da el caso de utilizar un terminar que corte el primer carácter de cada línea
+#Se ha dejado un espacio de separación al principio de cada línea por si se da el caso de utilizar un terminal que corte el primer carácter de cada línea
 
 #Variables Globales
 min=9999
@@ -2195,31 +2195,26 @@ lectura_fichero()
 	fich="copia.txt"
 
 	#Elimina las filas con texto.
+	sed -i 5d $fich
 	sed -i 3d $fich
 	sed -i 1d $fich
 
 	while read line
 	do
-		if [[ $n_linea == 0 ]] #La primera línea contiene los datos de las particiones
+		if [[ $n_linea == 0 ]] 					#La primera línea contiene los datos de las particiones
 		then
-			dat_part_leidos=0
-			last=99	 
+			part_leidas=0
 			for dat in $line 
 			do
-				case $dat_part_leidos in 
-					0)
-						n_par=$dat 				#El primer dato (0) de la línea es el número de procesos.
-						let last=$n_par+1 		#Calcula cual será el último dato, el del quantum, contando cuántos son de proceso mas el número de procesos y el propio quántum, menos 0 indexado.
-					;;
-					$last)
-						quantum=$dat 			#El último elemento del array es el quántum.
-					;;
-					*)
-						let i_part=dat_part_leidos-1
-						tam_par[$i_part]=$dat 	#Desde el segundo dato (1) hasta el penúltimo es el tamaño de cada partición.
-					;;
-				esac
-				let dat_part_leidos=dat_part_leidos+1
+				tam_par[$part_leidas]=$dat 		#Cada dato es el tamaño de una partición.
+				let part_leidas=part_leidas+1 	#Sumo las particiones leídas.
+			done
+			n_par=$part_leidas					#Ajusto el número de particiones leídas.
+		elif [[ $n_linea == 1 ]]				#En la segunda línea está el quántum.
+		then
+			for dat in $line 
+			do
+				quantum=$dat
 			done
 		else
 			dat_proc_leidos=0
@@ -2671,8 +2666,10 @@ meterAfichero()
 {
 	#rm datos.txt (única diferencia entre métodos)
 	#Datos principales.
-	echo "Datos iniciales (Particiones Tamaño Quantum)" > "$1".txt
-	echo "$n_par ${tam_par[@]} $quantum" >> "$1".txt
+	echo "Particiones" > "$1".txt
+	echo "${tam_par[@]}" >> "$1".txt
+	echo "Quantum" >> "$1".txt
+	echo "$quantum" >> "$1".txt
 	echo "Procesos (T-Entrada Rafaga Memoria)" >> "$1".txt
 	#Bucle para meter los datos de cada proceso.
 	for(( pr=0; pr<$num_proc; pr++ ))
@@ -2753,7 +2750,7 @@ imprimir_tabla_procesos_rangos_aleatorios()
 }
 
 
-### ### Imprime los datos de los procesos introducidos hasta el momento.
+### Imprime los datos de los procesos introducidos hasta el momento.
 imprimir_tabla()
 {
 	#He añadido un comentario con los colores usados en el código, y acortado el array de colores repetidos dado que su funcionamiento es cíclico.
@@ -2809,9 +2806,6 @@ ordenacion_procesos()
 				T_ENTRADA[$proceso]=${T_ENTRADA_I[$pr]}
 				TEJ[$proceso]=${T_EJECUCION_I[$pr]}
 				MEMORIA[$proceso]=${MEMORIA_I[$pr]}
-				#EN_ESPERA[$proceso]=`expr ${EN_ESPERA_I[$pr]}`
-				#QT_PROC[$proceso]=`expr ${QT_PROC_I[$pr]}`
-				#PROC_ENAUX[$proceso]=`expr ${PROC_ENAUX_I[$pr]}`
 				FIN[$proceso]=0
 				TIEMPO[$proceso]=${T_EJECUCION_I[$pr]}
 				let proceso=proceso+1
@@ -2909,7 +2903,7 @@ calcula_espacios()
 
 	espacios_n_par=${#n_par}
 
-	if [[ $espacios_n_par == 1 ]] || [[ $espacios_n_par == 2 ]] || [[ $espacios_n_par == 3 ]] || [[ $espacios_n_par == 4 ]]
+	if [[ $espacios_n_par -le 4 ]]
 	then
 		espacios_n_par_tabla=4
 	else
@@ -2920,7 +2914,7 @@ calcula_espacios()
 	espacios_quantum=${#quantum}
 	espacios_mayortll=${#mayortll}
 
-	if [[ $espacios_mayortll == 1 ]] || [[ $espacios_mayortll == 2 ]] || [[ $espacios_mayortll == 3 ]]
+	if [[ $espacios_mayortll -le 3 ]]
 	then
 		espacios_mayortll_tabla=3
 	else
@@ -2929,7 +2923,7 @@ calcula_espacios()
 
 	espacios_mayormem=${#mayormem}
 
-	if [[ $espacios_mayormem == 1 ]] || [[ $espacios_mayormem == 2 ]] || [[ $espacios_mayortej == 3 ]]
+	if [[ $espacios_mayormem -le 3 ]]
 	then
 		espacios_mayormem_tabla=3
 	else
@@ -2938,7 +2932,7 @@ calcula_espacios()
 
 	espacios_mayortej=${#mayortej}
 
-	if [[ $espacios_mayortej == 1 ]] || [[ $espacios_mayortej == 2 ]] || [[ $espacios_mayormem == 3 ]]
+	if [[ $espacios_mayortej -le 3 ]]
 	then
 		espacios_mayortej_tabla=3
 	else
@@ -2947,7 +2941,7 @@ calcula_espacios()
 
 	espacios_num_proc=${#num_proc}
 
-	if [[ $espacios_num_proc == 1 ]] || [[ $espacios_num_proc == 2 ]]
+	if [[ $espacios_num_proc -le 2 ]]
 	then
 		espacios_num_proc_tabla=2
 	else
@@ -2974,7 +2968,7 @@ calcula_espacios()
 	do
 		chartej=${#T_EJECUCION_I[contespacios2]}
 
-		if [[ $chartej == 1 ]] || [[ $chartej == 2 ]] || [[ $chartej == 3 ]]
+		if [[ $chartej -le 3 ]]
 		then
 			CARACTERESTEJ[$contespacios2]=3
 		else
@@ -2988,7 +2982,7 @@ calcula_espacios()
 	do
 		charmem=${#MEMORIA_I[contespacios3]}
 
-		if [[ $charmem == 1 ]] || [[ $charmem == 2 ]] || [[ $charmem == 3 ]]
+		if [[ $charmem -le 3 ]]
 		then
 			CARACTERESMEM[$contespacios3]=3
 		else
@@ -3024,7 +3018,7 @@ tabla_ejecucion()
 			TES[$xp]=$(( $t_real - ${t_espera[$xp]} ))
 		elif [ "${ESTADO[$xp]}" != "Terminado" ]
 		then
-			TES[$xp]="0"
+			TES[$xp]=0
 		fi
 
 		if [[ ${T_ENTRADA[$xp]} -gt $tiempo_transcurrido ]] 
@@ -3032,7 +3026,7 @@ tabla_ejecucion()
 			TES[$xp]="-"
 		elif [[ $pvez == 0 ]]
 		then
-			TES[$xp]="0"
+			TES[$xp]=0
 			pvez=1
 		fi
 

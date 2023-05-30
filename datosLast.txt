@@ -1,5 +1,7 @@
-Datos iniciales (Particiones Tamaño Quantum)
-4 6 5 3 8 2
+Particiones
+6 5 3 8 2
+Quantum
+2
 Procesos (T-Entrada Rafaga Memoria)
 57 17 3
 47 15 4
