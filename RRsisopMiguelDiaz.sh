@@ -2989,7 +2989,7 @@ calcula_espacios()
 			CARACTERESMEM[$contespacios3]=$charmem
 		fi
 
-		ESPACIOSMEM[$contespacios3]=$(($espacios_mayormem_tabla-${CARACTERESMEM[$contespacios1]}))
+		ESPACIOSMEM[$contespacios3]=$(($espacios_mayormem_tabla-${CARACTERESMEM[$contespacios3]}))
 	done
 }
 
@@ -4305,7 +4305,8 @@ iniciar_bt()
 	for (( esp_ini=0; esp_ini<$tam_unidad_bt; esp_ini++ ))
 	do
 
-		cad_proc_bt=${cad_proc_bt[@]}" "
+		cad_proc_col_bt=${cad_proc_bt[@]}" "
+		cad_proc_byn_bt=${cad_proc_bt[@]}" "
 		cad_tie_col=${cad_tie_col[@]}"\u2588"
 		cad_tie_byn=${cad_tie_byn[@]}"\u2588"
 	done
@@ -4320,6 +4321,7 @@ iniciar_bt()
 }
 
 
+### Actualiza las cadenas de texto de la barra de tiempo añadiendo otra unidad de tiempo.
 actualizar_bt_info()
 {
 	for((pr=0; pr<$num_proc; pr++))														#Bucle para contar los procesos que están fuera del sistema.
@@ -4355,9 +4357,9 @@ actualizar_bt_info()
 		done
 		proc_ante=$proc_actual															#Actualizo la referencia de proceso anterior.
 	else  																				#Si no tiene proceso o el proceso es el mismo de antes,
-		for (( esp=0; esp<$tam_unidad_bm; esp++ ))										#Por cada hueco hasta completar la unidad,
+		for (( esp=0; esp<$tam_unidad_bt; esp++ ))										#Por cada hueco hasta completar la unidad,
 		do
-			cad_proc_col_bt=${cad_proc_bm[@]}" "										#Añado un espacio.
+			cad_proc_col_bt=${cad_proc_col_bt[@]}" "										#Añado un espacio.
 			cad_proc_byn_bt=${cad_proc_byn_bt[@]}" "
 		done
 	fi
@@ -4366,12 +4368,12 @@ actualizar_bt_info()
 	##Adición de la cadena de cantidad de tiempo en la barra de tiempo.
 	if [[ $fuera_sist == $num_proc ]]													#Si no hay procesos en el sistema.
 	then
-		for (( esp=0; esp<$tam_unidad_bm; esp++ ))										#Por cada hueco hasta completar la unidad,
+		for (( esp=0; esp<$tam_unidad_bt; esp++ ))										#Por cada hueco hasta completar la unidad,
 		do
 			cad_can_tie=${cad_can_tie[@]}" "											#Añado un espacio.
 		done
 	else																				#Si hay procesos,
-		for (( esp=0; esp<$tam_unidad_bm-${#tiempo_transcurrido}; esp++ ))				#Por cada hueco de la unidad menos lo que ocupe el tiempo,
+		for (( esp=0; esp<$tam_unidad_bt-${#tiempo_transcurrido}; esp++ ))				#Por cada hueco de la unidad menos lo que ocupe el tiempo,
 		do
 			cad_can_tie=${cad_can_tie[@]}" "											#Añado un espacio.
 		done
@@ -4381,32 +4383,185 @@ actualizar_bt_info()
 }
 
 
+### Actualiza la cadena de cuadraditos de la barra de tiempo añadiendo otra unidad de tiempo.
+actualizar_bt_line()
+{
+	if [[ -z $proc_actual ]] 															#Si hay un proceso en ejecución,
+	then
+		if [[ $proc_actual -ge 5 ]] 													#Condicional para ajustar el color del proceso.
+		then
+			let colimp=proc_actual%5
+		else
+			colimp=$proc_actual
+		fi
+
+		for(( esp=0; esp<$tam_unidad_bt; esp++ ))										#Por lo que ocupa la unidad,
+		do
+			cad_tie_col=${cad_tie_col[@]}"\e[${color[$colimp]}m\u2588\e[0m"				#Añado un cuadrado de color a la cadena de color.
+			cad_tie_byn=${cad_tie_byn[@]}"\u2588"										#Añado un cuadrado blanco a la cadena en blanco y negro.
+		done
+	else 																				#Si no hay un proceso en ejecución,
+		for (( esp=0; esp<$tam_unidad_bt; esp++ ))										#Por cada hueco hasta completar la unidad,
+		do
+			cad_tie_col=${cad_tie_col[@]}"\u2588"										#Añado un cuadrado blanco.
+			cad_tie_byn=${cad_tie_byn[@]}"\u2588"		
+		done
+	fi
+}
+
 
 ### Representación de la Barra de Tiempo.
 imprimir_bt()
 {
-	let ud_bt=${#cad_can_tie}/tam_unidad_bt
+	if [[ $primvez == true ]]
+	then
+		cad_pro_aux_bt=""
+		cad_cua_aux_bt=""
+		cad_tie_aux_bt=""
+		for (( esp_ini=0; esp_ini<$tam_unidad_bt; esp_ini++ ))
+		do
+			cad_pro_aux_bt=${cad_tex_aux_bt[@]}" "
+			cad_cua_aux_bt=${cad_cua_aux_bt[@]}"\u2588"
+		done
+		for (( esp_ini=0; esp_ini<$tam_unidad_bt-${#tiempo_transcurrido}; esp_ini++ ))
+		do
+			cad_tie_aux_bt=${cad_tie_aux_bt[@]}" "
+		done
+		cad_tie_aux_bt=${cad_tie_aux_bt[@]}"$tiempo_transcurrido"
+		echo -e "    |${cad_pro_aux_bt[@]}"
+		echo -e " BT |${cad_cua_aux_bt[@]}"
+		echo -e "    |${cad_tie_aux_bt[@]}"
+	else
+		prim_linea_proc=true
+		prim_linea_tie=true
+		prim_linea_can_tie=true
 
-	## Imprimir cadena de procesos en barra de tiempo.
-	for (( bt_impresa=0; bt_impresa<$ud_bt; bt_impresa++ ))
-	do
-		if [[ $tam_unidad_bt -le $columnas_bt ]]
-		then
-			printf ""
-		fi
-	done
-	
-	echo -e "    |${cad_proc_bt[@]}|"
-	echo -e "    |${cad_proc_bt[@]}|" >> informeCOLOR.txt
-	echo -e "    |${cad_proc_bt[@]}|" >> informeBN.txt
+		carac_impresos_proc=0 														#Contador de los caracteres impresos en la cadena de procesos.
+		carac_impresos_tie=0 														#Contador de los caracteres impresos en la cadena de tiempo.
+		carac_impresos_can_tie=0 													#Contador de los caracteres impresos en la cadena de cantidad de tiempo.
 
-	echo -e " BT |${cad_tie_col[@]}|T=$tiempo_transcurrido"
-	echo -e " BT |${cad_tie_col[@]}|T=$tiempo_transcurrido" >> informeCOLOR.txt
-	echo -e " BT |${cad_tie_byn[@]}|T=$tiempo_transcurrido" >> informeBN.txt
+		echo "tamaño de cadena de procesos: ${#cad_proc_col_bt[@]}"
+		echo "tamaño de cadena de tiempo: ${#cad_tie_col[@]}"
+		echo "tamaño de cadena de can tie: ${#cad_can_tie[@]}"
 
-	echo -e "    |${cad_can_tie[@]}|"
-	echo -e "    |${cad_can_tie[@]}|" >> informeCOLOR.txt
-	echo -e "    |${cad_can_tie[@]}|" >> informeBN.txt
+		while [[ $carac_impresos_proc -lt ${#cad_proc_col_bt[@]} ]]						#Bucle mientras queden caracteres en la barra de tiempo (Se toma la cadena de procesos como referencia).
+		do
+			## Imprimir cadena de procesos en barra de tiempo.
+			echo ""
+			echo "" >> informeCOLOR.txt
+			echo "" >> informeBN.txt
+			if [[ prim_linea_proc ]]												#Si es la primera línea de la barra de tiempo,
+			then
+				for (( cab=0; cab<5; cab++ ))										#Imprimo los 5 primeros caracteres (Los espacios y la barra).
+				do
+					printf "${cad_proc_col_bt[$cab]}"
+					printf "${cad_proc_col_bt[$cab]}" >> informeCOLOR.txt
+					printf "${cad_proc_byn_bt[$cab]}" >> informeBN.txt
+				done
+				carac_impresos_proc=5 												#Actualizo los caracteres impresos.
+				columnas_bt=$(($(tput cols)-5))										#Actualizo el espacio restante de pantalla.
+				prim_linea_proc=false 												#Ya no es la primera línea de la barra.
+			else  																	#Si no es la primera línea de la barra,
+				columnas_bt=$(tput cols) 											#Actualizo el espacio restante de pantalla.
+			fi
+
+			let unidades_posibles=columnas_bt/tam_unidad_bt 						#Calculo cuántas unidades caben en lo que queda de pantalla.
+
+			for (( col=0; col<$unidades_posibles; col++ ))							#Para las unidades que quepan en la pantalla,
+			do
+				for (( pos_uni=0; pos_uni<$tam_unidad_bt; pos_uni++ ))				#Para cada posición de la unidad,
+				do
+					printf "${cad_proc_col_bt[$(($carac_impresos_proc+$pos_uni))]}"	#Imprimo su posición.
+					printf "${cad_proc_col_bt[$(($carac_impresos_proc+$pos_uni))]}" >> informeCOLOR.txt
+					printf "${cad_proc_byn_bt[$(($carac_impresos_proc+$pos_uni))]}" >> informeBN.txt
+				done
+				let carac_impresos_proc=carac_impresos_proc+$tam_unidad_bt			#Actualizo el número de caracteres impresos.
+			done
+			if [[ $(($carac_impresos_proc+1)) -eq ${#cad_proc_bt} ]] 				#Si era el último caracter de la cadena,
+			then
+				printf "|"															#Imprimo una barra vertical.
+				printf "|" >> informeCOLOR.txt
+				printf "|" >> informeBN.txt
+			fi
+
+			## Imprimir cadena de cuadraditos de tiempo.
+			echo ""
+			echo "" >> informeCOLOR.txt
+			echo "" >> informeBN.txt
+			if [[ prim_linea_tie ]]													#Si es la primera línea de la barra de tiempo,
+			then
+				for (( cab=0; cab<5; cab++ ))										#Imprimo los 5 primeros caracteres (Los espacios y la barra).
+				do
+					printf "${cad_tie_col[$cab]}"
+					printf "${cad_tie_col[$cab]}" >> informeCOLOR.txt
+					printf "${cad_tie_byn[$cab]}" >> informeBN.txt
+				done
+				carac_impresos_tie=5 												#Actualizo los caracteres impresos.
+				columnas_bt=$(($(tput cols)-5))										#Actualizo el espacio restante de pantalla.
+				prim_linea_tie=false 												#Ya no es la primera línea de la barra.
+			else  																	#Si no es la primera línea de la barra,
+				columnas_bt=$(tput cols) 											#Actualizo el espacio restante de pantalla.
+			fi
+
+			let unidades_posibles=columnas_bt/tam_unidad_bt 						#Calculo cuántas unidades caben en lo que queda de pantalla.
+
+			for (( col=0; col<$unidades_posibles; col++ ))							#Para las unidades que quepan en la pantalla,
+			do
+				for (( pos_uni=0; pos_uni<$tam_unidad_bt; pos_uni++ ))				#Para cada posición de la unidad,
+				do
+					printf "${cad_tie_col[$(($carac_impresos_tie+$pos_uni))]}"		#Imprimo su posición.
+					printf "${cad_tie_col[$(($carac_impresos_tie+$pos_uni))]}" >> informeCOLOR.txt
+					printf "${cad_tie_byn[$(($carac_impresos_tie+$pos_uni))]}" >> informeBN.txt
+				done
+				let carac_impresos_tie=carac_impresos_tie+$tam_unidad_bt			#Actualizo el número de caracteres impresos.
+			done
+			if [[ $(($carac_impresos_tie+1)) -eq ${#cad_tie_col} ]] 				#Si era el último caracter de la cadena,
+			then
+				printf "|T=$tiempo_transcurrido"									#Imprimo una barra vertical y el tiempo.
+				printf "|T=$tiempo_transcurrido" >> informeCOLOR.txt
+				printf "|T=$tiempo_transcurrido" >> informeBN.txt
+			fi
+
+			## Imprimir cadena de cantidad de tiempo.
+			echo ""
+			echo "" >> informeCOLOR.txt
+			echo "" >> informeBN.txt
+			if [[ prim_linea_can_tie ]]												#Si es la primera línea de la barra de tiempo,
+			then
+				for (( cab=0; cab<5; cab++ ))										#Imprimo los 5 primeros caracteres (Los espacios y la barra).
+				do
+					printf "${cad_can_tie[$cab]}"
+					printf "${cad_can_tie[$cab]}" >> informeCOLOR.txt
+					printf "${cad_can_tie[$cab]}" >> informeBN.txt
+				done
+				carac_impresos_can_tie=5 											#Actualizo los caracteres impresos.
+				columnas_bt=$(($(tput cols)-5))										#Actualizo el espacio restante de pantalla.
+				prim_linea_can_tie=false 											#Ya no es la primera línea de la barra.
+			else  																	#Si no es la primera línea de la barra,
+				
+				columnas_bt=$(tput cols) 											#Actualizo el espacio restante de pantalla.
+			fi
+
+			let unidades_posibles=columnas_bt/tam_unidad_bt 						#Calculo cuántas unidades caben en lo que queda de pantalla.
+
+			for (( col=0; col<$unidades_posibles; col++ ))							#Para las unidades que quepan en la pantalla,
+			do
+				for (( pos_uni=0; pos_uni<$tam_unidad_bt; pos_uni++ ))				#Para cada posición de la unidad,
+				do
+					printf "${cad_can_tie[$(($carac_impresos_can_tie+$pos_uni))]}"	#Imprimo su posición.
+					printf "${cad_can_tie[$(($carac_impresos_can_tie+$pos_uni))]}" >> informeCOLOR.txt
+					printf "${cad_can_tie[$(($carac_impresos_can_tie+$pos_uni))]}" >> informeBN.txt
+				done
+				let carac_impresos_can_tie=carac_impresos_can_tie+$tam_unidad_bt	#Actualizo el número de caracteres impresos.
+			done
+			if [[ $(($carac_impresos_can_tie+1)) -eq ${#cad_can_tie} ]] 			#Si era el último caracter de la cadena,
+			then
+				printf "|"															#Imprimo una barra vertical y el tiempo.
+				printf "|" >> informeCOLOR.txt
+				printf "|" >> informeBN.txt
+			fi
+		done
+	fi
 
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -4414,31 +4569,38 @@ imprimir_bt()
 }
 
 
+### Representación de la Barra de Tiempo.
 actualizar_bt()
 {
-	cad_tex_aux_bt=""
+	cad_pro_aux_bt=""
 	cad_cua_aux_bt=""
+	cad_tie_aux_bt=""
 	for (( esp_ini=0; esp_ini<$tam_unidad_bt; esp_ini++ ))
 	do
-		cad_tex_aux_bt=${cad_tex_aux_bt[@]}" "
+		cad_pro_aux_bt=${cad_pro_aux_bt[@]}" "
 		cad_cua_aux_bt=${cad_cua_aux_bt[@]}"\u2588"
 	done
+	for (( esp_ini=0; esp_ini<$tam_unidad_bt-${#tiempo_transcurrido}; esp_ini++ ))
+	do
+		cad_tie_aux_bt=${cad_tie_aux_bt[@]}" "
+	done
+	cad_tie_aux_bt=${cad_tie_aux_bt[@]}"$tiempo_transcurrido"
 
 	for (( i = 0, j = 0; i <= $const, j <= $constb; i++, j++ ))
 	do
 		#Comandos que ajustan las 3 lineas verticales del final de la barra de tiempo
-		if [[ $primvez = true ]]
+		if [[ $primvez == true ]]
 		then
-			cadtiempo2[$j]="${cad_tex_aux_bt[@]}|"
+			cadtiempo2[$j]="${cad_pro_aux_bt[@]}|"
 			cadtiempo[$j]="${cad_cua_aux_bt[@]}|T=$tiempo_transcurrido"
-			cadtiempo2bn[$j]="${cad_tex_aux_bt[@]}|"
+			cadtiempo2bn[$j]="${cad_pro_aux_bt[@]}|"
 			cadtiempobn[$j]="${cad_cua_aux_bt[@]}|T=$tiempo_transcurrido"
-			cadtiempo3[$j]="${cad_tex_aux_bt[@]}|"
+			cadtiempo3[$j]="${cad_tie_aux_bt[@]}|"
 		else
 			cadtiempo2[$j]=${cad2[$j]}"|"
-			cadtiempo[$j]=${cad[$j]}"${cad_tex_aux_bt[@]}|T=$tiempo_transcurrido"
+			cadtiempo[$j]=${cad[$j]}"${cad_pro_aux_bt[@]}|T=$tiempo_transcurrido"
 			cadtiempo2bn[$j]=${cad2bn[$j]}"|"
-			cadtiempobn[$j]=${cadbn[$j]}"${cad_tex_aux_bt[@]}|T=$tiempo_transcurrido"
+			cadtiempobn[$j]=${cadbn[$j]}"${cad_pro_aux_bt[@]}|T=$tiempo_transcurrido"
 			cadtiempo3[$j]=${cad3[$j]}"|"
 		fi
 
@@ -4501,7 +4663,7 @@ actualizar_linea()
 		then
 			for(( k = 0; k < ${T_ENTRADA[0]}; k++ ))
 			do
-				for(( l = 0; l < $tam_unidad_bt; l++ ))
+				for(( l=0; l<$tam_unidad_bt; l++ ))
 				do
 					cad1=$cad1"\u2588"
 					cad1bn=$cad1bn"\u2588"
@@ -4510,21 +4672,18 @@ actualizar_linea()
 			done
 		elif [[ -z $proc_actual ]] #Si no hay procesos
 		then
-			for((l = 0; l < $tam_unidad_bt; l++))
+			for((l=0; l<$tam_unidad_bt; l++))
 			do
 				cad1=$cad1"\u2588"
 				cad1bn=$cad1bn"\u2588"
 				let escritos=escritos+1
 			done
 		else #Si hay procesos
-			for((k = 0; k < $yomismo; k++))
+			for((l=0; l<$tam_unidad_bt; l++))
 			do
-				for((l = 0; l < $tam_unidad_bt; l++))
-				do
-					cad1=$cad1"\e[${color[$colimp]}m\u2588\e[0m"
-					cad1bn=$cad1bn"\u2588"
-					let escritos=escritos+1
-				done
+				cad1=$cad1"\e[${color[$colimp]}m\u2588\e[0m"
+				cad1bn=$cad1bn"\u2588"
+				let escritos=escritos+1
 			done
 		fi
 	fi
@@ -4539,7 +4698,7 @@ actualizar_linea()
 	do
 		vali=$(( 0 + $columnas * $const1 ))
 		valcol=$(( $columnas * $(( $const1 + 1 )) ))
-		for((i = $vali; i < $valcol; i++))
+		for((i=$vali; i<$valcol; i++))
 		do
 			lin=$lin${cadarray[$i]}
 			linbn=$linbn${cadbnarray[$i]}
@@ -4585,18 +4744,18 @@ actualizar_ltsec()
 			do
 				for(( l=0; l<$tam_unidad_bt; l++ ))
 				do
-					cad2b=$cad2b" -"
-					cad2bbn=$cad2bbn" -"
+					cad2b=$cad2b" "
+					cad2bbn=$cad2bbn" "
 					let saltocad=saltocad+1
 				done
 				if [[ $k -eq 0 ]]
 				then
-					cad3b=$cad3b" - - -"
+					cad3b=$cad3b"     "
 					let saltocad=saltocad+1
 				else
-					for(( l=0; l<$tam_unidad_bt; l++ ))
+					for(( esp=0; esp<$tam_unidad_bt; esp++ ))
 					do
-						cad3b=$cad3b" -"
+						cad3b=$cad3b" "
 						let saltocad=saltocad+1
 					done
 				fi
@@ -4605,34 +4764,24 @@ actualizar_ltsec()
 		then
 			if [[ $nulcontrol -eq 0 ]]
 			then
-				if [[ $tiempo_transcurrido -le 9 ]]
-				then
-					cad3b=$cad3b" - -$tiempo_transcurrido-"
-				elif [[ $tiempo_transcurrido -le 99 ]]
-				then
-					vart=$tiempo_transcurrido
-					t1="${vart:0:1}"
-					t2="${vart:1:2}"
-					cad3b=$cad3b" -$t1-$t2-"
-				else
-					vart=$tiempo_transcurrido
-					t1="${vart:0:1}"
-					t2="${vart:1:2}"
-					t3="${vart:2:3}"
-					cad3b=$cad3b"$t1-$t2-$t3-"
-				fi
+				for(( esp=0; esp<$tam_unidad_bt-${#tiempo_transcurrido}; esp++ ))
+				do
+					cad3b=$cad3b" "
+				done
+				cad3b=$cad3b"$tiempo_transcurrido"
+
 				for(( l=0; l<$tam_unidad_bt; l++ ))
 				do
-					cad2b=$cad2b" -"
-					cad2bbn=$cad2bbn" -"
+					cad2b=$cad2b" "
+					cad2bbn=$cad2bbn" "
 				done
-				let saltocadc=saltocadc+3
+				let saltocadc=saltocadc+$tam_unidad_bt
 			else
 				for(( l=0; l<$tam_unidad_bt; l++ ))
 				do
-					cad2b=$cad2b" -"
-					cad2bbn=$cad2bbn" -"
-					cad3b=$cad3b" -"
+					cad2b=$cad2b" "
+					cad2bbn=$cad2bbn" "
+					cad3b=$cad3b" "
 					let saltocad=saltocad+1
 					let saltocadc=saltocadc+1
 				done
@@ -4642,31 +4791,30 @@ actualizar_ltsec()
 			#Ahora aparece en el texto de la BT un proceso y el tiempo transcurrido si termina su cuantum, aunque sea el unico proceso en memoria.
 			if [[ ${EJEC[$proc_actual]} == 0 ]] || [[ $((${T_EJEC[$proc_actual]} % $quantum)) = 1 ]] || [[ $quantum = 1 ]]
 			then
-				for (( esp=0; esp<$tam_unidad_bm-3; esp++ ))						#Por cada hueco hasta completar la unidad, (menos 3 caracteres impresos PXX)
+				for (( esp=0; esp<$tam_unidad_bt-${#tiempo_transcurrido}; esp++ ))	#Por cada hueco hasta completar la unidad menos lo que ocupe el tiempo,
+				do
+					cad3b=$cad3b" "													#Añado un espacio a la cadena de cantidad de tiempo.
+				done
+				cad3b=$cad3b"$tiempo_transcurrido"
+
+				if [[ ${#NUMPROC[$proc_actual]} -eq 1 ]]
+				then
+					cad2b=$cad2b"\e[${color[$colimp]}mP0${NUMPROC[$proc_actual]}\e[0m"
+					cad2bbn=$cad2bbn"P0${NUMPROC[$proc_actual]}"
+				else 
+					cad2b=$cad2b"\e[${color[$colimp]}mP${NUMPROC[$proc_actual]}\e[0m"
+					cad2bbn=$cad2bbn"P${NUMPROC[$proc_actual]}"
+				fi
+				for (( esp=0; esp<$tam_unidad_bt-3; esp++ ))						#Por cada hueco hasta completar la unidad, (menos 3 caracteres impresos PXX)
 				do
 					cad2b=$cad2b" "													#Añado un espacio.
 					cad2bbn=$cad2bbn" "
 				done
-				if [[ ${#NUMPROC[$proc_actual]} -eq 1 ]]
-				then
-					cad2b=$cad2b"\e[${color[$colimp]}mP0${NUMPROC[$proc_actual]}\e[0m-"
-					cad2bbn=$cad2bbn"P0${NUMPROC[$proc_actual]}"
-				else 
-					fchar="${varproc:0:1}"
-					schar="${varproc:1:2}"
-					cad2b=$cad2b"\e[${color[$colimp]}mP${NUMPROC[$proc_actual]}\e[0m-"
-					cad2bbn=$cad2bbn"P${NUMPROC[$proc_actual]}"
-				fi
 
-				for (( esp=0; esp<$tam_unidad_bm-${#tiempo_transcurrido}; esp++ ))	#Por cada hueco hasta completar la unidad menos lo que ocupe el tiempo,
-				do
-					cad3b=$cad3b" "													#Añado un espacio.
-				done
-				cad3b=$cad3b"$tiempo_transcurrido"
 				let saltocad=saltocad+tam_unidad_bt
 				let saltocadc=saltocadc+tam_unidad_bt
 			else
-				for((l = 0; l < $tam_unidad_bt; l++))
+				for((esp=0; esp<$tam_unidad_bt; esp++))
 				do
 					cad2b=$cad2b" "
 					cad2bbn=$cad2bbn" "
@@ -4698,7 +4846,7 @@ actualizar_ltsec()
 		done
 		cad2[$const1b]=$linb
 		cad2bn[$const1b]=$linbbn
-		const1b=$(( $const1b + 1 ))
+		let const1b=const1b+1
 		linb=""
 		linbbn=""
 	done
@@ -4946,7 +5094,10 @@ algoritmob()
 	actualizar_bt_info
 	
 	tabla_ejecucion
+
 	actualizar_linea
+	actualizar_bt_line
+
 	tablapvez=0
 	tiempo_transcurrido=$(($tiempo_transcurrido+${T_ENTRADA[0]}))
 
@@ -4969,8 +5120,6 @@ algoritmob()
 		actualizar_ltsec
 		actualizar_bt_info
 
-		#actualizar_bt_try
-
 		#Ahora aparece en el texto de la BT un proceso y el tiempo transcurrido si termina su cuantum, aunque sea el unico proceso en memoria.
 		#Esta parte pausa la ejecucion en cada evento
 		if [[ $evento = 1 ]] || [[ -z $proc_actual ]] || [[ $((${T_EJEC[$proc_actual]} % $quantum)) = 1 ]] || [[ $quantum = 1 ]]
@@ -4990,8 +5139,11 @@ algoritmob()
 			fi
 		fi
 		tant=$tiempo_transcurrido
-		tiempo_transcurrido=$(( $tiempo_transcurrido + 1 ))
+		let tiempo_transcurrido=tiempo_transcurrido+1
+
 		actualizar_linea
+		actualizar_bt_line
+
 		if [[ ! -z $proc_actual ]]
 		then
 			TIEMPO[$proc_actual]=$(( ${TIEMPO[$proc_actual]} - 1 ))
