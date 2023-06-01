@@ -4296,7 +4296,7 @@ iniciar_bt()
 		tam_unidad_bt=$((${#mas_tarde}+2))
 	fi
 
-	cad_proc_col_bt=""
+	#cad_proc_col_bt=""
 	cad_proc_byn_bt=""
 	cad_tie_col=""
 	cad_tie_byn=""
@@ -4307,6 +4307,7 @@ iniciar_bt()
 ### Actualiza las cadenas de texto de la barra de tiempo añadiendo otra unidad de tiempo.
 actualizar_bt_info()
 {
+	echo "actualizada bt info t=$tiempo_transcurrido"
 	for((pr=0; pr<$num_proc; pr++))														#Bucle para contar los procesos que están fuera del sistema.
 	do
 		if [[ ${ESTADO[$pr]} == "Fuera de Sistema" ]]
@@ -4316,9 +4317,12 @@ actualizar_bt_info()
 	done
 
 	## Adición de la cadena de procesos en la barra de tiempo.
-	if [[ -z $proc_actual ]] && [[ ! -z $proc_ante || $proc_ante -ne $proc_actual ]]	#Si hay un proceso en ejecución y es distinto al anterior,
+	cad_uni_proc_col_bt=" "
+	esp_ocupado=0																							#Espacio ocupado al escribir el proceso.
+	if [ ! -z $proc_actual ] && ([ -z $proc_ante ]||[ $proc_ante -ne $proc_actual ])				#Si hay un proceso en ejecución y no hay anterior o es distinto al actual,
 	then
-		if [[ $proc_actual -ge 5 ]] 													#Condicional para ajustar el color del proceso.
+		echo -e "proceso en cad pr: $proc_actual"
+		if [[ $proc_actual -ge 5 ]] 																		#Condicional para ajustar el color del proceso.
 		then
 			let colimp=proc_actual%5
 		else
@@ -4327,23 +4331,52 @@ actualizar_bt_info()
 
 		if [[ ${#NUMPROC[$proc_actual]} -eq 1 ]]															#Si el proceso tiene una cifra,
 		then
-			cad_proc_col_bt[$tiempo_transcurrido]="\e[${color[$colimp]}mP0${NUMPROC[$proc_actual]}\e[0m"	#Añado el proceso con un 0 delante en color a la cadena de color.
+			#cad_proc_col_bt[$tiempo_transcurrido]="\e[${color[$colimp]}mP0${NUMPROC[$proc_actual]}\e[0m"	#Añado el proceso con un 0 delante en color a la cadena de color.
+			cad_uni_proc_col_bt=${cad_uni_proc_col_bt[@]}"\e[${color[$colimp]}mP0${NUMPROC[$proc_actual]}\e[0m"
 			cad_proc_byn_bt[$tiempo_transcurrido]="P0${NUMPROC[$proc_actual]}"								#Añado el proceso con un 0 delante a la cadena en blanco y negro.
 		else 																								#Si tiene más de una cifra,
-			cad_proc_col_bt[$tiempo_transcurrido]="\e[${color[$colimp]}mP${NUMPROC[$proc_actual]}\e[0m"		#Añado el proceso sin el 0 delante en color a la cadena de color.
+			#cad_proc_col_bt[$tiempo_transcurrido]="\e[${color[$colimp]}mP${NUMPROC[$proc_actual]}\e[0m"	#Añado el proceso sin el 0 delante en color a la cadena de color.
+			cad_uni_proc_col_bt=${cad_uni_proc_col_bt[@]}"\e[${color[$colimp]}mP${NUMPROC[$proc_actual]}\e[0m"
 			cad_proc_byn_bt[$tiempo_transcurrido]="P${NUMPROC[$proc_actual]}"								#Añado el proceso sin el 0 delante a la cadena en blanco y negro.
 		fi
-		for (( esp=0; esp<tam_unidad_bt-3; esp++ ))															#Por cada hueco hasta completar la unidad, (menos 3 caracteres impresos PXX)
-		do
-			cad_proc_col_bt[$tiempo_transcurrido]=${cad_proc_col_bt[$tiempo_transcurrido]}" "				#Añado un espacio.
-			cad_proc_byn_bt[$tiempo_transcurrido]=${cad_proc_byn_bt[$tiempo_transcurrido]}" "
-		done
 		proc_ante=$proc_actual																				#Actualizo la referencia de proceso anterior.
-	else  																									#Si no tiene proceso o el proceso es el mismo de antes,
+		esp_ocupado=3																						#Actualizo el espacio ocupado por el proceso.
+	fi
+
+	for (( esp=0; esp<$tam_unidad_bt-$esp_ocupado; esp++ ))													#Por cada hueco hasta completar la unidad menos lo ocupado por el proceso (si no había, 0),
+	do
+		#cad_proc_col_bt[$tiempo_transcurrido]=${cad_proc_col_bt[$tiempo_transcurrido]}" "					#Añado un espacio.
+		echo "añadido espacio a cad pr"
+		cad_uni_proc_col_bt=${cad_uni_proc_col_bt[@]}" "
+		cad_proc_byn_bt[$tiempo_transcurrido]=${cad_proc_byn_bt[$tiempo_transcurrido]}" "
+	done
+		
+	cad_proc_col_bt[$tiempo_transcurrido]=${cad_uni_proc_col_bt[@]}
+	for uni in ${cad_proc_col_bt[@]}
+	do
+		echo -e "unidad en cad pr: |$uni|"
+	done
+
+	## Adición de la cadena de cuadrados en la barra de tiempo.
+	if [[ ! -z $proc_actual ]] 																				#Si hay un proceso en ejecución,
+	then
+		if [[ $proc_actual -ge 5 ]] 																		#Condicional para ajustar el color del proceso.
+		then
+			let colimp=proc_actual%5
+		else
+			colimp=$proc_actual
+		fi
+
+		for(( esp=0; esp<$tam_unidad_bt; esp++ ))															#Por lo que ocupa la unidad,
+		do
+			cad_tie_col[$tiempo_transcurrido]="${cad_tie_col[$tiempo_transcurrido]}\e[${color[$colimp]}m\u2588\e[0m"	#Añado un cuadrado de color a la cadena de color.
+			cad_tie_byn[$tiempo_transcurrido]="${cad_tie_byn[$tiempo_transcurrido]}\u2588"								#Añado un cuadrado blanco a la cadena en blanco y negro.
+		done
+	else 																									#Si no hay un proceso en ejecución,
 		for (( esp=0; esp<$tam_unidad_bt; esp++ ))															#Por cada hueco hasta completar la unidad,
 		do
-			cad_proc_col_bt[$tiempo_transcurrido]=${cad_proc_col_bt[$tiempo_transcurrido]}" "				#Añado un espacio.
-			cad_proc_byn_bt[$tiempo_transcurrido]=${cad_proc_byn_bt[$tiempo_transcurrido]}" "
+			cad_tie_col[$tiempo_transcurrido]="${cad_tie_col[$tiempo_transcurrido]}\u2588"				#Añado un cuadrado blanco.
+			cad_tie_byn[$tiempo_transcurrido]="${cad_tie_byn[$tiempo_transcurrido]}\u2588"		
 		done
 	fi
 
@@ -4356,39 +4389,21 @@ actualizar_bt_info()
 			cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}" "						#Añado un espacio.
 		done
 	else																									#Si hay procesos,
-		for (( esp=0; esp<$tam_unidad_bt-${#tiempo_transcurrido}; esp++ ))									#Por cada hueco de la unidad menos lo que ocupe el tiempo,
+		for (( esp=0; esp<$tam_unidad_bt-${#tiempo_transcurrido}-1; esp++ ))								#Por cada hueco de la unidad menos lo que ocupe el tiempo menos un espacio final,
 		do
 			cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}" "						#Añado un espacio.
 		done
-		cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}"$tiempo_transcurrido"		#Añado el tiempo.
+		cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}"$tiempo_transcurrido"		#Añado el tiempo y un espacio final.
+		cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}" "
 	fi
 }
 
 
 ### Actualiza la cadena de cuadraditos de la barra de tiempo añadiendo otra unidad de tiempo.
-actualizar_bt_line()
+actualizar_bt_linea()
 {
-	if [[ -z $proc_actual ]] 																				#Si hay un proceso en ejecución,
-	then
-		if [[ $proc_actual -ge 5 ]] 																		#Condicional para ajustar el color del proceso.
-		then
-			let colimp=proc_actual%5
-		else
-			colimp=$proc_actual
-		fi
-
-		for(( esp=0; esp<$tam_unidad_bt; esp++ ))															#Por lo que ocupa la unidad,
-		do
-			cad_tie_col[$tiempo_transcurrido]=${cad_tie_col[$tiempo_transcurrido]}"\e[${color[$colimp]}m\u2588\e[0m"	#Añado un cuadrado de color a la cadena de color.
-			cad_tie_byn[$tiempo_transcurrido]=${cad_tie_byn[$tiempo_transcurrido]}"\u2588"								#Añado un cuadrado blanco a la cadena en blanco y negro.
-		done
-	else 																									#Si no hay un proceso en ejecución,
-		for (( esp=0; esp<$tam_unidad_bt; esp++ ))															#Por cada hueco hasta completar la unidad,
-		do
-			cad_tie_col[$tiempo_transcurrido]=${cad_tie_col[$tiempo_transcurrido]}"\u2588"					#Añado un cuadrado blanco.
-			cad_tie_byn[$tiempo_transcurrido]=${cad_tie_byn[$tiempo_transcurrido]}"\u2588"		
-		done
-	fi
+	echo "actualizada bt linea t=$tiempo_transcurrido"
+	
 }
 
 
@@ -4396,110 +4411,178 @@ actualizar_bt_line()
 imprimir_bt()
 {
 	columnas_bt=$(($(tput cols)-5))
-	if [[ $primvez == true ]]
+	
+	prim_linea_proc=true
+	prim_linea_tie=true
+	prim_linea_can_tie=true
+
+	let unidades_posibles=columnas_bt/tam_unidad_bt 						#Calculo cuántas unidades caben en lo que queda de pantalla.
+	if [[ $(($tiempo_transcurrido+1)) -lt $unidades_posibles ]]				#Si no hay tantas unidades de tiempo que representar,
 	then
-		cad_pro_aux_bt=""
-		cad_cua_aux_bt=""
-		cad_tie_aux_bt=""
-		for (( esp_ini=0; esp_ini<$tam_unidad_bt; esp_ini++ ))
-		do
-			cad_pro_aux_bt=${cad_pro_aux_bt[@]}" "
-			cad_cua_aux_bt=${cad_cua_aux_bt[@]}"\u2588"
-		done
-		for (( esp_ini=0; esp_ini<$tam_unidad_bt-${#tiempo_transcurrido}; esp_ini++ ))
-		do
-			cad_tie_aux_bt=${cad_tie_aux_bt[@]}" "
-		done
-		cad_tie_aux_bt=${cad_tie_aux_bt[@]}"$tiempo_transcurrido"
-		echo -e "    |${cad_pro_aux_bt[@]}|"
-		echo -e " BT |${cad_cua_aux_bt[@]}| T=$tiempo_transcurrido"
-		echo -e "    |${cad_tie_aux_bt[@]}|"
-	else
-		prim_linea_proc=true
-		prim_linea_tie=true
-		prim_linea_can_tie=true
-
-		uds_impresas=0 														#Contador de los caracteres impresos en la cadena de procesos.
-
-		echo "columnas restantes de la pantalla: $columnas_bt"
-		echo "tamaño de unidad: $tam_unidad_bt"
-		let unidades_posibles=columnas_bt/tam_unidad_bt 					#Calculo cuántas unidades caben en lo que queda de pantalla.
-		if [[ $tiempo_transcurrido -lt $unidades_posibles ]]				#Si no hay tantas unidades de tiempo que representar,
-		then
-			unidades_posibles=$tiempo_transcurrido							#Lo ajusto al tiempo actual.
-		fi
-		echo "unidades posibles: $unidades_posibles"
-
-		while [[ $uds_impresas<$tiempo_transcurrido ]]						#Mientras queden unidades de tiempo que representar,
-		do
-			## Impresión de cadena de procesos.
-			echo ""
-			echo "" >> informeCOLOR.txt
-			echo "" >> informeBN.txt
-			if [[ prim_linea_proc==true ]]									#Si es la primera línea de la barra,
-			then
-				echo -ne "    |"											#Imprimo la cabecera con la barra en una nueva línea.
-				echo -ne "    |" >> informeCOLOR.txt
-				echo -ne "    |" >> informeBN.txt
-				prim_linea_proc=false 										#Ya no es la primera línea.
-			else 															#Si no es la primera línea de la barra,
-				echo -ne "     "											#Imprimo la cabecera de espacios en una nueva línea.
-				echo -ne "     " >> informeCOLOR.txt
-				echo -ne "     " >> informeBN.txt
-			fi
-			for (( uni=0; uni<$unidades_posibles; uni++ ))					#Para cada unidad que cabe en la línea, 
-			do
-				printf "${cad_proc_col_bt[uni]}"							#Imprimo la unidad en la misma línea.
-				printf "${cad_proc_col_bt[uni]}" >> informeCOLOR.txt
-				printf "${cad_proc_byn_bt[uni]}" >> informeBN.txt
-			done
-
-			## Impresión de cadena de tiempo.
-			echo ""
-			echo "" >> informeCOLOR.txt
-			echo "" >> informeBN.txt
-			if [[ prim_linea_tie==true ]]									#Si es la primera línea de la barra,
-			then
-				echo -ne " BT |"											#Imprimo la cabecera con la barra en una nueva línea.
-				echo -ne " BT |" >> informeCOLOR.txt
-				echo -ne " BT |" >> informeBN.txt
-				prim_linea_tie=false 										#Ya no es la primera línea.
-			else 															#Si no es la primera línea de la barra,
-				echo -ne "     "											#Imprimo la cabecera de espacios en una nueva línea.
-				echo -ne "     " >> informeCOLOR.txt
-				echo -ne "     " >> informeBN.txt
-			fi
-			for (( uni=0; uni<$unidades_posibles; uni++ ))					#Para cada unidad que cabe en la línea, 
-			do
-				printf "${cad_tie_col[uni]}" 								#Imprimo la unidad en la misma línea.
-				printf "${cad_tie_col[uni]}" >> informeCOLOR.txt
-				printf "${cad_tie_byn[uni]}" >> informeBN.txt
-				let uds_impresas=uds_impresas+1 							#Sumo el contador de unidades impresas.
-			done
-
-			## Impresión de cadena de cantidad de tiempo.
-			echo ""
-			echo "" >> informeCOLOR.txt
-			echo "" >> informeBN.txt
-			if [[ prim_linea_can_tie==true ]]								#Si es la primera línea de la barra,
-			then
-				echo -ne "    |"											#Imprimo la cabecera con la barra en una nueva línea.
-				echo -ne "    |" >> informeCOLOR.txt
-				echo -ne "    |" >> informeBN.txt
-				prim_linea_can_tie=false 									#Ya no es la primera línea.
-			else 															#Si no es la primera línea de la barra,
-				echo -ne "     "											#Imprimo la cabecera de espacios en una nueva línea.
-				echo -ne "     " >> informeCOLOR.txt
-				echo -ne "     " >> informeBN.txt
-			fi
-			for (( uni=0; uni<$unidades_posibles; uni++ ))					#Para cada unidad que cabe en la línea, 
-			do
-				printf "${cad_can_tie[uni]}" 								#Imprimo la unidad en la misma línea.
-				printf "${cad_can_tie[uni]}" >> informeCOLOR.txt
-				printf "${cad_can_tie[uni]}" >> informeBN.txt
-			done
-		done
+		unidades_posibles=$(($tiempo_transcurrido+1))						#Lo ajusto al tiempo actual (+1 para el t=0).
 	fi
+
+	echo "columnas restantes de la pantalla: $columnas_bt"
+	echo "unidades posibles: $unidades_posibles"
+	echo ""
+
+	#Si es la primera vez que se imprime, imprimir el t=0.
+	#if [[ $primvez==true ]]
+	#then
+	#	for (( esp_ini=0; esp_ini<$tam_unidad_bt; esp_ini++ ))
+	#	do
+	#		cad_pro_aux_bt=${cad_pro_aux_bt}" "
+	#		cad_cua_aux_bt=${cad_cua_aux_bt}"\u2588"
+	#	done
+	#	for (( esp_ini=0; esp_ini<$tam_unidad_bt-${#tiempo_transcurrido}; esp_ini++ ))
+	#	do
+	#		cad_tie_aux_bt=${cad_tie_aux_bt}" "
+	#	done
+	#	cad_tie_aux_bt=${cad_tie_aux_bt}"$tiempo_transcurrido"
+	#	echo -e "    |${cad_pro_aux_bt}|"
+	#	echo -e " BT |${cad_cua_aux_bt}| T=$tiempo_transcurrido"
+	#	echo -e "    |${cad_tie_aux_bt}|"
+	#fi
+
+	uds_impresas_pro=0 														#Contador de las unidades impresas en la cadena de procesos.
+	uds_impresas_tie=0 														#Contador de las unidades impresas en la cadena de procesos.
+	uds_impresas_can_tie=0 													#Contador de las unidades impresas en la cadena de procesos.
+	lineas_impresas_bt=0 													#Contador de lineas adicionales impresas.
+
+	while [[ $uds_impresas_pro -le $tiempo_transcurrido ]]					#Mientras queden unidades de tiempo que representar (<= para el t=0),
+	do
+		columnas_bt=$(($(tput cols)-5)) 									#Reseteo el valor de columnas restantes.
+
+		echo "unidades en barra de procesos: ${#cad_proc_col_bt[@]}"
+		echo "uinidades impresas cad pro: $uds_impresas_pro"
+		echo "unidades en barra de cuadrados: ${#cad_tie_col[@]}"
+		echo "uinidades impresas cad tie: $uds_impresas_tie"
+		echo "unidades en barra de tiempo: ${#cad_can_tie[@]}"
+		echo "uinidades impresas cad can tie: $uds_impresas_can_tie"
+		echo ""
+		echo "lineas impresas: $lineas_impresas_bt"
+
+
+		## Impresión de cadena de procesos.
+		echo ""
+		echo "" >> informeCOLOR.txt
+		echo "" >> informeBN.txt
+		if $prim_linea_proc													#Si es la primera línea de la barra,
+		then
+			echo -n "    |"													#Imprimo la cabecera con la barra en una nueva línea.
+			echo -n "    |" >> informeCOLOR.txt
+			echo -n "    |" >> informeBN.txt
+			prim_linea_proc=false 											#Ya no es la primera línea.
+		else 																#Si no es la primera línea de la barra,
+			echo -n "     "													#Imprimo la cabecera de espacios en una nueva línea.
+			echo -n "     " >> informeCOLOR.txt
+			echo -n "     " >> informeBN.txt
+			let lineas_impresas_bt=lineas_impresas_bt+1
+		fi
+		for (( uni=0; uni<$unidades_posibles; uni++ ))						#Para cada unidad que cabe en la línea,
+		do
+			let uni_linea=uni+uds_impresas_pro*lineas_impresas_bt						#calculo el índice a imprimir según las lineas impresas anteriormente.
+			echo -ne ${cad_proc_col_bt[$uni_linea]}							#Imprimo la unidad en la misma línea.
+			echo -ne ${cad_proc_col_bt[$uni_linea]} >> informeCOLOR.txt
+			echo -ne ${cad_proc_byn_bt[$uni_linea]} >> informeBN.txt
+			let uds_impresas_pro=uds_impresas_pro+1 						#Sumo el contador de unidades impresas.
+			let columnas_bt=columnas_bt-tam_unidad_bt 						#Resto el contador de columnas restantes.
+		done
+		#for uni in ${cad_proc_col_bt[@]}									#Para cada unidad,
+		#do
+		#	echo -ne $uni													#Imprimo la unidad en la misma línea.
+		#	echo -ne $uni >> informeCOLOR.txt
+		#done
+		#for uni in ${cad_proc_byn_bt[@]}
+		#do
+		#	printf $uni >> informeBN.txt
+		#done
+		if [[ $uds_impresas_pro -eq ${#cad_proc_col_bt[@]} ]]
+		then
+			printf "|"
+			printf "|" >> informeCOLOR.txt
+			printf "|" >> informeBN.txt
+		fi
+
+
+		## Impresión de cadena de tiempo.
+		echo ""
+		echo "" >> informeCOLOR.txt
+		echo "" >> informeBN.txt
+		if $prim_linea_tie 													#Si es la primera línea de la barra,
+		then
+			echo -n " BT |"													#Imprimo la cabecera con la barra en una nueva línea.
+			echo -n " BT |" >> informeCOLOR.txt
+			echo -n " BT |" >> informeBN.txt
+			prim_linea_tie=false 											#Ya no es la primera línea.
+		else 																#Si no es la primera línea de la barra,
+			echo -n "     "													#Imprimo la cabecera de espacios en una nueva línea.
+			echo -n "     " >> informeCOLOR.txt
+			echo -n "     " >> informeBN.txt
+		fi
+		for (( uni=0; uni<$unidades_posibles; uni++ ))						#Para cada unidad que cabe en la línea,
+		do
+			let uni_linea=uni+uds_impresas_tie*lineas_impresas_bt						#Calculo el índice a imprimir según las lineas impresas anteriormente.
+			echo -ne ${cad_tie_col[$uni_linea]}								#Imprimo la unidad en la misma línea.
+			echo -ne ${cad_tie_col[$uni_linea]} >> informeCOLOR.txt
+			echo -ne ${cad_tie_byn[$uni_linea]} >> informeBN.txt
+			let uds_impresas_tie=uds_impresas_tie+1 						#Sumo el contador de unidades impresas.
+		done
+		#for uni in ${cad_tie_col[@]}
+		#do
+		#	printf $uni 													#Imprimo la unidad en la misma línea.
+		#	printf $uni >> informeCOLOR.txt
+		#done
+		#for uni in ${cad_tie_byn[@]}
+		#do
+		#	printf $uni >> informeBN.txt
+		#done
+		if [[ $uds_impresas_tie -eq ${#cad_tie_col[@]} ]]
+		then
+			printf "| T=$tiempo_transcurrido"
+			printf "| T=$tiempo_transcurrido" >> informeCOLOR.txt
+			printf "| T=$tiempo_transcurrido" >> informeBN.txt
+		fi
+
+
+		## Impresión de cadena de cantidad de tiempo.
+		echo ""
+		echo "" >> informeCOLOR.txt
+		echo "" >> informeBN.txt
+		if $prim_linea_can_tie												#Si es la primera línea de la barra,
+		then
+			echo -n "    |"													#Imprimo la cabecera con la barra en una nueva línea.
+			echo -n "    |" >> informeCOLOR.txt
+			echo -n "    |" >> informeBN.txt
+			contCarac=0
+			prim_linea_can_tie=false 										#Ya no es la primera línea.
+		else 																#Si no es la primera línea de la barra,
+			echo -n "     "													#Imprimo la cabecera de espacios en una nueva línea.
+			echo -n "     " >> informeCOLOR.txt
+			echo -n "     " >> informeBN.txt
+		fi
+		for (( uni=0; uni<$unidades_posibles; uni++, contCarac++ ))			#Para cada unidad que cabe en la línea, 
+		do
+			let uni_linea=uni+uds_impresas_can_tie*lineas_impresas_bt					#Calculo el índice a imprimir según las lineas impresas anteriormente.
+			echo -ne ${cad_can_tie[$uni_linea]}								#Imprimo la unidad en la misma línea.
+			echo -ne ${cad_can_tie[$uni_linea]} >> informeCOLOR.txt
+			echo -ne ${cad_can_tie[$uni_linea]} >> informeBN.txt
+			let uds_impresas_can_tie=uds_impresas_can_tie+1 				#Sumo el contador de unidades impresas.
+		done
+		#for uni in ${cad_can_tie[@]}
+		#do
+		#	printf $uni 													#Imprimo la unidad en la misma línea.
+		#	printf $uni >> informeCOLOR.txt
+		#	printf $uni >> informeBN.txt
+		#done
+		if [[ $uds_impresas_can_tie -eq ${#cad_can_tie[@]} ]]
+		then
+			printf "|"
+			printf "|" >> informeCOLOR.txt
+			printf "|" >> informeBN.txt
+		fi
+	done
+	
 
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -4542,6 +4625,7 @@ actualizar_bt()
 			cadtiempo3[$j]=${cad3[$j]}"|"
 		fi
 
+
 		#Representacion de la Barra de tiempo
 		if [[ $i == 0 ]] 															#Si es el primer caracter de la barra de tiempo,
 		then
@@ -4560,9 +4644,14 @@ actualizar_bt()
 			num_linea=1
 		else 																		#Si no es el primer caracter,
 			let unidades_posibles=columnas_bt/tam_unidad_bt 						#Calculo cuántas unidades caben en lo que queda de pantalla.
+			if [[ $tiempo_transcurrido -lt $unidades_posibles ]]					#Si no hay tantas unidades de tiempo que representar,
+			then
+				unidades_posibles=$tiempo_transcurrido								#Lo ajusto al tiempo actual.
+			fi
 
-			pos_linea=$(($i-($(tput cols)-5)*$num_linea))							#La posición en la línea actual  es la posición del caracter en la cadena menos  ( el número de caracteres 
+			pos_linea=$(($i-($(tput cols)-5)*$num_linea))							#La posición en la línea actual es la posición del caracter en la cadena menos  ( el número de caracteres 
 																					#de la línea de pantalla menos 5 de cabecera, por el número de líneas de barra de tiempo que se han escrito ).
+			
  			
  			if [[ $pos_linea -lt $(($unidades_posibles*$tam_unidad_bt))  ]]
  			then
@@ -5069,15 +5158,11 @@ algoritmob()
 	calcularcol
 
 	actualizar_ltsec
-	actualizar_bt_info
 	
-	tabla_ejecucion
-
-	actualizar_linea
-	actualizar_bt_line
+	#tabla_ejecucion
 
 	tablapvez=0
-	tiempo_transcurrido=$(($tiempo_transcurrido+${T_ENTRADA[0]}))
+	#tiempo_transcurrido=$(($tiempo_transcurrido+${T_ENTRADA[0]}))
 
 	#El bucle se repite hasta que no queden procesos por ejecutar
 	while [ $procesos_terminados -lt $num_proc ]
@@ -5096,9 +5181,11 @@ algoritmob()
 		comparar_estados
 
 		actualizar_ltsec
-		actualizar_bt_info
 
-		#Ahora aparece en el texto de la BT un proceso y el tiempo transcurrido si termina su cuantum, aunque sea el unico proceso en memoria.
+		actualizar_bt_info
+		actualizar_bt_linea
+
+		#Ahora aparece en el texto de la BT un proceso y el tiempo transcurrido si termina su quántum, aunque sea el unico proceso en memoria.
 		#Esta parte pausa la ejecucion en cada evento
 		if [[ $evento = 1 ]] || [[ -z $proc_actual ]] || [[ $((${T_EJEC[$proc_actual]} % $quantum)) = 1 ]] || [[ $quantum = 1 ]]
 		then
@@ -5119,8 +5206,7 @@ algoritmob()
 		tant=$tiempo_transcurrido
 		let tiempo_transcurrido=tiempo_transcurrido+1
 
-		actualizar_linea
-		actualizar_bt_line
+
 
 		if [[ ! -z $proc_actual ]]
 		then
@@ -5144,11 +5230,15 @@ algoritmob()
 			EN_MEMO[$proc_actual]="No"
 			ESTADO[$proc_actual]="Terminado"
 			TIEMPO_FIN[$proc_actual]=$tiempo_transcurrido
-			procesos_terminados=$(( $procesos_terminados + 1 ))
+			let procesos_terminados=procesos_terminados+1
 		fi
 	done
+
 	actualizar_ltsec
 	actualizar_bt_info
+
+	ultvez=1
+	tabla_ejecucion
 }
 
 
@@ -5307,8 +5397,6 @@ iniciar_bt								#Inicia la barra de tiempo.
 algoritmob 								#Algoritmo principal
 
 #clear
-ultvez=1
-tabla_ejecucion
 
 if [ -f log.temp ]
 then
