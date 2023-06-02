@@ -4331,12 +4331,10 @@ actualizar_bt_info()
 
 		if [[ ${#NUMPROC[$proc_actual]} -eq 1 ]]															#Si el proceso tiene una cifra,
 		then
-			#cad_proc_col_bt[$tiempo_transcurrido]="\e[${color[$colimp]}mP0${NUMPROC[$proc_actual]}\e[0m"	#Añado el proceso con un 0 delante en color a la cadena de color.
-			cad_uni_proc_col_bt=${cad_uni_proc_col_bt[@]}"\e[${color[$colimp]}mP0${NUMPROC[$proc_actual]}\e[0m"
+			cad_proc_col_bt[$tiempo_transcurrido]="\e[${color[$colimp]}mP0${NUMPROC[$proc_actual]}\e[0m"	#Añado el proceso con un 0 delante en color a la cadena de color.
 			cad_proc_byn_bt[$tiempo_transcurrido]="P0${NUMPROC[$proc_actual]}"								#Añado el proceso con un 0 delante a la cadena en blanco y negro.
 		else 																								#Si tiene más de una cifra,
-			#cad_proc_col_bt[$tiempo_transcurrido]="\e[${color[$colimp]}mP${NUMPROC[$proc_actual]}\e[0m"	#Añado el proceso sin el 0 delante en color a la cadena de color.
-			cad_uni_proc_col_bt=${cad_uni_proc_col_bt[@]}"\e[${color[$colimp]}mP${NUMPROC[$proc_actual]}\e[0m"
+			cad_proc_col_bt[$tiempo_transcurrido]="\e[${color[$colimp]}mP${NUMPROC[$proc_actual]}\e[0m"	#Añado el proceso sin el 0 delante en color a la cadena de color.
 			cad_proc_byn_bt[$tiempo_transcurrido]="P${NUMPROC[$proc_actual]}"								#Añado el proceso sin el 0 delante a la cadena en blanco y negro.
 		fi
 		proc_ante=$proc_actual																				#Actualizo la referencia de proceso anterior.
@@ -4345,17 +4343,10 @@ actualizar_bt_info()
 
 	for (( esp=0; esp<$tam_unidad_bt-$esp_ocupado; esp++ ))													#Por cada hueco hasta completar la unidad menos lo ocupado por el proceso (si no había, 0),
 	do
-		#cad_proc_col_bt[$tiempo_transcurrido]=${cad_proc_col_bt[$tiempo_transcurrido]}" "					#Añado un espacio.
-		echo "añadido espacio a cad pr"
-		cad_uni_proc_col_bt=${cad_uni_proc_col_bt[@]}" "
+		cad_proc_col_bt[$tiempo_transcurrido]=${cad_proc_col_bt[$tiempo_transcurrido]}" "					#Añado un espacio.
 		cad_proc_byn_bt[$tiempo_transcurrido]=${cad_proc_byn_bt[$tiempo_transcurrido]}" "
 	done
-		
-	cad_proc_col_bt[$tiempo_transcurrido]=${cad_uni_proc_col_bt[@]}
-	for uni in ${cad_proc_col_bt[@]}
-	do
-		echo -e "unidad en cad pr: |$uni|"
-	done
+
 
 	## Adición de la cadena de cuadrados en la barra de tiempo.
 	if [[ ! -z $proc_actual ]] 																				#Si hay un proceso en ejecución,
@@ -4486,10 +4477,10 @@ imprimir_bt()
 		fi
 		for (( uni=0; uni<$unidades_posibles; uni++ ))						#Para cada unidad que cabe en la línea,
 		do
-			let uni_linea=uni+unidades_pantalla*lineas_impresas_bt			#calculo el índice a imprimir según las lineas impresas anteriormente.
-			echo -ne ${cad_proc_col_bt[$uni_linea]}							#Imprimo la unidad en la misma línea.
-			echo -ne ${cad_proc_col_bt[$uni_linea]} >> informeCOLOR.txt
-			echo -ne ${cad_proc_byn_bt[$uni_linea]} >> informeBN.txt
+			let uni_linea=uni+unidades_pantalla*lineas_impresas_bt			#Calculo el índice a imprimir según las lineas impresas anteriormente.
+			echo -ne "${cad_proc_col_bt[$uni_linea]}"						#Imprimo la unidad en la misma línea.
+			echo -ne "${cad_proc_col_bt[$uni_linea]}" >> informeCOLOR.txt
+			echo -ne "${cad_proc_byn_bt[$uni_linea]}" >> informeBN.txt
 			let uds_impresas_pro=uds_impresas_pro+1 						#Sumo el contador de unidades impresas.
 			let columnas_bt=columnas_bt-tam_unidad_bt 						#Resto el contador de columnas restantes.
 		done
@@ -4527,10 +4518,10 @@ imprimir_bt()
 		fi
 		for (( uni=0; uni<$unidades_posibles; uni++ ))						#Para cada unidad que cabe en la línea,
 		do
-			let uni_linea=uni+unidades_pantalla*lineas_impresas_bt						#Calculo el índice a imprimir según las lineas impresas anteriormente.
-			echo -ne ${cad_tie_col[$uni_linea]}								#Imprimo la unidad en la misma línea.
-			echo -ne ${cad_tie_col[$uni_linea]} >> informeCOLOR.txt
-			echo -ne ${cad_tie_byn[$uni_linea]} >> informeBN.txt
+			let uni_linea=uni+unidades_pantalla*lineas_impresas_bt			#Calculo el índice a imprimir según las lineas impresas anteriormente.
+			echo -ne "${cad_tie_col[$uni_linea]}"							#Imprimo la unidad en la misma línea.
+			echo -ne "${cad_tie_col[$uni_linea]}" >> informeCOLOR.txt
+			echo -ne "${cad_tie_byn[$uni_linea]}" >> informeBN.txt
 			let uds_impresas_tie=uds_impresas_tie+1 						#Sumo el contador de unidades impresas.
 		done
 		#for uni in ${cad_tie_col[@]}
@@ -4568,10 +4559,10 @@ imprimir_bt()
 		fi
 		for (( uni=0; uni<$unidades_posibles; uni++, contCarac++ ))			#Para cada unidad que cabe en la línea, 
 		do
-			let uni_linea=uni+unidades_pantalla*lineas_impresas_bt					#Calculo el índice a imprimir según las lineas impresas anteriormente.
-			echo -ne ${cad_can_tie[$uni_linea]}								#Imprimo la unidad en la misma línea.
-			echo -ne ${cad_can_tie[$uni_linea]} >> informeCOLOR.txt
-			echo -ne ${cad_can_tie[$uni_linea]} >> informeBN.txt
+			let uni_linea=uni+unidades_pantalla*lineas_impresas_bt			#Calculo el índice a imprimir según las lineas impresas anteriormente.
+			echo -ne "${cad_can_tie[$uni_linea]}"							#Imprimo la unidad en la misma línea.
+			echo -ne "${cad_can_tie[$uni_linea]}" >> informeCOLOR.txt
+			echo -ne "${cad_can_tie[$uni_linea]}" >> informeBN.txt
 			let uds_impresas_can_tie=uds_impresas_can_tie+1 				#Sumo el contador de unidades impresas.
 		done
 		#for uni in ${cad_can_tie[@]}
