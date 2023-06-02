@@ -4425,7 +4425,7 @@ imprimir_bt()
 		else 																#Si no se pasan,
 			unidades_posibles=$unidades_pantalla							#Las unidades posibles son todas las que caben en pantalla.
 		fi
-		
+
 
 		## Impresión de cadena de procesos.
 		echo ""
@@ -4601,6 +4601,7 @@ inicializar()
 	for(( pr=0 ; pr<$num_proc ; pr++ ))		#Setea todos los procesos:
 	do
 		ESTADO[$pr]="Fuera de Sistema"		#Fuera del sistema.
+		PART[$pr]=-1
 		EN_MEMO[$pr]="S/E"					#Fuera de memoria.
 		TIEMPO_FIN[$pr]=0 					#Sin tiempo de fin.
 
@@ -4640,7 +4641,7 @@ meterenmemo()
 		then
 			EN_MEMO[$pr]="Si"												#Cambia el estado del proceso.
 			PART[$pr]=$part_vacia_may 										#Asigna la partición al proceso.
-			PROC[$part_vacia_may]=$pr 													#Asigna el proceso a la partición.
+			PROC[$part_vacia_may]=$pr 										#Asigna el proceso a la partición.
 		fi
 	done
 }
