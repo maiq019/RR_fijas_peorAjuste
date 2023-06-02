@@ -4399,14 +4399,6 @@ actualizar_bt_info()
 }
 
 
-### Actualiza la cadena de cuadraditos de la barra de tiempo añadiendo otra unidad de tiempo.
-actualizar_bt_linea()
-{
-	echo "actualizada bt linea t=$tiempo_transcurrido"
-	
-}
-
-
 ### Representación de la Barra de Tiempo.
 imprimir_bt()
 {
@@ -4416,13 +4408,17 @@ imprimir_bt()
 	prim_linea_tie=true
 	prim_linea_can_tie=true
 
-	let unidades_posibles=columnas_bt/tam_unidad_bt 						#Calculo cuántas unidades caben en lo que queda de pantalla.
-	if [[ $(($tiempo_transcurrido+1)) -lt $unidades_posibles ]]				#Si no hay tantas unidades de tiempo que representar,
+	let unidades_pantalla=columnas_bt/tam_unidad_bt 						#Calculo cuántas unidades caben en lo que queda de pantalla.
+	if [[ $(($tiempo_transcurrido+1)) -lt $unidades_pantalla ]]				#Si no hay tantas unidades de tiempo que representar,
 	then
 		unidades_posibles=$(($tiempo_transcurrido+1))						#Lo ajusto al tiempo actual (+1 para el t=0).
+	else 																	#Si no se pasan,
+		unidades_posibles=$unidades_pantalla								#Las unidades posibles son todas las que caben en pantalla.
 	fi
 
+
 	echo "columnas restantes de la pantalla: $columnas_bt"
+	echo "unidades caben en pantalla: $unidades_pantalla"
 	echo "unidades posibles: $unidades_posibles"
 	echo ""
 
@@ -4449,16 +4445,25 @@ imprimir_bt()
 	uds_impresas_can_tie=0 													#Contador de las unidades impresas en la cadena de procesos.
 	lineas_impresas_bt=0 													#Contador de lineas adicionales impresas.
 
-	while [[ $uds_impresas_pro -le $tiempo_transcurrido ]]					#Mientras queden unidades de tiempo que representar (<= para el t=0),
+	while [[ $uds_impresas_tie -lt ${#cad_tie_col[@]} ]]					#Mientras queden unidades de tiempo que representar (<= para el t=0),
 	do
 		columnas_bt=$(($(tput cols)-5)) 									#Reseteo el valor de columnas restantes.
+		let unidades_pantalla=columnas_bt/tam_unidad_bt 					#Calculo cuántas unidades caben en lo que queda de pantalla.
+		if [[ $unidades_pantalla -gt $((${#cad_tie_col[@]}-$uds_impresas_tie)) ]]	#Si las unidades posibles se va a pasar de las necesarias,
+		then
+			unidades_posibles=$((${#cad_tie_col[@]}-$uds_impresas_tie))		#Ajusto el valor a las que quedan por imprimir.
+		else 																#Si no se pasan,
+			unidades_posibles=$unidades_pantalla							#Las unidades posibles son todas las que caben en pantalla.
+		fi
 
+		echo ""
 		echo "unidades en barra de procesos: ${#cad_proc_col_bt[@]}"
 		echo "uinidades impresas cad pro: $uds_impresas_pro"
 		echo "unidades en barra de cuadrados: ${#cad_tie_col[@]}"
 		echo "uinidades impresas cad tie: $uds_impresas_tie"
 		echo "unidades en barra de tiempo: ${#cad_can_tie[@]}"
 		echo "uinidades impresas cad can tie: $uds_impresas_can_tie"
+		echo "unidades posibles: $unidades_posibles"
 		echo ""
 		echo "lineas impresas: $lineas_impresas_bt"
 
@@ -4481,7 +4486,7 @@ imprimir_bt()
 		fi
 		for (( uni=0; uni<$unidades_posibles; uni++ ))						#Para cada unidad que cabe en la línea,
 		do
-			let uni_linea=uni+uds_impresas_pro*lineas_impresas_bt						#calculo el índice a imprimir según las lineas impresas anteriormente.
+			let uni_linea=uni+unidades_pantalla*lineas_impresas_bt			#calculo el índice a imprimir según las lineas impresas anteriormente.
 			echo -ne ${cad_proc_col_bt[$uni_linea]}							#Imprimo la unidad en la misma línea.
 			echo -ne ${cad_proc_col_bt[$uni_linea]} >> informeCOLOR.txt
 			echo -ne ${cad_proc_byn_bt[$uni_linea]} >> informeBN.txt
@@ -4522,7 +4527,7 @@ imprimir_bt()
 		fi
 		for (( uni=0; uni<$unidades_posibles; uni++ ))						#Para cada unidad que cabe en la línea,
 		do
-			let uni_linea=uni+uds_impresas_tie*lineas_impresas_bt						#Calculo el índice a imprimir según las lineas impresas anteriormente.
+			let uni_linea=uni+unidades_pantalla*lineas_impresas_bt						#Calculo el índice a imprimir según las lineas impresas anteriormente.
 			echo -ne ${cad_tie_col[$uni_linea]}								#Imprimo la unidad en la misma línea.
 			echo -ne ${cad_tie_col[$uni_linea]} >> informeCOLOR.txt
 			echo -ne ${cad_tie_byn[$uni_linea]} >> informeBN.txt
@@ -4563,7 +4568,7 @@ imprimir_bt()
 		fi
 		for (( uni=0; uni<$unidades_posibles; uni++, contCarac++ ))			#Para cada unidad que cabe en la línea, 
 		do
-			let uni_linea=uni+uds_impresas_can_tie*lineas_impresas_bt					#Calculo el índice a imprimir según las lineas impresas anteriormente.
+			let uni_linea=uni+unidades_pantalla*lineas_impresas_bt					#Calculo el índice a imprimir según las lineas impresas anteriormente.
 			echo -ne ${cad_can_tie[$uni_linea]}								#Imprimo la unidad en la misma línea.
 			echo -ne ${cad_can_tie[$uni_linea]} >> informeCOLOR.txt
 			echo -ne ${cad_can_tie[$uni_linea]} >> informeBN.txt
@@ -4583,6 +4588,16 @@ imprimir_bt()
 		fi
 	done
 	
+	echo ""
+	echo "unidades en barra de procesos: ${#cad_proc_col_bt[@]}"
+	echo "uinidades impresas cad pro: $uds_impresas_pro"
+	echo "unidades en barra de cuadrados: ${#cad_tie_col[@]}"
+	echo "uinidades impresas cad tie: $uds_impresas_tie"
+	echo "unidades en barra de tiempo: ${#cad_can_tie[@]}"
+	echo "uinidades impresas cad can tie: $uds_impresas_can_tie"
+	echo "unidades posibles: $unidades_posibles"
+	echo ""
+	echo "lineas impresas: $lineas_impresas_bt"
 
 	echo ""
 	echo "" >> informeCOLOR.txt
@@ -5183,7 +5198,6 @@ algoritmob()
 		actualizar_ltsec
 
 		actualizar_bt_info
-		actualizar_bt_linea
 
 		#Ahora aparece en el texto de la BT un proceso y el tiempo transcurrido si termina su quántum, aunque sea el unico proceso en memoria.
 		#Esta parte pausa la ejecucion en cada evento
