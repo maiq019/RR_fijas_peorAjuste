@@ -690,19 +690,27 @@ lee_datos() {
 
 
 	#Volcado de datos a los informes.
-	#He modificado el dato de tamaño de particiones para ajustarse a particiones no iguales.
-	echo "		>> Numero de particiones: $n_par" >> informeCOLOR.txt
-	echo "		>> Numero de particiones: $n_par" >> informeBN.txt
-	echo "		>> Tamaño de particiones: ${tam_par[@]}" >> informeCOLOR.txt
-	echo "		>> Tamaño de particiones: ${tam_par[@]}" >> informeBN.txt
-	echo "		>> Quantum de tiempo: $quantum" >> informeCOLOR.txt
-	echo "		>> Quantum de tiempo: $quantum" >> informeBN.txt
-	echo "		>> $num_proc procesos." >> informeCOLOR.txt
-	echo "		>> $num_proc procesos." >> informeBN.txt
+	datos_fichTfich
+	echo "      >> $num_proc procesos." >> informeCOLOR.txt
+	echo "      >> $num_proc procesos." >> informeBN.txt
 
 	#Una vez leido quantum y los datos de los procesos, escritura de la cabecera del informe y el enunciado.
 	escribe_cabecera_informe
 	escribe_enunciado
+}
+
+
+### Mete los datos sobre las particiones y el quantum obtenidos del fichero en el informe.
+#He modificado el dato de tamaño de particiones para ajustarse a particiones no iguales.
+datos_fichTfich()
+{
+	echo ""
+	echo "      >> Numero de particiones: $n_par" >> informeCOLOR.txt
+	echo "      >> Numero de particiones: $n_par" >> informeBN.txt
+	echo "      >> Tamaño de particiones: ${tam_par[@]}" >> informeCOLOR.txt
+	echo "      >> Tamaño de particiones: ${tam_par[@]}" >> informeBN.txt
+	echo "      >> Quantum de tiempo: $quantum" >> informeCOLOR.txt
+	echo "      >> Quantum de tiempo: $quantum" >> informeBN.txt
 }
 
 
@@ -733,14 +741,14 @@ escribe_enunciado()
 			c=0
 		fi
 
-		echo -ne "                   \e[${color[$c]}mP" >> informeCOLOR.txt
+		echo -ne "         \e[${color[$c]}mP" >> informeCOLOR.txt
 		printf "%02d " "${NUMPROC[$pr]}" >> informeCOLOR.txt
 		printf "%3s " "${T_ENTRADA[$pr]}" >> informeCOLOR.txt
 		printf "%3s " "${TEJ[$pr]}" >> informeCOLOR.txt
 		printf "%3s " "${MEMORIA[$pr]}" >> informeCOLOR.txt
 		echo -e "$resetColor" >> informeCOLOR.txt
 
-		echo -ne "                   P" >> informeBN.txt
+		echo -ne "         P" >> informeBN.txt
 		printf "%02d " "${NUMPROC[$pr]}" >> informeBN.txt
 		printf "%3s " "${T_ENTRADA[$pr]}" >> informeBN.txt
 		printf "%3s " "${TEJ[$pr]}" >> informeBN.txt
@@ -2245,7 +2253,6 @@ lectura_fichero()
 		let n_linea=n_linea+1 #Suma el número de líneas leídas.
 	done < $fich
 
-	datos_fichTfich
 	ordenacion_procesos
 	rm $fich
 }
@@ -2403,7 +2410,6 @@ lectura_fichero_aleatorio()
 		MEMORIA_I[$pr]="$memo_proc"
 	done
 
-	datos_fichTfich
 	ordenacion_procesos
 	rm $fich
 }
@@ -2640,23 +2646,8 @@ lectura_fichero_rangos_aleatorios()
 		MEMORIA_I[$pr]="$memo_proc"
 	done
 
-	datos_fichTfich
 	ordenacion_procesos
 	rm $fich
-}
-
-
-### Mete los datos sobre las particiones y el quantum obtenidos del fichero en el informe.
-#He modificado la función para adaptarse a particiones no iguales.
-datos_fichTfich()
-{
-	echo ""
-	echo "		>> Numero de particiones: $n_par" >> informeCOLOR.txt
-	echo "		>> Numero de particiones: $n_par" >> informeBN.txt
-	echo "		>> Tamaño de particiones: ${tam_par[@]}" >> informeCOLOR.txt
-	echo "		>> Tamaño de particiones: ${tam_par[@]}" >> informeBN.txt
-	echo "		>> Quantum de tiempo: $quantum" >> informeCOLOR.txt
-	echo "		>> Quantum de tiempo: $quantum" >> informeBN.txt
 }
 
 
@@ -4289,11 +4280,11 @@ iniciar_bt()
 			let mas_tarde=mas_tarde+${TEJ[$pr]}
 		fi
 	done
-	tam_unidad_bt=5
+	tam_unidad_bt=3
 	#Si va a haber procesos que lleven el tiempo a más de 3 cifras, se aumenta el tamaño de la unidad de tiempo.
-	if [[ $((${#mas_tarde}+2)) -gt $tam_unidad_bt ]]
+	if [[ $((${#mas_tarde}+1)) -gt $tam_unidad_bt ]]
 	then
-		tam_unidad_bt=$((${#mas_tarde}+2))
+		tam_unidad_bt=$((${#mas_tarde}+1))
 	fi
 
 	#cad_proc_col_bt=""
@@ -4363,26 +4354,25 @@ actualizar_bt()
 	else 																									#Si no hay un proceso en ejecución,
 		for (( esp=0; esp<$tam_unidad_bt; esp++ ))															#Por cada hueco hasta completar la unidad,
 		do
-			cad_tie_col[$tiempo_transcurrido]="${cad_tie_col[$tiempo_transcurrido]}\u2588"				#Añado un cuadrado blanco.
+			cad_tie_col[$tiempo_transcurrido]="${cad_tie_col[$tiempo_transcurrido]}\u2588"					#Añado un cuadrado blanco.
 			cad_tie_byn[$tiempo_transcurrido]="${cad_tie_byn[$tiempo_transcurrido]}\u2588"		
 		done
 	fi
 
 
 	## Adición de la cadena de cantidad de tiempo en la barra de tiempo.
-	for (( esp=0; esp<$tam_unidad_bt-${#tiempo_transcurrido}-1; esp++ ))								#Por cada hueco de la unidad menos lo que ocupe el tiempo menos un espacio final,
+	for (( esp=0; esp<$tam_unidad_bt-${#tiempo_transcurrido}; esp++ ))										#Por cada hueco de la unidad menos lo que ocupe el tiempo,
 	do
-		cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}" "						#Añado un espacio.
+		cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}" "							#Añado un espacio.
 	done
 	#Si es t=0, hay un evento, se acaba el quantum de un proceso en ejecución, el quantum es 1, o no hay proceso pero sí hay anterior,
 	if [[ $tiempo_transcurrido -eq 0 ]] || [[ $evento = 1 ]] || [[ $((${T_EJEC[$proc_actual]} % $quantum)) = 1 ]] || [[ $quantum = 1 ]] || ([[ -z $proc_actual ]] && [[ ! -z $proc_ante ]])
 	then
-		cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}"$tiempo_transcurrido"	#Añado el tiempo y un espacio final.
-		cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}" "
+		cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}"$tiempo_transcurrido"		#Añado el tiempo.
 	else 
-		for (( esp=0; esp<${#tiempo_transcurrido}+1; esp++ ))											#Por lo que ocuparía el tiempo mas un espacio final,
+		for (( esp=0; esp<${#tiempo_transcurrido}; esp++ ))													#Por lo que ocuparía el tiempo,
 		do
-			cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}" " 					#Añado un espacio.
+			cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}" " 						#Añado un espacio.
 		done
 	fi
 }
@@ -4391,11 +4381,6 @@ actualizar_bt()
 ### Representación de la Barra de Tiempo.
 imprimir_bt()
 {
-
-	echo "proceso anterior: $proc_ante"
-	echo "proceso actual: $proc_actual"
-
-
 	columnas_bt=$(($(tput cols)-5))
 	
 	prim_linea_proc=true
@@ -4958,8 +4943,8 @@ fi
 
 
 #clear
-echo "		> ROUND ROBIN" >> informeCOLOR.txt
-echo "		> ROUND ROBIN" >> informeBN.txt
+echo "      > ROUND ROBIN" >> informeCOLOR.txt
+echo "      > ROUND ROBIN" >> informeBN.txt
 
 #Calculo el tamaño del espacio representado en la barra por cada unidad de tiempo en función del tamaño del mayor tiempo de entrada.
 mas_tarde=0
