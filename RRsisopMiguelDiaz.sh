@@ -322,9 +322,9 @@ lee_datos() {
 		echo  " ¿Dónde guardar los datos?"
 		echo  " ¿Dónde guardar los datos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los datos?" >> informeBN.txt
-		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)"
-		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)" >> informeBN.txt
+		echo  " 1- Fichero de datos por defecto (DatosDefault.txt)"
+		echo  " 1- Fichero de datos por defecto (DatosDefault.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de datos por defecto (DatosDefault.txt)" >> informeBN.txt
 		echo  " 2- Otros ficheros de datos"
 		echo  " 2- Otros ficheros de datos" >> informeCOLOR.txt
 		echo  " 2- Otros ficheros de datos" >> informeBN.txt
@@ -374,8 +374,8 @@ lee_datos() {
 	if [ $dat_fich = '3' ] 
 	then
 		#clear
-		#Como ahora los otros ficheros de datos también terminan en .txt se eliminan los informes y el archivo últimos de la búsqueda.
-		ls | grep .txt | grep -v informeBN.txt | grep -v informeCOLOR.txt | grep -v DatosRangosRNG.txt | grep -v RNG* > listado.temp
+		#Se buscan archivos en el directorio Datos.
+		ls ./Datos | grep .txt | grep -v informeBN.txt | grep -v informeCOLOR.txt > listado.temp
 	
 		#Muestra el listado con ficheros posibles.
 		cat listado.temp
@@ -388,7 +388,7 @@ lee_datos() {
 		echo $fich >> informeCOLOR.txt
 		echo $fich >> informeBN.txt
 
-		while [ ! -f $fich ] #Si el fichero no existe, lectura erronea.
+		while [ ! -f ./Datos/"$fich" ] #Si el fichero no existe, lectura erronea.
 		do
 			echo " Entrada no válida, el fichero no se ha encontrado o no existe"
 			echo " Entrada no válida, el fichero no se ha encontrado o no existe" >> informeCOLOR.txt
@@ -420,32 +420,32 @@ lee_datos() {
 		echo  " ¿Dónde guardar los rangos?"
 		echo  " ¿Dónde guardar los rangos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los rangos?" >> informeBN.txt
-		echo  " 1- Fichero de rangos de última ejecución (DatosRangosRNG.txt)"
-		echo  " 1- Fichero de rangos de última ejecución (DatosRangosRNG.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de rangos de última ejecución (DatosRangosRNG.txt)" >> informeBN.txt
+		echo  " 1- Fichero de rangos por defecto (DatosRangosDefault.txt)"
+		echo  " 1- Fichero de rangos por defecto (DatosRangosDefault.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de rangos por defecto (DatosRangosDefault.txt)" >> informeBN.txt
 		echo  " 2- Otros ficheros de rangos"
 		echo  " 2- Otros ficheros de rangos" >> informeCOLOR.txt
 		echo  " 2- Otros ficheros de rangos" >> informeBN.txt
 
-		read opcion_guardado_rangos
+		read opcion_guardado_datos_rangos
 
 		#He añadido una explicación más detallada del error de introducción de opción.
-		while [ "${opcion_guardado_rangos}" != "1" -a "${opcion_guardado_rangos}" != "2" ] #Lectura errónea.
+		while [ "${opcion_guardado_datos_rangos}" != "1" -a "${opcion_guardado_datos_rangos}" != "2" ] #Lectura errónea.
 		do
 			echo "Entrada no válida, elija introduciendo 1 o 2; ¿Dónde guardar los rangos?"
-			read opcion_guardado_rangos
+			read opcion_guardado_datos_rangos
 		done
 
-		echo $opcion_guardado_rangos >> informeCOLOR.txt
-		echo $opcion_guardado_rangos >> informeBN.txt
+		echo $opcion_guardado_datos_rangos >> informeCOLOR.txt
+		echo $opcion_guardado_datos_rangos >> informeBN.txt
 	
 		#Si se guarda en otro fichero, pregunta el nombre.
-		if [ "${opcion_guardado_rangos}" == "2" ]
+		if [ "${opcion_guardado_datos_rangos}" == "2" ]
 		then
 			echo  " Nombre del nuevo fichero con rangos: (No poner .txt)"
 			echo  " Nombre del nuevo fichero con rangos: (No poner .txt)" >> informeCOLOR.txt
 			echo  " Nombre del nuevo fichero con rangos: (No poner .txt)" >> informeBN.txt
-			read nombre_fichero_rangos
+			read nombre_fichero_datos_rangos
 		fi
 
 		#clear
@@ -453,26 +453,26 @@ lee_datos() {
 		echo  " ¿Dónde guardar los datos?"
 		echo  " ¿Dónde guardar los datos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los datos?" >> informeBN.txt
-		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)"
-		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)" >> informeBN.txt
+		echo  " 1- Fichero de datos por defecto (DatosDefault.txt)"
+		echo  " 1- Fichero de datos por defecto (DatosDefault.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de datos por defecto (DatosDefault.txt)" >> informeBN.txt
 		echo  " 2- Otros ficheros de datos"
 		echo  " 2- Otros ficheros de datos" >> informeCOLOR.txt
 		echo  " 2- Otros ficheros de datos" >> informeBN.txt
 
-		read opcion_guardado_datos_rangos
+		read opcion_guardado_datos
 
-		while [ "${opcion_guardado_datos_rangos}" != "1" -a "${opcion_guardado_datos_rangos}" != "2" ] #Lectura errónea.
+		while [ "${opcion_guardado_datos}" != "1" -a "${opcion_guardado_datos}" != "2" ] #Lectura errónea.
 		do
 			echo " Entrada no válida, elija introduciendo 1 o 2; ¿Dónde guardar los datos?"
-			read opcion_guardado_datos_rangos
+			read opcion_guardado_datos
 		done
 
-		echo $opcion_guardado_datos_rangos >> informeCOLOR.txt
-		echo $opcion_guardado_datos_rangos >> informeBN.txt
+		echo $opcion_guardado_datos >> informeCOLOR.txt
+		echo $opcion_guardado_datos >> informeBN.txt
 
 		#Si se guarda en otro fichero, pregunta el nombre.
-		if [ "${opcion_guardado_datos_rangos}" == "2" ]
+		if [ "${opcion_guardado_datos}" == "2" ]
 		then
 			echo  " Nombre del nuevo fichero con datos: (No poner .txt)"
 			echo  " Nombre del nuevo fichero con datos: (No poner .txt)" >> informeCOLOR.txt
@@ -493,14 +493,14 @@ lee_datos() {
 	#Lectura de fichero de última ejecución de datos aleatorios.
 	if [ $dat_fich = '5' ]
 	then 
-		lectura_fichero_aleatorio "DatosRangosRNG.txt"
+		lectura_fichero_aleatorio "DatosRangosLast.txt"
 	fi
 
 
 	#Lectura de otros ficheros con datos aleatorios
 	if [ $dat_fich = '6' ] 
 	then 
-		ls | grep RNG* > listado.temp
+		ls ./DatosRangos | grep .txt | grep -v informeBN.txt | grep -v informeCOLOR.txt > listado.temp
 
 		#Muestra listados con ficheros.
 		cat listado.temp
@@ -513,7 +513,7 @@ lee_datos() {
 		echo $fich >> informeCOLOR.txt
 		echo $fich >> informeBN.txt
 
-		while [ ! -f $fich ] #Si el fichero no existe, lectura erronea.
+		while [ ! -f ./DatosRangos/"$fich" ] #Si el fichero no existe, lectura erronea.
 		do
 			echo " Entrada no válida, el fichero no se ha encontrado o no existe"
 			echo " Entrada no válida, el fichero no se ha encontrado o no existe" >> informeCOLOR.txt
@@ -542,32 +542,32 @@ lee_datos() {
 		echo  " ¿Dónde guardar los rangos para calcular rangos?"
 		echo  " ¿Dónde guardar los rangos para calcular rangos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los rangos para calcular rangos?" >> informeBN.txt
-		echo  " 1- Fichero de rangos para rangos de última ejecución (DatosRangosAleatoriosRNGALE.txt)"
-		echo  " 1- Fichero de rangos para rangos de última ejecución (DatosRangosAleatoriosRNGALE.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de rangos para rangos de última ejecución (DatosRangosAleatoriosRNGALE.txt)" >> informeBN.txt
+		echo  " 1- Fichero de rangos para rangos por defecto (DatosRangosAleatoriosDefault.txt)"
+		echo  " 1- Fichero de rangos para rangos por defecto (DatosRangosAleatoriosDefault.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de rangos para rangos por defecto (DatosRangosAleatoriosDefault.txt)" >> informeBN.txt
 		echo  " 2- Otros ficheros de rangos para rangos"
 		echo  " 2- Otros ficheros de rangos para rangos" >> informeCOLOR.txt
 		echo  " 2- Otros ficheros de rangos para rangos" >> informeBN.txt
 
-		read opcion_guardado_rangos_rangos
+		read opcion_guardado_datos_rangos_aleatorios
 
 		#He añadido una explicación más detallada del error de introducción de opción.
-		while [ "${opcion_guardado_rangos_rangos}" != "1" -a "${opcion_guardado_rangos_rangos}" != "2" ] #Lectura errónea.
+		while [ "${opcion_guardado_datos_rangos_aleatorios}" != "1" -a "${opcion_guardado_datos_rangos_aleatorios}" != "2" ] #Lectura errónea.
 		do
 			echo "Entrada no válida, elija introduciendo 1 o 2; ¿Dónde guardar los rangos para rangos?"
-			read opcion_guardado_rangos_rangos
+			read opcion_guardado_datos_rangos_aleatorios
 		done
 
-		echo $opcion_guardado_rangos_rangos >> informeCOLOR.txt
-		echo $opcion_guardado_rangos_rangos >> informeBN.txt
+		echo $opcion_guardado_datos_rangos_aleatorios >> informeCOLOR.txt
+		echo $opcion_guardado_datos_rangos_aleatorios >> informeBN.txt
 	
 		#Si se guarda en otro fichero, pregunta el nombre.
-		if [ "${opcion_guardado_rangos_rangos}" == "2" ]
+		if [ "${opcion_guardado_datos_rangos_aleatorios}" == "2" ]
 		then
 			echo  " Nombre del nuevo fichero con rangos para rangos: (No poner .txt)"
 			echo  " Nombre del nuevo fichero con rangos para rangos: (No poner .txt)" >> informeCOLOR.txt
 			echo  " Nombre del nuevo fichero con rangos para rangos: (No poner .txt)" >> informeBN.txt
-			read nombre_fichero_rangos_rangos
+			read nombre_fichero_datos_rangos_aleatorios
 		fi
 
 		#Guardado de datos en ficheros destinados rangos para datos aleatorios.
@@ -575,32 +575,32 @@ lee_datos() {
 		echo  " ¿Dónde guardar los rangos?"
 		echo  " ¿Dónde guardar los rangos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los rangos?" >> informeBN.txt
-		echo  " 1- Fichero de rangos de última ejecución (DatosRangosRNG.txt)"
-		echo  " 1- Fichero de rangos de última ejecución (DatosRangosRNG.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de rangos de última ejecución (DatosRangosRNG.txt)" >> informeBN.txt
+		echo  " 1- Fichero de rangos por defecto (DatosRangosDefault.txt)"
+		echo  " 1- Fichero de rangos por defecto (DatosRangosDefault.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de rangos por defecto (DatosRangosDefault.txt)" >> informeBN.txt
 		echo  " 2- Otros ficheros de rangos"
 		echo  " 2- Otros ficheros de rangos" >> informeCOLOR.txt
 		echo  " 2- Otros ficheros de rangos" >> informeBN.txt
 
-		read opcion_guardado_rangos_2
+		read opcion_guardado_datos_rangos
 
 		#He añadido una explicación más detallada del error de introducción de opción.
-		while [ "${opcion_guardado_rangos_2}" != "1" -a "${opcion_guardado_rangos_2}" != "2" ] #Lectura errónea.
+		while [ "${opcion_guardado_datos_rangos}" != "1" -a "${opcion_guardado_datos_rangos}" != "2" ] #Lectura errónea.
 		do
 			echo "Entrada no válida, elija introduciendo 1 o 2; ¿Dónde guardar los rangos?"
-			read opcion_guardado_rangos_2
+			read opcion_guardado_datos_rangos
 		done
 
-		echo $opcion_guardado_rangos_2 >> informeCOLOR.txt
-		echo $opcion_guardado_rangos_2 >> informeBN.txt
+		echo $opcion_guardado_datos_rangos >> informeCOLOR.txt
+		echo $opcion_guardado_datos_rangos >> informeBN.txt
 	
 		#Si se guarda en otro fichero, pregunta el nombre.
-		if [ "${opcion_guardado_rangos_2}" == "2" ]
+		if [ "${opcion_guardado_datos_rangos}" == "2" ]
 		then
 			echo  " Nombre del nuevo fichero con rangos: (No poner .txt)"
 			echo  " Nombre del nuevo fichero con rangos: (No poner .txt)" >> informeCOLOR.txt
 			echo  " Nombre del nuevo fichero con rangos: (No poner .txt)" >> informeBN.txt
-			read nombre_fichero_rangos
+			read nombre_fichero_datos_rangos
 		fi
 
 		#clear
@@ -608,26 +608,26 @@ lee_datos() {
 		echo  " ¿Dónde guardar los datos?"
 		echo  " ¿Dónde guardar los datos?" >> informeCOLOR.txt
 		echo  " ¿Dónde guardar los datos?" >> informeBN.txt
-		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)"
-		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de datos de última ejecución (DatosLast.txt)" >> informeBN.txt
+		echo  " 1- Fichero de datos por defecto (DatosDefault.txt)"
+		echo  " 1- Fichero de datos por defecto (DatosDefault.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de datos por defecto (DatosDefault.txt)" >> informeBN.txt
 		echo  " 2- Otros ficheros de datos"
 		echo  " 2- Otros ficheros de datos" >> informeCOLOR.txt
 		echo  " 2- Otros ficheros de datos" >> informeBN.txt
 
-		read opcion_guardado_datos_rangos_2
+		read opcion_guardado_datos
 
-		while [ "${opcion_guardado_datos_rangos_2}" != "1" -a "${opcion_guardado_datos_rangos_2}" != "2" ] #Lectura errónea.
+		while [ "${opcion_guardado_datos}" != "1" -a "${opcion_guardado_datos}" != "2" ] #Lectura errónea.
 		do
 			echo " Entrada no válida, elija introduciendo 1 o 2; ¿Dónde guardar los datos?"
-			read opcion_guardado_datos_rangos_2
+			read opcion_guardado_datos
 		done
 
-		echo $opcion_guardado_datos_rangos_2 >> informeCOLOR.txt
-		echo $opcion_guardado_datos_rangos_2 >> informeBN.txt
+		echo $opcion_guardado_datos >> informeCOLOR.txt
+		echo $opcion_guardado_datos >> informeBN.txt
 
 		#Si se guarda en otro fichero, pregunta el nombre.
-		if [ "${opcion_guardado_datos_rangos_2}" == "2" ]
+		if [ "${opcion_guardado_datos}" == "2" ]
 		then
 			echo  " Nombre del nuevo fichero con datos: (No poner .txt)"
 			echo  " Nombre del nuevo fichero con datos: (No poner .txt)" >> informeCOLOR.txt
@@ -649,15 +649,14 @@ lee_datos() {
 	if [ $dat_fich = '8' ] 
 	then
 		#fich="datos.txt"
-		lectura_fichero_rangos_aleatorios "DatosRangosAleatoriosRNGALE.txt"
+		lectura_fichero_rangos_aleatorios "DatosRangosAleatoriosLast.txt"
 	fi
 
 
 	#Entrada por otro fichero de rangos aleatorios.
 	if [ $dat_fich = '9' ]
 	then
-		ls | grep RNGALE* > listado.temp
-		ls | grep RNG* >> listado.temp
+		ls ./DatosRangosAleatorios | grep .txt | grep -v informeBN.txt | grep -v informeCOLOR.txt > listado.temp
 
 		#Muestra listados con ficheros.
 		cat listado.temp
@@ -670,7 +669,7 @@ lee_datos() {
 		echo $fich >> informeCOLOR.txt
 		echo $fich >> informeBN.txt
 
-		while [ ! -f $fich ] #Si el fichero no existe, lectura erronea.
+		while [ ! -f ./DatosRangosAleatorios"$fich" ] #Si el fichero no existe, lectura erronea.
 		do
 			echo " Entrada no válida, el fichero no se ha encontrado o no existe"
 			echo " Entrada no válida, el fichero no se ha encontrado o no existe" >> informeCOLOR.txt
@@ -2199,7 +2198,7 @@ lectura_fichero()
 	num_proc=0
 	procesos_ejecutables=0
 
-	cp $1 copia.txt
+	cp ./Datos/"$1" copia.txt
 	fich="copia.txt"
 
 	#Elimina las filas con texto.
@@ -2267,7 +2266,7 @@ lectura_fichero_aleatorio()
 	n_linea=0
 	procesos_ejecutables=0
 
-	cp $1 copia.txt
+	cp ./DatosRangos/"$1" copia.txt
 	fich="copia.txt"
 
 	#Elimina las fila con texto
@@ -2420,7 +2419,7 @@ lectura_fichero_rangos_aleatorios()
 	n_linea=0
 	procesos_ejecutables=0
 
-	cp $1 copia.txt
+	cp ./DatosRangosAleatorios/"$1" copia.txt
 	fich="copia.txt"
 
 	#Elimina las fila con texto
@@ -2651,7 +2650,7 @@ lectura_fichero_rangos_aleatorios()
 }
 
 
-### Función para guardar datos en un fichero con nombre elegido (terminará en .txt).
+### Función para guardar datos en un fichero con nombre elegido en el directorio Datos.
 #He eliminado las funciones "meterAficheroUltimos" y "meterAficheroNuevo" y las he agrupado en ésta, dado que al seleccionar la opción ya se puede pasar como parámetro datos.txt.
 meterAfichero()
 {
@@ -2667,47 +2666,53 @@ meterAfichero()
 	do
 		echo "${T_ENTRADA_I[$pr]} ${T_EJECUCION_I[$pr]} ${MEMORIA_I[$pr]}" >> "$1".txt
 	done
+
+	mv "$1".txt ./Datos
 }
 
 
-### Función para guardar datos en un fichero con nombre elegido (terminará en RNG.txt para que no aparezca en los listados de ficheros no aleatorios).
+### Función para guardar datos en un fichero con nombre elegido en el directorio DatosRangos.
 #He eliminado las funciones "meterAficheroUltimos_aleatorio" y "meterAficheroNuevo_aleatorio" y las he agrupado en ésta, dado que al seleccionar la opción ya se puede pasar como parámetro datos.txt.
 meterAficheroRangos()
 {
-	echo "Rangos del número de particiones" > "$1"RNG.txt
-	echo "$n_par_min $n_par_max" >> "$1"RNG.txt
-	echo "Rangos del tamaño de particiones" >> "$1"RNG.txt
-	echo "$tam_par_min $tam_par_max" >> "$1"RNG.txt
-	echo "Rangos del quantum" >> "$1"RNG.txt
-	echo "$quantum_min $quantum_max" >> "$1"RNG.txt
-	echo "Rango del número de procesos" >> "$1"RNG.txt
-	echo "$num_proc_min $num_proc_max" >> "$1"RNG.txt
-	echo "Rangos del tiempo de llegada)" >> "$1"RNG.txt
-	echo "$entrada_min $entrada_max" >> "$1"RNG.txt
-	echo "Rangos del tiempo de ejecución" >> "$1"RNG.txt
-	echo "$rafaga_min $rafaga_max" >> "$1"RNG.txt
-	echo "Rangos de la memoria de cada proceso" >> "$1"RNG.txt
-	echo "$memo_proc_min $memo_proc_max" >> "$1"RNG.txt
+	echo "Rangos del número de particiones" > "$1".txt
+	echo "$n_par_min $n_par_max" >> "$1".txt
+	echo "Rangos del tamaño de particiones" >> "$1".txt
+	echo "$tam_par_min $tam_par_max" >> "$1".txt
+	echo "Rangos del quantum" >> "$1".txt
+	echo "$quantum_min $quantum_max" >> "$1".txt
+	echo "Rango del número de procesos" >> "$1".txt
+	echo "$num_proc_min $num_proc_max" >> "$1".txt
+	echo "Rangos del tiempo de llegada)" >> "$1".txt
+	echo "$entrada_min $entrada_max" >> "$1".txt
+	echo "Rangos del tiempo de ejecución" >> "$1".txt
+	echo "$rafaga_min $rafaga_max" >> "$1".txt
+	echo "Rangos de la memoria de cada proceso" >> "$1".txt
+	echo "$memo_proc_min $memo_proc_max" >> "$1".txt
+
+	mv "$1".txt ./DatosRangos
 }
 
 
-### Función para guardar datos en un fichero con nombre elegido (terminará en RNGALE.txt para que no aparezca en los listados de ficheros no aleatorios).
+### Función para guardar datos en un fichero con nombre elegido en el directorio DatosRangosAleatorios.
 meterAficheroRangosAleatorios()
 {
-	echo "Rangos del número de particiones" > "$1"RNGALE.txt
-	echo "$rango_n_par_min $rango_n_par_max" >> "$1"RNGALE.txt
-	echo "Rangos del tamaño de particiones" >> "$1"RNGALE.txt
-	echo "$rango_tam_par_min $rango_tam_par_max" >> "$1"RNGALE.txt
-	echo "Rangos del quantum" >> "$1"RNGALE.txt
-	echo "$rango_quantum_min $rango_quantum_max" >> "$1"RNGALE.txt
-	echo "Rango del número de procesos" >> "$1"RNGALE.txt
-	echo "$rango_num_proc_min $rango_num_proc_max" >> "$1"RNGALE.txt
-	echo "Rangos del tiempo de llegada)" >> "$1"RNGALE.txt
-	echo "$rango_entrada_min $rango_entrada_max" >> "$1"RNGALE.txt
-	echo "Rangos del tiempo de ejecución" >> "$1"RNGALE.txt
-	echo "$rango_rafaga_min $rango_rafaga_max" >> "$1"RNGALE.txt
-	echo "Rangos de la memoria de cada proceso" >> "$1"RNGALE.txt
-	echo "$rango_memo_proc_min $rango_memo_proc_max" >> "$1"RNGALE.txt
+	echo "Rangos del número de particiones" > "$1".txt
+	echo "$rango_n_par_min $rango_n_par_max" >> "$1".txt
+	echo "Rangos del tamaño de particiones" >> "$1".txt
+	echo "$rango_tam_par_min $rango_tam_par_max" >> "$1".txt
+	echo "Rangos del quantum" >> "$1".txt
+	echo "$rango_quantum_min $rango_quantum_max" >> "$1".txt
+	echo "Rango del número de procesos" >> "$1".txt
+	echo "$rango_num_proc_min $rango_num_proc_max" >> "$1".txt
+	echo "Rangos del tiempo de llegada)" >> "$1".txt
+	echo "$rango_entrada_min $rango_entrada_max" >> "$1".txt
+	echo "Rangos del tiempo de ejecución" >> "$1".txt
+	echo "$rango_rafaga_min $rango_rafaga_max" >> "$1".txt
+	echo "Rangos de la memoria de cada proceso" >> "$1".txt
+	echo "$rango_memo_proc_min $rango_memo_proc_max" >> "$1".txt
+
+	mv "$1".txt ./DatosRangosAleatorios
 }
 
 
@@ -4912,33 +4917,33 @@ imprime_cabecera_larga
 lee_datos
 
 #Guardado incondicional en datosLast.txt.
-meterAfichero datoslast
+meterAfichero DatosLast
+meterAficheroRangos DatosRangosLast 
+meterAficheroRangosAleatorios DatosRangosAleatoriosLast
 
 #Condicional que determinará el guardado de los datos manuales.
-if [[ $opcion_guardado_datos -eq 1 || $opcion_guardado_datos_rangos -eq 1 || $opcion_guardado_datos_rangos_2 -eq 1 || $nombre_fichero_datos == "DatosLast" ]]
+if [[ $opcion_guardado_datos -eq 1 || $nombre_fichero_datos == "DatosDefault" ]]
 then
-		meterAfichero DatosLast
-fi
-if [[ $opcion_guardado_datos -eq 2 || $opcion_guardado_datos_rangos -eq 2 || $opcion_guardado_datos_rangos_2 -eq 1 ]] && [[ $nombre_fichero_datos != "DatosLast" ]]
+		meterAfichero DatosDefault
+elif [[ $opcion_guardado_datos -eq 2 ]] && [[ $nombre_fichero_datos != "DatosDefault" ]]
 then
 		meterAfichero "$nombre_fichero_datos"
 fi
-if [[ $opcion_guardado_rangos -eq 1 || $opcion_guardado_rangos_2 -eq 1 || $nombre_fichero_rangos == "DatosRangos" ]]
+
+if [[ $opcion_guardado_datos_rangos -eq 1 || $nombre_fichero_datos_rangos == "DatosRangosDefault" ]]
 then
 		meterAficheroRangos DatosRangos
-fi
-if [[ $opcion_guardado_rangos -eq 2 || $opcion_guardado_rangos_2 -eq 2 ]] && [[ $nombre_fichero_rangos != "DatosRangos" ]]
+elif [[ $opcion_guardado_datos_rangos -eq 2 ]] && [[ $nombre_fichero_datos_rangos != "DatosRangosDefault" ]]
 then
-		meterAficheroRangos "$nombre_fichero_rangos"
+		meterAficheroRangos "$nombre_fichero_datos_rangos"
 fi
 
-if [[ $opcion_guardado_rangos_rangos -eq 1 || $nombre_fichero_rangos == "DatosRangos" ]] 
+if [[ $opcion_guardado_datos_rangos_aleatorios -eq 1 || $nombre_fichero_datos_rangos_aleatorios == "DatosRangosAleatoriosDefault" ]] 
 then
 	meterAficheroRangosAleatorios DatosRangosAleatorios
-fi
-if [[ $opcion_guardado_rangos_rangos -eq 2 ]] && [[ $nombre_fichero_rangos != "DatosRangos" ]]
+elif [[ $opcion_guardado_datos_rangos_aleatorios -eq 2 ]] && [[ $nombre_fichero_datos_rangos_aleatorios != "DatosRangosAleatoriosDefault" ]]
 then
-	meterAficheroRangosAleatorios "$opcion_guardado_rangos_rangos"
+	meterAficheroRangosAleatorios "$nombre_fichero_datos_rangos_aleatorios"
 fi
 
 

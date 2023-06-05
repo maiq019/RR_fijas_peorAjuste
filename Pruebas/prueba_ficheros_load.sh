@@ -32,7 +32,7 @@ cat listado.temp
 
 read -p " Elija un fichero de la lista: " fich
 
-while [ $(contiene "${listado.temp[@]}" "$fich") == "n" ] #Si el fichero no existe, lectura erronea.
+while [ ! -f ./DatosPrueba/"$fich" ] #Si el fichero no existe, lectura erronea.
 do
 	echo " Entrada no válida, el fichero no se ha encontrado o no existe"
 	echo -n " Introduce uno de los ficheros del listado:"

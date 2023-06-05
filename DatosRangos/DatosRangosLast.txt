@@ -1,0 +1,14 @@
+Rangos del número de particiones
+ 
+Rangos del tamaño de particiones
+ 
+Rangos del quantum
+ 
+Rango del número de procesos
+ 
+Rangos del tiempo de llegada)
+ 
+Rangos del tiempo de ejecución
+ 
+Rangos de la memoria de cada proceso
+ 
