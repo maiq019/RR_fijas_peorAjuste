@@ -1,14 +1,14 @@
 Rangos del número de particiones
- 
+11 24
 Rangos del tamaño de particiones
- 
+6 6
 Rangos del quantum
- 
+2 5
 Rango del número de procesos
- 
+15 16
 Rangos del tiempo de llegada)
- 
+5 17
 Rangos del tiempo de ejecución
- 
+8 10
 Rangos de la memoria de cada proceso
- 
+4 4

@@ -278,18 +278,18 @@ lee_datos() {
 	echo " 4- Rangos manuales para valores aleatorios"
 	echo " 4- Rangos manuales para valores aleatorios" >> informeCOLOR.txt
 	echo " 4- Rangos manuales para valores aleatorios" >> informeBN.txt
-	echo " 5- Fichero de rangos de última ejecución (DatosRangosRNG.txt)"
-	echo " 5- Fichero de rangos de última ejecución (DatosRangosRNG.txt)" >> informeCOLOR.txt
-	echo " 5- Fichero de rangos de última ejecución (DatosRangosRNG.txt)" >> informeBN.txt
+	echo " 5- Fichero de rangos de última ejecución (DatosRangosLast.txt)"
+	echo " 5- Fichero de rangos de última ejecución (DatosRangosLast.txt)" >> informeCOLOR.txt
+	echo " 5- Fichero de rangos de última ejecución (DatosRangosLast.txt)" >> informeBN.txt
 	echo " 6- Otros ficheros de rangos"
 	echo " 6- Otros ficheros de rangos" >> informeCOLOR.txt
 	echo " 6- Otros ficheros de rangos" >> informeBN.txt
 	echo " 7- Rangos manuales para rangos aleatorios (prueba de casos extremos)"
 	echo " 7- Rangos manuales para rangos aleatorios (prueba de casos extremos)" >> informeCOLOR.txt
 	echo " 7- Rangos manuales para rangos aleatorios (prueba de casos extremos)" >> informeBN.txt
-	echo " 8- Fichero de rangos aleatorios de última ejecución (DatosRangosAleatoriosRNGALE.txt)"
-	echo " 8- Fichero de rangos aleatorios de última ejecución (DatosRangosAleatoriosRNGALE.txt)" >> informeCOLOR.txt
-	echo " 8- Fichero de rangos aleatorios de última ejecución (DatosRangosAleatoriosRNGALE.txt)" >> informeBN.txt
+	echo " 8- Fichero de rangos aleatorios de última ejecución (DatosRangosAleatoriosLast.txt)"
+	echo " 8- Fichero de rangos aleatorios de última ejecución (DatosRangosAleatoriosLast.txt)" >> informeCOLOR.txt
+	echo " 8- Fichero de rangos aleatorios de última ejecución (DatosRangosAleatoriosLast.txt)" >> informeBN.txt
 	echo " 9- Otros ficheros de rangos para rangos aleatorios"
 	echo " 9- Otros ficheros de rangos para rangos aleatorios" >> informeCOLOR.txt
 	echo " 9- Otros ficheros de rangos para rangos aleatorios" >> informeBN.txt
@@ -539,15 +539,15 @@ lee_datos() {
 
 		#Guardado de datos en ficheros destinados a rangos para rangos aleatorios.
 		imprime_cabecera_larga
-		echo  " ¿Dónde guardar los rangos para calcular rangos?"
-		echo  " ¿Dónde guardar los rangos para calcular rangos?" >> informeCOLOR.txt
-		echo  " ¿Dónde guardar los rangos para calcular rangos?" >> informeBN.txt
-		echo  " 1- Fichero de rangos para rangos por defecto (DatosRangosAleatoriosDefault.txt)"
-		echo  " 1- Fichero de rangos para rangos por defecto (DatosRangosAleatoriosDefault.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de rangos para rangos por defecto (DatosRangosAleatoriosDefault.txt)" >> informeBN.txt
-		echo  " 2- Otros ficheros de rangos para rangos"
-		echo  " 2- Otros ficheros de rangos para rangos" >> informeCOLOR.txt
-		echo  " 2- Otros ficheros de rangos para rangos" >> informeBN.txt
+		echo  " ¿Dónde guardar los rangos aleatorios?"
+		echo  " ¿Dónde guardar los rangos aleatorios?" >> informeCOLOR.txt
+		echo  " ¿Dónde guardar los rangos aleatorios?" >> informeBN.txt
+		echo  " 1- Fichero de rangos aleatorios por defecto (DatosRangosAleatoriosDefault.txt)"
+		echo  " 1- Fichero de rangos aleatorios por defecto (DatosRangosAleatoriosDefault.txt)" >> informeCOLOR.txt
+		echo  " 1- Fichero de rangos aleatorios por defecto (DatosRangosAleatoriosDefault.txt)" >> informeBN.txt
+		echo  " 2- Otros ficheros de rangos aleatorios"
+		echo  " 2- Otros ficheros de rangos aleatorios" >> informeCOLOR.txt
+		echo  " 2- Otros ficheros de rangos aleatorios" >> informeBN.txt
 
 		read opcion_guardado_datos_rangos_aleatorios
 
@@ -564,9 +564,9 @@ lee_datos() {
 		#Si se guarda en otro fichero, pregunta el nombre.
 		if [ "${opcion_guardado_datos_rangos_aleatorios}" == "2" ]
 		then
-			echo  " Nombre del nuevo fichero con rangos para rangos: (No poner .txt)"
-			echo  " Nombre del nuevo fichero con rangos para rangos: (No poner .txt)" >> informeCOLOR.txt
-			echo  " Nombre del nuevo fichero con rangos para rangos: (No poner .txt)" >> informeBN.txt
+			echo  " Nombre del nuevo fichero con rangos aleatorios: (No poner .txt)"
+			echo  " Nombre del nuevo fichero con rangos aleatorios: (No poner .txt)" >> informeCOLOR.txt
+			echo  " Nombre del nuevo fichero con rangos aleatorios: (No poner .txt)" >> informeBN.txt
 			read nombre_fichero_datos_rangos_aleatorios
 		fi
 
@@ -4918,8 +4918,14 @@ lee_datos
 
 #Guardado incondicional en datosLast.txt.
 meterAfichero DatosLast
-meterAficheroRangos DatosRangosLast 
-meterAficheroRangosAleatorios DatosRangosAleatoriosLast
+if [[ $dat_fich -ge 4 ]]
+then
+	meterAficheroRangos DatosRangosLast
+fi
+if [[ $dat_fich -ge 7 ]]
+then
+	meterAficheroRangosAleatorios DatosRangosAleatoriosLast
+fi
 
 #Condicional que determinará el guardado de los datos manuales.
 if [[ $opcion_guardado_datos -eq 1 || $nombre_fichero_datos == "DatosDefault" ]]
