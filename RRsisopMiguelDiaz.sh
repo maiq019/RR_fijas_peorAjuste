@@ -4932,7 +4932,7 @@ fi
 
 if [[ $opcion_guardado_datos_rangos -eq 1 || $nombre_fichero_datos_rangos == "DatosRangosDefault" ]]
 then
-		meterAficheroRangos DatosRangos
+		meterAficheroRangos DatosRangosDefault
 elif [[ $opcion_guardado_datos_rangos -eq 2 ]] && [[ $nombre_fichero_datos_rangos != "DatosRangosDefault" ]]
 then
 		meterAficheroRangos "$nombre_fichero_datos_rangos"
@@ -4940,7 +4940,7 @@ fi
 
 if [[ $opcion_guardado_datos_rangos_aleatorios -eq 1 || $nombre_fichero_datos_rangos_aleatorios == "DatosRangosAleatoriosDefault" ]] 
 then
-	meterAficheroRangosAleatorios DatosRangosAleatorios
+	meterAficheroRangosAleatorios DatosRangosAleatoriosDefault
 elif [[ $opcion_guardado_datos_rangos_aleatorios -eq 2 ]] && [[ $nombre_fichero_datos_rangos_aleatorios != "DatosRangosAleatoriosDefault" ]]
 then
 	meterAficheroRangosAleatorios "$nombre_fichero_datos_rangos_aleatorios"
