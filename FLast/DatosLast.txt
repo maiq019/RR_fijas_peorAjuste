@@ -1,0 +1,10 @@
+Particiones
+2 3 5 7 3
+Quantum
+2
+Procesos (T-Entrada Rafaga Memoria)
+5 3 5
+3 3 2
+1 10 2
+4 5 4
+2 6 3
