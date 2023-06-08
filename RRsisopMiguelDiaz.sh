@@ -2772,6 +2772,8 @@ imprimir_tabla()
 #He cambiado los comandos expr por let, y los he quitado de las asignaciones.
 ordenacion_procesos() 
 {
+	echo " ordenando procesos..."
+
 	proceso=0
 	for (( nn=1; $proceso<$num_proc; nn++ ))
 	do
@@ -2790,6 +2792,8 @@ ordenacion_procesos()
 			fi
 		done
 	done
+
+	echo " procesos ordenados"
 }
 
 
@@ -4105,7 +4109,7 @@ actualizar_bm()
 			fi
 
 
-			##Montaje de la cadena de procesos en la abarra de memoria.
+			##Montaje de la cadena de procesos en la barra de memoria.
 			if [[ ${PROC[$pa]} -ne -1 ]] && [[ $uni_par -eq 1 ]]					#Si tiene un proceso y es la primera unidad,
 			then
 				if [[ ${#NUMPROC[${PROC[$pa]}]} -eq 1 ]]							#Si el proceso tiene un caracter,
@@ -4162,23 +4166,17 @@ actualizar_bm()
 
 
 			## Montaje de la cadena de cantidad de memoria en la barra de memoria.
-			if [[ ${PROC[$pa]} -ne -1 ]] && [[ ${MEMORIA[${PROC[$pa]}]} -eq $uni_par ]]
-			then																		#Si tiene un proceso que ocupa justo hasta la unidad actual,
-				memo_proc=${MEMORIA[${PROC[$pa]}]}
-				let mem_rep=mem_rep+memo_proc											#Actualizo la cantidad de memoria representada.
+			if [[ $uni_par -eq 1 ]]														#Si es la primera unidad de la partición,
+			then
 				for (( esp=0; esp<$(($tam_unidad_bm-${#mem_rep})); esp++ ))				#Por lo que ocupe la unidad menos lo que ocupa escribir la memoria,
 				do
 					cad_can_mem=${cad_can_mem[@]}" "									#Añado un espacio.
 				done
 				cad_can_mem=${cad_can_mem[@]}"$mem_rep"									#Añado la cifra de memoria que se ha representado.
-			elif [[ $uni_par -eq ${tam_par[$pa]} ]] 									#Si es la última unidad de la partición,
-			then
-				if [[ ${PROC[$pa]} -eq -1 ]]											#Si no había un proceso,
-				then
-					let mem_rep=mem_rep+${tam_par[$pa]}									#Actualizo la memoria representada con el tamaño de la partición.
-				else 																	#Si había un proceso,
-					let mem_rep=mem_rep-memo_proc+${tam_par[$pa]}						#Actualizo la memoria representada con el tamaño de la partición menos la memoria que se sumó del proceso.
-				fi
+			elif [[ ${PROC[$pa]} -ne -1 ]] && [[ $uni_par -eq $((${MEMORIA[${PROC[$pa]}]}+1)) ]]	#Si tiene un proceso y es la unidad siguiente a lo que ocupa,
+			then																		
+				memo_proc=${MEMORIA[${PROC[$pa]}]}										#Guardo lo que ocupa el proceso en una variable.
+				let mem_rep=mem_rep+memo_proc											#Actualizo la cantidad de memoria representada.
 				for (( esp=0; esp<$(($tam_unidad_bm-${#mem_rep})); esp++ ))				#Por lo que ocupe la unidad menos lo que ocupa escribir la memoria,
 				do
 					cad_can_mem=${cad_can_mem[@]}" "									#Añado un espacio.
@@ -4189,7 +4187,18 @@ actualizar_bm()
 				do
 					cad_can_mem=${cad_can_mem[@]}" "									#Añado un espacio.
 				done
+			fi 
+
+			if [[ $uni_par -eq ${tam_par[$pa]} ]] 										#Si es la última unidad de la partición,
+			then
+				if [[ ${PROC[$pa]} -eq -1 ]]											#Si no había un proceso,
+				then
+					let mem_rep=mem_rep+${tam_par[$pa]}									#Actualizo la memoria representada con el tamaño de la partición.
+				else 																	#Si había un proceso,
+					let mem_rep=mem_rep-memo_proc+${tam_par[$pa]}						#Actualizo la memoria representada con el tamaño de la partición menos la memoria que se sumó del proceso.
+				fi
 			fi
+
 			if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]] 		#Si es la última unidad (el final de la partición), y no es la última partición,
 			then
 				cad_can_mem=${cad_can_mem[@]}" "										#Añado un espacio entre particiones.
@@ -4258,27 +4267,23 @@ actualizar_bm()
 iniciar_bt()
 {
 	#Calculo el tamaño del espacio representado en la barra por cada unidad de tiempo en función del tamaño del mayor tiempo de entrada.
-	mas_tarde=0
+	sumatorio=0
 	for ((pr=0; pr<$num_proc; pr++ ))
 	do
-		if [[ ${T_ENTRADA[$pr]} -gt $mas_tarde ]]
-		then
-			mas_tarde=${T_ENTRADA[$pr]}
-			let mas_tarde=mas_tarde+${TEJ[$pr]}
-		fi
+		let sumatorio=${T_ENTRADA[$pr]}+${TEJ[$pr]}
 	done
 	tam_unidad_bt=3
 	#Si va a haber procesos que lleven el tiempo a más de 3 cifras, se aumenta el tamaño de la unidad de tiempo.
-	if [[ $((${#mas_tarde}+1)) -gt $tam_unidad_bt ]]
+	if [[ $((${#sumatorio}+1)) -gt $tam_unidad_bt ]]
 	then
-		tam_unidad_bt=$((${#mas_tarde}+1))
+		tam_unidad_bt=$((${#sumatorio}+1))
 	fi
 
 	#cad_proc_col_bt=""
-	cad_proc_byn_bt=""
-	cad_tie_col=""
-	cad_tie_byn=""
-	cad_can_tie=""
+	#cad_proc_byn_bt=""
+	#cad_tie_col=""
+	#cad_tie_byn=""
+	#cad_can_tie=""
 }
 
 
