@@ -32,21 +32,21 @@ echo "#                 NC - No uso Comercial (NC)               #"
 echo "#                SA - Compartir Igual (SA)                 #"
 echo "############################################################"
 
-echo "############################################################" >> informeCOLOR.txt
-echo "#                     Creative Commons                     #" >> informeCOLOR.txt
-echo "#                                                          #" >> informeCOLOR.txt
-echo "#                   BY - Atribución (BY)                   #" >> informeCOLOR.txt
-echo "#                 NC - No uso Comercial (NC)               #" >> informeCOLOR.txt
-echo "#                SA - Compartir Igual (SA)                 #" >> informeCOLOR.txt
-echo "############################################################" >> informeCOLOR.txt
+echo "############################################################" >> ./Informes/informeCOLOR.txt
+echo "#                     Creative Commons                     #" >> ./Informes/informeCOLOR.txt
+echo "#                                                          #" >> ./Informes/informeCOLOR.txt
+echo "#                   BY - Atribución (BY)                   #" >> ./Informes/informeCOLOR.txt
+echo "#                 NC - No uso Comercial (NC)               #" >> ./Informes/informeCOLOR.txt
+echo "#                SA - Compartir Igual (SA)                 #" >> ./Informes/informeCOLOR.txt
+echo "############################################################" >> ./Informes/informeCOLOR.txt
 
-echo "############################################################" >> informeBN.txt
-echo "#                     Creative Commons                     #" >> informeBN.txt
-echo "#                                                          #" >> informeBN.txt
-echo "#                   BY - Atribución (BY)                   #" >> informeBN.txt
-echo "#                 NC - No uso Comercial (NC)               #" >> informeBN.txt
-echo "#                SA - Compartir Igual (SA)                 #" >> informeBN.txt
-echo "############################################################" >> informeBN.txt
+echo "############################################################" >> ./Informes/informeBN.txt
+echo "#                     Creative Commons                     #" >> ./Informes/informeBN.txt
+echo "#                                                          #" >> ./Informes/informeBN.txt
+echo "#                   BY - Atribución (BY)                   #" >> ./Informes/informeBN.txt
+echo "#                 NC - No uso Comercial (NC)               #" >> ./Informes/informeBN.txt
+echo "#                SA - Compartir Igual (SA)                 #" >> ./Informes/informeBN.txt
+echo "############################################################" >> ./Informes/informeBN.txt
 
 
 #Se ha dejado un espacio de separación al principio de cada línea por si se da el caso de utilizar un terminal que corte el primer carácter de cada línea
@@ -101,44 +101,44 @@ imprime_cabecera()
 imprime_info_datos()
 {
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo " Datos de las particiones"
-	echo " Datos de las particiones" >> informeCOLOR.txt
-	echo " Datos de las particiones" >> informeBN.txt
+	echo " Datos de las particiones" >> ./Informes/informeCOLOR.txt
+	echo " Datos de las particiones" >> ./Informes/informeBN.txt
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo -e " Número de particiones: $n_par\n"
-	echo -e " Número de particiones: $n_par\n" >> informeCOLOR.txt
-	echo -e " Número de particiones: $n_par\n" >> informeBN.txt
+	echo -e " Número de particiones: $n_par\n" >> ./Informes/informeCOLOR.txt
+	echo -e " Número de particiones: $n_par\n" >> ./Informes/informeBN.txt
 
 	echo -e " Tamaño de particiones: ${tam_par[@]}\n"
-	echo -e " Tamaño de particiones: ${tam_par[@]}\n" >> informeCOLOR.txt
-	echo -e " Tamaño de particiones: ${tam_par[@]}\n" >> informeBN.txt	
+	echo -e " Tamaño de particiones: ${tam_par[@]}\n" >> ./Informes/informeCOLOR.txt
+	echo -e " Tamaño de particiones: ${tam_par[@]}\n" >> ./Informes/informeBN.txt	
 
 	echo -e " Quantum:               $quantum\n"
-	echo -e " Quantum:               $quantum\n" >> informeCOLOR.txt
-	echo -e " Quantum:               $quantum\n" >> informeBN.txt		
+	echo -e " Quantum:               $quantum\n" >> ./Informes/informeCOLOR.txt
+	echo -e " Quantum:               $quantum\n" >> ./Informes/informeBN.txt		
 
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo " Datos de los procesos"
-	echo " Datos de los procesos" >> informeCOLOR.txt
-	echo " Datos de los procesos" >> informeBN.txt
+	echo " Datos de los procesos" >> ./Informes/informeCOLOR.txt
+	echo " Datos de los procesos" >> ./Informes/informeBN.txt
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo " Los procesos introducidos hasta ahora son: "
-	echo " Los procesos introducidos hasta ahora son: " >> informeCOLOR.txt
-	echo " Los procesos introducidos hasta ahora son: " >> informeBN.txt
+	echo " Los procesos introducidos hasta ahora son: " >> ./Informes/informeCOLOR.txt
+	echo " Los procesos introducidos hasta ahora son: " >> ./Informes/informeBN.txt
 	echo " Ref Tll Tej Mem"
-	echo " Ref Tll Tej Mem" >> informeCOLOR.txt
-	echo " Ref Tll Tej Mem" >> informeBN.txt
+	echo " Ref Tll Tej Mem" >> ./Informes/informeCOLOR.txt
+	echo " Ref Tll Tej Mem" >> ./Informes/informeBN.txt
 	echo " ---------------"
-	echo " ---------------" >> informeCOLOR.txt
-	echo " ---------------" >> informeBN.txt
+	echo " ---------------" >> ./Informes/informeCOLOR.txt
+	echo " ---------------" >> ./Informes/informeBN.txt
 }
 
 
@@ -146,59 +146,59 @@ imprime_info_datos()
 imprime_info_datos_aleatorios()
 {
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo " Datos de las particiones"
-	echo " Datos de las particiones" >> informeCOLOR.txt
-	echo " Datos de las particiones" >> informeBN.txt
+	echo " Datos de las particiones" >> ./Informes/informeCOLOR.txt
+	echo " Datos de las particiones" >> ./Informes/informeBN.txt
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo -e " Número de particiones: $n_par_min - $n_par_max -> $n_par"
-	echo -e " Número de particiones: $n_par_min - $n_par_max -> $n_par" >> informeCOLOR.txt
-	echo -e " Número de particiones: $n_par_min - $n_par_max -> $n_par" >> informeBN.txt
+	echo -e " Número de particiones: $n_par_min - $n_par_max -> $n_par" >> ./Informes/informeCOLOR.txt
+	echo -e " Número de particiones: $n_par_min - $n_par_max -> $n_par" >> ./Informes/informeBN.txt
 
 	echo -e " Tamaño de particiones: $tam_par_min - $tam_par_max -> ${tam_par[@]}"
-	echo -e " Tamaño de particiones: $tam_par_min - $tam_par_max -> ${tam_par[@]}" >> informeCOLOR.txt
-	echo -e " Tamaño de particiones: $tam_par_min - $tam_par_max -> ${tam_par[@]}" >> informeBN.txt	
+	echo -e " Tamaño de particiones: $tam_par_min - $tam_par_max -> ${tam_par[@]}" >> ./Informes/informeCOLOR.txt
+	echo -e " Tamaño de particiones: $tam_par_min - $tam_par_max -> ${tam_par[@]}" >> ./Informes/informeBN.txt	
 
 	echo -e " Quantum:               $quantum_min - $quantum_max -> $quantum"
-	echo -e " Quantum:               $quantum_min - $quantum_max -> $quantum" >> informeCOLOR.txt
-	echo -e " Quantum:               $quantum_min - $quantum_max -> $quantum" >> informeBN.txt		
+	echo -e " Quantum:               $quantum_min - $quantum_max -> $quantum" >> ./Informes/informeCOLOR.txt
+	echo -e " Quantum:               $quantum_min - $quantum_max -> $quantum" >> ./Informes/informeBN.txt		
 	
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo " Datos de los procesos"
-	echo " Datos de los procesos" >> informeCOLOR.txt
-	echo " Datos de los procesos" >> informeBN.txt
+	echo " Datos de los procesos" >> ./Informes/informeCOLOR.txt
+	echo " Datos de los procesos" >> ./Informes/informeBN.txt
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo " Número de procesos:	$num_proc_min - $num_proc_max -> $num_proc"
-	echo " Número de procesos:	$num_proc_min - $num_proc_max -> $num_proc" >> informeCOLOR.txt
-	echo " Número de procesos:	$num_proc_min - $num_proc_max -> $num_proc" >> informeBN.txt
+	echo " Número de procesos:	$num_proc_min - $num_proc_max -> $num_proc" >> ./Informes/informeCOLOR.txt
+	echo " Número de procesos:	$num_proc_min - $num_proc_max -> $num_proc" >> ./Informes/informeBN.txt
 	echo " Tiempo de llegada:	$entrada_min - $entrada_max"
-	echo " Tiempo de llegada:	$entrada_min - $entrada_max" >> informeCOLOR.txt
-	echo " Tiempo de llegada:	$entrada_min - $entrada_max" >> informeBN.txt
+	echo " Tiempo de llegada:	$entrada_min - $entrada_max" >> ./Informes/informeCOLOR.txt
+	echo " Tiempo de llegada:	$entrada_min - $entrada_max" >> ./Informes/informeBN.txt
 	echo " Tiempo de ejecución:	$rafaga_min - $rafaga_max"
-	echo " Tiempo de ejecución:	$rafaga_min - $rafaga_max" >> informeCOLOR.txt
-	echo " Tiempo de ejecución:	$rafaga_min - $rafaga_max" >> informeBN.txt
+	echo " Tiempo de ejecución:	$rafaga_min - $rafaga_max" >> ./Informes/informeCOLOR.txt
+	echo " Tiempo de ejecución:	$rafaga_min - $rafaga_max" >> ./Informes/informeBN.txt
 	echo " Memoria a ocupar: 	$memo_proc_min - $memo_proc_max"
-	echo " Memoria a ocupar: 	$memo_proc_min - $memo_proc_max" >> informeCOLOR.txt
-	echo " Memoria a ocupar: 	$memo_proc_min - $memo_proc_max" >> informeBN.txt
+	echo " Memoria a ocupar: 	$memo_proc_min - $memo_proc_max" >> ./Informes/informeCOLOR.txt
+	echo " Memoria a ocupar: 	$memo_proc_min - $memo_proc_max" >> ./Informes/informeBN.txt
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo " Los procesos introducidos hasta ahora son: "
-	echo " Los procesos introducidos hasta ahora son: " >> informeCOLOR.txt
-	echo " Los procesos introducidos hasta ahora son: " >> informeBN.txt
+	echo " Los procesos introducidos hasta ahora son: " >> ./Informes/informeCOLOR.txt
+	echo " Los procesos introducidos hasta ahora son: " >> ./Informes/informeBN.txt
 	echo " Ref Tll Tej Mem"
-	echo " Ref Tll Tej Mem" >> informeCOLOR.txt
-	echo " Ref Tll Tej Mem" >> informeBN.txt
+	echo " Ref Tll Tej Mem" >> ./Informes/informeCOLOR.txt
+	echo " Ref Tll Tej Mem" >> ./Informes/informeBN.txt
 	echo " ---------------"
-	echo " ---------------" >> informeCOLOR.txt
-	echo " ---------------" >> informeBN.txt
+	echo " ---------------" >> ./Informes/informeCOLOR.txt
+	echo " ---------------" >> ./Informes/informeBN.txt
 }
 
 
@@ -206,59 +206,59 @@ imprime_info_datos_aleatorios()
 imprime_info_datos_rangos_aleatorios()
 {
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo " Datos de las particiones"
-	echo " Datos de las particiones" >> informeCOLOR.txt
-	echo " Datos de las particiones" >> informeBN.txt
+	echo " Datos de las particiones" >> ./Informes/informeCOLOR.txt
+	echo " Datos de las particiones" >> ./Informes/informeBN.txt
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo -e " Número de particiones: $rango_n_par_min - $rango_n_par_max -> $n_par_min - $n_par_max -> $n_par"
-	echo -e " Número de particiones: $rango_n_par_min - $rango_n_par_max -> $n_par_min - $n_par_max -> $n_par" >> informeCOLOR.txt
-	echo -e " Número de particiones: $rango_n_par_min - $rango_n_par_max -> $n_par_min - $n_par_max -> $n_par" >> informeBN.txt
+	echo -e " Número de particiones: $rango_n_par_min - $rango_n_par_max -> $n_par_min - $n_par_max -> $n_par" >> ./Informes/informeCOLOR.txt
+	echo -e " Número de particiones: $rango_n_par_min - $rango_n_par_max -> $n_par_min - $n_par_max -> $n_par" >> ./Informes/informeBN.txt
 
 	echo -e " Tamaño de particiones: $rango_tam_par_min - $rango_tam_par_max -> $tam_par_min - $tam_par_max -> ${tam_par[@]}"
-	echo -e " Tamaño de particiones: $rango_tam_par_min - $rango_tam_par_max -> $tam_par_min - $tam_par_max -> ${tam_par[@]}" >> informeCOLOR.txt
-	echo -e " Tamaño de particiones: $rango_tam_par_min - $rango_tam_par_max -> $tam_par_min - $tam_par_max -> ${tam_par[@]}" >> informeBN.txt	
+	echo -e " Tamaño de particiones: $rango_tam_par_min - $rango_tam_par_max -> $tam_par_min - $tam_par_max -> ${tam_par[@]}" >> ./Informes/informeCOLOR.txt
+	echo -e " Tamaño de particiones: $rango_tam_par_min - $rango_tam_par_max -> $tam_par_min - $tam_par_max -> ${tam_par[@]}" >> ./Informes/informeBN.txt	
 
 	echo -e " Quantum:               $rango_quantum_min - $rango_quantum_max -> $quantum_min - $quantum_max -> $quantum"
-	echo -e " Quantum:               $rango_quantum_min - $rango_quantum_max -> $quantum_min - $quantum_max -> $quantum" >> informeCOLOR.txt
-	echo -e " Quantum:               $rango_quantum_min - $rango_quantum_max -> $quantum_min - $quantum_max -> $quantum" >> informeBN.txt		
+	echo -e " Quantum:               $rango_quantum_min - $rango_quantum_max -> $quantum_min - $quantum_max -> $quantum" >> ./Informes/informeCOLOR.txt
+	echo -e " Quantum:               $rango_quantum_min - $rango_quantum_max -> $quantum_min - $quantum_max -> $quantum" >> ./Informes/informeBN.txt		
 	
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo " Datos de los procesos"
-	echo " Datos de los procesos" >> informeCOLOR.txt
-	echo " Datos de los procesos" >> informeBN.txt
+	echo " Datos de los procesos" >> ./Informes/informeCOLOR.txt
+	echo " Datos de los procesos" >> ./Informes/informeBN.txt
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo " Número de procesos:	$rango_num_proc_min - $rango_num_proc_max -> $num_proc_min - $num_proc_max -> $num_proc"
-	echo " Número de procesos:	$rango_num_proc_min - $rango_num_proc_max -> $num_proc_min - $num_proc_max -> $num_proc" >> informeCOLOR.txt
-	echo " Número de procesos:	$rango_num_proc_min - $rango_num_proc_max -> $num_proc_min - $num_proc_max -> $num_proc" >> informeBN.txt
+	echo " Número de procesos:	$rango_num_proc_min - $rango_num_proc_max -> $num_proc_min - $num_proc_max -> $num_proc" >> ./Informes/informeCOLOR.txt
+	echo " Número de procesos:	$rango_num_proc_min - $rango_num_proc_max -> $num_proc_min - $num_proc_max -> $num_proc" >> ./Informes/informeBN.txt
 	echo " Tiempo de llegada:	$rango_entrada_min - $rango_entrada_max -> $entrada_min - $entrada_max"
-	echo " Tiempo de llegada:	$rango_entrada_min - $rango_entrada_max -> $entrada_min - $entrada_max" >> informeCOLOR.txt
-	echo " Tiempo de llegada:	$rango_entrada_min - $rango_entrada_max -> $entrada_min - $entrada_max" >> informeBN.txt
+	echo " Tiempo de llegada:	$rango_entrada_min - $rango_entrada_max -> $entrada_min - $entrada_max" >> ./Informes/informeCOLOR.txt
+	echo " Tiempo de llegada:	$rango_entrada_min - $rango_entrada_max -> $entrada_min - $entrada_max" >> ./Informes/informeBN.txt
 	echo " Tiempo de ejecución:	$rango_rafaga_min - $rango_rafaga_max -> $rafaga_min - $rafaga_max"
-	echo " Tiempo de ejecución:	$rango_rafaga_min - $rango_rafaga_max -> $rafaga_min - $rafaga_max" >> informeCOLOR.txt
-	echo " Tiempo de ejecución:	$rango_rafaga_min - $rango_rafaga_max -> $rafaga_min - $rafaga_max" >> informeBN.txt
+	echo " Tiempo de ejecución:	$rango_rafaga_min - $rango_rafaga_max -> $rafaga_min - $rafaga_max" >> ./Informes/informeCOLOR.txt
+	echo " Tiempo de ejecución:	$rango_rafaga_min - $rango_rafaga_max -> $rafaga_min - $rafaga_max" >> ./Informes/informeBN.txt
 	echo " Memoria a ocupar: 	$rango_memo_proc_min - $rango_memo_proc_max -> $memo_proc_min - $memo_proc_max"
-	echo " Memoria a ocupar: 	$rango_memo_proc_min - $rango_memo_proc_max -> $memo_proc_min - $memo_proc_max" >> informeCOLOR.txt
-	echo " Memoria a ocupar: 	$rango_memo_proc_min - $rango_memo_proc_max -> $memo_proc_min - $memo_proc_max" >> informeBN.txt
+	echo " Memoria a ocupar: 	$rango_memo_proc_min - $rango_memo_proc_max -> $memo_proc_min - $memo_proc_max" >> ./Informes/informeCOLOR.txt
+	echo " Memoria a ocupar: 	$rango_memo_proc_min - $rango_memo_proc_max -> $memo_proc_min - $memo_proc_max" >> ./Informes/informeBN.txt
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo " Los procesos introducidos hasta ahora son: "
-	echo " Los procesos introducidos hasta ahora son: " >> informeCOLOR.txt
-	echo " Los procesos introducidos hasta ahora son: " >> informeBN.txt
+	echo " Los procesos introducidos hasta ahora son: " >> ./Informes/informeCOLOR.txt
+	echo " Los procesos introducidos hasta ahora son: " >> ./Informes/informeBN.txt
 	echo " Ref Tll Tej Mem"
-	echo " Ref Tll Tej Mem" >> informeCOLOR.txt
-	echo " Ref Tll Tej Mem" >> informeBN.txt
+	echo " Ref Tll Tej Mem" >> ./Informes/informeCOLOR.txt
+	echo " Ref Tll Tej Mem" >> ./Informes/informeBN.txt
 	echo " ---------------"
-	echo " ---------------" >> informeCOLOR.txt
-	echo " ---------------" >> informeBN.txt
+	echo " ---------------" >> ./Informes/informeCOLOR.txt
+	echo " ---------------" >> ./Informes/informeBN.txt
 }
 
 
@@ -267,36 +267,36 @@ lee_datos() {
 	#Menú inicial
 	echo ""
 	echo " 1- Entrada Manual"
-	echo " 1- Entrada Manual" >> informeCOLOR.txt
-	echo " 1- Entrada Manual" >> informeBN.txt
+	echo " 1- Entrada Manual" >> ./Informes/informeCOLOR.txt
+	echo " 1- Entrada Manual" >> ./Informes/informeBN.txt
 	echo " 2- Fichero de datos de última ejecución (DatosLast.txt)"
-	echo " 2- Fichero de datos de última ejecución (DatosLast.txt)" >> informeCOLOR.txt
-	echo " 2- Fichero de datos de última ejecución (DatosLast.txt)" >> informeBN.txt
+	echo " 2- Fichero de datos de última ejecución (DatosLast.txt)" >> ./Informes/informeCOLOR.txt
+	echo " 2- Fichero de datos de última ejecución (DatosLast.txt)" >> ./Informes/informeBN.txt
 	echo " 3- Otros ficheros de datos"
-	echo " 3- Otros ficheros de datos" >> informeCOLOR.txt
-	echo " 3- Otros ficheros de datos" >> informeBN.txt
+	echo " 3- Otros ficheros de datos" >> ./Informes/informeCOLOR.txt
+	echo " 3- Otros ficheros de datos" >> ./Informes/informeBN.txt
 	echo " 4- Rangos manuales para valores aleatorios"
-	echo " 4- Rangos manuales para valores aleatorios" >> informeCOLOR.txt
-	echo " 4- Rangos manuales para valores aleatorios" >> informeBN.txt
+	echo " 4- Rangos manuales para valores aleatorios" >> ./Informes/informeCOLOR.txt
+	echo " 4- Rangos manuales para valores aleatorios" >> ./Informes/informeBN.txt
 	echo " 5- Fichero de rangos de última ejecución (DatosRangosLast.txt)"
-	echo " 5- Fichero de rangos de última ejecución (DatosRangosLast.txt)" >> informeCOLOR.txt
-	echo " 5- Fichero de rangos de última ejecución (DatosRangosLast.txt)" >> informeBN.txt
+	echo " 5- Fichero de rangos de última ejecución (DatosRangosLast.txt)" >> ./Informes/informeCOLOR.txt
+	echo " 5- Fichero de rangos de última ejecución (DatosRangosLast.txt)" >> ./Informes/informeBN.txt
 	echo " 6- Otros ficheros de rangos"
-	echo " 6- Otros ficheros de rangos" >> informeCOLOR.txt
-	echo " 6- Otros ficheros de rangos" >> informeBN.txt
+	echo " 6- Otros ficheros de rangos" >> ./Informes/informeCOLOR.txt
+	echo " 6- Otros ficheros de rangos" >> ./Informes/informeBN.txt
 	echo " 7- Rangos manuales para rangos aleatorios (prueba de casos extremos)"
-	echo " 7- Rangos manuales para rangos aleatorios (prueba de casos extremos)" >> informeCOLOR.txt
-	echo " 7- Rangos manuales para rangos aleatorios (prueba de casos extremos)" >> informeBN.txt
+	echo " 7- Rangos manuales para rangos aleatorios (prueba de casos extremos)" >> ./Informes/informeCOLOR.txt
+	echo " 7- Rangos manuales para rangos aleatorios (prueba de casos extremos)" >> ./Informes/informeBN.txt
 	echo " 8- Fichero de rangos aleatorios de última ejecución (DatosRangosAleatoriosLast.txt)"
-	echo " 8- Fichero de rangos aleatorios de última ejecución (DatosRangosAleatoriosLast.txt)" >> informeCOLOR.txt
-	echo " 8- Fichero de rangos aleatorios de última ejecución (DatosRangosAleatoriosLast.txt)" >> informeBN.txt
+	echo " 8- Fichero de rangos aleatorios de última ejecución (DatosRangosAleatoriosLast.txt)" >> ./Informes/informeCOLOR.txt
+	echo " 8- Fichero de rangos aleatorios de última ejecución (DatosRangosAleatoriosLast.txt)" >> ./Informes/informeBN.txt
 	echo " 9- Otros ficheros de rangos para rangos aleatorios"
-	echo " 9- Otros ficheros de rangos para rangos aleatorios" >> informeCOLOR.txt
-	echo " 9- Otros ficheros de rangos para rangos aleatorios" >> informeBN.txt
+	echo " 9- Otros ficheros de rangos para rangos aleatorios" >> ./Informes/informeCOLOR.txt
+	echo " 9- Otros ficheros de rangos para rangos aleatorios" >> ./Informes/informeBN.txt
 	echo ""
 	read -p " Elija una opción: " dat_fich
-	echo $dat_fich >> informeCOLOR.txt
-	echo $dat_fich >> informeBN.txt
+	echo $dat_fich >> ./Informes/informeCOLOR.txt
+	echo $dat_fich >> ./Informes/informeBN.txt
 
 	#COMPROBACIÓN DE LECTURA
 	#He añadido una explicación más detallada del error de introducción de opción.
@@ -304,8 +304,8 @@ lee_datos() {
 	do
 		echo "Entrada no válida"
 		read -p "Elija una opción como un número natural del 1 al 8: " dat_fich
-		echo $dat_fich >> informeCOLOR.txt
-		echo $dat_fich >> informeBN.txt
+		echo $dat_fich >> ./Informes/informeCOLOR.txt
+		echo $dat_fich >> ./Informes/informeBN.txt
 	done
 
 	#clear
@@ -404,14 +404,14 @@ lee_datos() {
 		#Guardado de datos en ficheros destinados a rangos para rangos aleatorios.
 		imprime_cabecera_larga
 		echo  " ¿Dónde guardar los rangos aleatorios introducidos?"
-		echo  " ¿Dónde guardar los rangos aleatorios introducidos?" >> informeCOLOR.txt
-		echo  " ¿Dónde guardar los rangos aleatorios introducidos?" >> informeBN.txt
+		echo  " ¿Dónde guardar los rangos aleatorios introducidos?" >> ./Informes/informeCOLOR.txt
+		echo  " ¿Dónde guardar los rangos aleatorios introducidos?" >> ./Informes/informeBN.txt
 		echo  " 1- Fichero de rangos aleatorios por defecto (DatosRangosAleatoriosDefault.txt)"
-		echo  " 1- Fichero de rangos aleatorios por defecto (DatosRangosAleatoriosDefault.txt)" >> informeCOLOR.txt
-		echo  " 1- Fichero de rangos aleatorios por defecto (DatosRangosAleatoriosDefault.txt)" >> informeBN.txt
+		echo  " 1- Fichero de rangos aleatorios por defecto (DatosRangosAleatoriosDefault.txt)" >> ./Informes/informeCOLOR.txt
+		echo  " 1- Fichero de rangos aleatorios por defecto (DatosRangosAleatoriosDefault.txt)" >> ./Informes/informeBN.txt
 		echo  " 2- Otro fichero de rangos aleatorios"
-		echo  " 2- Otro fichero de rangos aleatorios" >> informeCOLOR.txt
-		echo  " 2- Otro fichero de rangos aleatorios" >> informeBN.txt
+		echo  " 2- Otro fichero de rangos aleatorios" >> ./Informes/informeCOLOR.txt
+		echo  " 2- Otro fichero de rangos aleatorios" >> ./Informes/informeBN.txt
 
 		read opcion_guardado_datos_rangos_aleatorios
 
@@ -422,15 +422,15 @@ lee_datos() {
 			read opcion_guardado_datos_rangos_aleatorios
 		done
 
-		echo $opcion_guardado_datos_rangos_aleatorios >> informeCOLOR.txt
-		echo $opcion_guardado_datos_rangos_aleatorios >> informeBN.txt
+		echo $opcion_guardado_datos_rangos_aleatorios >> ./Informes/informeCOLOR.txt
+		echo $opcion_guardado_datos_rangos_aleatorios >> ./Informes/informeBN.txt
 	
 		#Si se guarda en otro fichero, pregunta el nombre.
 		if [ "${opcion_guardado_datos_rangos_aleatorios}" == "2" ]
 		then
 			echo  " Nombre del nuevo fichero con rangos aleatorios: (No poner .txt)"
-			echo  " Nombre del nuevo fichero con rangos aleatorios: (No poner .txt)" >> informeCOLOR.txt
-			echo  " Nombre del nuevo fichero con rangos aleatorios: (No poner .txt)" >> informeBN.txt
+			echo  " Nombre del nuevo fichero con rangos aleatorios: (No poner .txt)" >> ./Informes/informeCOLOR.txt
+			echo  " Nombre del nuevo fichero con rangos aleatorios: (No poner .txt)" >> ./Informes/informeBN.txt
 			read nombre_fichero_datos_rangos_aleatorios
 		fi
 
@@ -482,8 +482,8 @@ lee_datos() {
 
 	#Volcado de datos a los informes.
 	datos_fichTfich
-	echo "      >> $num_proc procesos." >> informeCOLOR.txt
-	echo "      >> $num_proc procesos." >> informeBN.txt
+	echo "      >> $num_proc procesos." >> ./Informes/informeCOLOR.txt
+	echo "      >> $num_proc procesos." >> ./Informes/informeBN.txt
 
 	#Una vez leido quantum y los datos de los procesos, escritura de la cabecera del informe y el enunciado.
 	escribe_cabecera_informe
@@ -498,14 +498,14 @@ preguntaGuardadoDatos()
 {
 	imprime_cabecera_larga
 	echo  " ¿Dónde guardar los datos $1?"
-	echo  " ¿Dónde guardar los datos $1?" >> informeCOLOR.txt
-	echo  " ¿Dónde guardar los datos $1?" >> informeBN.txt
+	echo  " ¿Dónde guardar los datos $1?" >> ./Informes/informeCOLOR.txt
+	echo  " ¿Dónde guardar los datos $1?" >> ./Informes/informeBN.txt
 	echo  " 1- Fichero de datos por defecto (DatosDefault.txt)"
-	echo  " 1- Fichero de datos por defecto (DatosDefault.txt)" >> informeCOLOR.txt
-	echo  " 1- Fichero de datos por defecto (DatosDefault.txt)" >> informeBN.txt
+	echo  " 1- Fichero de datos por defecto (DatosDefault.txt)" >> ./Informes/informeCOLOR.txt
+	echo  " 1- Fichero de datos por defecto (DatosDefault.txt)" >> ./Informes/informeBN.txt
 	echo  " 2- Otro fichero de datos"
-	echo  " 2- Otro fichero de datos" >> informeCOLOR.txt
-	echo  " 2- Otro fichero de datos" >> informeBN.txt
+	echo  " 2- Otro fichero de datos" >> ./Informes/informeCOLOR.txt
+	echo  " 2- Otro fichero de datos" >> ./Informes/informeBN.txt
 
 	read opcion_guardado_datos
 
@@ -516,20 +516,20 @@ preguntaGuardadoDatos()
 		read opcion_guardado_datos
 	done
 
-	echo $opcion_guardado_datos >> informeCOLOR.txt
-	echo $opcion_guardado_datos >> informeBN.txt
+	echo $opcion_guardado_datos >> ./Informes/informeCOLOR.txt
+	echo $opcion_guardado_datos >> ./Informes/informeBN.txt
 
 	#Si se guarda en otro fichero, pregunta el nombre.
 	if [ "${opcion_guardado_datos}" == "2" ]
 	then
 		echo  " Nombre del nuevo fichero con datos: (No poner .txt)"
-		echo  " Nombre del nuevo fichero con datos: (No poner .txt)" >> informeCOLOR.txt
-		echo  " Nombre del nuevo fichero con datos: (No poner .txt)" >> informeBN.txt
+		echo  " Nombre del nuevo fichero con datos: (No poner .txt)" >> ./Informes/informeCOLOR.txt
+		echo  " Nombre del nuevo fichero con datos: (No poner .txt)" >> ./Informes/informeBN.txt
 		read nombre_fichero_datos
 
 		#He añadido el nombre del fichero de guardado nuevo a los informes.
-		echo $nombre_fichero_datos >> informeCOLOR.txt 
-		echo $nombre_fichero_datos >> informeBN.txt 
+		echo $nombre_fichero_datos >> ./Informes/informeCOLOR.txt 
+		echo $nombre_fichero_datos >> ./Informes/informeBN.txt 
 	fi
 }
 
@@ -541,14 +541,14 @@ preguntaGuardadoRangos()
 {
 	imprime_cabecera_larga
 	echo  " ¿Dónde guardar los rangos $1?"
-	echo  " ¿Dónde guardar los rangos $1?" >> informeCOLOR.txt
-	echo  " ¿Dónde guardar los rangos $1?" >> informeBN.txt
+	echo  " ¿Dónde guardar los rangos $1?" >> ./Informes/informeCOLOR.txt
+	echo  " ¿Dónde guardar los rangos $1?" >> ./Informes/informeBN.txt
 	echo  " 1- Fichero de rangos por defecto (DatosRangosDefault.txt)"
-	echo  " 1- Fichero de rangos por defecto (DatosRangosDefault.txt)" >> informeCOLOR.txt
-	echo  " 1- Fichero de rangos por defecto (DatosRangosDefault.txt)" >> informeBN.txt
+	echo  " 1- Fichero de rangos por defecto (DatosRangosDefault.txt)" >> ./Informes/informeCOLOR.txt
+	echo  " 1- Fichero de rangos por defecto (DatosRangosDefault.txt)" >> ./Informes/informeBN.txt
 	echo  " 2- Otro fichero de rangos"
-	echo  " 2- Otro fichero de rangos" >> informeCOLOR.txt
-	echo  " 2- Otro fichero de rangos" >> informeBN.txt
+	echo  " 2- Otro fichero de rangos" >> ./Informes/informeCOLOR.txt
+	echo  " 2- Otro fichero de rangos" >> ./Informes/informeBN.txt
 
 	read opcion_guardado_datos_rangos
 
@@ -559,20 +559,20 @@ preguntaGuardadoRangos()
 		read opcion_guardado_datos_rangos
 	done
 
-	echo $opcion_guardado_datos_rangos >> informeCOLOR.txt
-	echo $opcion_guardado_datos_rangos >> informeBN.txt
+	echo $opcion_guardado_datos_rangos >> ./Informes/informeCOLOR.txt
+	echo $opcion_guardado_datos_rangos >> ./Informes/informeBN.txt
 
 	#Si se guarda en otro fichero, pregunta el nombre.
 	if [ "${opcion_guardado_datos_rangos}" == "2" ]
 	then
 		echo  " Nombre del nuevo fichero con rangos: (No poner .txt)"
-		echo  " Nombre del nuevo fichero con rangos: (No poner .txt)" >> informeCOLOR.txt
-		echo  " Nombre del nuevo fichero con rangos: (No poner .txt)" >> informeBN.txt
+		echo  " Nombre del nuevo fichero con rangos: (No poner .txt)" >> ./Informes/informeCOLOR.txt
+		echo  " Nombre del nuevo fichero con rangos: (No poner .txt)" >> ./Informes/informeBN.txt
 		read nombre_fichero_datos_rangos
 
 		#He añadido el nombre del fichero de guardado nuevo a los informes.
-		echo $nombre_fichero_datos_rangos >> informeCOLOR.txt
-		echo $nombre_fichero_datos_rangos >> informeBN.txt
+		echo $nombre_fichero_datos_rangos >> ./Informes/informeCOLOR.txt
+		echo $nombre_fichero_datos_rangos >> ./Informes/informeBN.txt
 	fi
 }
 
@@ -582,24 +582,24 @@ preguntaGuardadoRangos()
 datos_fichTfich()
 {
 	echo ""
-	echo "      >> Numero de particiones: $n_par" >> informeCOLOR.txt
-	echo "      >> Numero de particiones: $n_par" >> informeBN.txt
-	echo "      >> Tamaño de particiones: ${tam_par[@]}" >> informeCOLOR.txt
-	echo "      >> Tamaño de particiones: ${tam_par[@]}" >> informeBN.txt
-	echo "      >> Quantum de tiempo: $quantum" >> informeCOLOR.txt
-	echo "      >> Quantum de tiempo: $quantum" >> informeBN.txt
+	echo "      >> Numero de particiones: $n_par" >> ./Informes/informeCOLOR.txt
+	echo "      >> Numero de particiones: $n_par" >> ./Informes/informeBN.txt
+	echo "      >> Tamaño de particiones: ${tam_par[@]}" >> ./Informes/informeCOLOR.txt
+	echo "      >> Tamaño de particiones: ${tam_par[@]}" >> ./Informes/informeBN.txt
+	echo "      >> Quantum de tiempo: $quantum" >> ./Informes/informeCOLOR.txt
+	echo "      >> Quantum de tiempo: $quantum" >> ./Informes/informeBN.txt
 }
 
 
 ### Escribe la cabecera del informe para la tabla de procesos.
 escribe_cabecera_informe()
 {
-	echo "      >> Procesos y sus datos:" >> informeCOLOR.txt
-	echo "      >> Procesos y sus datos:" >> informeBN.txt
-	echo "         Ref Tll Tej Mem " >> informeCOLOR.txt
-	echo "         Ref Tll Tej Mem " >> informeBN.txt
-	echo "         ----------------" >> informeCOLOR.txt
-	echo "         ----------------" >> informeBN.txt
+	echo "      >> Procesos y sus datos:" >> ./Informes/informeCOLOR.txt
+	echo "      >> Procesos y sus datos:" >> ./Informes/informeBN.txt
+	echo "         Ref Tll Tej Mem " >> ./Informes/informeCOLOR.txt
+	echo "         Ref Tll Tej Mem " >> ./Informes/informeBN.txt
+	echo "         ----------------" >> ./Informes/informeCOLOR.txt
+	echo "         ----------------" >> ./Informes/informeBN.txt
 }
 
 
@@ -618,19 +618,19 @@ escribe_enunciado()
 			c=0
 		fi
 
-		echo -ne "         \e[${color[$c]}mP" >> informeCOLOR.txt
-		printf "%02d " "${NUMPROC[$pr]}" >> informeCOLOR.txt
-		printf "%3s " "${T_ENTRADA[$pr]}" >> informeCOLOR.txt
-		printf "%3s " "${TEJ[$pr]}" >> informeCOLOR.txt
-		printf "%3s " "${MEMORIA[$pr]}" >> informeCOLOR.txt
-		echo -e "$resetColor" >> informeCOLOR.txt
+		echo -ne "         \e[${color[$c]}mP" >> ./Informes/informeCOLOR.txt
+		printf "%02d " "${NUMPROC[$pr]}" >> ./Informes/informeCOLOR.txt
+		printf "%3s " "${T_ENTRADA[$pr]}" >> ./Informes/informeCOLOR.txt
+		printf "%3s " "${TEJ[$pr]}" >> ./Informes/informeCOLOR.txt
+		printf "%3s " "${MEMORIA[$pr]}" >> ./Informes/informeCOLOR.txt
+		echo -e "$resetColor" >> ./Informes/informeCOLOR.txt
 
-		echo -ne "         P" >> informeBN.txt
-		printf "%02d " "${NUMPROC[$pr]}" >> informeBN.txt
-		printf "%3s " "${T_ENTRADA[$pr]}" >> informeBN.txt
-		printf "%3s " "${TEJ[$pr]}" >> informeBN.txt
-		printf "%3s " "${MEMORIA[$pr]}" >> informeBN.txt
-		echo " " >> informeBN.txt
+		echo -ne "         P" >> ./Informes/informeBN.txt
+		printf "%02d " "${NUMPROC[$pr]}" >> ./Informes/informeBN.txt
+		printf "%3s " "${T_ENTRADA[$pr]}" >> ./Informes/informeBN.txt
+		printf "%3s " "${TEJ[$pr]}" >> ./Informes/informeBN.txt
+		printf "%3s " "${MEMORIA[$pr]}" >> ./Informes/informeBN.txt
+		echo " " >> ./Informes/informeBN.txt
 	done
 }
 
@@ -647,24 +647,24 @@ lectura_dat_particiones()
 	imprime_cabecera_larga
 	imprime_info_datos
 	echo -n " Introduzca numero de particiones: "
-	echo -n " Introduzca numero de particiones: " >> informeCOLOR.txt
-	echo -n " Introduzca numero de particiones: " >> informeBN.txt
+	echo -n " Introduzca numero de particiones: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduzca numero de particiones: " >> ./Informes/informeBN.txt
 	read n_par
-	echo $n_par >> informeCOLOR.txt
-	echo $n_par >> informeBN.txt
+	echo $n_par >> ./Informes/informeCOLOR.txt
+	echo $n_par >> ./Informes/informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
 	while ! mayor_cero $n_par
 	do
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		echo -n " Introduzca numero de particiones: "
-		echo -n " Introduzca numero de particiones: " >> informeCOLOR.txt
-		echo -n " Introduzca numero de particiones: " >> informeBN.txt
+		echo -n " Introduzca numero de particiones: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduzca numero de particiones: " >> ./Informes/informeBN.txt
 		read n_par
-		echo $n_par >> informeCOLOR.txt
-		echo $n_par >> informeBN.txt
+		echo $n_par >> ./Informes/informeCOLOR.txt
+		echo $n_par >> ./Informes/informeBN.txt
 	done
 
 	#Lectura del tamaño de las particiones.
@@ -675,22 +675,22 @@ lectura_dat_particiones()
 		imprime_cabecera_larga
 		imprime_info_datos
 		echo -ne " Introduce tamaño de la partición $(($p+1)): "
-		echo -ne " Introduce tamaño de la partición $(($p+1)): " >> informeCOLOR.txt
-		echo -ne " Introduce tamaño de la partición $(($p+1)): " >> informeBN.txt
+		echo -ne " Introduce tamaño de la partición $(($p+1)): " >> ./Informes/informeCOLOR.txt
+		echo -ne " Introduce tamaño de la partición $(($p+1)): " >> ./Informes/informeBN.txt
 		read tam_par_p
 
 		#He añadido una explicación más detallada del error de introducción de opción.
 		while ! mayor_cero $tam_par_p
 		do
 			echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 			echo -ne " Introduce tamaño de la partición $(($p+1)): "
-			echo -ne " Introduce tamaño de la partición $(($p+1)): " >> informeCOLOR.txt
-			echo -ne " Introduce tamaño de la partición $(($p+1)): " >> informeBN.txt
+			echo -ne " Introduce tamaño de la partición $(($p+1)): " >> ./Informes/informeCOLOR.txt
+			echo -ne " Introduce tamaño de la partición $(($p+1)): " >> ./Informes/informeBN.txt
 			read tam_par_p
-			echo $tam_par_p >> informeCOLOR.txt
-			echo $tam_par_p >> informeBN.txt
+			echo $tam_par_p >> ./Informes/informeCOLOR.txt
+			echo $tam_par_p >> ./Informes/informeBN.txt
 		done
 
 		tam_par[$p]=$tam_par_p
@@ -703,24 +703,24 @@ lectura_dat_particiones()
 	imprime_cabecera_larga
 	imprime_info_datos
 	echo -n " Introduce el quantum de ejecución: "
-	echo -n " Introduce el quantum de ejecución: " >> informeCOLOR.txt
-	echo -n " Introduce el quantum de ejecución: " >> informeBN.txt
+	echo -n " Introduce el quantum de ejecución: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el quantum de ejecución: " >> ./Informes/informeBN.txt
 	read quantum
-	echo $quantum >> informeCOLOR.txt
-	echo $quantum >> informeBN.txt
+	echo $quantum >> ./Informes/informeCOLOR.txt
+	echo $quantum >> ./Informes/informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
 	while ! mayor_cero $quantum
 	do
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		echo -n " Introduce el quantum de ejecución: "
-		echo -n " Introduce el quantum de ejecución: " >> informeCOLOR.txt
-		echo -n " Introduce el quantum de ejecución: " >> informeBN.txt
+		echo -n " Introduce el quantum de ejecución: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el quantum de ejecución: " >> ./Informes/informeBN.txt
 		read quantum
-		echo $quantum >> informeCOLOR.txt
-		echo $quantum >> informeBN.txt
+		echo $quantum >> ./Informes/informeCOLOR.txt
+		echo $quantum >> ./Informes/informeBN.txt
 	done
 
 	#clear
@@ -759,24 +759,24 @@ lectura_dat_procesos()
 		###  LECTURA DE TIEMPO DE LLEGADA  ###
 
 		echo -n " Introduce el tiempo de llegada a CPU del proceso $num_proc: "
-		echo -n " Introduce el tiempo de llegada a CPU del proceso $num_proc: " >> informeCOLOR.txt
-		echo -n " Introduce el tiempo de llegada a CPU del proceso $num_proc: " >> informeBN.txt
+		echo -n " Introduce el tiempo de llegada a CPU del proceso $num_proc: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el tiempo de llegada a CPU del proceso $num_proc: " >> ./Informes/informeBN.txt
 		read entrada
-		echo $entrada >> informeCOLOR.txt
-		echo $entrada >> informeBN.txt
+		echo $entrada >> ./Informes/informeCOLOR.txt
+		echo $entrada >> ./Informes/informeBN.txt
 
 		#He añadido una explicación más detallada del error de introducción de opción.
 		while ! mayor_cero $entrada
 		do
 			echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 			echo -n " Introduce el tiempo de llegada a CPU del proceso $num_proc: "
-			echo -n " Introduce el tiempo de llegada a CPU del proceso $num_proc: " >> informeCOLOR.txt
-			echo -n " Introduce el tiempo de llegada a CPU del proceso $num_proc: " >> informeBN.txt
+			echo -n " Introduce el tiempo de llegada a CPU del proceso $num_proc: " >> ./Informes/informeCOLOR.txt
+			echo -n " Introduce el tiempo de llegada a CPU del proceso $num_proc: " >> ./Informes/informeBN.txt
 			read entrada
-			echo $entrada >> informeCOLOR.txt
-			echo $entrada >> informeBN.txt
+			echo $entrada >> ./Informes/informeCOLOR.txt
+			echo $entrada >> ./Informes/informeBN.txt
 		done
 
 		#Almacenamiento de valores en los arrays.
@@ -808,24 +808,24 @@ lectura_dat_procesos()
 		###  LECTURA DE RÁFAGA DE CPU DEL PROCESO  ###
 
 		echo -n " Introduce el tiempo en CPU del proceso $num_proc: "
-		echo -n " Introduce el tiempo en CPU del proceso $num_proc: " >> informeCOLOR.txt
-		echo -n " Introduce el tiempo en CPU del proceso $num_proc: " >> informeBN.txt
+		echo -n " Introduce el tiempo en CPU del proceso $num_proc: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el tiempo en CPU del proceso $num_proc: " >> ./Informes/informeBN.txt
 		read rafaga
-		echo $rafaga >> informeCOLOR.txt
-		echo $rafaga >> informeBN.txt
+		echo $rafaga >> ./Informes/informeCOLOR.txt
+		echo $rafaga >> ./Informes/informeBN.txt
 
 		#He añadido una explicación más detallada del error de introducción de opción.
 		while ! mayor_cero $rafaga
 		do
  			echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 			echo -n " Introduce el tiempo en CPU del proceso $num_proc: "
-			echo -n " Introduce el tiempo en CPU del proceso $num_proc: " >> informeCOLOR.txt
-			echo -n " Introduce el tiempo en CPU del proceso $num_proc: " >> informeBN.txt
+			echo -n " Introduce el tiempo en CPU del proceso $num_proc: " >> ./Informes/informeCOLOR.txt
+			echo -n " Introduce el tiempo en CPU del proceso $num_proc: " >> ./Informes/informeBN.txt
 			read rafaga
-			echo $rafaga >> informeCOLOR.txt
-			echo $rafaga >> informeBN.txt
+			echo $rafaga >> ./Informes/informeCOLOR.txt
+			echo $rafaga >> ./Informes/informeBN.txt
 		done
 
 		#Almacenamiento de valores en los arrays.
@@ -842,24 +842,24 @@ lectura_dat_procesos()
 		###  LECTURA DE LA MEMORIA DEL PROCESO  ###
 
 		echo -n " Introduce la memoria del proceso $num_proc: "
-		echo -n " Introduce la memoria del proceso $num_proc: " >> informeCOLOR.txt
-		echo -n " Introduce la memoria del proceso $num_proc: " >> informeBN.txt
+		echo -n " Introduce la memoria del proceso $num_proc: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce la memoria del proceso $num_proc: " >> ./Informes/informeBN.txt
 		read memo_proc
-		echo $memo_proc >> informeCOLOR.txt
-		echo $memo_proc >> informeBN.txt
+		echo $memo_proc >> ./Informes/informeCOLOR.txt
+		echo $memo_proc >> ./Informes/informeBN.txt
 
 		#He añadido una explicación más detallada del error de introducción de opción.
 		while ! mayor_cero $memo_proc
 		do
 			echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 			echo -n " Introduce la memoria del proceso $num_proc: "
-			echo -n " Introduce la memoria del proceso $num_proc: " >> informeCOLOR.txt
-			echo -n " Introduce la memoria del proceso $num_proc: " >> informeBN.txt
+			echo -n " Introduce la memoria del proceso $num_proc: " >> ./Informes/informeCOLOR.txt
+			echo -n " Introduce la memoria del proceso $num_proc: " >> ./Informes/informeBN.txt
 			read memo_proc
-			echo $memo_proc >> informeCOLOR.txt
-			echo $memo_proc >> informeBN.txt
+			echo $memo_proc >> ./Informes/informeCOLOR.txt
+			echo $memo_proc >> ./Informes/informeBN.txt
 		done
 
 		###  COMPROBACIÓN DE MEMORIA MENOR QUE PARTICIONES  ###
@@ -878,14 +878,14 @@ lectura_dat_procesos()
 		while [ $memo_proc -gt $tam_par_max_efec ] #Si la memoria del proceso es mayor que la mayor partición
 		do
  			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición"
-			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> informeCOLOR.txt
-			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> informeBN.txt
+			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> ./Informes/informeBN.txt
 			echo -n " Introduce la memoria del proceso $num_proc: "
-			echo -n " Introduce la memoria del proceso $num_proc: " >> informeCOLOR.txt
-			echo -n " Introduce la memoria del proceso $num_proc: " >> informeBN.txt
+			echo -n " Introduce la memoria del proceso $num_proc: " >> ./Informes/informeCOLOR.txt
+			echo -n " Introduce la memoria del proceso $num_proc: " >> ./Informes/informeBN.txt
 			read memo_proc
-			echo $memo_proc >> informeCOLOR.txt
-			echo $memo_proc >> informeBN.txt
+			echo $memo_proc >> ./Informes/informeCOLOR.txt
+			echo $memo_proc >> ./Informes/informeBN.txt
 		done
 
 		#Almacenamiento de valores en los arrays.
@@ -932,24 +932,24 @@ lectura_dat_particiones_aleatorias()
 	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	echo -n " Introduzca numero de particiones mínimo: "
-	echo -n " Introduzca numero de particiones mínimo: " >> informeCOLOR.txt
-	echo -n " Introduzca numero de particiones mínimo: " >> informeBN.txt
+	echo -n " Introduzca numero de particiones mínimo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduzca numero de particiones mínimo: " >> ./Informes/informeBN.txt
 	read n_par_min
-	echo $n_par_min >> informeCOLOR.txt
-	echo $n_par_min >> informeBN.txt
+	echo $n_par_min >> ./Informes/informeCOLOR.txt
+	echo $n_par_min >> ./Informes/informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
 	while ! mayor_cero $n_par_min
 	do
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		echo -n " Introduzca numero de particiones mínimo: "
-		echo -n " Introduzca numero de particiones mínimo: " >> informeCOLOR.txt
-		echo -n " Introduzca numero de particiones mínimo: " >> informeBN.txt
+		echo -n " Introduzca numero de particiones mínimo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduzca numero de particiones mínimo: " >> ./Informes/informeBN.txt
 		read n_par_min
-		echo $n_par_min >> informeCOLOR.txt
-		echo $n_par_min >> informeBN.txt
+		echo $n_par_min >> ./Informes/informeCOLOR.txt
+		echo $n_par_min >> ./Informes/informeBN.txt
 	done
 
 	###  NÚMERO DE PARTICIONES MÁXIMO  ###
@@ -958,11 +958,11 @@ lectura_dat_particiones_aleatorias()
 	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	echo -n " Introduzca numero de particiones máximo: "
-	echo -n " Introduzca numero de particiones máximo: " >> informeCOLOR.txt
-	echo -n " Introduzca numero de particiones máximo: " >> informeBN.txt
+	echo -n " Introduzca numero de particiones máximo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduzca numero de particiones máximo: " >> ./Informes/informeBN.txt
 	read n_par_max
-	echo $n_par_max >> informeCOLOR.txt
-	echo $n_par_max >> informeBN.txt
+	echo $n_par_max >> ./Informes/informeCOLOR.txt
+	echo $n_par_max >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE NÚMERO MAYOR QUE CERO Y DE RANGOS DE NÚMERO DE PARTICIONES  ###
 	
@@ -972,19 +972,19 @@ lectura_dat_particiones_aleatorias()
 		if ! mayor_cero $n_par_max	#He añadido una explicación más detallada del error de introducción de opción.
 		then
 			echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		else	#Límite máximo inferior al mínimo.
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo"
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduzca numero de particiones máximo: "
-		echo -n " Introduzca numero de particiones máximo: " >> informeCOLOR.txt
-		echo -n " Introduzca numero de particiones máximo: " >> informeBN.txt
+		echo -n " Introduzca numero de particiones máximo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduzca numero de particiones máximo: " >> ./Informes/informeBN.txt
 		read n_par_max
-		echo $n_par_max >> informeCOLOR.txt
-		echo $n_par_max >> informeBN.txt
+		echo $n_par_max >> ./Informes/informeCOLOR.txt
+		echo $n_par_max >> ./Informes/informeBN.txt
 	done
 
 	#Asignación aleatoria del número de particiones en el rango.
@@ -996,24 +996,24 @@ lectura_dat_particiones_aleatorias()
 	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	echo -n " Introduce tamaño de particiones mínimo: "
-	echo -n " Introduce tamaño de particiones mínimo: " >> informeCOLOR.txt
-	echo -n " Introduce tamaño de particiones mínimo: " >> informeBN.txt
+	echo -n " Introduce tamaño de particiones mínimo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce tamaño de particiones mínimo: " >> ./Informes/informeBN.txt
 	read tam_par_min
-	echo $tam_par_min >> informeCOLOR.txt
-	echo $tam_par_min >> informeBN.txt
+	echo $tam_par_min >> ./Informes/informeCOLOR.txt
+	echo $tam_par_min >> ./Informes/informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
 	while ! mayor_cero $tam_par_min
 	do
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		echo -n " Introduzca tamaño de particiones mínimo: "
-		echo -n " Introduzca tamaño de particiones mínimo: " >> informeCOLOR.txt
-		echo -n " Introduzca tamaño de particiones mínimo: " >> informeBN.txt
+		echo -n " Introduzca tamaño de particiones mínimo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduzca tamaño de particiones mínimo: " >> ./Informes/informeBN.txt
 		read tam_par_min
-		echo $tam_par_min >> informeCOLOR.txt
-		echo $tam_par_min >> informeBN.txt
+		echo $tam_par_min >> ./Informes/informeCOLOR.txt
+		echo $tam_par_min >> ./Informes/informeBN.txt
 	done
 
 	###  TAMAÑO DE PARTICIONES MÁXIMO  ###
@@ -1022,11 +1022,11 @@ lectura_dat_particiones_aleatorias()
 	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	echo -n " Introduce tamaño de particiones máximo: "
-	echo -n " Introduce tamaño de particiones máximo: " >> informeCOLOR.txt
-	echo -n " Introduce tamaño de particiones máximo: " >> informeBN.txt
+	echo -n " Introduce tamaño de particiones máximo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce tamaño de particiones máximo: " >> ./Informes/informeBN.txt
 	read tam_par_max
-	echo $tam_par_max >> informeCOLOR.txt
-	echo $tam_par_max >> informeBN.txt
+	echo $tam_par_max >> ./Informes/informeCOLOR.txt
+	echo $tam_par_max >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE NÚMERO MAYOR QUE CERO Y DE RANGOS DE TAMAÑO DE PARTICIONES  ###
 	
@@ -1036,19 +1036,19 @@ lectura_dat_particiones_aleatorias()
 		if ! mayor_cero $tam_par_max	#He añadido una explicación más detallada del error de introducción de opción.	
 		then
 			echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		else	#Límite máximo inferior al mínimo.
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo"
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduzca tamaño de particiones máximo: "
-		echo -n " Introduzca tamaño de particiones máximo: " >> informeCOLOR.txt
-		echo -n " Introduzca tamaño de particiones máximo: " >> informeBN.txt
+		echo -n " Introduzca tamaño de particiones máximo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduzca tamaño de particiones máximo: " >> ./Informes/informeBN.txt
 		read tam_par_max
-		echo $tam_par_max >> informeCOLOR.txt
-		echo $tam_par_max >> informeBN.txt
+		echo $tam_par_max >> ./Informes/informeCOLOR.txt
+		echo $tam_par_max >> ./Informes/informeBN.txt
 	done	
 
 	#Asignación aleatoria del tamaño de particiones en el rango.
@@ -1063,24 +1063,24 @@ lectura_dat_particiones_aleatorias()
 	imprime_cabecera_larga
 	imprime_info_datos_aleatorios		
 	echo -n " Introduce el quantum de ejecución mínimo: "
-	echo -n " Introduce el quantum de ejecución mínimo: " >> informeCOLOR.txt
-	echo -n " Introduce el quantum de ejecución mínimo: " >> informeBN.txt
+	echo -n " Introduce el quantum de ejecución mínimo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el quantum de ejecución mínimo: " >> ./Informes/informeBN.txt
 	read quantum_min
-	echo $quantum_min >> informeCOLOR.txt
-	echo $quantum_min >> informeBN.txt
+	echo $quantum_min >> ./Informes/informeCOLOR.txt
+	echo $quantum_min >> ./Informes/informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
 	while ! mayor_cero $quantum_min
 	do
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		echo -n " Introduce el quantum de ejecución mínimo: "
-		echo -n " Introduce el quantum de ejecución mínimo: " >> informeCOLOR.txt
-		echo -n " Introduce el quantum de ejecución mínimo: " >> informeBN.txt
+		echo -n " Introduce el quantum de ejecución mínimo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el quantum de ejecución mínimo: " >> ./Informes/informeBN.txt
 		read quantum_min
-		echo $quantum_min >> informeCOLOR.txt
-		echo $quantum_min >> informeBN.txt
+		echo $quantum_min >> ./Informes/informeCOLOR.txt
+		echo $quantum_min >> ./Informes/informeBN.txt
 	done
 
 	###  QUÁNTUM MÁXIMO  ###
@@ -1089,11 +1089,11 @@ lectura_dat_particiones_aleatorias()
 	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	echo -n " Introduce el quantum de ejecución máximo: "
-	echo -n " Introduce el quantum de ejecución máximo: " >> informeCOLOR.txt
-	echo -n " Introduce el quantum de ejecución máximo: " >> informeBN.txt
+	echo -n " Introduce el quantum de ejecución máximo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el quantum de ejecución máximo: " >> ./Informes/informeBN.txt
 	read quantum_max
-	echo $quantum_max >> informeCOLOR.txt
-	echo $quantum_max >> informeBN.txt
+	echo $quantum_max >> ./Informes/informeCOLOR.txt
+	echo $quantum_max >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE NÚMERO MAYOR QUE CERO Y DE RANGOS DE QUÁNTUM  ###
 
@@ -1103,19 +1103,19 @@ lectura_dat_particiones_aleatorias()
 		if ! mayor_cero $quantum_max 	#He añadido una explicación más detallada del error de introducción de opción.
 		then
 			echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		else 	#Límite máximo inferior al mínimo.
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo"
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduce el quantum de ejecución máximo: "
-		echo -n " Introduce el quantum de ejecución máximo: " >> informeCOLOR.txt
-		echo -n " Introduce el quantum de ejecución máximo: " >> informeBN.txt
+		echo -n " Introduce el quantum de ejecución máximo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el quantum de ejecución máximo: " >> ./Informes/informeBN.txt
 		read quantum_max
-		echo $quantum_max >> informeCOLOR.txt
-		echo $quantum_max >> informeBN.txt
+		echo $quantum_max >> ./Informes/informeCOLOR.txt
+		echo $quantum_max >> ./Informes/informeBN.txt
 	done
 
 	#Asignación aleatoria del quántum en el rango.
@@ -1136,35 +1136,35 @@ lectura_dat_procesos_aleatorios()
 	###  NÚMERO DE PROCESOS MÍNIMO  ###
 	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce el número de procesos mínimo: "
-	echo -n " Introduce el número de procesos mínimo: " >> informeCOLOR.txt
-	echo -n " Introduce el número de procesos mínimo: " >> informeBN.txt
+	echo -n " Introduce el número de procesos mínimo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el número de procesos mínimo: " >> ./Informes/informeBN.txt
 	read num_proc_min
-	echo $num_proc_min >> informeCOLOR.txt
-	echo $num_proc_min >> informeBN.txt
+	echo $num_proc_min >> ./Informes/informeCOLOR.txt
+	echo $num_proc_min >> ./Informes/informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
 	while ! mayor_cero $num_proc_min
 	do
 		echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		echo -n " Introduce el número de procesos mínimo: "
-		echo -n " Introduce el número de procesos mínimo: " >> informeCOLOR.txt
-		echo -n " Introduce el número de procesos mínimo: " >> informeBN.txt
+		echo -n " Introduce el número de procesos mínimo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el número de procesos mínimo: " >> ./Informes/informeBN.txt
 		read num_proc_min
-		echo $num_proc_min >> informeCOLOR.txt
-		echo $num_proc_min >> informeBN.txt
+		echo $num_proc_min >> ./Informes/informeCOLOR.txt
+		echo $num_proc_min >> ./Informes/informeBN.txt
 	done
 
 	###  NÚMERO DE PROCESOS MÁXIMO  ###
 
 	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce el número de procesos máximo: "
-	echo -n " Introduce el número de procesos máximo: " >> informeCOLOR.txt
-	echo -n " Introduce el número de procesos máximo: " >> informeBN.txt
+	echo -n " Introduce el número de procesos máximo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el número de procesos máximo: " >> ./Informes/informeBN.txt
 	read num_proc_max
-	echo $num_proc_max >> informeCOLOR.txt
-	echo $num_proc_max >> informeBN.txt
+	echo $num_proc_max >> ./Informes/informeCOLOR.txt
+	echo $num_proc_max >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE NÚMERO MAYOR QUE CERO Y DE RANGOS DE NÚMERO DE PROCESOS  ###
 
@@ -1174,19 +1174,19 @@ lectura_dat_procesos_aleatorios()
 		if ! mayor_cero $num_proc_max 	#He añadido una explicación más detallada del error de introducción de opción.
 		then
 			echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		else 	#Límite máximo inferior al mínimo.
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo"
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduce el número de procesos máximo: "
-		echo -n " Introduce el número de procesos máximo: " >> informeCOLOR.txt
-		echo -n " Introduce el número de procesos máximo: " >> informeBN.txt
+		echo -n " Introduce el número de procesos máximo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el número de procesos máximo: " >> ./Informes/informeBN.txt
 		read num_proc_max
-		echo $num_proc_max >> informeCOLOR.txt
-		echo $num_proc_max >> informeBN.txt
+		echo $num_proc_max >> ./Informes/informeCOLOR.txt
+		echo $num_proc_max >> ./Informes/informeBN.txt
 	done
 	
 	#Asignación aleatoria del número de procesos en el rango.
@@ -1196,35 +1196,35 @@ lectura_dat_procesos_aleatorios()
 
 	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce el tiempo de llegada mínimo a CPU de los procesos: "
-	echo -n " Introduce el tiempo de llegada mínimo a CPU de los procesos: " >> informeCOLOR.txt
-	echo -n " Introduce el tiempo de llegada mínimo a CPU de los procesos: " >> informeBN.txt
+	echo -n " Introduce el tiempo de llegada mínimo a CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el tiempo de llegada mínimo a CPU de los procesos: " >> ./Informes/informeBN.txt
 	read entrada_min
-	echo $entrada_min >> informeCOLOR.txt
-	echo $entrada_min >> informeBN.txt
+	echo $entrada_min >> ./Informes/informeCOLOR.txt
+	echo $entrada_min >> ./Informes/informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
 	while ! mayor_cero $entrada_min
 	do
 		echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		echo -n " Introduce el tiempo de llegada mínimo a CPU de los procesos: "
-		echo -n " Introduce el tiempo de llegada mínimo a CPU de los procesos: " >> informeCOLOR.txt
-		echo -n " Introduce el tiempo de llegada mínimo a CPU de los procesos: " >> informeBN.txt
+		echo -n " Introduce el tiempo de llegada mínimo a CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el tiempo de llegada mínimo a CPU de los procesos: " >> ./Informes/informeBN.txt
 		read entrada_min
-		echo $entrada_min >> informeCOLOR.txt
-		echo $entrada_min >> informeBN.txt
+		echo $entrada_min >> ./Informes/informeCOLOR.txt
+		echo $entrada_min >> ./Informes/informeBN.txt
 	done
 
 	###   TIEMPO DE LLEGADA MÁXIMO  ###
 
 	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce el tiempo de llegada máximo a CPU de los procesos: "
-	echo -n " Introduce el tiempo de llegada máximo a CPU de los procesos: " >> informeCOLOR.txt
-	echo -n " Introduce el tiempo de llegada máximo a CPU de los procesos: " >> informeBN.txt
+	echo -n " Introduce el tiempo de llegada máximo a CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el tiempo de llegada máximo a CPU de los procesos: " >> ./Informes/informeBN.txt
 	read entrada_max
-	echo $entrada_max >> informeCOLOR.txt
-	echo $entrada_max >> informeBN.txt
+	echo $entrada_max >> ./Informes/informeCOLOR.txt
+	echo $entrada_max >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE NÚMERO MAYOR QUE CERO Y DE RANGOS DE TIEMPOS DE LLEGADA  ###
 
@@ -1234,54 +1234,54 @@ lectura_dat_procesos_aleatorios()
 		if ! mayor_cero $entrada_max 	#He añadido una explicación más detallada del error de introducción de opción.
 		then
 			echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		else 	#Límite máximo inferior al mínimo.
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo"
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduce el tiempo de llegada máximo a CPU de los procesos: "
-		echo -n " Introduce el tiempo de llegada máximo a CPU de los procesos: " >> informeCOLOR.txt
-		echo -n " Introduce el tiempo de llegada máximo a CPU de los procesos: " >> informeBN.txt
+		echo -n " Introduce el tiempo de llegada máximo a CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el tiempo de llegada máximo a CPU de los procesos: " >> ./Informes/informeBN.txt
 		read entrada_max
-		echo $entrada_max >> informeCOLOR.txt
-		echo $entrada_max >> informeBN.txt
+		echo $entrada_max >> ./Informes/informeCOLOR.txt
+		echo $entrada_max >> ./Informes/informeBN.txt
 	done
 
 	###  RÁFAGA MÍNIMA  ###
 
 	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce la ráfaga mínima de CPU de los procesos: "
-	echo -n " Introduce la ráfaga mínima de CPU de los procesos: " >> informeCOLOR.txt
-	echo -n " Introduce la ráfaga mínima de CPU de los procesos: " >> informeBN.txt
+	echo -n " Introduce la ráfaga mínima de CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce la ráfaga mínima de CPU de los procesos: " >> ./Informes/informeBN.txt
 	read rafaga_min
-	echo $rafaga_min >> informeCOLOR.txt
-	echo $rafaga_min >> informeBN.txt
+	echo $rafaga_min >> ./Informes/informeCOLOR.txt
+	echo $rafaga_min >> ./Informes/informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
 	while ! mayor_cero $rafaga_min
 	do
 		echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		echo -n " Introduce la ráfaga mínima de CPU de los procesos: "
-		echo -n " Introduce la ráfaga mínima de CPU de los procesos: " >> informeCOLOR.txt
-		echo -n " Introduce la ráfaga mínima de CPU de los procesos: " >> informeBN.txt
+		echo -n " Introduce la ráfaga mínima de CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce la ráfaga mínima de CPU de los procesos: " >> ./Informes/informeBN.txt
 		read rafaga_min
-		echo $rafaga_min >> informeCOLOR.txt
-		echo $rafaga_min >> informeBN.txt
+		echo $rafaga_min >> ./Informes/informeCOLOR.txt
+		echo $rafaga_min >> ./Informes/informeBN.txt
 	done
 
 	###  RÁFAGA MÁXIMA  ###
 
 	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce la ráfaga máxima de CPU de los procesos: "
-	echo -n " Introduce la ráfaga máxima de CPU de los procesos: " >> informeCOLOR.txt
-	echo -n " Introduce la ráfaga máxima de CPU de los procesos: " >> informeBN.txt
+	echo -n " Introduce la ráfaga máxima de CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce la ráfaga máxima de CPU de los procesos: " >> ./Informes/informeBN.txt
 	read rafaga_max
-	echo $rafaga_max >> informeCOLOR.txt
-	echo $rafaga_max >> informeBN.txt
+	echo $rafaga_max >> ./Informes/informeCOLOR.txt
+	echo $rafaga_max >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE NÚMERO MAYOR QUE CERO Y DE RANGOS DE RÁFAGA  ###
 
@@ -1291,19 +1291,19 @@ lectura_dat_procesos_aleatorios()
 		if ! mayor_cero $rafaga_max 	#He añadido una explicación más detallada del error de introducción de opción.
 		then 
 			echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		else  	#Límite máximo inferior al mínimo.
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo"
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduce la ráfaga máxima de CPU de los procesos: "
-		echo -n " Introduce la ráfaga máxima de CPU de los procesos: " >> informeCOLOR.txt
-		echo -n " Introduce la ráfaga máxima de CPU de los procesos: " >> informeBN.txt
+		echo -n " Introduce la ráfaga máxima de CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce la ráfaga máxima de CPU de los procesos: " >> ./Informes/informeBN.txt
 		read rafaga_max
-		echo $rafaga_max >> informeCOLOR.txt
-		echo $rafaga_max >> informeBN.txt
+		echo $rafaga_max >> ./Informes/informeCOLOR.txt
+		echo $rafaga_max >> ./Informes/informeBN.txt
 	done
 
 	###  MEMORIA  ###
@@ -1323,11 +1323,11 @@ lectura_dat_procesos_aleatorios()
 
 	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce la memoria mínima de los procesos: "
-	echo -n " Introduce la memoria mínima de los procesos: " >> informeCOLOR.txt
-	echo -n " Introduce la memoria mínima de los procesos: " >> informeBN.txt
+	echo -n " Introduce la memoria mínima de los procesos: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce la memoria mínima de los procesos: " >> ./Informes/informeBN.txt
 	read memo_proc_min
-	echo $memo_proc_min >> informeCOLOR.txt
-	echo $memo_proc_min >> informeBN.txt
+	echo $memo_proc_min >> ./Informes/informeCOLOR.txt
+	echo $memo_proc_min >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE MEMORIA MÍNIMA MAYOR QUE CERO Y MENOR QUE TAMAÑO DE PARTICIONES  ###
 
@@ -1339,30 +1339,30 @@ lectura_dat_procesos_aleatorios()
 		if ! mayor_cero $memo_proc_min 	#He añadido una explicación más detallada del error de introducción de opción.
 		then
 			echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		else #Si la memoria mínima de los procesos es mayor que la mayor partición.
 			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición"
-			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> informeCOLOR.txt
-			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> informeBN.txt
+			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduce la memoria mínima de los procesos: "
-		echo -n " Introduce la memoria mínima de los procesos: " >> informeCOLOR.txt
-		echo -n " Introduce la memoria mínima de los procesos: " >> informeBN.txt
+		echo -n " Introduce la memoria mínima de los procesos: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce la memoria mínima de los procesos: " >> ./Informes/informeBN.txt
 		read memo_proc_min
-		echo $memo_proc_min >> informeCOLOR.txt
-		echo $memo_proc_min >> informeBN.txt
+		echo $memo_proc_min >> ./Informes/informeCOLOR.txt
+		echo $memo_proc_min >> ./Informes/informeBN.txt
 	done
 
 	###  MEMORIA MÁXIMA  ###
 
 	imprimir_tabla_procesos_aleatorios
 	echo -n " Introduce la memoria máxima de los procesos: "
-	echo -n " Introduce la memoria máxima de los procesos: " >> informeCOLOR.txt
-	echo -n " Introduce la memoria máxima de los procesos: " >> informeBN.txt
+	echo -n " Introduce la memoria máxima de los procesos: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce la memoria máxima de los procesos: " >> ./Informes/informeBN.txt
 	read memo_proc_max
-	echo $memo_proc_max >> informeCOLOR.txt
-	echo $memo_proc_max >> informeBN.txt
+	echo $memo_proc_max >> ./Informes/informeCOLOR.txt
+	echo $memo_proc_max >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE MEMORIA MÁXIMA MAYOR QUE CERO, MENOR QUE TAMAÑO DE PARTICIONES Y DE RANGOS DE MEMORIA ###
 
@@ -1375,24 +1375,24 @@ lectura_dat_procesos_aleatorios()
 		if ! mayor_cero $memo_proc_max 	#He añadido una explicación más detallada del error de introducción de opción.
 		then
 			echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		elif [ $memo_proc_max -gt $tam_par_max_efec ] 	#Si la memoria máxima de los procesos es mayor que la mayor partición.
 		then
 			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición"
-			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> informeCOLOR.txt
-			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> informeBN.txt
+			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> ./Informes/informeBN.txt
 		else 
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo"
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduce la memoria máxima de los procesos: "
-		echo -n " Introduce la memoria máxima de los procesos: " >> informeCOLOR.txt
-		echo -n " Introduce la memoria máxima de los procesos: " >> informeBN.txt
+		echo -n " Introduce la memoria máxima de los procesos: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce la memoria máxima de los procesos: " >> ./Informes/informeBN.txt
 		read memo_proc_max
-		echo $memo_proc_max >> informeCOLOR.txt
-		echo $memo_proc_max >> informeBN.txt
+		echo $memo_proc_max >> ./Informes/informeCOLOR.txt
+		echo $memo_proc_max >> ./Informes/informeBN.txt
 	done
 
 	#Calculo los datos de los procesos.
@@ -1471,24 +1471,24 @@ lectura_dat_particiones_rangos_aleatorios()
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo -n " Introduzca rango de número de particiones mínimo: "
-	echo -n " Introduzca rango de número de particiones mínimo: " >> informeCOLOR.txt
-	echo -n " Introduzca rango de número de particiones mínimo: " >> informeBN.txt
+	echo -n " Introduzca rango de número de particiones mínimo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduzca rango de número de particiones mínimo: " >> ./Informes/informeBN.txt
 	read rango_n_par_min
-	echo $rango_n_par_min >> informeCOLOR.txt
-	echo $rango_n_par_min >> informeBN.txt
+	echo $rango_n_par_min >> ./Informes/informeCOLOR.txt
+	echo $rango_n_par_min >> ./Informes/informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
 	while ! mayor_cero $rango_n_par_min
 	do
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		echo -n " Introduzca rango de número de particiones mínimo: "
-		echo -n " Introduzca rango de número de particiones mínimo: " >> informeCOLOR.txt
-		echo -n " Introduzca rango de número de particiones mínimo: " >> informeBN.txt
+		echo -n " Introduzca rango de número de particiones mínimo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduzca rango de número de particiones mínimo: " >> ./Informes/informeBN.txt
 		read rango_n_par_min
-		echo $rango_n_par_min >> informeCOLOR.txt
-		echo $rango_n_par_min >> informeBN.txt
+		echo $rango_n_par_min >> ./Informes/informeCOLOR.txt
+		echo $rango_n_par_min >> ./Informes/informeBN.txt
 	done
 
 	###  RANGO DE NÚMERO DE PARTICIONES MÁXIMO  ###
@@ -1497,11 +1497,11 @@ lectura_dat_particiones_rangos_aleatorios()
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo -n " Introduzca rango de número de particiones máximo: "
-	echo -n " Introduzca rango de número de particiones máximo: " >> informeCOLOR.txt
-	echo -n " Introduzca rango de número de particiones máximo: " >> informeBN.txt
+	echo -n " Introduzca rango de número de particiones máximo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduzca rango de número de particiones máximo: " >> ./Informes/informeBN.txt
 	read rango_n_par_max
-	echo $rango_n_par_max >> informeCOLOR.txt
-	echo $rango_n_par_max >> informeBN.txt
+	echo $rango_n_par_max >> ./Informes/informeCOLOR.txt
+	echo $rango_n_par_max >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE NÚMERO MAYOR QUE CERO Y DE RANGOS DE NÚMERO DE PARTICIONES  ###
 	
@@ -1511,20 +1511,20 @@ lectura_dat_particiones_rangos_aleatorios()
 		if ! mayor_cero $rango_n_par_max	#He añadido una explicación más detallada del error de introducción de opción.
 		then
 			echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 			
 		else	#Límite máximo inferior al mínimo.
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo"
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduzca rango de número de particiones máximo: "
-		echo -n " Introduzca rango de número de particiones máximo: " >> informeCOLOR.txt
-		echo -n " Introduzca rango de número de particiones máximo: " >> informeBN.txt
+		echo -n " Introduzca rango de número de particiones máximo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduzca rango de número de particiones máximo: " >> ./Informes/informeBN.txt
 		read rango_n_par_max
-		echo $rango_n_par_max >> informeCOLOR.txt
-		echo $rango_n_par_max >> informeBN.txt
+		echo $rango_n_par_max >> ./Informes/informeCOLOR.txt
+		echo $rango_n_par_max >> ./Informes/informeBN.txt
 	done
 
 	#Asignación aleatoria del número de particiones mínimo en el rango.
@@ -1549,24 +1549,24 @@ lectura_dat_particiones_rangos_aleatorios()
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo -n " Introduce rango de tamaño de particiones mínimo: "
-	echo -n " Introduce rango de tamaño de particiones mínimo: " >> informeCOLOR.txt
-	echo -n " Introduce rango de tamaño de particiones mínimo: " >> informeBN.txt
+	echo -n " Introduce rango de tamaño de particiones mínimo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce rango de tamaño de particiones mínimo: " >> ./Informes/informeBN.txt
 	read rango_tam_par_min
-	echo $rango_tam_par_min >> informeCOLOR.txt
-	echo $rango_tam_par_min >> informeBN.txt
+	echo $rango_tam_par_min >> ./Informes/informeCOLOR.txt
+	echo $rango_tam_par_min >> ./Informes/informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
 	while ! mayor_cero $rango_tam_par_min
 	do
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		echo -n " Introduzca rango de tamaño de particiones mínimo: "
-		echo -n " Introduzca rango de tamaño de particiones mínimo: " >> informeCOLOR.txt
-		echo -n " Introduzca rango de tamaño de particiones mínimo: " >> informeBN.txt
+		echo -n " Introduzca rango de tamaño de particiones mínimo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduzca rango de tamaño de particiones mínimo: " >> ./Informes/informeBN.txt
 		read rango_tam_par_min
-		echo $rango_tam_par_min >> informeCOLOR.txt
-		echo $rango_tam_par_min >> informeBN.txt
+		echo $rango_tam_par_min >> ./Informes/informeCOLOR.txt
+		echo $rango_tam_par_min >> ./Informes/informeBN.txt
 	done
 
 	###  RANGO DE TAMAÑO DE PARTICIONES MÁXIMO  ###
@@ -1575,11 +1575,11 @@ lectura_dat_particiones_rangos_aleatorios()
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo -n " Introduce rango de tamaño de particiones máximo: "
-	echo -n " Introduce rango de tamaño de particiones máximo: " >> informeCOLOR.txt
-	echo -n " Introduce rango de tamaño de particiones máximo: " >> informeBN.txt
+	echo -n " Introduce rango de tamaño de particiones máximo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce rango de tamaño de particiones máximo: " >> ./Informes/informeBN.txt
 	read rango_tam_par_max
-	echo $rango_tam_par_max >> informeCOLOR.txt
-	echo $rango_tam_par_max >> informeBN.txt
+	echo $rango_tam_par_max >> ./Informes/informeCOLOR.txt
+	echo $rango_tam_par_max >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE NÚMERO MAYOR QUE CERO Y DE RANGOS DE TAMAÑO DE PARTICIONES  ###
 	
@@ -1589,19 +1589,19 @@ lectura_dat_particiones_rangos_aleatorios()
 		if ! mayor_cero $rango_tam_par_max	#He añadido una explicación más detallada del error de introducción de opción.	
 		then
 			echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		else	#Límite máximo inferior al mínimo.
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo"
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduzca rango de tamaño de particiones máximo: "
-		echo -n " Introduzca rango de tamaño de particiones máximo: " >> informeCOLOR.txt
-		echo -n " Introduzca rango de tamaño de particiones máximo: " >> informeBN.txt
+		echo -n " Introduzca rango de tamaño de particiones máximo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduzca rango de tamaño de particiones máximo: " >> ./Informes/informeBN.txt
 		read rango_tam_par_max
-		echo $rango_tam_par_max >> informeCOLOR.txt
-		echo $rango_tam_par_max >> informeBN.txt
+		echo $rango_tam_par_max >> ./Informes/informeCOLOR.txt
+		echo $rango_tam_par_max >> ./Informes/informeBN.txt
 	done	
 
 	#Asignación aleatoria del tamaño de particiones mínimo en el rango.
@@ -1629,24 +1629,24 @@ lectura_dat_particiones_rangos_aleatorios()
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios		
 	echo -n " Introduce el rango de quantum de ejecución mínimo: "
-	echo -n " Introduce el rango de quantum de ejecución mínimo: " >> informeCOLOR.txt
-	echo -n " Introduce el rango de quantum de ejecución mínimo: " >> informeBN.txt
+	echo -n " Introduce el rango de quantum de ejecución mínimo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el rango de quantum de ejecución mínimo: " >> ./Informes/informeBN.txt
 	read rango_quantum_min
-	echo $rango_quantum_min >> informeCOLOR.txt
-	echo $rango_quantum_min >> informeBN.txt
+	echo $rango_quantum_min >> ./Informes/informeCOLOR.txt
+	echo $rango_quantum_min >> ./Informes/informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
 	while ! mayor_cero $rango_quantum_min
 	do
 		echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
-		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+		echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		echo -n " Introduce el rango de quantum de ejecución mínimo: "
-		echo -n " Introduce el rango de quantum de ejecución mínimo: " >> informeCOLOR.txt
-		echo -n " Introduce el rango de quantum de ejecución mínimo: " >> informeBN.txt
+		echo -n " Introduce el rango de quantum de ejecución mínimo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el rango de quantum de ejecución mínimo: " >> ./Informes/informeBN.txt
 		read rango_quantum_min
-		echo $rango_quantum_min >> informeCOLOR.txt
-		echo $rango_quantum_min >> informeBN.txt
+		echo $rango_quantum_min >> ./Informes/informeCOLOR.txt
+		echo $rango_quantum_min >> ./Informes/informeBN.txt
 	done
 
 	###  RANGO DE QUÁNTUM MÁXIMO  ###
@@ -1655,11 +1655,11 @@ lectura_dat_particiones_rangos_aleatorios()
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo -n " Introduce el rango de quantum de ejecución máximo: "
-	echo -n " Introduce el rango de quantum de ejecución máximo: " >> informeCOLOR.txt
-	echo -n " Introduce el rango de quantum de ejecución máximo: " >> informeBN.txt
+	echo -n " Introduce el rango de quantum de ejecución máximo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el rango de quantum de ejecución máximo: " >> ./Informes/informeBN.txt
 	read rango_quantum_max
-	echo $rango_quantum_max >> informeCOLOR.txt
-	echo $rango_quantum_max >> informeBN.txt
+	echo $rango_quantum_max >> ./Informes/informeCOLOR.txt
+	echo $rango_quantum_max >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE NÚMERO MAYOR QUE CERO Y DE RANGOS DE QUÁNTUM  ###
 
@@ -1669,19 +1669,19 @@ lectura_dat_particiones_rangos_aleatorios()
 		if ! mayor_cero $rango_quantum_max 	#He añadido una explicación más detallada del error de introducción de opción.
 		then
 			echo " Entrada no válida, por favor, introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		else 	#Límite máximo inferior al mínimo.
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo"
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduce el rango de quantum de ejecución máximo: "
-		echo -n " Introduce el rango de quantum de ejecución máximo: " >> informeCOLOR.txt
-		echo -n " Introduce el rango de quantum de ejecución máximo: " >> informeBN.txt
+		echo -n " Introduce el rango de quantum de ejecución máximo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el rango de quantum de ejecución máximo: " >> ./Informes/informeBN.txt
 		read rango_quantum_max
-		echo $rango_quantum_max >> informeCOLOR.txt
-		echo $rango_quantum_max >> informeBN.txt
+		echo $rango_quantum_max >> ./Informes/informeCOLOR.txt
+		echo $rango_quantum_max >> ./Informes/informeBN.txt
 	done
 
 	#Asignación aleatoria del quántum mínimo en el rango.
@@ -1716,27 +1716,27 @@ lectura_dat_procesos_rangos_aleatorios()
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo -n " Introduce el rango de procesos mínimo: "
-	echo -n " Introduce el rango de procesos mínimo: " >> informeCOLOR.txt
-	echo -n " Introduce el rango de procesos mínimo: " >> informeBN.txt
+	echo -n " Introduce el rango de procesos mínimo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el rango de procesos mínimo: " >> ./Informes/informeBN.txt
 	read rango_num_proc_min
-	echo $rango_num_proc_min >> informeCOLOR.txt
-	echo $rango_num_proc_min >> informeBN.txt
+	echo $rango_num_proc_min >> ./Informes/informeCOLOR.txt
+	echo $rango_num_proc_min >> ./Informes/informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
 	while ! mayor_cero $rango_num_proc_min
 	do
 		echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		echo -n " Introduce el rango de procesos mínimo: "
-		echo -n " Introduce el rango de procesos mínimo: " >> informeCOLOR.txt
-		echo -n " Introduce el rango de procesos mínimo: " >> informeBN.txt
+		echo -n " Introduce el rango de procesos mínimo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el rango de procesos mínimo: " >> ./Informes/informeBN.txt
 		read rango_num_proc_min
-		echo $rango_num_proc_min >> informeCOLOR.txt
-		echo $rango_num_proc_min >> informeBN.txt
+		echo $rango_num_proc_min >> ./Informes/informeCOLOR.txt
+		echo $rango_num_proc_min >> ./Informes/informeBN.txt
 	done
 
 	###  RANGO DE PROCESOS MÁXIMO  ###
@@ -1744,14 +1744,14 @@ lectura_dat_procesos_rangos_aleatorios()
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo -n " Introduce el rango de procesos máximo: "
-	echo -n " Introduce el rango de procesos máximo: " >> informeCOLOR.txt
-	echo -n " Introduce el rango de procesos máximo: " >> informeBN.txt
+	echo -n " Introduce el rango de procesos máximo: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el rango de procesos máximo: " >> ./Informes/informeBN.txt
 	read rango_num_proc_max
-	echo $rango_num_proc_max >> informeCOLOR.txt
-	echo $rango_num_proc_max >> informeBN.txt
+	echo $rango_num_proc_max >> ./Informes/informeCOLOR.txt
+	echo $rango_num_proc_max >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE NÚMERO MAYOR QUE CERO Y DE RANGOS DE NÚMERO DE PROCESOS  ###
 
@@ -1761,19 +1761,19 @@ lectura_dat_procesos_rangos_aleatorios()
 		if ! mayor_cero $rango_num_proc_max 	#He añadido una explicación más detallada del error de introducción de opción.
 		then
 			echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		else 	#Límite máximo inferior al mínimo.
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo"
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduce el rango de procesos máximo: "
-		echo -n " Introduce el rango de procesos máximo: " >> informeCOLOR.txt
-		echo -n " Introduce el rango de procesos máximo: " >> informeBN.txt
+		echo -n " Introduce el rango de procesos máximo: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el rango de procesos máximo: " >> ./Informes/informeBN.txt
 		read rango_num_proc_max
-		echo $rango_num_proc_max >> informeCOLOR.txt
-		echo $rango_num_proc_max >> informeBN.txt
+		echo $rango_num_proc_max >> ./Informes/informeCOLOR.txt
+		echo $rango_num_proc_max >> ./Informes/informeBN.txt
 	done
 	
 	#Asignación aleatoria del número de procesos mínimo en el rango.
@@ -1797,27 +1797,27 @@ lectura_dat_procesos_rangos_aleatorios()
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo -n " Introduce el rango de tiempo de llegada mínimo a CPU de los procesos: "
-	echo -n " Introduce el rango de tiempo de llegada mínimo a CPU de los procesos: " >> informeCOLOR.txt
-	echo -n " Introduce el rango de tiempo de llegada mínimo a CPU de los procesos: " >> informeBN.txt
+	echo -n " Introduce el rango de tiempo de llegada mínimo a CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el rango de tiempo de llegada mínimo a CPU de los procesos: " >> ./Informes/informeBN.txt
 	read rango_entrada_min
-	echo $rango_entrada_min >> informeCOLOR.txt
-	echo $rango_entrada_min >> informeBN.txt
+	echo $rango_entrada_min >> ./Informes/informeCOLOR.txt
+	echo $rango_entrada_min >> ./Informes/informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
 	while ! mayor_cero $rango_entrada_min
 	do
 		echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		echo -n " Introduce el rango de tiempo de llegada mínimo a CPU de los procesos: "
-		echo -n " Introduce el rango de tiempo de llegada mínimo a CPU de los procesos: " >> informeCOLOR.txt
-		echo -n " Introduce el rango de tiempo de llegada mínimo a CPU de los procesos: " >> informeBN.txt
+		echo -n " Introduce el rango de tiempo de llegada mínimo a CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el rango de tiempo de llegada mínimo a CPU de los procesos: " >> ./Informes/informeBN.txt
 		read rango_entrada_min
-		echo $rango_entrada_min >> informeCOLOR.txt
-		echo $rango_entrada_min >> informeBN.txt
+		echo $rango_entrada_min >> ./Informes/informeCOLOR.txt
+		echo $rango_entrada_min >> ./Informes/informeBN.txt
 	done
 
 	###   RANGO DE TIEMPO DE LLEGADA MÁXIMO  ###
@@ -1825,14 +1825,14 @@ lectura_dat_procesos_rangos_aleatorios()
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo -n " Introduce el rango de tiempo de llegada máximo a CPU de los procesos: "
-	echo -n " Introduce el rango de tiempo de llegada máximo a CPU de los procesos: " >> informeCOLOR.txt
-	echo -n " Introduce el rango de tiempo de llegada máximo a CPU de los procesos: " >> informeBN.txt
+	echo -n " Introduce el rango de tiempo de llegada máximo a CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el rango de tiempo de llegada máximo a CPU de los procesos: " >> ./Informes/informeBN.txt
 	read rango_entrada_max
-	echo $rango_entrada_max >> informeCOLOR.txt
-	echo $rango_entrada_max >> informeBN.txt
+	echo $rango_entrada_max >> ./Informes/informeCOLOR.txt
+	echo $rango_entrada_max >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE NÚMERO MAYOR QUE CERO Y DE RANGOS DE TIEMPOS DE LLEGADA  ###
 
@@ -1842,19 +1842,19 @@ lectura_dat_procesos_rangos_aleatorios()
 		if ! mayor_cero $rango_entrada_max 	#He añadido una explicación más detallada del error de introducción de opción.
 		then
 			echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		else 	#Límite máximo inferior al mínimo.
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo"
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduce el rango de tiempo de llegada máximo a CPU de los procesos: "
-		echo -n " Introduce el rango de tiempo de llegada máximo a CPU de los procesos: " >> informeCOLOR.txt
-		echo -n " Introduce el rango de tiempo de llegada máximo a CPU de los procesos: " >> informeBN.txt
+		echo -n " Introduce el rango de tiempo de llegada máximo a CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el rango de tiempo de llegada máximo a CPU de los procesos: " >> ./Informes/informeBN.txt
 		read rango_entrada_max
-		echo $rango_entrada_max >> informeCOLOR.txt
-		echo $rango_entrada_max >> informeBN.txt
+		echo $rango_entrada_max >> ./Informes/informeCOLOR.txt
+		echo $rango_entrada_max >> ./Informes/informeBN.txt
 	done
 
 	#Asignación aleatoria del tiempo de llegada mínimo en el rango.
@@ -1875,27 +1875,27 @@ lectura_dat_procesos_rangos_aleatorios()
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo -n " Introduce el rango de ráfaga mínima de CPU de los procesos: "
-	echo -n " Introduce el rango de ráfaga mínima de CPU de los procesos: " >> informeCOLOR.txt
-	echo -n " Introduce el rango de ráfaga mínima de CPU de los procesos: " >> informeBN.txt
+	echo -n " Introduce el rango de ráfaga mínima de CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el rango de ráfaga mínima de CPU de los procesos: " >> ./Informes/informeBN.txt
 	read rango_rafaga_min
-	echo $rango_rafaga_min >> informeCOLOR.txt
-	echo $rango_rafaga_min >> informeBN.txt
+	echo $rango_rafaga_min >> ./Informes/informeCOLOR.txt
+	echo $rango_rafaga_min >> ./Informes/informeBN.txt
 
 	#He añadido una explicación más detallada del error de introducción de opción.
 	while ! mayor_cero $rango_rafaga_min
 	do
 		echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+		echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		echo -n " Introduce el rango de ráfaga mínima de CPU de los procesos: "
-		echo -n " Introduce el rango de ráfaga mínima de CPU de los procesos: " >> informeCOLOR.txt
-		echo -n " Introduce el rango de ráfaga mínima de CPU de los procesos: " >> informeBN.txt
+		echo -n " Introduce el rango de ráfaga mínima de CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el rango de ráfaga mínima de CPU de los procesos: " >> ./Informes/informeBN.txt
 		read rango_rafaga_min
-		echo $rango_rafaga_min >> informeCOLOR.txt
-		echo $rango_rafaga_min >> informeBN.txt
+		echo $rango_rafaga_min >> ./Informes/informeCOLOR.txt
+		echo $rango_rafaga_min >> ./Informes/informeBN.txt
 	done
 
 	###  RANGO DE RÁFAGA MÁXIMA  ###
@@ -1903,14 +1903,14 @@ lectura_dat_procesos_rangos_aleatorios()
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo -n " Introduce el rango de ráfaga máxima de CPU de los procesos: "
-	echo -n " Introduce el rango de ráfaga máxima de CPU de los procesos: " >> informeCOLOR.txt
-	echo -n " Introduce el rango de ráfaga máxima de CPU de los procesos: " >> informeBN.txt
+	echo -n " Introduce el rango de ráfaga máxima de CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el rango de ráfaga máxima de CPU de los procesos: " >> ./Informes/informeBN.txt
 	read rango_rafaga_max
-	echo $rango_rafaga_max >> informeCOLOR.txt
-	echo $rango_rafaga_max >> informeBN.txt
+	echo $rango_rafaga_max >> ./Informes/informeCOLOR.txt
+	echo $rango_rafaga_max >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE NÚMERO MAYOR QUE CERO Y DE RANGOS DE RÁFAGA  ###
 
@@ -1920,19 +1920,19 @@ lectura_dat_procesos_rangos_aleatorios()
 		if ! mayor_cero $rango_rafaga_max 	#He añadido una explicación más detallada del error de introducción de opción.
 		then 
 			echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		else  	#Límite máximo inferior al mínimo.
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo"
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduce el rango de ráfaga máxima de CPU de los procesos: "
-		echo -n " Introduce el rango de ráfaga máxima de CPU de los procesos: " >> informeCOLOR.txt
-		echo -n " Introduce el rango de ráfaga máxima de CPU de los procesos: " >> informeBN.txt
+		echo -n " Introduce el rango de ráfaga máxima de CPU de los procesos: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el rango de ráfaga máxima de CPU de los procesos: " >> ./Informes/informeBN.txt
 		read rango_rafaga_max
-		echo $rango_rafaga_max >> informeCOLOR.txt
-		echo $rango_rafaga_max >> informeBN.txt
+		echo $rango_rafaga_max >> ./Informes/informeCOLOR.txt
+		echo $rango_rafaga_max >> ./Informes/informeBN.txt
 	done
 
 	#Asignación aleatoria de ráfaga mínima en el rango.
@@ -1966,14 +1966,14 @@ lectura_dat_procesos_rangos_aleatorios()
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo -n " Introduce el rango de memoria mínima de los procesos: "
-	echo -n " Introduce el rango de memoria mínima de los procesos: " >> informeCOLOR.txt
-	echo -n " Introduce el rango de memoria mínima de los procesos: " >> informeBN.txt
+	echo -n " Introduce el rango de memoria mínima de los procesos: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el rango de memoria mínima de los procesos: " >> ./Informes/informeBN.txt
 	read rango_memo_proc_min
-	echo $rango_memo_proc_min >> informeCOLOR.txt
-	echo $rango_memo_proc_min >> informeBN.txt
+	echo $rango_memo_proc_min >> ./Informes/informeCOLOR.txt
+	echo $rango_memo_proc_min >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE MEMORIA MÍNIMA MAYOR QUE CERO Y MENOR QUE TAMAÑO DE PARTICIONES  ###
 
@@ -1985,19 +1985,19 @@ lectura_dat_procesos_rangos_aleatorios()
 		if ! mayor_cero $rango_memo_proc_min 	#He añadido una explicación más detallada del error de introducción de opción.
 		then
 			echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		else #Si la memoria mínima de los procesos es mayor que la mayor partición.
 			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición"
-			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> informeCOLOR.txt
-			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> informeBN.txt
+			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduce el rango de memoria mínima de los procesos: "
-		echo -n " Introduce el rango de memoria mínima de los procesos: " >> informeCOLOR.txt
-		echo -n " Introduce el rango de memoria mínima de los procesos: " >> informeBN.txt
+		echo -n " Introduce el rango de memoria mínima de los procesos: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el rango de memoria mínima de los procesos: " >> ./Informes/informeBN.txt
 		read rango_memo_proc_min
-		echo $rango_memo_proc_min >> informeCOLOR.txt
-		echo $rango_memo_proc_min >> informeBN.txt
+		echo $rango_memo_proc_min >> ./Informes/informeCOLOR.txt
+		echo $rango_memo_proc_min >> ./Informes/informeBN.txt
 	done
 
 	###  RANGO DE MEMORIA MÁXIMA  ###
@@ -2005,14 +2005,14 @@ lectura_dat_procesos_rangos_aleatorios()
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 	echo -n " Introduce el rango de memoria máxima de los procesos: "
-	echo -n " Introduce el rango de memoria máxima de los procesos: " >> informeCOLOR.txt
-	echo -n " Introduce el rango de memoria máxima de los procesos: " >> informeBN.txt
+	echo -n " Introduce el rango de memoria máxima de los procesos: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce el rango de memoria máxima de los procesos: " >> ./Informes/informeBN.txt
 	read rango_memo_proc_max
-	echo $rango_memo_proc_max >> informeCOLOR.txt
-	echo $rango_memo_proc_max >> informeBN.txt
+	echo $rango_memo_proc_max >> ./Informes/informeCOLOR.txt
+	echo $rango_memo_proc_max >> ./Informes/informeBN.txt
 
 	###  COMPROBACIÓN DE MEMORIA MÁXIMA MAYOR QUE CERO, MENOR QUE TAMAÑO DE PARTICIONES Y DE RANGOS DE MEMORIA ###
 
@@ -2025,24 +2025,24 @@ lectura_dat_procesos_rangos_aleatorios()
 		if ! mayor_cero $rango_memo_proc_max 	#He añadido una explicación más detallada del error de introducción de opción.
 		then
 			echo " Entrada no válida, por favor introduce un número natural mayor que cero"
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> informeBN.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor introduce un número natural mayor que cero" >> ./Informes/informeBN.txt
 		elif [ $rango_memo_proc_max -gt $tam_par_max_efec ] 	#Si la memoria máxima de los procesos es mayor que la mayor partición.
 		then
 			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición"
-			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> informeCOLOR.txt
-			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> informeBN.txt
+			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, la memoria que ocupa el proceso no ha de ser mayor al tamaño de la mayor partición" >> ./Informes/informeBN.txt
 		else 
 			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo"
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeCOLOR.txt
-			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> informeBN.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeCOLOR.txt
+			echo " Entrada no válida, por favor, introduce un límite máximo mayor al mínimo" >> ./Informes/informeBN.txt
 		fi
 		echo -n " Introduce el rango de memoria máxima de los procesos: "
-		echo -n " Introduce el rango de memoria máxima de los procesos: " >> informeCOLOR.txt
-		echo -n " Introduce el rango de memoria máxima de los procesos: " >> informeBN.txt
+		echo -n " Introduce el rango de memoria máxima de los procesos: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce el rango de memoria máxima de los procesos: " >> ./Informes/informeBN.txt
 		read rango_memo_proc_max
-		echo $rango_memo_proc_max >> informeCOLOR.txt
-		echo $rango_memo_proc_max >> informeBN.txt
+		echo $rango_memo_proc_max >> ./Informes/informeCOLOR.txt
+		echo $rango_memo_proc_max >> ./Informes/informeBN.txt
 	done
 
 	#Asignación aleatoria de memoria mínima en el rango.
@@ -2587,24 +2587,24 @@ leerFichero()
 	done < listado.temp
 
 	echo -n " Introduce uno de los ficheros del listado: "
-	echo -n " Introduce uno de los ficheros del listado: " >> informeCOLOR.txt
-	echo -n " Introduce uno de los ficheros del listado: " >> informeBN.txt
+	echo -n " Introduce uno de los ficheros del listado: " >> ./Informes/informeCOLOR.txt
+	echo -n " Introduce uno de los ficheros del listado: " >> ./Informes/informeBN.txt
 	read fich
-	echo $fich >> informeCOLOR.txt
-	echo $fich >> informeBN.txt
+	echo $fich >> ./Informes/informeCOLOR.txt
+	echo $fich >> ./Informes/informeBN.txt
 
 	#Si el valor introducido es menor que 1 o mayor que el número de ficheros, es erróneo y se pide otra vez.
 	while [ $fich -gt ${#listaFicheros[@]} ] || [ $fich -le 0 ]
 	do
 		echo " Entrada no válida, el valor de fichero introducido debe ser un número asociado a un fichero de la lista."
-		echo " Entrada no válida, el valor de fichero introducido debe ser un número asociado a un fichero de la lista." >> informeCOLOR.txt
-		echo " Entrada no válida, el valor de fichero introducido debe ser un número asociado a un fichero de la lista." >> informeBN.txt
+		echo " Entrada no válida, el valor de fichero introducido debe ser un número asociado a un fichero de la lista." >> ./Informes/informeCOLOR.txt
+		echo " Entrada no válida, el valor de fichero introducido debe ser un número asociado a un fichero de la lista." >> ./Informes/informeBN.txt
 		echo -n " Introduce uno de los ficheros del listado: "
-		echo -n " Introduce uno de los ficheros del listado: " >> informeCOLOR.txt
-		echo -n " Introduce uno de los ficheros del listado: " >> informeBN.txt
+		echo -n " Introduce uno de los ficheros del listado: " >> ./Informes/informeCOLOR.txt
+		echo -n " Introduce uno de los ficheros del listado: " >> ./Informes/informeBN.txt
 		read fich
-		echo $fich >> informeCOLOR.txt
-		echo $fich >> informeBN.txt
+		echo $fich >> ./Informes/informeCOLOR.txt
+		echo $fich >> ./Informes/informeBN.txt
 	done
 
 	#Borro el archivo temporal.
@@ -2751,19 +2751,19 @@ imprimir_tabla()
 		printf "%3s " "${MEMORIA[$pr]}"	
 		echo -e $resetColor
 
-		echo -ne " \e[${color[$colimp]}mP" >> informeCOLOR.txt
-		printf "%02d " "${NUMPROC[$pr]}" >> informeCOLOR.txt
-		printf "%3s " "${T_ENTRADA[$pr]}" >> informeCOLOR.txt
-		printf "%3s " "${TEJ[$pr]}" >> informeCOLOR.txt
-		printf "%3s " "${MEMORIA[$pr]}" >> informeCOLOR.txt
-		echo -e $resetColor >> informeCOLOR.txt
+		echo -ne " \e[${color[$colimp]}mP" >> ./Informes/informeCOLOR.txt
+		printf "%02d " "${NUMPROC[$pr]}" >> ./Informes/informeCOLOR.txt
+		printf "%3s " "${T_ENTRADA[$pr]}" >> ./Informes/informeCOLOR.txt
+		printf "%3s " "${TEJ[$pr]}" >> ./Informes/informeCOLOR.txt
+		printf "%3s " "${MEMORIA[$pr]}" >> ./Informes/informeCOLOR.txt
+		echo -e $resetColor >> ./Informes/informeCOLOR.txt
 
-		echo -ne " P" >> informeBN.txt
-		printf "%02d " "${NUMPROC[$pr]}" >> informeBN.txt
-		printf "%3s " "${T_ENTRADA[$pr]}" >> informeBN.txt
-		printf "%3s " "${TEJ[$pr]}" >> informeBN.txt
-		printf "%3s " "${MEMORIA[$pr]}" >> informeBN.txt
-		echo "" >> informeBN.txt
+		echo -ne " P" >> ./Informes/informeBN.txt
+		printf "%02d " "${NUMPROC[$pr]}" >> ./Informes/informeBN.txt
+		printf "%3s " "${T_ENTRADA[$pr]}" >> ./Informes/informeBN.txt
+		printf "%3s " "${TEJ[$pr]}" >> ./Informes/informeBN.txt
+		printf "%3s " "${MEMORIA[$pr]}" >> ./Informes/informeBN.txt
+		echo "" >> ./Informes/informeBN.txt
 	done
 }
 
@@ -3049,88 +3049,88 @@ tabla_ejecucion()
 
 
 	#Tabla principal, que se ajusta a los datos introducidos, para el informe a color
-	echo -ne " ┌────" >> informeCOLOR.txt
+	echo -ne " ┌────" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_num_proc_tabla - 1); l++))
 	do
-		echo -ne "─" >> informeCOLOR.txt
+		echo -ne "─" >> ./Informes/informeCOLOR.txt
 	done
-	echo -ne "┬────" >> informeCOLOR.txt
+	echo -ne "┬────" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_mayortll_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeCOLOR.txt
+		echo -ne "─" >> ./Informes/informeCOLOR.txt
 	done
-	echo -ne "┬────" >> informeCOLOR.txt
+	echo -ne "┬────" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_mayortej_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeCOLOR.txt
+		echo -ne "─" >> ./Informes/informeCOLOR.txt
 	done
-	echo -ne "┬────" >> informeCOLOR.txt
+	echo -ne "┬────" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_mayormem_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeCOLOR.txt
+		echo -ne "─" >> ./Informes/informeCOLOR.txt
 	done
-	echo -ne "┬──────┬──────┬──────┬─────" >> informeCOLOR.txt
+	echo -ne "┬──────┬──────┬──────┬─────" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_n_par_tabla - 3); l++))
 	do
-		echo -ne "─" >> informeCOLOR.txt
+		echo -ne "─" >> ./Informes/informeCOLOR.txt
 	done
-	echo "┬──────────────────┐" >> informeCOLOR.txt
+	echo "┬──────────────────┐" >> ./Informes/informeCOLOR.txt
 
 
-	echo -ne " │ Ref" >> informeCOLOR.txt
+	echo -ne " │ Ref" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_num_proc_tabla - 1); l++))
 	do
-		echo -ne " " >> informeCOLOR.txt
+		echo -ne " " >> ./Informes/informeCOLOR.txt
 	done
-	echo  -ne "│ Tll" >> informeCOLOR.txt
+	echo  -ne "│ Tll" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_mayortll_tabla - 2); l++))
 	do
-		echo -ne " " >> informeCOLOR.txt
+		echo -ne " " >> ./Informes/informeCOLOR.txt
 	done
-	echo -ne "│ Tej" >> informeCOLOR.txt
+	echo -ne "│ Tej" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_mayortej_tabla - 2); l++))
 	do
-		echo -ne " " >> informeCOLOR.txt
+		echo -ne " " >> ./Informes/informeCOLOR.txt
 	done
-	echo -ne "│ Mem" >> informeCOLOR.txt
+	echo -ne "│ Mem" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_mayormem_tabla - 2); l++))
 	do
-		echo -ne " " >> informeCOLOR.txt
+		echo -ne " " >> ./Informes/informeCOLOR.txt
 	done
-	echo -ne "│ Tesp │ Tret │ Trej │ Part" >> informeCOLOR.txt
+	echo -ne "│ Tesp │ Tret │ Trej │ Part" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_n_par_tabla - 3); l++))
 	do
-		echo -ne " " >> informeCOLOR.txt
+		echo -ne " " >> ./Informes/informeCOLOR.txt
 	done
-	echo "│ Estado           │" >> informeCOLOR.txt
+	echo "│ Estado           │" >> ./Informes/informeCOLOR.txt
 
 
-	echo -ne " ├────" >> informeCOLOR.txt
+	echo -ne " ├────" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_num_proc_tabla - 1); l++))
 	do
-		echo -ne "─" >> informeCOLOR.txt
+		echo -ne "─" >> ./Informes/informeCOLOR.txt
 	done
-	echo -ne "┼────" >> informeCOLOR.txt
+	echo -ne "┼────" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_mayortll_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeCOLOR.txt
+		echo -ne "─" >> ./Informes/informeCOLOR.txt
 	done
-	echo -ne "┼────" >> informeCOLOR.txt
+	echo -ne "┼────" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_mayortej_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeCOLOR.txt
+		echo -ne "─" >> ./Informes/informeCOLOR.txt
 	done
-	echo -ne "┼────" >> informeCOLOR.txt
+	echo -ne "┼────" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_mayormem_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeCOLOR.txt
+		echo -ne "─" >> ./Informes/informeCOLOR.txt
 	done
-	echo -ne "┼──────┼──────┼──────┼─────" >> informeCOLOR.txt
+	echo -ne "┼──────┼──────┼──────┼─────" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_n_par_tabla - 3); l++))
 	do
-		echo -ne "─" >> informeCOLOR.txt
+		echo -ne "─" >> ./Informes/informeCOLOR.txt
 	done
-	echo "┼──────────────────┤" >> informeCOLOR.txt
+	echo "┼──────────────────┤" >> ./Informes/informeCOLOR.txt
 
 
 	for((xp = 0; xp < $num_proc; xp++ ))
@@ -3143,44 +3143,44 @@ tabla_ejecucion()
 		fi
 
 		#Ahora los datos aparecen entablados
-		printf " │ " >> informeCOLOR.txt
-		echo -ne "\e[${color[$colimp]}mP" >> informeCOLOR.txt
-		printf "%02d" "${NUMPROC[$xp]}" >> informeCOLOR.txt
+		printf " │ " >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[${color[$colimp]}mP" >> ./Informes/informeCOLOR.txt
+		printf "%02d" "${NUMPROC[$xp]}" >> ./Informes/informeCOLOR.txt
 		for (( l = 0; l < ($espacios_num_proc_tabla - 2); l++))
 		do
 			echo -ne " "
 		done
-		echo -ne "\e[0m" >> informeCOLOR.txt
+		echo -ne "\e[0m" >> ./Informes/informeCOLOR.txt
 
-		printf " │ " >> informeCOLOR.txt
-		echo -ne "\e[${color[$colimp]}m" >> informeCOLOR.txt
-		printf "%3s" "${T_ENTRADA[$xp]}" >> informeCOLOR.txt
-		echo -ne "\e[0m" >> informeCOLOR.txt
+		printf " │ " >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[${color[$colimp]}m" >> ./Informes/informeCOLOR.txt
+		printf "%3s" "${T_ENTRADA[$xp]}" >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[0m" >> ./Informes/informeCOLOR.txt
 
-		printf " │ " >> informeCOLOR.txt
-		echo -ne "\e[${color[$colimp]}m" >> informeCOLOR.txt
-		printf "%3s" "${TEJ[$xp]}" >> informeCOLOR.txt
-		echo -ne "\e[0m" >> informeCOLOR.txt
+		printf " │ " >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[${color[$colimp]}m" >> ./Informes/informeCOLOR.txt
+		printf "%3s" "${TEJ[$xp]}" >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[0m" >> ./Informes/informeCOLOR.txt
 
-		printf " │ " >> informeCOLOR.txt
-		echo -ne "\e[${color[$colimp]}m" >> informeCOLOR.txt
-		printf "%3s" "${MEMORIA[$xp]}" >> informeCOLOR.txt
-		echo -ne "\e[0m" >> informeCOLOR.txt
+		printf " │ " >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[${color[$colimp]}m" >> ./Informes/informeCOLOR.txt
+		printf "%3s" "${MEMORIA[$xp]}" >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[0m" >> ./Informes/informeCOLOR.txt
 
-		printf " │ " >> informeCOLOR.txt
-		echo -ne "\e[${color[$colimp]}m" >> informeCOLOR.txt
-		printf "%4s" "${TES[$xp]}" >> informeCOLOR.txt
-		echo -ne "\e[0m" >> informeCOLOR.txt
+		printf " │ " >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[${color[$colimp]}m" >> ./Informes/informeCOLOR.txt
+		printf "%4s" "${TES[$xp]}" >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[0m" >> ./Informes/informeCOLOR.txt
 
-		printf " │ " >> informeCOLOR.txt
-		echo -ne "\e[${color[$colimp]}m" >> informeCOLOR.txt
-		printf "%4s" "${TRET[$xp]}" >> informeCOLOR.txt
-		echo -ne "\e[0m" >> informeCOLOR.txt
+		printf " │ " >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[${color[$colimp]}m" >> ./Informes/informeCOLOR.txt
+		printf "%4s" "${TRET[$xp]}" >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[0m" >> ./Informes/informeCOLOR.txt
 
-		printf " │ " >> informeCOLOR.txt
-		echo -ne "\e[${color[$colimp]}m" >> informeCOLOR.txt
-		printf "%4s" "${TREJ[$xp]}" >> informeCOLOR.txt
-		echo -ne "\e[0m" >> informeCOLOR.txt
+		printf " │ " >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[${color[$colimp]}m" >> ./Informes/informeCOLOR.txt
+		printf "%4s" "${TREJ[$xp]}" >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[0m" >> ./Informes/informeCOLOR.txt
 
 
 		if [[ PART[$xp] -eq -1 ]]
@@ -3189,169 +3189,169 @@ tabla_ejecucion()
 		else 
 			let part_displ=${PART[$xp]}+1
 		fi
-		printf " │ " >> informeCOLOR.txt
-		echo -ne "\e[${color[$colimp]}m" >> informeCOLOR.txt
-		printf "%4s" "$part_displ" >> informeCOLOR.txt
-		echo -ne "\e[0m" >> informeCOLOR.txt
+		printf " │ " >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[${color[$colimp]}m" >> ./Informes/informeCOLOR.txt
+		printf "%4s" "$part_displ" >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[0m" >> ./Informes/informeCOLOR.txt
 
-		printf " │ " >> informeCOLOR.txt
-		echo -ne "\e[${color[$colimp]}m" >> informeCOLOR.txt
+		printf " │ " >> ./Informes/informeCOLOR.txt
+		echo -ne "\e[${color[$colimp]}m" >> ./Informes/informeCOLOR.txt
 		if [[ ${ESTADO[$xp]} == "Ejecucion" ]]
 		then
-			printf "${ESTADO[$xp]}" >> informeCOLOR.txt
-			echo -ne "\e[0m" >> informeCOLOR.txt
-			printf "        │ " >> informeCOLOR.txt
+			printf "${ESTADO[$xp]}" >> ./Informes/informeCOLOR.txt
+			echo -ne "\e[0m" >> ./Informes/informeCOLOR.txt
+			printf "        │ " >> ./Informes/informeCOLOR.txt
 		fi
 		if [[ ${ESTADO[$xp]} == "Fuera de Sistema" ]]
 		then
-			printf "${ESTADO[$xp]}" >> informeCOLOR.txt
-			echo -ne "\e[0m" >> informeCOLOR.txt
-			printf " │ " >> informeCOLOR.txt
+			printf "${ESTADO[$xp]}" >> ./Informes/informeCOLOR.txt
+			echo -ne "\e[0m" >> ./Informes/informeCOLOR.txt
+			printf " │ " >> ./Informes/informeCOLOR.txt
 		fi
 		if [[ ${ESTADO[$xp]} == "En pausa" ]]
 		then
-			printf "${ESTADO[$xp]}" >> informeCOLOR.txt
-			echo -ne "\e[0m" >> informeCOLOR.txt
-			printf "         │ " >> informeCOLOR.txt
+			printf "${ESTADO[$xp]}" >> ./Informes/informeCOLOR.txt
+			echo -ne "\e[0m" >> ./Informes/informeCOLOR.txt
+			printf "         │ " >> ./Informes/informeCOLOR.txt
 		fi
 		if [[ ${ESTADO[$xp]} == "En memoria" ]]
 		then
-			printf "${ESTADO[$xp]}" >> informeCOLOR.txt
-			echo -ne "\e[0m" >> informeCOLOR.txt
-			printf "       │ " >> informeCOLOR.txt
+			printf "${ESTADO[$xp]}" >> ./Informes/informeCOLOR.txt
+			echo -ne "\e[0m" >> ./Informes/informeCOLOR.txt
+			printf "       │ " >> ./Informes/informeCOLOR.txt
 		fi
 		if [[ ${ESTADO[$xp]} == "En espera" ]]
 		then
-			printf "${ESTADO[$xp]}" >> informeCOLOR.txt
-			echo -ne "\e[0m" >> informeCOLOR.txt
-			printf "        │ " >> informeCOLOR.txt
+			printf "${ESTADO[$xp]}" >> ./Informes/informeCOLOR.txt
+			echo -ne "\e[0m" >> ./Informes/informeCOLOR.txt
+			printf "        │ " >> ./Informes/informeCOLOR.txt
 		fi
 		if [[ ${ESTADO[$xp]} == "Bloqueado" ]]
 		then
-			printf "${ESTADO[$xp]}" >> informeCOLOR.txt
-			echo -ne "\e[0m" >> informeCOLOR.txt
-			printf "        │ " >> informeCOLOR.txt
+			printf "${ESTADO[$xp]}" >> ./Informes/informeCOLOR.txt
+			echo -ne "\e[0m" >> ./Informes/informeCOLOR.txt
+			printf "        │ " >> ./Informes/informeCOLOR.txt
 		fi
 		if [[ ${ESTADO[$xp]} == "Terminado" ]]
 		then
-			printf "${ESTADO[$xp]}" >> informeCOLOR.txt
-			echo -ne "\e[0m" >> informeCOLOR.txt
-			printf "        │ " >> informeCOLOR.txt
+			printf "${ESTADO[$xp]}" >> ./Informes/informeCOLOR.txt
+			echo -ne "\e[0m" >> ./Informes/informeCOLOR.txt
+			printf "        │ " >> ./Informes/informeCOLOR.txt
 		fi
-		echo -e "\e[0m" >> informeCOLOR.txt
+		echo -e "\e[0m" >> ./Informes/informeCOLOR.txt
 
 		memlibre[$xp]=$(( ${tam_par[$i]} - ${MEMORIA[$xp]} ))
 	done
 
-	echo -ne " └────" >> informeCOLOR.txt
+	echo -ne " └────" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_num_proc_tabla - 1); l++))
 	do
-		echo -ne "─" >> informeCOLOR.txt
+		echo -ne "─" >> ./Informes/informeCOLOR.txt
 	done
-	echo -ne "┴────" >> informeCOLOR.txt
+	echo -ne "┴────" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_mayortll_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeCOLOR.txt
+		echo -ne "─" >> ./Informes/informeCOLOR.txt
 	done
 
-	echo -ne "┴────" >> informeCOLOR.txt
+	echo -ne "┴────" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_mayortej_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeCOLOR.txt
+		echo -ne "─" >> ./Informes/informeCOLOR.txt
 	done
-	echo -ne "┴────" >> informeCOLOR.txt
+	echo -ne "┴────" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_mayormem_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeCOLOR.txt
+		echo -ne "─" >> ./Informes/informeCOLOR.txt
 	done
-	echo -ne "┴──────┴──────┴──────┴─────" >> informeCOLOR.txt
+	echo -ne "┴──────┴──────┴──────┴─────" >> ./Informes/informeCOLOR.txt
 	for (( l = 0; l < ($espacios_n_par_tabla - 3); l++))
 	do
-		echo -ne "─" >> informeCOLOR.txt
+		echo -ne "─" >> ./Informes/informeCOLOR.txt
 	done
-	echo "┴──────────────────┘" >> informeCOLOR.txt
+	echo "┴──────────────────┘" >> ./Informes/informeCOLOR.txt
 
 	#Tabla principal, que se ajusta a los datos introducidos, para el informe a blanco y negro
-	echo -ne " ┌────" >> informeBN.txt
+	echo -ne " ┌────" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_num_proc_tabla - 1); l++))
 	do
-		echo -ne "─" >> informeBN.txt
+		echo -ne "─" >> ./Informes/informeBN.txt
 	done
-	echo -ne "┬────" >> informeBN.txt
+	echo -ne "┬────" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_mayortll_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeBN.txt
+		echo -ne "─" >> ./Informes/informeBN.txt
 	done
-	echo -ne "┬────" >> informeBN.txt
+	echo -ne "┬────" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_mayortej_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeBN.txt
+		echo -ne "─" >> ./Informes/informeBN.txt
 	done
-	echo -ne "┬────" >> informeBN.txt
+	echo -ne "┬────" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_mayormem_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeBN.txt
+		echo -ne "─" >> ./Informes/informeBN.txt
 	done
-	echo -ne "┬──────┬──────┬──────┬─────" >> informeBN.txt
+	echo -ne "┬──────┬──────┬──────┬─────" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_n_par_tabla - 3); l++))
 	do
-		echo -ne "─" >> informeBN.txt
+		echo -ne "─" >> ./Informes/informeBN.txt
 	done
-	echo "┬──────────────────┐" >> informeBN.txt
+	echo "┬──────────────────┐" >> ./Informes/informeBN.txt
 
-	echo -ne " │ Ref" >> informeBN.txt
+	echo -ne " │ Ref" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_num_proc_tabla - 1); l++))
 	do
-		echo -ne " " >> informeBN.txt
+		echo -ne " " >> ./Informes/informeBN.txt
 	done
-	echo  -ne "│ Tll" >> informeBN.txt
+	echo  -ne "│ Tll" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_mayortll_tabla - 2); l++))
 	do
-		echo -ne " " >> informeBN.txt
+		echo -ne " " >> ./Informes/informeBN.txt
 	done
-	echo -ne "│ Tej" >> informeBN.txt
+	echo -ne "│ Tej" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_mayortej_tabla - 2); l++))
 	do
-		echo -ne " " >> informeBN.txt
+		echo -ne " " >> ./Informes/informeBN.txt
 	done
-	echo -ne "│ Mem" >> informeBN.txt
+	echo -ne "│ Mem" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_mayormem_tabla - 2); l++))
 	do
-		echo -ne " " >> informeBN.txt
+		echo -ne " " >> ./Informes/informeBN.txt
 	done
-	echo -ne "│ Tesp │ Tret │ Trej │ Part" >> informeBN.txt
+	echo -ne "│ Tesp │ Tret │ Trej │ Part" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_n_par_tabla - 3); l++))
 	do
-		echo -ne " " >> informeBN.txt
+		echo -ne " " >> ./Informes/informeBN.txt
 	done
-	echo "│ Estado           │" >> informeBN.txt
+	echo "│ Estado           │" >> ./Informes/informeBN.txt
 
-	echo -ne " ├────" >> informeBN.txt
+	echo -ne " ├────" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_num_proc_tabla - 1); l++))
 	do
-		echo -ne "─" >> informeBN.txt
+		echo -ne "─" >> ./Informes/informeBN.txt
 	done
-	echo -ne "┼────" >> informeBN.txt
+	echo -ne "┼────" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_mayortll_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeBN.txt
+		echo -ne "─" >> ./Informes/informeBN.txt
 	done
-	echo -ne "┼────" >> informeBN.txt
+	echo -ne "┼────" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_mayortej_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeBN.txt
+		echo -ne "─" >> ./Informes/informeBN.txt
 	done
-	echo -ne "┼────" >> informeBN.txt
+	echo -ne "┼────" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_mayormem_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeBN.txt
+		echo -ne "─" >> ./Informes/informeBN.txt
 	done
-	echo -ne "┼──────┼──────┼──────┼─────" >> informeBN.txt
+	echo -ne "┼──────┼──────┼──────┼─────" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_n_par_tabla - 3); l++))
 	do
-		echo -ne "─" >> informeBN.txt
+		echo -ne "─" >> ./Informes/informeBN.txt
 	done
-	echo "┼──────────────────┤" >> informeBN.txt
+	echo "┼──────────────────┤" >> ./Informes/informeBN.txt
 
 	for((xp=0; xp<$num_proc; xp++ ))
 	do
@@ -3363,31 +3363,31 @@ tabla_ejecucion()
 		fi
 
 		#Ahora los datos aparecen entablados
-		printf " │ " >> informeBN.txt
-		echo -ne "P" >> informeBN.txt
-		printf "%02d" "${NUMPROC[$xp]}" >> informeBN.txt
+		printf " │ " >> ./Informes/informeBN.txt
+		echo -ne "P" >> ./Informes/informeBN.txt
+		printf "%02d" "${NUMPROC[$xp]}" >> ./Informes/informeBN.txt
 		for (( l = 0; l < ($espacios_num_proc_tabla - 2); l++))
 		do
 			echo -ne " "
 		done
 
-		printf " │ " >> informeBN.txt
-		printf "%3s" "${T_ENTRADA[$xp]}" >> informeBN.txt
+		printf " │ " >> ./Informes/informeBN.txt
+		printf "%3s" "${T_ENTRADA[$xp]}" >> ./Informes/informeBN.txt
 
-		printf " │ " >> informeBN.txt
-		printf "%3s" "${TEJ[$xp]}" >> informeBN.txt
+		printf " │ " >> ./Informes/informeBN.txt
+		printf "%3s" "${TEJ[$xp]}" >> ./Informes/informeBN.txt
 
-		printf " │ " >> informeBN.txt
-		printf "%3s" "${MEMORIA[$xp]}" >> informeBN.txt
+		printf " │ " >> ./Informes/informeBN.txt
+		printf "%3s" "${MEMORIA[$xp]}" >> ./Informes/informeBN.txt
 
-		printf " │ " >> informeBN.txt
-		printf "%4s" "${TES[$xp]}" >> informeBN.txt
+		printf " │ " >> ./Informes/informeBN.txt
+		printf "%4s" "${TES[$xp]}" >> ./Informes/informeBN.txt
 
-		printf " │ " >> informeBN.txt
-		printf "%4s" "${TRET[$xp]}" >> informeBN.txt
+		printf " │ " >> ./Informes/informeBN.txt
+		printf "%4s" "${TRET[$xp]}" >> ./Informes/informeBN.txt
 
-		printf " │ " >> informeBN.txt
-		printf "%4s" "${TREJ[$xp]}" >> informeBN.txt
+		printf " │ " >> ./Informes/informeBN.txt
+		printf "%4s" "${TREJ[$xp]}" >> ./Informes/informeBN.txt
 
 		if [[ PART[$xp] -eq -1 ]]
 		then
@@ -3395,77 +3395,77 @@ tabla_ejecucion()
 		else 
 			let part_displ=${PART[$xp]}+1
 		fi
-		printf " │ " >> informeBN.txt
-		printf "%4s" "$part_displ" >> informeBN.txt
+		printf " │ " >> ./Informes/informeBN.txt
+		printf "%4s" "$part_displ" >> ./Informes/informeBN.txt
 
-		printf " │ " >> informeBN.txt
+		printf " │ " >> ./Informes/informeBN.txt
 		if [[ ${ESTADO[$xp]} == "Ejecucion" ]]
 		then
-			printf "${ESTADO[$xp]}" >> informeBN.txt
-			printf "        │ " >> informeBN.txt
+			printf "${ESTADO[$xp]}" >> ./Informes/informeBN.txt
+			printf "        │ " >> ./Informes/informeBN.txt
 		fi
 		if [[ ${ESTADO[$xp]} == "Fuera de Sistema" ]]
 		then
-			printf "${ESTADO[$xp]}" >> informeBN.txt
-			printf " │ " >> informeBN.txt
+			printf "${ESTADO[$xp]}" >> ./Informes/informeBN.txt
+			printf " │ " >> ./Informes/informeBN.txt
 		fi
 		if [[ ${ESTADO[$xp]} == "En pausa" ]]
 		then
-			printf "${ESTADO[$xp]}" >> informeBN.txt
-			printf "         │ " >> informeBN.txt
+			printf "${ESTADO[$xp]}" >> ./Informes/informeBN.txt
+			printf "         │ " >> ./Informes/informeBN.txt
 		fi
 		if [[ ${ESTADO[$xp]} == "En memoria" ]]
 		then
-			printf "${ESTADO[$xp]}" >> informeBN.txt
-			printf "       │ " >> informeBN.txt
+			printf "${ESTADO[$xp]}" >> ./Informes/informeBN.txt
+			printf "       │ " >> ./Informes/informeBN.txt
 		fi
 		if [[ ${ESTADO[$xp]} == "En espera" ]]
 		then
-			printf "${ESTADO[$xp]}" >> informeBN.txt
-			printf "        │ " >> informeBN.txt
+			printf "${ESTADO[$xp]}" >> ./Informes/informeBN.txt
+			printf "        │ " >> ./Informes/informeBN.txt
 		fi
 		if [[ ${ESTADO[$xp]} == "Bloqueado" ]]
 		then
-			printf "${ESTADO[$xp]}" >> informeBN.txt
-			printf "        │ " >> informeBN.txt
+			printf "${ESTADO[$xp]}" >> ./Informes/informeBN.txt
+			printf "        │ " >> ./Informes/informeBN.txt
 		fi
 		if [[ ${ESTADO[$xp]} == "Terminado" ]]
 		then
-			printf "${ESTADO[$xp]}" >> informeBN.txt
-			printf "        │ " >> informeBN.txt
+			printf "${ESTADO[$xp]}" >> ./Informes/informeBN.txt
+			printf "        │ " >> ./Informes/informeBN.txt
 		fi
-		echo -e "" >> informeBN.txt
+		echo -e "" >> ./Informes/informeBN.txt
 
 		memlibre[$xp]=$(( ${tam_par[$i]} - ${MEMORIA[$xp]} ))
 	done
 
-	echo -ne " └────" >> informeBN.txt
+	echo -ne " └────" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_num_proc_tabla - 1); l++))
 	do
-		echo -ne "─" >> informeBN.txt
+		echo -ne "─" >> ./Informes/informeBN.txt
 	done
-	echo -ne "┴────" >> informeBN.txt
+	echo -ne "┴────" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_mayortll_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeBN.txt
+		echo -ne "─" >> ./Informes/informeBN.txt
 	done
 
-	echo -ne "┴────" >> informeBN.txt
+	echo -ne "┴────" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_mayortej_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeBN.txt
+		echo -ne "─" >> ./Informes/informeBN.txt
 	done
-	echo -ne "┴────" >> informeBN.txt
+	echo -ne "┴────" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_mayormem_tabla - 2); l++))
 	do
-		echo -ne "─" >> informeBN.txt
+		echo -ne "─" >> ./Informes/informeBN.txt
 	done
-	echo -ne "┴──────┴──────┴──────┴─────" >> informeBN.txt
+	echo -ne "┴──────┴──────┴──────┴─────" >> ./Informes/informeBN.txt
 	for (( l = 0; l < ($espacios_n_par_tabla - 3); l++))
 	do
-		echo -ne "─" >> informeBN.txt
+		echo -ne "─" >> ./Informes/informeBN.txt
 	done
-	echo "┴──────────────────┘" >> informeBN.txt
+	echo "┴──────────────────┘" >> ./Informes/informeBN.txt
 
 	#Tabla principal, que se ajusta a los datos introducidos.
 	#Impresión de la parte de arriba de la tabla
@@ -3731,35 +3731,35 @@ tabla_ejecucion()
 	if [[ $cont_t_esp -eq 0 ]]
 	then
 		printf " Tesp medio = 0.00\t"
-		printf " Tesp medio = 0.00\t" >> informeCOLOR.txt
-		printf " Tesp medio = 0.00\t" >> informeBN.txt
+		printf " Tesp medio = 0.00\t" >> ./Informes/informeCOLOR.txt
+		printf " Tesp medio = 0.00\t" >> ./Informes/informeBN.txt
 	else
 		#LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $(bc <<< scale=2\;$mediaesp/$tesmed)
-		#LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $(bc <<< scale=2\;$mediaesp/$tesmed) >> informeCOLOR.txt
-		#LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $(bc <<< scale=2\;$mediaesp/$tesmed) >> informeBN.txt
+		#LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $(bc <<< scale=2\;$mediaesp/$tesmed) >> ./Informes/informeCOLOR.txt
+		#LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $(bc <<< scale=2\;$mediaesp/$tesmed) >> ./Informes/informeBN.txt
 		med_t_esp=$(awk -v num1=$sum_t_esp -v num2=$cont_t_esp 'BEGIN {print num1/num2}')
 		LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $med_t_esp
-		LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $med_t_esp >> informeCOLOR.txt
-		LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $med_t_esp >> informeBN.txt
+		LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $med_t_esp >> ./Informes/informeCOLOR.txt
+		LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $med_t_esp >> ./Informes/informeBN.txt
 	fi
 	if [[ $tretmed -eq 0 ]]
 	then
 		printf " Tret medio = 0.00\n"
-		printf " Tret medio = 0.00\n" >> informeCOLOR.txt
-		printf " Tret medio = 0.00\n" >> informeBN.txt
+		printf " Tret medio = 0.00\n" >> ./Informes/informeCOLOR.txt
+		printf " Tret medio = 0.00\n" >> ./Informes/informeBN.txt
 	else
 		#LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $(bc <<< scale=2\;$mediaret/$tretmed)
-		#LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $(bc <<< scale=2\;$mediaret/$tretmed) >> informeCOLOR.txt
-		#LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $(bc <<< scale=2\;$mediaret/$tretmed) >> informeBN.txt
+		#LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $(bc <<< scale=2\;$mediaret/$tretmed) >> ./Informes/informeCOLOR.txt
+		#LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $(bc <<< scale=2\;$mediaret/$tretmed) >> ./Informes/informeBN.txt
 		med_t_ret=$(awk -v num1=$sum_t_ret -v num2=$cont_t_ret 'BEGIN {print num1/num2}')
 		LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $med_t_ret
-		LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $med_t_ret >> informeCOLOR.txt
-		LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $med_t_ret >> informeBN.txt
+		LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $med_t_ret >> ./Informes/informeCOLOR.txt
+		LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $med_t_ret >> ./Informes/informeBN.txt
 	fi
 
 	echo -n " Cola RR: "
-	echo -n " Cola RR: " >> informeCOLOR.txt
-	echo -n " Cola RR: " >> informeBN.txt
+	echo -n " Cola RR: " >> ./Informes/informeCOLOR.txt
+	echo -n " Cola RR: " >> ./Informes/informeBN.txt
 	for(( i = 1; i < ${#colaprocs[@]}; i++ ))
 	do
 		if [  ${colaprocs[$i]} -ge 5 ]
@@ -3770,12 +3770,12 @@ tabla_ejecucion()
 		fi
 
 		printf "\e[${color[$colimp]}mP%02d$resetColor " "$((${colaprocs[$i]}+1))"
-		printf "\e[${color[$colimp]}mP%02d$resetColor " "$((${colaprocs[$i]}+1))" >> informeCOLOR.txt
-		printf "P%02d " "$((${colaprocs[$i]}+1))" >> informeBN.txt
+		printf "\e[${color[$colimp]}mP%02d$resetColor " "$((${colaprocs[$i]}+1))" >> ./Informes/informeCOLOR.txt
+		printf "P%02d " "$((${colaprocs[$i]}+1))" >> ./Informes/informeBN.txt
 	done
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 
 	actualizar_bm
 
@@ -3783,13 +3783,13 @@ tabla_ejecucion()
 	imprimir_bt
 
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
-	echo "---------------------------------------------------------" >> informeCOLOR.txt
-	echo "---------------------------------------------------------" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
+	echo "---------------------------------------------------------" >> ./Informes/informeCOLOR.txt
+	echo "---------------------------------------------------------" >> ./Informes/informeBN.txt
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 
 	#Toma de decisión de cómo se va a actualizar el siguiente evento en función de lo elegido
 	if [ $opcion_ejecucion == 1 ]
@@ -3812,14 +3812,14 @@ imprimir_tabla_particiones_ejecucion()
 {
 	imprime_cabecera
 	echo -e " ${cad_top_tab_pa[@]}"
-	echo -e " ${cad_top_tab_pa[@]}" >> informeCOLOR.txt
-	echo -e " ${cad_top_tab_pa[@]}" >> informeBN.txt
+	echo -e " ${cad_top_tab_pa[@]}" >> ./Informes/informeCOLOR.txt
+	echo -e " ${cad_top_tab_pa[@]}" >> ./Informes/informeBN.txt
 	echo -e " ${cad_datos_tab_pa[@]}"
-	echo -e " ${cad_datos_tab_pa[@]}" >> informeCOLOR.txt
-	echo -e " ${cad_datos_tab_pa[@]}" >> informeBN.txt
+	echo -e " ${cad_datos_tab_pa[@]}" >> ./Informes/informeCOLOR.txt
+	echo -e " ${cad_datos_tab_pa[@]}" >> ./Informes/informeBN.txt
 	echo -e " ${cad_bot_tab_pa[@]}"
-	echo -e " ${cad_bot_tab_pa[@]}" >> informeCOLOR.txt
-	echo -e " ${cad_bot_tab_pa[@]}" >> informeBN.txt
+	echo -e " ${cad_bot_tab_pa[@]}" >> ./Informes/informeCOLOR.txt
+	echo -e " ${cad_bot_tab_pa[@]}" >> ./Informes/informeBN.txt
 }
 
 
@@ -3930,20 +3930,20 @@ actualizar_bm()
 		#if [[ $ocup_par -gt $columnas_bm ]]						#Si la unidad va a ocupar más de lo que queda de pantalla,
 		#then
 		#	echo -e "${cad_particiones[@]}"							#Represento lo que llevo de barra de memoria.
-		#	echo -e "${cad_particiones[@]}" >> informeCOLOR.txt
-		#	echo -e "${cad_particiones[@]}" >> informeBN.txt
+		#	echo -e "${cad_particiones[@]}" >> ./Informes/informeCOLOR.txt
+		#	echo -e "${cad_particiones[@]}" >> ./Informes/informeBN.txt
 
 		#	echo -e "${cad_proc_bm[@]}"
-		#	echo -e "${cad_proc_bm[@]}" >> informeCOLOR.txt
-		#	echo -e "${cad_proc_bm[@]}" >> informeBN.txt
+		#	echo -e "${cad_proc_bm[@]}" >> ./Informes/informeCOLOR.txt
+		#	echo -e "${cad_proc_bm[@]}" >> ./Informes/informeBN.txt
 
 		#	echo -e "${cad_mem_col[@]}"
-		#	echo -e "${cad_mem_col[@]}" >> informeCOLOR.txt
-		#	echo -e "${cad_mem_byn[@]}" >> informeBN.txt
+		#	echo -e "${cad_mem_col[@]}" >> ./Informes/informeCOLOR.txt
+		#	echo -e "${cad_mem_byn[@]}" >> ./Informes/informeBN.txt
 
 		#	echo -e "${cad_can_mem[@]}"
-		#	echo -e "${cad_can_mem[@]}" >> informeCOLOR.txt
-		#	echo -e "${cad_can_mem[@]}" >> informeBN.txt
+		#	echo -e "${cad_can_mem[@]}" >> ./Informes/informeCOLOR.txt
+		#	echo -e "${cad_can_mem[@]}" >> ./Informes/informeBN.txt
 
 		#	cad_particiones="     "									#Reseteo las cadenas con el margen izquierdo de la cabecera de la barra.
 		#	cad_proc_bm="     "
@@ -3960,20 +3960,20 @@ actualizar_bm()
 			if [[ $tam_unidad_bm -gt $columnas_bm ]]
 			then
 				echo -e "${cad_particiones[@]}"							#Represento lo que llevo de barra de memoria.
-				echo -e "${cad_particiones[@]}" >> informeCOLOR.txt
-				echo -e "${cad_particiones[@]}" >> informeBN.txt
+				echo -e "${cad_particiones[@]}" >> ./Informes/informeCOLOR.txt
+				echo -e "${cad_particiones[@]}" >> ./Informes/informeBN.txt
 
 				echo -e "${cad_proc_bm[@]}"
-				echo -e "${cad_proc_bm[@]}" >> informeCOLOR.txt
-				echo -e "${cad_proc_bm[@]}" >> informeBN.txt
+				echo -e "${cad_proc_bm[@]}" >> ./Informes/informeCOLOR.txt
+				echo -e "${cad_proc_bm[@]}" >> ./Informes/informeBN.txt
 
 				echo -e "${cad_mem_col[@]}"
-				echo -e "${cad_mem_col[@]}" >> informeCOLOR.txt
-				echo -e "${cad_mem_byn[@]}" >> informeBN.txt
+				echo -e "${cad_mem_col[@]}" >> ./Informes/informeCOLOR.txt
+				echo -e "${cad_mem_byn[@]}" >> ./Informes/informeBN.txt
 
 				echo -e "${cad_can_mem[@]}"
-				echo -e "${cad_can_mem[@]}" >> informeCOLOR.txt
-				echo -e "${cad_can_mem[@]}" >> informeBN.txt
+				echo -e "${cad_can_mem[@]}" >> ./Informes/informeCOLOR.txt
+				echo -e "${cad_can_mem[@]}" >> ./Informes/informeBN.txt
 
 				cad_particiones="     "									#Reseteo las cadenas con el margen izquierdo de la cabecera de la barra.
 				cad_proc_bm="     "
@@ -4203,20 +4203,20 @@ actualizar_bm()
 	if [[ $ocup_mem_total -gt $columnas_bm ]]				#Si va a ocupar más de lo que queda de pantalla,
 	then
 		echo -e "${cad_particiones[@]}"						#Represento lo que llevo de barra de memoria.
-		echo -e "${cad_particiones[@]}" >> informeCOLOR.txt
-		echo -e "${cad_particiones[@]}" >> informeBN.txt
+		echo -e "${cad_particiones[@]}" >> ./Informes/informeCOLOR.txt
+		echo -e "${cad_particiones[@]}" >> ./Informes/informeBN.txt
 
 		echo -e "${cad_proc_bm[@]}"
-		echo -e "${cad_proc_bm[@]}" >> informeCOLOR.txt
-		echo -e "${cad_proc_bm[@]}" >> informeBN.txt
+		echo -e "${cad_proc_bm[@]}" >> ./Informes/informeCOLOR.txt
+		echo -e "${cad_proc_bm[@]}" >> ./Informes/informeBN.txt
 
 		echo -e "${cad_mem_col[@]}"
-		echo -e "${cad_mem_col[@]}" >> informeCOLOR.txt
-		echo -e "${cad_mem_byn[@]}" >> informeBN.txt
+		echo -e "${cad_mem_col[@]}" >> ./Informes/informeCOLOR.txt
+		echo -e "${cad_mem_byn[@]}" >> ./Informes/informeBN.txt
 
 		echo -e "${cad_can_mem[@]}"
-		echo -e "${cad_can_mem[@]}" >> informeCOLOR.txt
-		echo -e "${cad_can_mem[@]}" >> informeBN.txt
+		echo -e "${cad_can_mem[@]}" >> ./Informes/informeCOLOR.txt
+		echo -e "${cad_can_mem[@]}" >> ./Informes/informeBN.txt
 
 		cad_particiones="     "								#Reseteo las cadenas con el margen izquierdo de la cabecera de la barra.
 		cad_proc_bm="     "
@@ -4234,24 +4234,24 @@ actualizar_bm()
 
 	## Representacion de la Barra de Memoria.
 	echo -e "${cad_particiones[@]}"
-	echo -e "${cad_particiones[@]}" >> informeCOLOR.txt
-	echo -e "${cad_particiones[@]}" >> informeBN.txt
+	echo -e "${cad_particiones[@]}" >> ./Informes/informeCOLOR.txt
+	echo -e "${cad_particiones[@]}" >> ./Informes/informeBN.txt
 
 	echo -e "${cad_proc_bm[@]}"
-	echo -e "${cad_proc_bm[@]}" >> informeCOLOR.txt
-	echo -e "${cad_proc_bm[@]}" >> informeBN.txt
+	echo -e "${cad_proc_bm[@]}" >> ./Informes/informeCOLOR.txt
+	echo -e "${cad_proc_bm[@]}" >> ./Informes/informeBN.txt
 
 	echo -e "${cad_mem_col[@]}"
-	echo -e "${cad_mem_col[@]}" >> informeCOLOR.txt
-	echo -e "${cad_mem_byn[@]}" >> informeBN.txt
+	echo -e "${cad_mem_col[@]}" >> ./Informes/informeCOLOR.txt
+	echo -e "${cad_mem_byn[@]}" >> ./Informes/informeBN.txt
 
 	echo -e "${cad_can_mem[@]}"
-	echo -e "${cad_can_mem[@]}" >> informeCOLOR.txt
-	echo -e "${cad_can_mem[@]}" >> informeBN.txt
+	echo -e "${cad_can_mem[@]}" >> ./Informes/informeCOLOR.txt
+	echo -e "${cad_can_mem[@]}" >> ./Informes/informeBN.txt
 		
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 }
 
 
@@ -4401,127 +4401,127 @@ imprimir_bt()
 
 		## Impresión de cadena de procesos.
 		echo ""
-		echo "" >> informeCOLOR.txt
-		echo "" >> informeBN.txt
+		echo "" >> ./Informes/informeCOLOR.txt
+		echo "" >> ./Informes/informeBN.txt
 		if $prim_linea_proc													#Si es la primera línea de la barra,
 		then
 			echo -n "    |"													#Imprimo la cabecera con la barra en una nueva línea.
-			echo -n "    |" >> informeCOLOR.txt
-			echo -n "    |" >> informeBN.txt
+			echo -n "    |" >> ./Informes/informeCOLOR.txt
+			echo -n "    |" >> ./Informes/informeBN.txt
 			prim_linea_proc=false 											#Ya no es la primera línea.
 		else 																#Si no es la primera línea de la barra,
 			echo -n "     "													#Imprimo la cabecera de espacios en una nueva línea.
-			echo -n "     " >> informeCOLOR.txt
-			echo -n "     " >> informeBN.txt
+			echo -n "     " >> ./Informes/informeCOLOR.txt
+			echo -n "     " >> ./Informes/informeBN.txt
 			let lineas_impresas_bt=lineas_impresas_bt+1
 		fi
 		for (( uni=0; uni<$unidades_posibles; uni++ ))						#Para cada unidad que cabe en la línea,
 		do
 			let uni_linea=uni+unidades_pantalla*lineas_impresas_bt			#Calculo el índice a imprimir según las lineas impresas anteriormente.
 			echo -ne "${cad_proc_col_bt[$uni_linea]}"						#Imprimo la unidad en la misma línea.
-			echo -ne "${cad_proc_col_bt[$uni_linea]}" >> informeCOLOR.txt
-			echo -ne "${cad_proc_byn_bt[$uni_linea]}" >> informeBN.txt
+			echo -ne "${cad_proc_col_bt[$uni_linea]}" >> ./Informes/informeCOLOR.txt
+			echo -ne "${cad_proc_byn_bt[$uni_linea]}" >> ./Informes/informeBN.txt
 			let uds_impresas_pro=uds_impresas_pro+1 						#Sumo el contador de unidades impresas.
 			let columnas_bt=columnas_bt-tam_unidad_bt 						#Resto el contador de columnas restantes.
 		done
 		#for uni in ${cad_proc_col_bt[@]}									#Para cada unidad,
 		#do
 		#	echo -ne $uni													#Imprimo la unidad en la misma línea.
-		#	echo -ne $uni >> informeCOLOR.txt
+		#	echo -ne $uni >> ./Informes/informeCOLOR.txt
 		#done
 		#for uni in ${cad_proc_byn_bt[@]}
 		#do
-		#	printf $uni >> informeBN.txt
+		#	printf $uni >> ./Informes/informeBN.txt
 		#done
 		if [[ $uds_impresas_pro -eq ${#cad_proc_col_bt[@]} ]]
 		then
 			printf "|"
-			printf "|" >> informeCOLOR.txt
-			printf "|" >> informeBN.txt
+			printf "|" >> ./Informes/informeCOLOR.txt
+			printf "|" >> ./Informes/informeBN.txt
 		fi
 
 
 		## Impresión de cadena de tiempo.
 		echo ""
-		echo "" >> informeCOLOR.txt
-		echo "" >> informeBN.txt
+		echo "" >> ./Informes/informeCOLOR.txt
+		echo "" >> ./Informes/informeBN.txt
 		if $prim_linea_tie 													#Si es la primera línea de la barra,
 		then
 			echo -n " BT |"													#Imprimo la cabecera con la barra en una nueva línea.
-			echo -n " BT |" >> informeCOLOR.txt
-			echo -n " BT |" >> informeBN.txt
+			echo -n " BT |" >> ./Informes/informeCOLOR.txt
+			echo -n " BT |" >> ./Informes/informeBN.txt
 			prim_linea_tie=false 											#Ya no es la primera línea.
 		else 																#Si no es la primera línea de la barra,
 			echo -n "     "													#Imprimo la cabecera de espacios en una nueva línea.
-			echo -n "     " >> informeCOLOR.txt
-			echo -n "     " >> informeBN.txt
+			echo -n "     " >> ./Informes/informeCOLOR.txt
+			echo -n "     " >> ./Informes/informeBN.txt
 		fi
 		for (( uni=0; uni<$unidades_posibles; uni++ ))						#Para cada unidad que cabe en la línea,
 		do
 			let uni_linea=uni+unidades_pantalla*lineas_impresas_bt			#Calculo el índice a imprimir según las lineas impresas anteriormente.
 			echo -ne "${cad_tie_col[$uni_linea]}"							#Imprimo la unidad en la misma línea.
-			echo -ne "${cad_tie_col[$uni_linea]}" >> informeCOLOR.txt
-			echo -ne "${cad_tie_byn[$uni_linea]}" >> informeBN.txt
+			echo -ne "${cad_tie_col[$uni_linea]}" >> ./Informes/informeCOLOR.txt
+			echo -ne "${cad_tie_byn[$uni_linea]}" >> ./Informes/informeBN.txt
 			let uds_impresas_tie=uds_impresas_tie+1 						#Sumo el contador de unidades impresas.
 		done
 		#for uni in ${cad_tie_col[@]}
 		#do
 		#	printf $uni 													#Imprimo la unidad en la misma línea.
-		#	printf $uni >> informeCOLOR.txt
+		#	printf $uni >> ./Informes/informeCOLOR.txt
 		#done
 		#for uni in ${cad_tie_byn[@]}
 		#do
-		#	printf $uni >> informeBN.txt
+		#	printf $uni >> ./Informes/informeBN.txt
 		#done
 		if [[ $uds_impresas_tie -eq ${#cad_tie_col[@]} ]]
 		then
 			printf "| T=$tiempo_transcurrido"
-			printf "| T=$tiempo_transcurrido" >> informeCOLOR.txt
-			printf "| T=$tiempo_transcurrido" >> informeBN.txt
+			printf "| T=$tiempo_transcurrido" >> ./Informes/informeCOLOR.txt
+			printf "| T=$tiempo_transcurrido" >> ./Informes/informeBN.txt
 		fi
 
 
 		## Impresión de cadena de cantidad de tiempo.
 		echo ""
-		echo "" >> informeCOLOR.txt
-		echo "" >> informeBN.txt
+		echo "" >> ./Informes/informeCOLOR.txt
+		echo "" >> ./Informes/informeBN.txt
 		if $prim_linea_can_tie												#Si es la primera línea de la barra,
 		then
 			echo -n "    |"													#Imprimo la cabecera con la barra en una nueva línea.
-			echo -n "    |" >> informeCOLOR.txt
-			echo -n "    |" >> informeBN.txt
+			echo -n "    |" >> ./Informes/informeCOLOR.txt
+			echo -n "    |" >> ./Informes/informeBN.txt
 			contCarac=0
 			prim_linea_can_tie=false 										#Ya no es la primera línea.
 		else 																#Si no es la primera línea de la barra,
 			echo -n "     "													#Imprimo la cabecera de espacios en una nueva línea.
-			echo -n "     " >> informeCOLOR.txt
-			echo -n "     " >> informeBN.txt
+			echo -n "     " >> ./Informes/informeCOLOR.txt
+			echo -n "     " >> ./Informes/informeBN.txt
 		fi
 		for (( uni=0; uni<$unidades_posibles; uni++, contCarac++ ))			#Para cada unidad que cabe en la línea, 
 		do
 			let uni_linea=uni+unidades_pantalla*lineas_impresas_bt			#Calculo el índice a imprimir según las lineas impresas anteriormente.
 			echo -ne "${cad_can_tie[$uni_linea]}"							#Imprimo la unidad en la misma línea.
-			echo -ne "${cad_can_tie[$uni_linea]}" >> informeCOLOR.txt
-			echo -ne "${cad_can_tie[$uni_linea]}" >> informeBN.txt
+			echo -ne "${cad_can_tie[$uni_linea]}" >> ./Informes/informeCOLOR.txt
+			echo -ne "${cad_can_tie[$uni_linea]}" >> ./Informes/informeBN.txt
 			let uds_impresas_can_tie=uds_impresas_can_tie+1 				#Sumo el contador de unidades impresas.
 		done
 		#for uni in ${cad_can_tie[@]}
 		#do
 		#	printf $uni 													#Imprimo la unidad en la misma línea.
-		#	printf $uni >> informeCOLOR.txt
-		#	printf $uni >> informeBN.txt
+		#	printf $uni >> ./Informes/informeCOLOR.txt
+		#	printf $uni >> ./Informes/informeBN.txt
 		#done
 		if [[ $uds_impresas_can_tie -eq ${#cad_can_tie[@]} ]]
 		then
 			printf "|"
-			printf "|" >> informeCOLOR.txt
-			printf "|" >> informeBN.txt
+			printf "|" >> ./Informes/informeCOLOR.txt
+			printf "|" >> ./Informes/informeBN.txt
 		fi
 	done
 
 	echo ""
-	echo "" >> informeCOLOR.txt
-	echo "" >> informeBN.txt
+	echo "" >> ./Informes/informeCOLOR.txt
+	echo "" >> ./Informes/informeBN.txt
 }
 
 
@@ -4808,91 +4808,91 @@ if [[ -e archivo.temp ]]
 then
 	rm archivo.temp
 fi
-if [[ -e informeCOLOR.txt ]]
+if [[ -e ./Informes/informeCOLOR.txt ]]
 then
-	rm informeCOLOR.txt
+	rm ./Informes/informeCOLOR.txt
 fi
-if [[ -e informeBN.txt ]]
+if [[ -e ./Informes/informeBN.txt ]]
 then
-	rm informeBN.txt
+	rm ./Informes/informeBN.txt
 fi
 
 #Inicio del script (Con alumno nuevo 2022) para los 2 informes.
 #clear
-echo "---------------------------------------------------------------------" >> informeCOLOR.txt
-echo "|                                                                   |" >> informeCOLOR.txt
-echo "|                         INFORME DE PRÁCTICA                       |" >> informeCOLOR.txt
-echo "|                         GESTIÓN DE PROCESOS                       |" >> informeCOLOR.txt
-echo "|             -------------------------------------------           |" >> informeCOLOR.txt
-echo "|     Antiguo alumno:                                               |" >> informeCOLOR.txt
-echo "|     Alumno: Mario Juez Gil                                        |" >> informeCOLOR.txt
-echo "|     Sistemas Operativos 2º Semestre                               |" >> informeCOLOR.txt
-echo "|     Grado en ingeniería informática (2012-2013)                   |" >> informeCOLOR.txt
-echo "|             -------------------------------------------           |" >> informeCOLOR.txt
-echo "|     Alumno: Omar Santos Bernabe                                   |" >> informeCOLOR.txt
-echo "|     Sistemas Operativos 2º Semestre                               |" >> informeCOLOR.txt
-echo "|     Grado en ingeniería informática (2014-2015)                   |" >> informeCOLOR.txt
-echo "|             -------------------------------------------           |" >> informeCOLOR.txt
-echo "|     Alumnos:                                                      |" >> informeCOLOR.txt
-echo "|     Alumno: Alvaro Urdiales Santidrian                            |" >> informeCOLOR.txt
-echo "|     Alumno: Javier Rodriguez Barcenilla                           |" >> informeCOLOR.txt
-echo "|     Sistemas Operativos 2º Semestre                               |" >> informeCOLOR.txt
-echo "|     Grado en ingeniería informática (2015-2016)                   |" >> informeCOLOR.txt
-echo "|                                                                   |" >> informeCOLOR.txt
-echo "|             -------------------------------------------           |" >> informeCOLOR.txt
-echo "|     Alumno: Gonzalo Burgos de la Hera                             |" >> informeCOLOR.txt
-echo "|     Sistemas Operativos 2º Semestre                               |" >> informeCOLOR.txt
-echo "|     Grado en ingeniería informática (2019-2020)                   |" >> informeCOLOR.txt
-echo "|                                                                   |" >> informeCOLOR.txt
-echo "|             -------------------------------------------           |" >> informeCOLOR.txt
-echo "|     Alumno: Lucas Olmedo Díez                                     |" >> informeCOLOR.txt
-echo "|     Sistemas Operativos 2º Semestre                               |" >> informeCOLOR.txt
-echo "|     Grado en ingeniería informática (2021-2022)                   |" >> informeCOLOR.txt
-echo "|                                                                   |" >> informeCOLOR.txt
-echo "|             -------------------------------------------           |" >> informeCOLOR.txt
-echo "|     Alumno: Miguel Díaz Hernando                                  |" >> informeCOLOR.txt
-echo "|     Sistemas Operativos 2º Semestre                               |" >> informeCOLOR.txt
-echo "|     Grado en ingeniería informática (2022-2023)                   |" >> informeCOLOR.txt
-echo "|                                                                   |" >> informeCOLOR.txt
-echo "---------------------------------------------------------------------" >> informeCOLOR.txt
-echo "" >> informeCOLOR.txt
-echo "---------------------------------------------------------------------" >> informeBN.txt
-echo "|                                                                   |" >> informeBN.txt
-echo "|                         INFORME DE PRÁCTICA                       |" >> informeBN.txt
-echo "|                         GESTIÓN DE PROCESOS                       |" >> informeBN.txt
-echo "|             -------------------------------------------           |" >> informeBN.txt
-echo "|     Antiguo alumno:                                               |" >> informeBN.txt
-echo "|     Alumno: Mario Juez Gil                                        |" >> informeBN.txt
-echo "|     Sistemas Operativos 2º Semestre                               |" >> informeBN.txt
-echo "|     Grado en ingeniería informática (2012-2013)                   |" >> informeBN.txt
-echo "|             -------------------------------------------           |" >> informeBN.txt
-echo "|     Alumno: Omar Santos Bernabe                                   |" >> informeBN.txt
-echo "|     Sistemas Operativos 2º Semestre                               |" >> informeBN.txt
-echo "|     Grado en ingeniería informática (2014-2015)                   |" >> informeBN.txt
-echo "|             -------------------------------------------           |" >> informeBN.txt
-echo "|     Alumnos:                                                      |" >> informeBN.txt
-echo "|     Alumno: Alvaro Urdiales Santidrian                            |" >> informeBN.txt
-echo "|     Alumno: Javier Rodriguez Barcenilla                           |" >> informeBN.txt
-echo "|     Sistemas Operativos 2º Semestre                               |" >> informeBN.txt
-echo "|     Grado en ingeniería informática (2015-2016)                   |" >> informeBN.txt
-echo "|                                                                   |" >> informeBN.txt
-echo "|             -------------------------------------------           |" >> informeBN.txt
-echo "|     Alumno: Gonzalo Burgos de la Hera                             |" >> informeBN.txt
-echo "|     Sistemas Operativos 2º Semestre                               |" >> informeBN.txt
-echo "|     Grado en ingeniería informática (2019-2020)                   |" >> informeBN.txt
-echo "|                                                                   |" >> informeBN.txt
-echo "|             -------------------------------------------           |" >> informeBN.txt
-echo "|     Alumno: Lucas Olmedo Díez                                     |" >> informeBN.txt
-echo "|     Sistemas Operativos 2º Semestre                               |" >> informeBN.txt
-echo "|     Grado en ingeniería informática (2021-2022)                   |" >> informeBN.txt
-echo "|                                                                   |" >> informeBN.txt
-echo "|             -------------------------------------------           |" >> informeBN.txt
-echo "|     Alumno: Miguel Díaz Hernando                                  |" >> informeBN.txt
-echo "|     Sistemas Operativos 2º Semestre                               |" >> informeBN.txt
-echo "|     Grado en ingeniería informática (2022-2023)                   |" >> informeBN.txt
-echo "|                                                                   |" >> informeBN.txt
-echo "---------------------------------------------------------------------" >> informeBN.txt
-echo "" >> informeBN.txt
+echo "---------------------------------------------------------------------" >> ./Informes/informeCOLOR.txt
+echo "|                                                                   |" >> ./Informes/informeCOLOR.txt
+echo "|                         INFORME DE PRÁCTICA                       |" >> ./Informes/informeCOLOR.txt
+echo "|                         GESTIÓN DE PROCESOS                       |" >> ./Informes/informeCOLOR.txt
+echo "|             -------------------------------------------           |" >> ./Informes/informeCOLOR.txt
+echo "|     Antiguo alumno:                                               |" >> ./Informes/informeCOLOR.txt
+echo "|     Alumno: Mario Juez Gil                                        |" >> ./Informes/informeCOLOR.txt
+echo "|     Sistemas Operativos 2º Semestre                               |" >> ./Informes/informeCOLOR.txt
+echo "|     Grado en ingeniería informática (2012-2013)                   |" >> ./Informes/informeCOLOR.txt
+echo "|             -------------------------------------------           |" >> ./Informes/informeCOLOR.txt
+echo "|     Alumno: Omar Santos Bernabe                                   |" >> ./Informes/informeCOLOR.txt
+echo "|     Sistemas Operativos 2º Semestre                               |" >> ./Informes/informeCOLOR.txt
+echo "|     Grado en ingeniería informática (2014-2015)                   |" >> ./Informes/informeCOLOR.txt
+echo "|             -------------------------------------------           |" >> ./Informes/informeCOLOR.txt
+echo "|     Alumnos:                                                      |" >> ./Informes/informeCOLOR.txt
+echo "|     Alumno: Alvaro Urdiales Santidrian                            |" >> ./Informes/informeCOLOR.txt
+echo "|     Alumno: Javier Rodriguez Barcenilla                           |" >> ./Informes/informeCOLOR.txt
+echo "|     Sistemas Operativos 2º Semestre                               |" >> ./Informes/informeCOLOR.txt
+echo "|     Grado en ingeniería informática (2015-2016)                   |" >> ./Informes/informeCOLOR.txt
+echo "|                                                                   |" >> ./Informes/informeCOLOR.txt
+echo "|             -------------------------------------------           |" >> ./Informes/informeCOLOR.txt
+echo "|     Alumno: Gonzalo Burgos de la Hera                             |" >> ./Informes/informeCOLOR.txt
+echo "|     Sistemas Operativos 2º Semestre                               |" >> ./Informes/informeCOLOR.txt
+echo "|     Grado en ingeniería informática (2019-2020)                   |" >> ./Informes/informeCOLOR.txt
+echo "|                                                                   |" >> ./Informes/informeCOLOR.txt
+echo "|             -------------------------------------------           |" >> ./Informes/informeCOLOR.txt
+echo "|     Alumno: Lucas Olmedo Díez                                     |" >> ./Informes/informeCOLOR.txt
+echo "|     Sistemas Operativos 2º Semestre                               |" >> ./Informes/informeCOLOR.txt
+echo "|     Grado en ingeniería informática (2021-2022)                   |" >> ./Informes/informeCOLOR.txt
+echo "|                                                                   |" >> ./Informes/informeCOLOR.txt
+echo "|             -------------------------------------------           |" >> ./Informes/informeCOLOR.txt
+echo "|     Alumno: Miguel Díaz Hernando                                  |" >> ./Informes/informeCOLOR.txt
+echo "|     Sistemas Operativos 2º Semestre                               |" >> ./Informes/informeCOLOR.txt
+echo "|     Grado en ingeniería informática (2022-2023)                   |" >> ./Informes/informeCOLOR.txt
+echo "|                                                                   |" >> ./Informes/informeCOLOR.txt
+echo "---------------------------------------------------------------------" >> ./Informes/informeCOLOR.txt
+echo "" >> ./Informes/informeCOLOR.txt
+echo "---------------------------------------------------------------------" >> ./Informes/informeBN.txt
+echo "|                                                                   |" >> ./Informes/informeBN.txt
+echo "|                         INFORME DE PRÁCTICA                       |" >> ./Informes/informeBN.txt
+echo "|                         GESTIÓN DE PROCESOS                       |" >> ./Informes/informeBN.txt
+echo "|             -------------------------------------------           |" >> ./Informes/informeBN.txt
+echo "|     Antiguo alumno:                                               |" >> ./Informes/informeBN.txt
+echo "|     Alumno: Mario Juez Gil                                        |" >> ./Informes/informeBN.txt
+echo "|     Sistemas Operativos 2º Semestre                               |" >> ./Informes/informeBN.txt
+echo "|     Grado en ingeniería informática (2012-2013)                   |" >> ./Informes/informeBN.txt
+echo "|             -------------------------------------------           |" >> ./Informes/informeBN.txt
+echo "|     Alumno: Omar Santos Bernabe                                   |" >> ./Informes/informeBN.txt
+echo "|     Sistemas Operativos 2º Semestre                               |" >> ./Informes/informeBN.txt
+echo "|     Grado en ingeniería informática (2014-2015)                   |" >> ./Informes/informeBN.txt
+echo "|             -------------------------------------------           |" >> ./Informes/informeBN.txt
+echo "|     Alumnos:                                                      |" >> ./Informes/informeBN.txt
+echo "|     Alumno: Alvaro Urdiales Santidrian                            |" >> ./Informes/informeBN.txt
+echo "|     Alumno: Javier Rodriguez Barcenilla                           |" >> ./Informes/informeBN.txt
+echo "|     Sistemas Operativos 2º Semestre                               |" >> ./Informes/informeBN.txt
+echo "|     Grado en ingeniería informática (2015-2016)                   |" >> ./Informes/informeBN.txt
+echo "|                                                                   |" >> ./Informes/informeBN.txt
+echo "|             -------------------------------------------           |" >> ./Informes/informeBN.txt
+echo "|     Alumno: Gonzalo Burgos de la Hera                             |" >> ./Informes/informeBN.txt
+echo "|     Sistemas Operativos 2º Semestre                               |" >> ./Informes/informeBN.txt
+echo "|     Grado en ingeniería informática (2019-2020)                   |" >> ./Informes/informeBN.txt
+echo "|                                                                   |" >> ./Informes/informeBN.txt
+echo "|             -------------------------------------------           |" >> ./Informes/informeBN.txt
+echo "|     Alumno: Lucas Olmedo Díez                                     |" >> ./Informes/informeBN.txt
+echo "|     Sistemas Operativos 2º Semestre                               |" >> ./Informes/informeBN.txt
+echo "|     Grado en ingeniería informática (2021-2022)                   |" >> ./Informes/informeBN.txt
+echo "|                                                                   |" >> ./Informes/informeBN.txt
+echo "|             -------------------------------------------           |" >> ./Informes/informeBN.txt
+echo "|     Alumno: Miguel Díaz Hernando                                  |" >> ./Informes/informeBN.txt
+echo "|     Sistemas Operativos 2º Semestre                               |" >> ./Informes/informeBN.txt
+echo "|     Grado en ingeniería informática (2022-2023)                   |" >> ./Informes/informeBN.txt
+echo "|                                                                   |" >> ./Informes/informeBN.txt
+echo "---------------------------------------------------------------------" >> ./Informes/informeBN.txt
+echo "" >> ./Informes/informeBN.txt
 
 
 imprime_cabecera_larga
@@ -4939,8 +4939,8 @@ fi
 
 
 #clear
-echo "      > ROUND ROBIN" >> informeCOLOR.txt
-echo "      > ROUND ROBIN" >> informeBN.txt
+echo "      > ROUND ROBIN" >> ./Informes/informeCOLOR.txt
+echo "      > ROUND ROBIN" >> ./Informes/informeBN.txt
 
 #Calculo el tamaño del espacio representado en la barra por cada unidad de tiempo en función del tamaño del mayor tiempo de entrada.
 mas_tarde=0
@@ -4966,8 +4966,6 @@ calcula_espacios 						#Calcula los espacios para la tabla de procesos.
 iniciar_bt								#Inicia la barra de tiempo.
 algoritmob 								#Algoritmo principal
 
-mv informeCOLOR.txt ./Informes
-mv informeBN.txt ./Informes
 
 #clear
 
