@@ -3925,15 +3925,28 @@ actualizar_bm()
 	#Columnas que quedan en la consola a la derecha de la barra inicial en la BM.
 	columnas_bm=$(($(tput cols)-5))
 
+	#Columnas impresas en la consola después de la barra inicial.
+	caracteres_impresos=0
 
+	#Unidades que se pueden imprimir en una columna de pantalla.
+	unidades_imprimibles=0
+
+	#Unidades impresas en pantalla
+	unidades_impresas=0
+
+	echo ""
+	echo " columnas de la pantalla: $(tput cols)"
+	echo " columnas imprimibles: $(($(tput cols)-5))"
+	echo " unidades imprimibles: $((($(tput cols)-5)/$tam_unidad_bm))"
+	echo ""
 		
 	for ((pa=0; pa<$n_par; pa++))
 	do
 		#Cortar a la siguiente línea la partición entera.
 		#let ocup_par=${tam_par[$pa]}*tam_unidad_bm
-		#if [[ $ocup_par -gt $columnas_bm ]]						#Si la unidad va a ocupar más de lo que queda de pantalla,
+		#if [[ $ocup_par -gt $columnas_bm ]]							#Si la unidad va a ocupar más de lo que queda de pantalla,
 		#then
-		#	echo -e "${cad_particiones[@]}"							#Represento lo que llevo de barra de memoria.
+		#	echo -e "${cad_particiones[@]}"								#Represento lo que llevo de barra de memoria.
 		#	echo -e "${cad_particiones[@]}" >> ./Informes/informeCOLOR.txt
 		#	echo -e "${cad_particiones[@]}" >> ./Informes/informeBN.txt
 
@@ -3949,19 +3962,19 @@ actualizar_bm()
 		#	echo -e "${cad_can_mem[@]}" >> ./Informes/informeCOLOR.txt
 		#	echo -e "${cad_can_mem[@]}" >> ./Informes/informeBN.txt
 
-		#	cad_particiones="     "									#Reseteo las cadenas con el margen izquierdo de la cabecera de la barra.
+		#	cad_particiones="     "										#Reseteo las cadenas con el margen izquierdo de la cabecera de la barra.
 		#	cad_proc_bm="     "
 		#	cad_mem_col="     "
 		#	cad_mem_byn="     "
 		#	cad_can_mem="     "
-		#	columnas_bm=$(($(tput cols)-5)) 						#Reseteo las columnas que quedan libres.
+		#	columnas_bm=$(($(tput cols)-5)) 							#Reseteo las columnas que quedan libres.
 		#fi
-		#let columnas_bm=columnas_bm-ocup_par-6						#Actualizo las columnas que quedan restando lo que ocupa la partición, con 5 espacios al principio.
+		#let columnas_bm=columnas_bm-ocup_par-6							#Actualizo las columnas que quedan restando lo que ocupa la partición, con 5 espacios al principio.
 
 		for (( uni_par=1; uni_par<=${tam_par[$pa]}; uni_par++ ))		#Para cada unidad imprimible de la partición (su tamaño).
 		do
-			#cortar a la siguiente línea la unidad de memoria.
-			if [[ $tam_unidad_bm -gt $columnas_bm ]]
+			#Cortar a la siguiente línea la unidad de memoria.
+			if [[ $caracteres_impresos -eq $columnas_bm ]]
 			then
 				echo -e "${cad_particiones[@]}"							#Represento lo que llevo de barra de memoria.
 				echo -e "${cad_particiones[@]}" >> ./Informes/informeCOLOR.txt
@@ -3979,15 +3992,20 @@ actualizar_bm()
 				echo -e "${cad_can_mem[@]}" >> ./Informes/informeCOLOR.txt
 				echo -e "${cad_can_mem[@]}" >> ./Informes/informeBN.txt
 
+				echo ""
+				echo " columnas restantes: $columnas_bm"
+				echo " caracteres impresos: $caracteres_impresos"
+				echo ""
+
 				cad_particiones="     "									#Reseteo las cadenas con el margen izquierdo de la cabecera de la barra.
 				cad_proc_bm="     "
 				cad_mem_col="     "
 				cad_mem_byn="     "
 				cad_can_mem="     "
 				columnas_bm=$(($(tput cols)-5)) 						#Reseteo las columnas que quedan libres.
+				caracteres_impresos=0
+				
 			fi
-			let columnas_bm=columnas_bm-tam_unidad_bm					#Actualizo las columnas que quedan restando lo que ocupa la unidad.
-
 
 			## Montaje de la cadena de particiones en la barra de memoria.
 			num_par=$(($pa+1))														#Guardo el número imprimible de la partición.
@@ -4202,8 +4220,11 @@ actualizar_bm()
 			if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]] 		#Si es la última unidad (el final de la partición), y no es la última partición,
 			then
 				cad_can_mem=${cad_can_mem[@]}" "										#Añado un espacio entre particiones.
-				let columnas_bm=columnas_bm-1											#Actualizo las columnas que quedan restando el espacio.
+				let caracteres_impresos=caracteres_impresos+1											#Actualizo las columnas que quedan restando el espacio.
 			fi
+
+			#let columnas_bm=columnas_bm-tam_unidad_bm									#Actualizo las columnas que quedan restando lo que ocupa la unidad.
+			let caracteres_impresos=caracteres_impresos+1
 		done
 	done
 
