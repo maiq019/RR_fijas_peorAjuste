@@ -3904,19 +3904,11 @@ actualizar_bm()
 	#Variable que guarda el tamaño del espacio representado en la barra por cada unidad de memoria.
 	tam_unidad_bm=$tam_unidad_bt
 
-	#Cadena de particiones en la BM.
+	#Inicio de las cadenas de la BM.
 	cad_particiones="    |"
-
-	#Cadena de procesos en la BM.
 	cad_proc_bm="    |"
-
-	#Cadena de cuadrados de colores en la BM.
 	cad_mem_col=" BM |"
-
-	#Cadena de cuadrados en blanco y negro en la BM.
 	cad_mem_byn=" BM |"
-
-	#Cadena de la cantidad de memoria en la BM.
 	cad_can_mem="    |"
 
 	#Variable para contar la memoria representada.
@@ -3928,55 +3920,23 @@ actualizar_bm()
 	#Columnas impresas en la consola después de la barra inicial.
 	caracteres_impresos=0
 
-	#Unidades que se pueden imprimir en una columna de pantalla.
-	unidades_imprimibles=0
-
-	#Unidades impresas en pantalla
-	unidades_impresas=0
-
-	echo ""
-	echo " columnas de la pantalla: $(tput cols)"
-	echo " columnas imprimibles: $(($(tput cols)-5))"
-	echo " unidades imprimibles: $((($(tput cols)-5)/$tam_unidad_bm))"
-	echo ""
 		
-	for ((pa=0; pa<$n_par; pa++))
+	for ((pa=0; pa<$n_par; pa++))													#Para cada partición,
 	do
-		#Cortar a la siguiente línea la partición entera.
-		#let ocup_par=${tam_par[$pa]}*tam_unidad_bm
-		#if [[ $ocup_par -gt $columnas_bm ]]							#Si la unidad va a ocupar más de lo que queda de pantalla,
-		#then
-		#	echo -e "${cad_particiones[@]}"								#Represento lo que llevo de barra de memoria.
-		#	echo -e "${cad_particiones[@]}" >> ./Informes/informeCOLOR.txt
-		#	echo -e "${cad_particiones[@]}" >> ./Informes/informeBN.txt
-
-		#	echo -e "${cad_proc_bm[@]}"
-		#	echo -e "${cad_proc_bm[@]}" >> ./Informes/informeCOLOR.txt
-		#	echo -e "${cad_proc_bm[@]}" >> ./Informes/informeBN.txt
-
-		#	echo -e "${cad_mem_col[@]}"
-		#	echo -e "${cad_mem_col[@]}" >> ./Informes/informeCOLOR.txt
-		#	echo -e "${cad_mem_byn[@]}" >> ./Informes/informeBN.txt
-
-		#	echo -e "${cad_can_mem[@]}"
-		#	echo -e "${cad_can_mem[@]}" >> ./Informes/informeCOLOR.txt
-		#	echo -e "${cad_can_mem[@]}" >> ./Informes/informeBN.txt
-
-		#	cad_particiones="     "										#Reseteo las cadenas con el margen izquierdo de la cabecera de la barra.
-		#	cad_proc_bm="     "
-		#	cad_mem_col="     "
-		#	cad_mem_byn="     "
-		#	cad_can_mem="     "
-		#	columnas_bm=$(($(tput cols)-5)) 							#Reseteo las columnas que quedan libres.
-		#fi
-		#let columnas_bm=columnas_bm-ocup_par-6							#Actualizo las columnas que quedan restando lo que ocupa la partición, con 5 espacios al principio.
-
-		for (( uni_par=1; uni_par<=${tam_par[$pa]}; uni_par++ ))		#Para cada unidad imprimible de la partición (su tamaño).
+		for (( uni_par=1; uni_par<=${tam_par[$pa]}; uni_par++ ))					#Para cada unidad imprimible de la partición (su tamaño).
 		do
-			#Cortar a la siguiente línea la unidad de memoria.
-			if [[ $caracteres_impresos -eq $columnas_bm ]]
+			#Actualizo los caracteres impresos antes para saber lo que se ocupará de antemano.
+			if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]] 	#Si es la última unidad (el final de la partición), y no es la última partición,
 			then
-				echo -e "${cad_particiones[@]}"							#Represento lo que llevo de barra de memoria.
+				let caracteres_impresos=caracteres_impresos+$tam_unidad_bm+1 		#Actualizo los caracteres impresos con el tamaño de la unidad y el espacio entre particiones.
+			else
+				let caracteres_impresos=caracteres_impresos+$tam_unidad_bm 			#Actualizo los caracteres impresos con el tamaño de la unidad.
+			fi
+
+			#Cortar a la siguiente línea la unidad de memoria.
+			if [[ $caracteres_impresos -gt $columnas_bm ]] 							#Si va a haber más caracteres impresos que espacio en la pantalla,
+			then
+				echo -e "${cad_particiones[@]}"										#Represento lo que llevo de barra de memoria.
 				echo -e "${cad_particiones[@]}" >> ./Informes/informeCOLOR.txt
 				echo -e "${cad_particiones[@]}" >> ./Informes/informeBN.txt
 
@@ -3992,18 +3952,13 @@ actualizar_bm()
 				echo -e "${cad_can_mem[@]}" >> ./Informes/informeCOLOR.txt
 				echo -e "${cad_can_mem[@]}" >> ./Informes/informeBN.txt
 
-				echo ""
-				echo " columnas restantes: $columnas_bm"
-				echo " caracteres impresos: $caracteres_impresos"
-				echo ""
-
-				cad_particiones="     "									#Reseteo las cadenas con el margen izquierdo de la cabecera de la barra.
+				cad_particiones="     "												#Reseteo las cadenas con el margen izquierdo de la cabecera de la barra.
 				cad_proc_bm="     "
 				cad_mem_col="     "
 				cad_mem_byn="     "
 				cad_can_mem="     "
-				columnas_bm=$(($(tput cols)-5)) 						#Reseteo las columnas que quedan libres.
-				caracteres_impresos=0
+				columnas_bm=$(($(tput cols)-5)) 									#Reseteo las columnas que quedan libres.
+				caracteres_impresos=0 												#Reseteo los caracteres impresos.
 				
 			fi
 
@@ -4123,7 +4078,6 @@ actualizar_bm()
 			if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]] 	#Si es la última unidad (el final de la partición), y no es la última partición,
 			then
 				cad_particiones=${cad_particiones[@]}" "							#Añado un espacio entre particiones.
-				let columnas_bm=columnas_bm-1										#Actualizo las columnas que quedan restando el espacio.
 			fi
 
 
@@ -4149,7 +4103,6 @@ actualizar_bm()
 			if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]]	#Si es la última unidad (el final de la partición), y no es la última partición,
 			then										
 				cad_proc_bm=${cad_proc_bm[@]}" "									#Añado un espacio adicional entre particiones.
-				let columnas_bm=columnas_bm-1										#Actualizo las columnas que quedan restando el espacio.
 			fi
 
 
@@ -4179,7 +4132,6 @@ actualizar_bm()
 			then
 				cad_mem_col=${cad_mem_col[@]}" "										#Añado un espacio entre particiones.
 				cad_mem_byn=${cad_mem_byn[@]}" "
-				let columnas_bm=columnas_bm-1											#Actualizo las columnas que quedan restando el espacio.
 			fi
 
 
@@ -4220,19 +4172,15 @@ actualizar_bm()
 			if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]] 		#Si es la última unidad (el final de la partición), y no es la última partición,
 			then
 				cad_can_mem=${cad_can_mem[@]}" "										#Añado un espacio entre particiones.
-				let caracteres_impresos=caracteres_impresos+1											#Actualizo las columnas que quedan restando el espacio.
 			fi
-
-			#let columnas_bm=columnas_bm-tam_unidad_bm									#Actualizo las columnas que quedan restando lo que ocupa la unidad.
-			let caracteres_impresos=caracteres_impresos+1
 		done
 	done
 
 
-	let ocup_mem_total=5+${#memoria_total}					#Calculo lo que ocupa escribir la memoria total (mas 5 de barra, espacio, M, =, y espacio final.
-	if [[ $ocup_mem_total -gt $columnas_bm ]]				#Si va a ocupar más de lo que queda de pantalla,
+	let ocup_mem_total=5+${#memoria_total}												#Calculo lo que ocupa escribir la memoria total (mas 5 de barra, espacio, M, =, y espacio final.
+	if [[ $ocup_mem_total -gt $(($columnas_bm-$caracteres_impresos)) ]]					#Si va a ocupar más de lo que queda de pantalla,
 	then
-		echo -e "${cad_particiones[@]}"						#Represento lo que llevo de barra de memoria.
+		echo -e "${cad_particiones[@]}"													#Represento lo que llevo de barra de memoria.
 		echo -e "${cad_particiones[@]}" >> ./Informes/informeCOLOR.txt
 		echo -e "${cad_particiones[@]}" >> ./Informes/informeBN.txt
 
@@ -4248,7 +4196,7 @@ actualizar_bm()
 		echo -e "${cad_can_mem[@]}" >> ./Informes/informeCOLOR.txt
 		echo -e "${cad_can_mem[@]}" >> ./Informes/informeBN.txt
 
-		cad_particiones="     "								#Reseteo las cadenas con el margen izquierdo de la cabecera de la barra.
+		cad_particiones="     "															#Reseteo las cadenas con el margen izquierdo de la cabecera de la barra.
 		cad_proc_bm="     "
 		cad_mem_col="     "
 		cad_mem_byn="     "
@@ -4285,6 +4233,7 @@ actualizar_bm()
 }
 
 
+### Calcula el tamaño necesario de las unidades para la barra de tiempo. En una función aparte para ejecutarlo solo una vez al principio.
 iniciar_bt()
 {
 	#Calculo el tamaño del espacio representado en la barra por cada unidad de tiempo en función del tamaño del mayor tiempo de entrada.
@@ -4299,12 +4248,6 @@ iniciar_bt()
 	then
 		tam_unidad_bt=$((${#sumatorio}+1))
 	fi
-
-	#cad_proc_col_bt=""
-	#cad_proc_byn_bt=""
-	#cad_tie_col=""
-	#cad_tie_byn=""
-	#cad_can_tie=""
 }
 
 
