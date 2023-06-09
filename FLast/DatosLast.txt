@@ -7,4 +7,4 @@ Procesos (T-Entrada Rafaga Memoria)
 3 3 2
 1 10 2
 4 5 4
-2 6 3
+200000 6 3
