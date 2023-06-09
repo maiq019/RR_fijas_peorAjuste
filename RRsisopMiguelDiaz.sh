@@ -2769,35 +2769,43 @@ imprimir_tabla()
 
 
 ### Ordena los procesos por tiempo de llegada.
-ordenacion_procesos() 
+ordenacion_procesos()
 {
-	echo " ordenando procesos..."
-
-	proceso=0
-	for (( nn=1; $proceso<$num_proc; nn++ ))
+	for(( pr=0; pr<$num_proc; pr++ ))								#Para cada proceso,
 	do
-		for(( pr=0; pr<$num_proc; pr++ ))
-		do
-			let caca=nn-1
-			if [[ ${T_ENTRADA_I[$pr]} -eq $caca ]]
-			then
-				NUMPROC[$proceso]=${NUMPROC_I[$pr]}
-				T_ENTRADA[$proceso]=${T_ENTRADA_I[$pr]}
-				TEJ[$proceso]=${T_EJECUCION_I[$pr]}
-				MEMORIA[$proceso]=${MEMORIA_I[$pr]}
-				#FIN[$proceso]=0
-				#TIEMPO[$proceso]=${T_EJECUCION_I[$pr]}
-				let proceso=proceso+1
-			fi
-		done
+		ordenado[$pr]=0												#Lo marco como no ordenado.
 	done
 
-	echo " procesos ordenados"
+	for(( prf=0; prf<$num_proc; prf++ ))							#Para cada posición nueva de proceso,
+	do
+		menor_t_entr=${T_ENTRADA_I[0]}
+		proceso_menor=-1
+		for(( pri=0; pri<$num_proc; pri++ ))						#Por cada proceso a ordenar,
+		do
+			if [[ ${T_ENTRADA_I[$pri]} -lt $menor_t_entr ]]	&& [[ ${ordenado[$pri]} -eq 0 ]]		#Si el tiempo de entrada del pri es menor que el menor hasta el momento y no está ordenado,
+			then
+				menor_t_entr=${T_ENTRADA_I[$pri]}					#Actualizo el menor tiempo de entrada encontrado.
+				proceso_menor=$pri 									#Guardo el índice del proceso con menor tiempo de llegada encontrado.
+			fi
+		done
+
+		if [[ $proceso_menor -eq -1 ]]								#Si la referencia de índice al proceso menor sigue siendo -1 (el proceso 0 tiene el menor tiempo de entrada de los restantes),
+		then
+			proceso_menor=0
+		fi
+
+		NUMPROC[$prf]=${NUMPROC_I[$proceso_menor]}					#Pongo el proceso con menor tiempo de llegada encontrado en la siguiente posición de los arrays finales.		
+		T_ENTRADA[$prf]=${T_ENTRADA_I[$proceso_menor]}
+		TEJ[$prf]=${T_EJECUCION_I[$proceso_menor]}
+		MEMORIA[$prf]=${MEMORIA_I[$proceso_menor]}
+
+		ordenado[$proceso_menor]=1 									#Marco el proceso como ordenado.
+	done
 }
 
 
 ### Ordena los procesos por tiempo de llegada con quicksort.
-ordenacion_procesosNEW()
+ordenacion_procesos_quicksort()
 {
 	#Elegir el pivote para quicksort.
 	len=$((${#$1}-1))
@@ -4529,21 +4537,21 @@ mayor_dato_procesos()
 	for (( pr=0; pr<$num_proc; pr++ ))
 	do
 		#Tiempo de llegada.
-		if [[ $mayortll -lt ${T_ENTRADA_I[$pr]} ]]
+		if [[ $mayortll -lt ${T_ENTRADA[$pr]} ]]
 		then
-			mayortll=${T_ENTRADA_I[$pr]}
+			mayortll=${T_ENTRADA[$pr]}
 		fi
 
 		#Tiempo de ejecución.
-		if [[ $mayortej -lt ${T_EJECUCION_I[$pr]} ]]
+		if [[ $mayortej -lt ${TEJ[$pr]} ]]
 		then
-			mayortej=${T_EJECUCION_I[$pr]}
+			mayortej=${TEJ[$pr]}
 		fi
 
 		#Espacio en memoria.
-		if [[ $mayormem -lt ${MEMORIA_I[$pr]} ]]
+		if [[ $mayormem -lt ${MEMORIA[$pr]} ]]
 		then
-			mayormem=${MEMORIA_I[$pr]}
+			mayormem=${MEMORIA[$pr]}
 		fi
 	done
 }

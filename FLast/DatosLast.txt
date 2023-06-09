@@ -3,8 +3,8 @@ Particiones
 Quantum
 2
 Procesos (T-Entrada Rafaga Memoria)
+200000 6 3
 5 3 5
 3 3 2
 1 10 2
 4 5 4
-200000 6 3
