@@ -2967,7 +2967,7 @@ calcula_espacios()
 
 	for((contespacios1 = 0; contespacios1 < num_proc; contespacios1++))
 	do
-		chartll=${#T_ENTRADA_I[contespacios1]}
+		chartll=${#T_ENTRADA[contespacios1]}
 
 		if [[ $chartll == 1 ]] || [[ $chartll == 2 ]] || [[ $chartll == 3 ]]
 		then
@@ -2981,7 +2981,7 @@ calcula_espacios()
 
 	for((contespacios2 = 0; contespacios2 < num_proc; contespacios2++))
 	do
-		chartej=${#T_EJECUCION_I[contespacios2]}
+		chartej=${#TEJ[contespacios2]}
 
 		if [[ $chartej -le 3 ]]
 		then
@@ -2995,7 +2995,7 @@ calcula_espacios()
 
 	for((contespacios3 = 0; contespacios3 < num_proc; contespacios3++))
 	do
-		charmem=${#MEMORIA_I[contespacios3]}
+		charmem=${#MEMORIA[contespacios3]}
 
 		if [[ $charmem -le 3 ]]
 		then
@@ -4210,7 +4210,7 @@ actualizar_bm()
 	done
 
 
-	let ocup_mem_total=5+${#memoria_total}												#Calculo lo que ocupa escribir la memoria total (mas 5 de barra, espacio, M, =, y espacio final.
+	let ocup_mem_total=4+${#memoria_total}												#Calculo lo que ocupa escribir la memoria total (mas 5 de barra, espacio, M, =, y espacio final.
 	if [[ $ocup_mem_total -gt $(($columnas_bm-$caracteres_impresos)) ]]					#Si va a ocupar más de lo que queda de pantalla,
 	then
 		echo -e "${cad_particiones[@]}"													#Represento lo que llevo de barra de memoria.
