@@ -3991,7 +3991,7 @@ actualizar_bm()
 				cad_mem_byn="     "
 				cad_can_mem="     "
 				columnas_bm=$(($(tput cols)-5)) 									#Reseteo las columnas que quedan libres.
-				caracteres_impresos=0 												#Reseteo los caracteres impresos.
+				caracteres_impresos=$tam_unidad_bm 									#Reseteo los caracteres impresos.
 				
 			fi
 
@@ -4239,8 +4239,8 @@ actualizar_bm()
 	## Añado la memoria total a las cadena.
 	cad_particiones=${cad_particiones[@]}"| "
 	cad_proc_bm=${cad_proc_bm[@]}"| "
-	cad_mem_col=${cad_mem_col[@]}"| M=$memoria_total "
-	cad_mem_byn=${cad_mem_byn[@]}"| M=$memoria_total "
+	cad_mem_col=${cad_mem_col[@]}"| M=$memoria_total"
+	cad_mem_byn=${cad_mem_byn[@]}"| M=$memoria_total"
 	cad_can_mem=${cad_can_mem[@]}"| "
 
 	## Representacion de la Barra de Memoria.
