@@ -308,7 +308,7 @@ lee_datos() {
 		echo $dat_fich >> ./Informes/informeBN.txt
 	done
 
-	#clear
+	clear
 	#Introducción de datos a mano
 	#He agrupado en el mismo if la selección de guardado y la introducción/lectura de datos.
 	if [ "${dat_fich}" == "1" ]
@@ -333,7 +333,7 @@ lee_datos() {
 	#Entrada por fichero de última ejecución.
 	if [ $dat_fich = '2' ] 
 	then
-		#clear
+		clear
 		#Lectura del fichero DatosLast.txt
 		lectura_fichero "last"
 	fi
@@ -342,7 +342,7 @@ lee_datos() {
 	#Entrada por otros ficheros.
 	if [ $dat_fich = '3' ] 
 	then
-		#clear
+		clear
 		#Lectura de fichero a seleccionar.
 		leerFichero 1
 	fi
@@ -358,7 +358,7 @@ lee_datos() {
 		#Opción de guardado de rangos introducidos en ficheros destinados a rangos.
 		preguntaGuardadoRangos "introducidos"
 
-		#clear
+		clear
 		#Opción de guardado de datos calculados en ficheros destinados a datos.
 		preguntaGuardadoDatos "calculados"
 
@@ -375,7 +375,7 @@ lee_datos() {
 	#Lectura de fichero de última ejecución de datos aleatorios.
 	if [ $dat_fich = '5' ]
 	then 
-		#clear
+		clear
 		#Opción de guardado de datos calculados en ficheros destinados a datos.
 		preguntaGuardadoDatos "calculados"
 
@@ -387,7 +387,7 @@ lee_datos() {
 	#Lectura de otros ficheros con datos aleatorios
 	if [ $dat_fich = '6' ] 
 	then 
-		#clear
+		clear
 		#Opción de guardado de datos calculados en ficheros destinados a datos.
 		preguntaGuardadoDatos "calculados"
 
@@ -453,7 +453,7 @@ lee_datos() {
 	#Entrada por fichero de última ejecución de rangos aleatorios.
 	if [ $dat_fich = '8' ] 
 	then
-		#clear
+		clear
 		#Opción de guardado de rangos calculados en ficheros destinados a rangos.
 		preguntaGuardadoRangos "calculados"
 
@@ -468,7 +468,7 @@ lee_datos() {
 	#Entrada por otro fichero de rangos aleatorios.
 	if [ $dat_fich = '9' ]
 	then
-		#clear
+		clear
 		#Opción de guardado de rangos calculados en ficheros destinados a rangos.
 		preguntaGuardadoRangos "calculados"
 
@@ -643,7 +643,7 @@ lectura_dat_particiones()
 
 	#Se piden las particiones y su tamaño junto al quantum.
 	#Lectura del numero de particiones.
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos
 	echo -n " Introduzca numero de particiones: "
@@ -671,7 +671,7 @@ lectura_dat_particiones()
 	#He modificado esta entrada de datos para particiones no iguales, pidiendo el tamaño de cada una de las particiones.
 	for ((p=0; p < $n_par; p++))
 	{
-		#clear
+		clear
 		imprime_cabecera_larga
 		imprime_info_datos
 		echo -ne " Introduce tamaño de la partición $(($p+1)): "
@@ -699,7 +699,7 @@ lectura_dat_particiones()
 	###  QUANTUM  ###
 
 	#Lectura del quantum.
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos
 	echo -n " Introduce el quantum de ejecución: "
@@ -723,7 +723,7 @@ lectura_dat_particiones()
 		echo $quantum >> ./Informes/informeBN.txt
 	done
 
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos
 }
@@ -928,7 +928,7 @@ lectura_dat_particiones_aleatorias()
 {
 	###  NÚMERO DE PARTICIONES MÍNIMO  ###
 
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	echo -n " Introduzca numero de particiones mínimo: "
@@ -954,7 +954,7 @@ lectura_dat_particiones_aleatorias()
 
 	###  NÚMERO DE PARTICIONES MÁXIMO  ###
 
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	echo -n " Introduzca numero de particiones máximo: "
@@ -992,7 +992,7 @@ lectura_dat_particiones_aleatorias()
 
 	###  TAMAÑO DE PARTICIONES MÍNIMO  ###
 
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	echo -n " Introduce tamaño de particiones mínimo: "
@@ -1018,7 +1018,7 @@ lectura_dat_particiones_aleatorias()
 
 	###  TAMAÑO DE PARTICIONES MÁXIMO  ###
 
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	echo -n " Introduce tamaño de particiones máximo: "
@@ -1059,7 +1059,7 @@ lectura_dat_particiones_aleatorias()
 
 	###  QUÁNTUM MÍNIMO  ###
 
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_aleatorios		
 	echo -n " Introduce el quantum de ejecución mínimo: "
@@ -1085,7 +1085,7 @@ lectura_dat_particiones_aleatorias()
 
 	###  QUÁNTUM MÁXIMO  ###
 
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	echo -n " Introduce el quantum de ejecución máximo: "
@@ -1121,7 +1121,7 @@ lectura_dat_particiones_aleatorias()
 	#Asignación aleatoria del quántum en el rango.
 	quantum=`shuf -i $quantum_min-$quantum_max -n 1`
 
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 }
@@ -1467,7 +1467,7 @@ lectura_dat_particiones_rangos_aleatorios()
 {
 	###  RANGO DE NÚMERO DE PARTICIONES MÍNIMO  ###
 
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo -n " Introduzca rango de número de particiones mínimo: "
@@ -1493,7 +1493,7 @@ lectura_dat_particiones_rangos_aleatorios()
 
 	###  RANGO DE NÚMERO DE PARTICIONES MÁXIMO  ###
 
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo -n " Introduzca rango de número de particiones máximo: "
@@ -1545,7 +1545,7 @@ lectura_dat_particiones_rangos_aleatorios()
 
 	###  RANGO DE TAMAÑO DE PARTICIONES MÍNIMO  ###
 
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo -n " Introduce rango de tamaño de particiones mínimo: "
@@ -1571,7 +1571,7 @@ lectura_dat_particiones_rangos_aleatorios()
 
 	###  RANGO DE TAMAÑO DE PARTICIONES MÁXIMO  ###
 
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo -n " Introduce rango de tamaño de particiones máximo: "
@@ -1625,7 +1625,7 @@ lectura_dat_particiones_rangos_aleatorios()
 
 	###  RANGO DE QUÁNTUM MÍNIMO  ###
 
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios		
 	echo -n " Introduce el rango de quantum de ejecución mínimo: "
@@ -1651,7 +1651,7 @@ lectura_dat_particiones_rangos_aleatorios()
 
 	###  RANGO DE QUÁNTUM MÁXIMO  ###
 
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	echo -n " Introduce el rango de quantum de ejecución máximo: "
@@ -1700,7 +1700,7 @@ lectura_dat_particiones_rangos_aleatorios()
 	#Asignación aleatoria del quántum en el rango.
 	quantum=`shuf -i $quantum_min-$quantum_max -n 1`
 
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 }
@@ -2701,7 +2701,7 @@ meterAficheroRangosAleatorios()
 ### Imprime los datos de los procesos introducidos a mano hasta el momento.
 imprimir_tabla_procesos()
 {
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos
 	imprimir_tabla
@@ -2711,7 +2711,7 @@ imprimir_tabla_procesos()
 ### Imprime los datos de los procesos generados con rangos hasta el momento.
 imprimir_tabla_procesos_aleatorios()
 {
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_aleatorios
 	imprimir_tabla
@@ -2721,7 +2721,7 @@ imprimir_tabla_procesos_aleatorios()
 ### Imprime los datos de los procesos generados con rangos de rangos hasta el momento.
 imprimir_tabla_procesos_rangos_aleatorios()
 {
-	#clear
+	clear
 	imprime_cabecera_larga
 	imprime_info_datos_rangos_aleatorios
 	imprimir_tabla
@@ -2833,7 +2833,7 @@ ordenacion_procesos_quicksort()
 ### Función para elegir el modo de ejecución del algoritmo.
 modo_ejecucion()
 {
-	#clear
+	clear
 	imprime_cabecera_larga
 	echo " 1- Por eventos (Intro)"
 	echo " 2- Automática (Tras n segundos)"
@@ -2856,7 +2856,7 @@ modo_ejecucion()
 		done
 	fi
 
-	#clear
+	clear
 }
 
 
@@ -3771,9 +3771,6 @@ tabla_ejecucion()
 		printf " Tesp medio = 0.00\t" >> ./Informes/informeCOLOR.txt
 		printf " Tesp medio = 0.00\t" >> ./Informes/informeBN.txt
 	else
-		#LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $(bc <<< scale=2\;$mediaesp/$tesmed)
-		#LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $(bc <<< scale=2\;$mediaesp/$tesmed) >> ./Informes/informeCOLOR.txt
-		#LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $(bc <<< scale=2\;$mediaesp/$tesmed) >> ./Informes/informeBN.txt
 		med_t_esp=$(awk -v num1=$sum_t_esp -v num2=$cont_t_esp 'BEGIN {print num1/num2}')
 		LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $med_t_esp
 		LC_NUMERIC="en_US.UTF-8" printf " T medio de espera = %0.2f\t" $med_t_esp >> ./Informes/informeCOLOR.txt
@@ -3785,9 +3782,6 @@ tabla_ejecucion()
 		printf " Tret medio = 0.00\n" >> ./Informes/informeCOLOR.txt
 		printf " Tret medio = 0.00\n" >> ./Informes/informeBN.txt
 	else
-		#LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $(bc <<< scale=2\;$mediaret/$tretmed)
-		#LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $(bc <<< scale=2\;$mediaret/$tretmed) >> ./Informes/informeCOLOR.txt
-		#LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $(bc <<< scale=2\;$mediaret/$tretmed) >> ./Informes/informeBN.txt
 		med_t_ret=$(awk -v num1=$sum_t_ret -v num2=$cont_t_ret 'BEGIN {print num1/num2}')
 		LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $med_t_ret
 		LC_NUMERIC="en_US.UTF-8" printf " T medio de retorno = %0.2f\n" $med_t_ret >> ./Informes/informeCOLOR.txt
@@ -4287,7 +4281,7 @@ iniciar_bt()
 ### Actualiza las cadenas de la barra de tiempo añadiendo otra unidad de tiempo.
 actualizar_bt()
 {
-	for((pr=0; pr<$num_proc; pr++))														#Bucle para contar los procesos que están fuera del sistema.
+	for((pr=0; pr<$num_proc; pr++))																			#Bucle para contar los procesos que están fuera del sistema.
 	do
 		if [[ ${ESTADO[$pr]} == "Fuera de Sistema" ]]
 		then
@@ -4426,15 +4420,7 @@ imprimir_bt()
 			let uds_impresas_pro=uds_impresas_pro+1 						#Sumo el contador de unidades impresas.
 			let columnas_bt=columnas_bt-tam_unidad_bt 						#Resto el contador de columnas restantes.
 		done
-		#for uni in ${cad_proc_col_bt[@]}									#Para cada unidad,
-		#do
-		#	echo -ne $uni													#Imprimo la unidad en la misma línea.
-		#	echo -ne $uni >> ./Informes/informeCOLOR.txt
-		#done
-		#for uni in ${cad_proc_byn_bt[@]}
-		#do
-		#	printf $uni >> ./Informes/informeBN.txt
-		#done
+
 		if [[ $uds_impresas_pro -eq ${#cad_proc_col_bt[@]} ]] && [[ $columnas_bt -ge $((${#tiempo_transcurrido}+4)) ]]
 		then
 			printf "|"
@@ -4466,15 +4452,7 @@ imprimir_bt()
 			echo -ne "${cad_tie_byn[$uni_linea]}" >> ./Informes/informeBN.txt
 			let uds_impresas_tie=uds_impresas_tie+1 						#Sumo el contador de unidades impresas.
 		done
-		#for uni in ${cad_tie_col[@]}
-		#do
-		#	printf $uni 													#Imprimo la unidad en la misma línea.
-		#	printf $uni >> ./Informes/informeCOLOR.txt
-		#done
-		#for uni in ${cad_tie_byn[@]}
-		#do
-		#	printf $uni >> ./Informes/informeBN.txt
-		#done
+
 		if [[ $uds_impresas_tie -eq ${#cad_tie_col[@]} ]] && [[ $columnas_bt -ge $((${#tiempo_transcurrido}+4)) ]]
 		then
 			printf "| T=$tiempo_transcurrido"
@@ -4507,12 +4485,7 @@ imprimir_bt()
 			echo -ne "${cad_can_tie[$uni_linea]}" >> ./Informes/informeBN.txt
 			let uds_impresas_can_tie=uds_impresas_can_tie+1 				#Sumo el contador de unidades impresas.
 		done
-		#for uni in ${cad_can_tie[@]}
-		#do
-		#	printf $uni 													#Imprimo la unidad en la misma línea.
-		#	printf $uni >> ./Informes/informeCOLOR.txt
-		#	printf $uni >> ./Informes/informeBN.txt
-		#done
+
 		if [[ $uds_impresas_can_tie -eq ${#cad_can_tie[@]} ]] && [[ $columnas_bt -ge $((${#tiempo_transcurrido}+4)) ]]
 		then
 			printf "|"
@@ -4783,12 +4756,12 @@ algoritmob()
 			then
 				if [[ $nulcontrol == 0 ]]
 				then
-					#clear
+					clear
 					tabla_ejecucion
 					nulcontrol=1
 				fi
 			else
-				#clear
+				clear
 				tabla_ejecucion
 				nulcontrol=0
 			fi
@@ -4844,7 +4817,7 @@ then
 fi
 
 #Inicio del script (Con alumno nuevo 2022) para los 2 informes.
-#clear
+clear
 echo "---------------------------------------------------------------------" >> ./Informes/informeCOLOR.txt
 echo "|                                                                   |" >> ./Informes/informeCOLOR.txt
 echo "|                         INFORME DE PRÁCTICA                       |" >> ./Informes/informeCOLOR.txt
@@ -4964,7 +4937,7 @@ then
 fi
 
 
-#clear
+clear
 echo "      > ROUND ROBIN" >> ./Informes/informeCOLOR.txt
 echo "      > ROUND ROBIN" >> ./Informes/informeBN.txt
 
@@ -4993,7 +4966,7 @@ iniciar_bt								#Inicia la barra de tiempo.
 algoritmob 								#Algoritmo principal
 
 
-#clear
+clear
 
 if [ -f log.temp ]
 then
