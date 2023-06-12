@@ -3991,7 +3991,7 @@ actualizar_bm()
 				cad_mem_byn="     "
 				cad_can_mem="     "
 				columnas_bm=$(($(tput cols)-5)) 									#Reseteo las columnas que quedan libres.
-				caracteres_impresos=$tam_unidad_bm 									#Reseteo los caracteres impresos.
+				caracteres_impresos=$tam_unidad_bm									#Reseteo los caracteres impresos.
 				
 			fi
 
@@ -4435,7 +4435,7 @@ imprimir_bt()
 		#do
 		#	printf $uni >> ./Informes/informeBN.txt
 		#done
-		if [[ $uds_impresas_pro -eq ${#cad_proc_col_bt[@]} ]]
+		if [[ $uds_impresas_pro -eq ${#cad_proc_col_bt[@]} ]] && [[ $columnas_bt -ge $((${#tiempo_transcurrido}+4)) ]]
 		then
 			printf "|"
 			printf "|" >> ./Informes/informeCOLOR.txt
@@ -4475,7 +4475,7 @@ imprimir_bt()
 		#do
 		#	printf $uni >> ./Informes/informeBN.txt
 		#done
-		if [[ $uds_impresas_tie -eq ${#cad_tie_col[@]} ]]
+		if [[ $uds_impresas_tie -eq ${#cad_tie_col[@]} ]] && [[ $columnas_bt -ge $((${#tiempo_transcurrido}+4)) ]]
 		then
 			printf "| T=$tiempo_transcurrido"
 			printf "| T=$tiempo_transcurrido" >> ./Informes/informeCOLOR.txt
@@ -4513,13 +4513,37 @@ imprimir_bt()
 		#	printf $uni >> ./Informes/informeCOLOR.txt
 		#	printf $uni >> ./Informes/informeBN.txt
 		#done
-		if [[ $uds_impresas_can_tie -eq ${#cad_can_tie[@]} ]]
+		if [[ $uds_impresas_can_tie -eq ${#cad_can_tie[@]} ]] && [[ $columnas_bt -ge $((${#tiempo_transcurrido}+4)) ]]
 		then
 			printf "|"
 			printf "|" >> ./Informes/informeCOLOR.txt
 			printf "|" >> ./Informes/informeBN.txt
 		fi
 	done
+
+	if [[ $columnas_bt -lt $((${#tiempo_transcurrido}+4)) ]]
+	then
+		echo ""
+		printf "     |"
+		echo "" >> ./Informes/informeCOLOR.txt
+		printf "     |" >> ./Informes/informeCOLOR.txt
+		echo "" >> ./Informes/informeBN.txt
+		printf "     |" >> ./Informes/informeBN.txt
+
+		echo ""
+		printf "     | T=$tiempo_transcurrido"
+		echo "" >> ./Informes/informeCOLOR.txt
+		printf "     | T=$tiempo_transcurrido" >> ./Informes/informeCOLOR.txt
+		echo "" >> ./Informes/informeBN.txt
+		printf "     | T=$tiempo_transcurrido" >> ./Informes/informeBN.txt
+
+		echo ""
+		printf "     |"
+		echo "" >> ./Informes/informeCOLOR.txt
+		printf "     |" >> ./Informes/informeCOLOR.txt
+		echo "" >> ./Informes/informeBN.txt
+		printf "     |" >> ./Informes/informeBN.txt
+	fi
 
 	echo ""
 	echo "" >> ./Informes/informeCOLOR.txt
