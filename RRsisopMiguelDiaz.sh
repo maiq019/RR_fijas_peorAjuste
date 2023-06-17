@@ -24,31 +24,6 @@
 #       PART[indicePr]        -> Referencia a la partición en la que está el proceso (Valor especial -1 si no está en ninguna partición).       #
 #################################################################################################################################################
 
-echo "############################################################"
-echo "#                     Creative Commons                     #"
-echo "#                                                          #"
-echo "#                   BY - Atribución (BY)                   #"
-echo "#                 NC - No uso Comercial (NC)               #"
-echo "#                SA - Compartir Igual (SA)                 #"
-echo "############################################################"
-
-echo "############################################################" >> ./Informes/informeCOLOR.txt
-echo "#                     Creative Commons                     #" >> ./Informes/informeCOLOR.txt
-echo "#                                                          #" >> ./Informes/informeCOLOR.txt
-echo "#                   BY - Atribución (BY)                   #" >> ./Informes/informeCOLOR.txt
-echo "#                 NC - No uso Comercial (NC)               #" >> ./Informes/informeCOLOR.txt
-echo "#                SA - Compartir Igual (SA)                 #" >> ./Informes/informeCOLOR.txt
-echo "############################################################" >> ./Informes/informeCOLOR.txt
-
-echo "############################################################" >> ./Informes/informeBN.txt
-echo "#                     Creative Commons                     #" >> ./Informes/informeBN.txt
-echo "#                                                          #" >> ./Informes/informeBN.txt
-echo "#                   BY - Atribución (BY)                   #" >> ./Informes/informeBN.txt
-echo "#                 NC - No uso Comercial (NC)               #" >> ./Informes/informeBN.txt
-echo "#                SA - Compartir Igual (SA)                 #" >> ./Informes/informeBN.txt
-echo "############################################################" >> ./Informes/informeBN.txt
-
-
 #Se ha dejado un espacio de separación al principio de cada línea por si se da el caso de utilizar un terminal que corte el primer carácter de cada línea
 
 #Variables Globales
@@ -60,6 +35,17 @@ colorRecuadro="\e[0;33m"	#amarillo normal
 colorTexto="\e[1;36m"		#cian bold
 
 
+### Función para crear los directorios necesarios si no existen.
+creaDirectorios()
+{
+	mkdir -p Informes
+	mkdir -p FLast
+	mkdir -p FDatos
+	mkdir -p FRangos
+	mkdir -p FRangosAleatorios
+}
+
+
 ### Función para comprobar si el parámetro pasado es un número entero mayor que 0 comparándolo con una expresión regular.
 mayor_cero()
 {
@@ -69,6 +55,35 @@ mayor_cero()
 	else
 		return 1
 	fi
+}
+
+
+### Imprime la información de los derechos.
+imprimeDerechos()
+{
+	echo "############################################################"
+	echo "#                     Creative Commons                     #"
+	echo "#                                                          #"
+	echo "#                   BY - Atribución (BY)                   #"
+	echo "#                 NC - No uso Comercial (NC)               #"
+	echo "#                SA - Compartir Igual (SA)                 #"
+	echo "############################################################"
+
+	echo "############################################################" >> ./Informes/informeCOLOR.txt
+	echo "#                     Creative Commons                     #" >> ./Informes/informeCOLOR.txt
+	echo "#                                                          #" >> ./Informes/informeCOLOR.txt
+	echo "#                   BY - Atribución (BY)                   #" >> ./Informes/informeCOLOR.txt
+	echo "#                 NC - No uso Comercial (NC)               #" >> ./Informes/informeCOLOR.txt
+	echo "#                SA - Compartir Igual (SA)                 #" >> ./Informes/informeCOLOR.txt
+	echo "############################################################" >> ./Informes/informeCOLOR.txt
+
+	echo "############################################################" >> ./Informes/informeBN.txt
+	echo "#                     Creative Commons                     #" >> ./Informes/informeBN.txt
+	echo "#                                                          #" >> ./Informes/informeBN.txt
+	echo "#                   BY - Atribución (BY)                   #" >> ./Informes/informeBN.txt
+	echo "#                 NC - No uso Comercial (NC)               #" >> ./Informes/informeBN.txt
+	echo "#                SA - Compartir Igual (SA)                 #" >> ./Informes/informeBN.txt
+	echo "############################################################" >> ./Informes/informeBN.txt
 }
 
 
@@ -4805,7 +4820,11 @@ algoritmob()
 	tabla_ejecucion
 }
 
+#Inicio del script (Con alumno nuevo 2023) para los 2 informes.
 
+creaDirectorios
+
+imprimeDerechos
 
 if [[ -e archivo.temp ]]
 then
@@ -4820,7 +4839,6 @@ then
 	rm ./Informes/informeBN.txt
 fi
 
-#Inicio del script (Con alumno nuevo 2022) para los 2 informes.
 clear
 echo "---------------------------------------------------------------------" >> ./Informes/informeCOLOR.txt
 echo "|                                                                   |" >> ./Informes/informeCOLOR.txt
