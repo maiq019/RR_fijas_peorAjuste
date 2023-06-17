@@ -3941,8 +3941,8 @@ actualizar_bm()
 	#Variable para contar la memoria representada.
 	mem_rep=0
 
-	#Columnas que quedan en la consola a la derecha de la barra inicial en la BM.
-	columnas_bm=$(($(tput cols)-5))
+	#Columnas que quedan en la consola a la derecha de la barra inicial en la BM (5 espacios) menos un espacio a la derecha.
+	columnas_bm=$(($(tput cols)-6))
 
 	#Columnas impresas en la consola después de la barra inicial.
 	caracteres_impresos=0
@@ -3984,9 +3984,13 @@ actualizar_bm()
 				cad_mem_col="     "
 				cad_mem_byn="     "
 				cad_can_mem="     "
-				columnas_bm=$(($(tput cols)-5)) 									#Reseteo las columnas que quedan libres.
-				caracteres_impresos=$tam_unidad_bm									#Reseteo los caracteres impresos.
-				
+				columnas_bm=$(($(tput cols)-6)) 									#Reseteo las columnas que quedan libres.
+				if [[ $uni_par -eq ${tam_par[$pa]} ]] && [[ $pa -ne $(($n_par-1)) ]] #Si es la última unidad (el final de la partición), y no es la última partición,
+				then
+					let caracteres_impresos=$tam_unidad_bm+1 						#Reseteo los caracteres impresos con el tamaño de la unidad y el espacio entre particiones.
+				else
+					let caracteres_impresos=$tam_unidad_bm 							#Reseteo los caracteres impresos con el tamaño de la unidad.
+				fi
 			fi
 
 			## Montaje de la cadena de particiones en la barra de memoria.
@@ -4364,7 +4368,7 @@ actualizar_bt()
 ### Representación de la Barra de Tiempo.
 imprimir_bt()
 {
-	columnas_bt=$(($(tput cols)-5))
+	columnas_bt=$(($(tput cols)-6))											#5 espacios de cabecera a la izquierda y un espacio de margen a la derecha. 
 	
 	prim_linea_proc=true
 	prim_linea_tie=true
@@ -4385,7 +4389,7 @@ imprimir_bt()
 
 	while [[ $uds_impresas_tie -lt ${#cad_tie_col[@]} ]]					#Mientras queden unidades de tiempo que representar (<= para el t=0),
 	do
-		columnas_bt=$(($(tput cols)-5)) 									#Reseteo el valor de columnas restantes.
+		columnas_bt=$(($(tput cols)-6)) 									#Reseteo el valor de columnas restantes.
 		let unidades_pantalla=columnas_bt/tam_unidad_bt 					#Calculo cuántas unidades caben en lo que queda de pantalla.
 		if [[ $unidades_pantalla -gt $((${#cad_tie_col[@]}-$uds_impresas_tie)) ]]	#Si las unidades posibles se va a pasar de las necesarias,
 		then
