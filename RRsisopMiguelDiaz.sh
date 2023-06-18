@@ -2570,6 +2570,10 @@ lectura_fichero_rangos_aleatorios()
 	# $1 -> 1 para FDatos, 2 para FRangos, 3 para FRangosAleatorios.
 leerFichero()
 {
+	clear 
+	imprime_cabecera_larga
+	echo ""
+	
 	case $1 in
 		1)
 			#Se buscan los ficheros del directorio FDatos.
@@ -3815,7 +3819,7 @@ tabla_ejecucion()
 			colimp=${colaprocs[$i]}
 		fi
 
-		printf "\e[${color[$colimp]}mP%02d$resetColor " "$((${colaprocs[$i]}+1))"
+		printf "\e[${color[$colimp]}mP%02d$resetColor " "${NUMPROC[${colaprocs[$i]}]}" #"$((${colaprocs[$i]}+1))" 
 		printf "\e[${color[$colimp]}mP%02d$resetColor " "$((${colaprocs[$i]}+1))" >> ./Informes/informeCOLOR.txt
 		printf "P%02d " "$((${colaprocs[$i]}+1))" >> ./Informes/informeBN.txt
 	done
@@ -3825,7 +3829,6 @@ tabla_ejecucion()
 
 	actualizar_bm
 
-	#actualizar_bt
 	imprimir_bt
 
 	echo ""
@@ -4367,11 +4370,16 @@ actualizar_bt()
 	do
 		cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}" "							#Añado un espacio.
 	done
-	#Si es t=0, hay un evento, se acaba el quantum de un proceso en ejecución, el quantum es 1, o no hay proceso pero sí hay anterior,
-	if [[ $tiempo_transcurrido -eq 0 ]] || [[ $evento = 1 ]] || [[ $((${T_EJEC[$proc_actual]} % $quantum)) = 1 ]] || [[ $quantum = 1 ]] || ([[ -z $proc_actual ]] && [[ ! -z $proc_ante ]])
+	if [[ $tiempo_transcurrido -eq 0 ]] || [[ $evento -eq 1 ]] || [[ $quantum -eq 1 ]] 						#Si es t=0, hay un evento, o el quantum es 1,
 	then
 		cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}"$tiempo_transcurrido"		#Añado el tiempo.
-	else 
+	elif [[ ! -z $proc_actual ]] && [[ $((${T_EJEC[$proc_actual]} % $quantum)) -eq 1 ]]						#Si hay un proceso en ejecución y se acaba su quantum,
+	then
+		cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}"$tiempo_transcurrido"		#Añado el tiempo.
+	elif [[ -z $proc_actual ]] && [[ ! -z $proc_ante ]]														#Si no hay proceso pero sí hay anterior
+	then
+		cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}"$tiempo_transcurrido"		#Añado el tiempo.
+	else 																									#Si no se da ninguna de esas condiciones,
 		for (( esp=0; esp<${#tiempo_transcurrido}; esp++ ))													#Por lo que ocuparía el tiempo,
 		do
 			cad_can_tie[$tiempo_transcurrido]=${cad_can_tie[$tiempo_transcurrido]}" " 						#Añado un espacio.
@@ -4775,12 +4783,12 @@ algoritmob()
 			then
 				if [[ $nulcontrol == 0 ]]
 				then
-					clear
+					#clear
 					tabla_ejecucion
 					nulcontrol=1
 				fi
 			else
-				clear
+				#clear
 				tabla_ejecucion
 				nulcontrol=0
 			fi
@@ -4814,9 +4822,8 @@ algoritmob()
 		fi
 	done
 
-	actualizar_bt
-
 	ultvez=1
+	#clear
 	tabla_ejecucion
 }
 
@@ -4988,7 +4995,6 @@ iniciar_bt								#Inicia la barra de tiempo.
 algoritmob 								#Algoritmo principal
 
 
-clear
 
 if [ -f log.temp ]
 then
